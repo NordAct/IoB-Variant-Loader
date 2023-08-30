@@ -1,0 +1,57 @@
+{
+  "variants": [
+    {
+      "name": "speed_stinger",
+      "weight": 1,
+      "banned_biomes": {
+        "tag": [
+          "isleofberk:spawn_locations/sweet_sting_biomes",
+          "isleofberk:spawn_locations/floutscout_biomes",
+          "isleofberk:spawn_locations/ice_breaker_biomes"
+        ]
+      },
+      "altitude": {
+        "min": 0
+      }
+    },
+    {
+      "name": "floutscout",
+      "weight": 1,
+      "banned_biomes": {
+        "tag": [
+          "isleofberk:spawn_locations/speed_stinger_biomes",
+          "isleofberk:spawn_locations/sweet_sting_biomes",
+          "isleofberk:spawn_locations/ice_breaker_biomes"
+        ]
+      }
+    },
+    {
+      "name": "ice_breaker",
+      "weight": 1,
+      "banned_biomes": {
+        "tag": [
+          "isleofberk:spawn_locations/speed_stinger_biomes",
+          "isleofberk:spawn_locations/sweet_sting_biomes",
+          "isleofberk:spawn_locations/floutscout_biomes"
+        ]
+      },
+      "altitude": {
+        "min": 0
+      }
+    },
+    {
+      "name": "sweet_sting",
+      "weight": 1,
+      "banned_biomes": {
+        "tag": [
+          "isleofberk:spawn_locations/speed_stinger_biomes",
+          "isleofberk:spawn_locations/floutscout_biomes",
+          "isleofberk:spawn_locations/ice_breaker_biomes"
+        ]
+      },
+      "altitude": {
+        "min": 0
+      }
+    }
+  ]
+}

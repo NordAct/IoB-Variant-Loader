@@ -1,0 +1,29 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "nordmods.iobvariantloader.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "iobvariantloader.refmap.json",
+  "mixins": [
+    "common.ADragonBaseMixin"
+  ],
+  "client": [
+    "client.DeadlyNadderModelMixin",
+    "client.DeadlyNadderWingLayerMixin",
+    "client.GronckleModelMixin",
+    "client.LightfuryModelMixin",
+    "client.MonstrousNightmareModelMixin",
+    "client.NightFuryModelMixin",
+    "client.NightLightModelMixin",
+    "client.SkrillModelMixin",
+    "client.SpeedStingerLeaderModelMixin",
+    "client.SpeedStingerModelMixin",
+    "client.StingerModelMixin",
+    "client.TerribleTerrorModelMixin",
+    "client.TripleStrykeModelMixin",
+    "client.ZippleBackModelMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

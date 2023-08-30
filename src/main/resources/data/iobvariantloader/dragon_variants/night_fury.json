@@ -1,0 +1,28 @@
+{
+  "variants": [
+    {
+      "name": "albino",
+      "weight": 5
+    },
+    {
+      "name": "svartr",
+      "weight": 999
+    },
+    {
+      "name": "arsian",
+      "weight": 999
+    },
+    {
+      "name": "karma",
+      "weight": 999
+    },
+    {
+      "name": "sentinel",
+      "weight": 999
+    },
+    {
+      "name": "night_fury",
+      "weight": 999
+    }
+  ]
+}

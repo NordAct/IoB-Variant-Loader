@@ -1,0 +1,60 @@
+{
+  "variants": [
+    {
+      "name": "fanghook",
+      "weight": 1
+    },
+    {
+      "name": "tsukarion",
+      "weight": 2
+    },
+    {
+      "name": "rainbow",
+      "weight": 5
+    },
+    {
+      "name": "sunfyre",
+      "weight": 10
+    },
+    {
+      "name": "cardinal",
+      "weight": 20
+    },
+    {
+      "name": "carnation",
+      "weight": 106
+    },
+    {
+      "name": "hellebore",
+      "weight": 106
+    },
+    {
+      "name": "exiled",
+      "weight": 106
+    },
+    {
+      "name": "wolfsbane",
+      "weight": 106
+    },
+    {
+      "name": "burlystorm",
+      "weight": 106
+    },
+    {
+      "name": "fangmaster",
+      "weight": 106
+    },
+    {
+      "name": "bloodroot",
+      "weight": 106
+    },
+    {
+      "name": "mountain",
+      "weight": 106
+    },
+    {
+      "name": "hookfang",
+      "weight": 106
+    }
+  ]
+}

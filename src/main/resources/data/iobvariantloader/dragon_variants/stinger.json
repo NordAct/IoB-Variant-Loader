@@ -1,0 +1,80 @@
+{
+  "variants": [
+    {
+      "name": "coastal_predator",
+      "weight": 1
+    },
+
+    {
+      "name": "mudsmasher",
+      "weight": 499,
+      "banned_biomes": {
+        "tag": [
+          "minecraft:has_structure/village_savanna",
+          "minecraft:is_badlands",
+          "minecraft:has_structure/village_desert"
+        ]
+      }
+    },
+
+    {
+      "name": "wildroar",
+      "weight": 499,
+      "allowed_biomes" : {
+        "tag" : [
+          "minecraft:has_structure/village_savanna"
+        ]
+      },
+      "banned_biomes": {
+        "tag": [
+          "minecraft:has_structure/village_plains"
+        ]
+      }
+    },
+
+    {
+      "name": "badlands",
+      "weight": 499,
+      "allowed_biomes" : {
+        "tag" : [
+          "minecraft:is_badlands"
+        ]
+      },
+      "banned_biomes": {
+        "tag": [
+          "minecraft:has_structure/village_plains"
+        ]
+      }
+    },
+
+    {
+      "name": "sandscorcher",
+      "weight": 489,
+      "allowed_biomes" : {
+        "tag" : [
+          "minecraft:has_structure/village_desert"
+        ]
+      },
+      "banned_biomes": {
+        "tag": [
+          "minecraft:has_structure/village_plains"
+        ]
+      }
+    },
+
+    {
+      "name": "kingly",
+      "weight": 10,
+      "allowed_biomes" : {
+        "tag" : [
+          "minecraft:has_structure/village_desert"
+        ]
+      },
+      "banned_biomes": {
+        "tag": [
+          "minecraft:has_structure/village_plains"
+        ]
+      }
+    }
+  ]
+}

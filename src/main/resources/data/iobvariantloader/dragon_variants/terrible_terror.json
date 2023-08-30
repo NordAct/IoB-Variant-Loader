@@ -1,0 +1,36 @@
+{
+  "variants": [
+    {
+      "name": "terrible_terror",
+      "weight": 1
+    },
+    {
+      "name": "blar",
+      "weight": 1
+    },
+    {
+      "name": "sneaky",
+      "weight": 1
+    },
+    {
+      "name": "terror",
+      "weight": 1
+    },
+    {
+      "name": "sharpshot",
+      "weight": 1
+    },
+    {
+      "name": "iggy",
+      "weight": 1
+    },
+    {
+      "name": "pain",
+      "weight": 1
+    },
+    {
+      "name": "head",
+      "weight": 1
+    }
+  ]
+}

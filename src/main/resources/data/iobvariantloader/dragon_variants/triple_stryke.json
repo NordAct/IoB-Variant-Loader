@@ -1,0 +1,44 @@
+{
+  "variants": [
+    {
+      "name": "rosethorn",
+      "weight": 1
+    },
+    {
+      "name": "sleuther",
+      "weight": 20
+    },
+    {
+      "name": "boreas",
+      "weight": 20
+    },
+    {
+      "name": "blue",
+      "weight": 20
+    },
+    {
+      "name": "spyro",
+      "weight": 20
+    },
+    {
+      "name": "triple_stryke",
+      "weight": 184
+    },
+    {
+      "name": "starstreak",
+      "weight": 184
+    },
+    {
+      "name": "nikora_triple_stryke",
+      "weight": 184
+    },
+    {
+      "name": "eclipser",
+      "weight": 184
+    },
+    {
+      "name": "champion",
+      "weight": 184
+    }
+  ]
+}
