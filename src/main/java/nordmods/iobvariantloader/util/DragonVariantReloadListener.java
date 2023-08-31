@@ -34,8 +34,8 @@ public class DragonVariantReloadListener extends SimplePreparableReloadListener<
                 try {
                     JsonElement element = JsonParser.parseReader(bufferedReader);
                     JsonArray array = GsonHelper.getAsJsonArray((JsonObject) element, "variants");
-                    for (int i = 0; i < array.size(); i++) {
-                        JsonObject input = array.get(i).getAsJsonObject();
+                    for (JsonElement elem : array) {
+                        JsonObject input = elem.getAsJsonObject();
                         String name = input.get("name").getAsString();
                         int weight = input.get("weight").getAsInt();
 

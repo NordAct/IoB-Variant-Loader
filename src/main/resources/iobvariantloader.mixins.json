@@ -5,7 +5,9 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "iobvariantloader.refmap.json",
   "mixins": [
-    "common.ADragonBaseMixin"
+    "common.ADragonBaseMixin",
+    "common.ADragonEggBaseMixin",
+    "common.SpeedStingerMixin"
   ],
   "client": [
     "client.DeadlyNadderModelMixin",
