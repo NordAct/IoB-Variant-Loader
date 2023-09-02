@@ -6,19 +6,22 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
-import net.minecraftforge.fml.event.IModBusEvent;
 import nordmods.iobvariantloader.IoBVariantLoader;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
-public class DragonVariantReloadListener extends SimplePreparableReloadListener<Map<String, List<DragonVariant>>> implements IModBusEvent {
+public class DragonVariantReloadListener extends SimplePreparableReloadListener<Map<String, List<DragonVariant>>> {
 
+    //idgaf who and how, but without synchronized this thing is called from multiple threads... And yet it still sometimes somehow does ConcurrentModificationException
     @Override
-    protected Map<String, List<DragonVariant>> prepare(ResourceManager manager, ProfilerFiller pProfiler) {
+    protected synchronized Map<String, List<DragonVariant>> prepare(ResourceManager manager, ProfilerFiller pProfiler) {
         DragonVariantUtil.reset();
         Collection<ResourceLocation> resourceCollection = manager.listResources("dragon_variants", path -> path.endsWith(".json"));
         for (ResourceLocation id : resourceCollection) {
@@ -53,9 +56,9 @@ public class DragonVariantReloadListener extends SimplePreparableReloadListener<
             } catch (Exception e) {
                 IoBVariantLoader.LOGGER.error("Error occurred while loading resource json " + id, e);
             }
-            if (!DragonVariantUtil.dragonVariantHolder.containsKey(dragon)) DragonVariantUtil.add(dragon, variants);
+           DragonVariantUtil.add(dragon, variants);
         }
-        //DragonVariantUtil.debugPrint();
+        DragonVariantUtil.debugPrint();
         return DragonVariantUtil.dragonVariantHolder;
     }
 

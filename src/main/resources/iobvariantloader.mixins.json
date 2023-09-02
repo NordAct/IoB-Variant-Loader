@@ -10,6 +10,7 @@
     "common.SpeedStingerMixin"
   ],
   "client": [
+    "client.BaseRendererMixin",
     "client.DeadlyNadderModelMixin",
     "client.DeadlyNadderWingLayerMixin",
     "client.GronckleModelMixin",

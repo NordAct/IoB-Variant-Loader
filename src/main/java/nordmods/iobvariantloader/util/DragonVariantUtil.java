@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DragonVariantUtil {
+public class DragonVariantUtil{
     public static final Map<String, List<DragonVariant>> dragonVariantHolder = new HashMap<>();
 
     public static List<DragonVariant> getVariants(String name) {
@@ -27,8 +27,12 @@ public class DragonVariantUtil {
         dragonVariantHolder.clear();
     }
 
-    public static void add(String name, List<DragonVariant> variants) {
-        dragonVariantHolder.put(name, variants);
+    public static synchronized void add(String name, List<DragonVariant> variants) {
+        List<DragonVariant> content = dragonVariantHolder.get(name);
+        if (content != null) {
+            content.addAll(variants);
+            dragonVariantHolder.put(name, content);
+        } else dragonVariantHolder.put(name, variants);
     }
 
     public static void debugPrint() {

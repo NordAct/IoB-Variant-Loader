@@ -1,0 +1,31 @@
+{
+  "variants": [
+    {
+      "name": "example",
+      "weight": 1
+    },
+    {
+      "name": "example_two",
+      "weight": 100,
+      "allowed_biomes":{
+        "tag": [
+          "minecraft:has_structure/ruined_portal_mountain"
+        ],
+        "biome": [
+          "minecraft:desert"
+        ]
+      },
+      "banned_biomes": {
+        "tag": [
+          "minecraft:is_mountain"
+        ],
+        "biome": [
+          "minecraft:stony_shore"
+        ]
+      },
+      "altitude":{
+        "min": 0
+      }
+    }
+  ]
+}
