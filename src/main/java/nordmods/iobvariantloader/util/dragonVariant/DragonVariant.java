@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util;
+package nordmods.iobvariantloader.util.dragonVariant;
 
 import org.jetbrains.annotations.Nullable;
 

@@ -5,7 +5,7 @@ import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
-import nordmods.iobvariantloader.util.DragonVariantUtil;
+import nordmods.iobvariantloader.util.dragonVariant.DragonVariantUtil;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,7 +22,7 @@ public abstract class SpeedStingerMixin {
             if (egg instanceof VariantNameHelper helper) {
                 if (instance instanceof VariantNameHelper parent1 && dragonPartner instanceof VariantNameHelper parent2) {
                     if (Objects.equals(parent1.getVariantName(), parent2.getVariantName())) helper.setVariantName(parent1.getVariantName());
-                    else DragonVariantUtil.assignVariantFrom(world, helper, DragonVariantUtil.getVariants(parent1));
+                    else DragonVariantUtil.assignVariantFrom(helper, DragonVariantUtil.getVariants(parent1));
                     return egg;
                 }
             }

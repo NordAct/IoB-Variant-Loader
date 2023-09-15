@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util;
+package nordmods.iobvariantloader.util.dragonVariant;
 
 import com.google.gson.*;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +22,7 @@ public class DragonVariantReloadListener extends SimplePreparableReloadListener<
     //idgaf who and how, but without synchronized this thing is called from multiple threads... And yet it still sometimes somehow does ConcurrentModificationException
     @Override
     protected synchronized Map<String, List<DragonVariant>> prepare(ResourceManager manager, ProfilerFiller pProfiler) {
-        DragonVariantUtil.reset();
+        DragonVariantUtil.dragonVariants.clear();
         Collection<ResourceLocation> resourceCollection = manager.listResources("dragon_variants", path -> path.endsWith(".json"));
         for (ResourceLocation id : resourceCollection) {
             String path = id.getPath();
@@ -59,7 +59,7 @@ public class DragonVariantReloadListener extends SimplePreparableReloadListener<
            DragonVariantUtil.add(dragon, variants);
         }
         DragonVariantUtil.debugPrint();
-        return DragonVariantUtil.dragonVariantHolder;
+        return DragonVariantUtil.dragonVariants;
     }
 
     private DragonVariant.BiomeRestrictions getBiomes(String list, JsonObject input) {

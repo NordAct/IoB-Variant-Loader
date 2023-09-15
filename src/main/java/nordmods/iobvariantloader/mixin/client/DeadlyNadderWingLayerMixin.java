@@ -15,6 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class DeadlyNadderWingLayerMixin {
     @Inject(method = "getNadderEntityTexture", at = @At("RETURN"), cancellable = true, remap = false)
     private void setVariantFromName(DeadlyNadder entity, CallbackInfoReturnable<ResourceLocation> cir) {
+        if (!ResourceUtil.isResourceReloadFinished) return;
+
         ResourceLocation id = ResourceUtil.getCustomTexturePath(entity, "deadly_nadder","_membranes");
         if (Minecraft.getInstance().getResourceManager().hasResource(id)) {
             cir.setReturnValue(id);

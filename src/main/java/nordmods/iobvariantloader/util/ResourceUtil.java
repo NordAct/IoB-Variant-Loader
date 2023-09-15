@@ -8,16 +8,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ResourceUtil {
+    //check if resource reload is finished because Minecraft acknowledges new resources before Geckolib does, which leads to bad stuff
+    public static boolean isResourceReloadFinished;
+
     public static ResourceLocation getCustomTexturePath(ADragonBase dragon, String id) {
         return getCustomTexturePath(dragon, id, "");
     }
 
     public static ResourceLocation getCustomTexturePath(ADragonBase dragon, String id, String suffix) {
-        String name = dragon.getCustomName() != null ? dragon.getCustomName().getString().toLowerCase() : "";
-        name = name.replace(" ", "_");
-        name = replaceCyrillic(name);
-        if (!name.matches("^[a-zA-Z0-9_]+$")) name = "";
-        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/"+ id + "/" + name + suffix +".png");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/"+ id + "/" + parseName(dragon) + suffix +".png");
     }
 
     public static ResourceLocation getVariantTexturePath(String variant, String id) {
@@ -28,6 +27,14 @@ public class ResourceUtil {
         return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/"+ id + "/" + variant + suffix +".png");
     }
 
+    public static String parseName(ADragonBase dragon) {
+        if (!dragon.hasCustomName()) return "";
+        String name = dragon.getName().getString().toLowerCase();
+        name = name.replace(" ", "_");
+        name = replaceCyrillic(name);
+        if (!name.matches("^[a-zA-Z0-9_]+$")) name = "";
+        return name;
+    }
 
     private static final Map<String, String> letters = new HashMap<>();
     static {

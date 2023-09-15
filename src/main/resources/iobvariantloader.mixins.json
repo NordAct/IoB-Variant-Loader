@@ -18,6 +18,7 @@
     "client.MonstrousNightmareModelMixin",
     "client.NightFuryModelMixin",
     "client.NightLightModelMixin",
+    "client.ResourceLoadStateTrackerMixin",
     "client.SkrillModelMixin",
     "client.SpeedStingerLeaderModelMixin",
     "client.SpeedStingerModelMixin",

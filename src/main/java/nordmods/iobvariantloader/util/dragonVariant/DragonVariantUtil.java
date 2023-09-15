@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util;
+package nordmods.iobvariantloader.util.dragonVariant;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -11,32 +11,29 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import nordmods.iobvariantloader.IoBVariantLoader;
+import nordmods.iobvariantloader.util.VariantNameHelper;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DragonVariantUtil{
-    public static final Map<String, List<DragonVariant>> dragonVariantHolder = new HashMap<>();
+public final class DragonVariantUtil {
+    public static final Map<String, List<DragonVariant>> dragonVariants = new HashMap<>();
 
     public static List<DragonVariant> getVariants(String name) {
-        return dragonVariantHolder.get(name);
-    }
-
-    public static void reset() {
-        dragonVariantHolder.clear();
+        return dragonVariants.get(name);
     }
 
     public static synchronized void add(String name, List<DragonVariant> variants) {
-        List<DragonVariant> content = dragonVariantHolder.get(name);
+        List<DragonVariant> content = dragonVariants.get(name);
         if (content != null) {
             content.addAll(variants);
-            dragonVariantHolder.put(name, content);
-        } else dragonVariantHolder.put(name, variants);
+            dragonVariants.put(name, content);
+        } else dragonVariants.put(name, variants);
     }
 
     public static void debugPrint() {
-        for (Map.Entry<String, List<DragonVariant>> entry : dragonVariantHolder.entrySet()) {
+        for (Map.Entry<String, List<DragonVariant>> entry : dragonVariants.entrySet()) {
             for ( DragonVariant variant : entry.getValue()) {
                 IoBVariantLoader.LOGGER.debug("{}: variant {} was loaded", entry.getKey(), variant);
             }
@@ -68,7 +65,7 @@ public class DragonVariantUtil{
         return isIn;
     }
 
-    public static Entity assignVariant(ServerLevelAccessor world, Entity entity) {
+    public static void assignVariant(ServerLevelAccessor world, Entity entity) {
         if (entity instanceof VariantNameHelper helper) {
             List<DragonVariant> variants = DragonVariantUtil.getVariants((VariantNameHelper) entity);
             if (variants != null) {
@@ -118,7 +115,6 @@ public class DragonVariantUtil{
                 }
             }
         }
-        return entity;
     }
 
     public static List<DragonVariant> getVariants(VariantNameHelper entity) {
@@ -126,7 +122,7 @@ public class DragonVariantUtil{
         return DragonVariantUtil.getVariants(resourcelocation.getPath());
     }
 
-    public static Entity assignVariantFrom(ServerLevelAccessor world, VariantNameHelper entity, List<DragonVariant> variants) {
+    public static void assignVariantFrom(VariantNameHelper entity, List<DragonVariant> variants) {
         int totalWeight = 0;
         for (DragonVariant variant : variants) totalWeight += variant.weight();
         if (totalWeight <= 0)
@@ -142,6 +138,5 @@ public class DragonVariantUtil{
             }
             previousBound += variant.weight();
         }
-        return (Entity) entity;
     }
 }

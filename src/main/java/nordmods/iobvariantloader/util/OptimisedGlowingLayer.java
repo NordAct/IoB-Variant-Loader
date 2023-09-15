@@ -23,6 +23,8 @@ public class OptimisedGlowingLayer<T extends ADragonBase & IAnimatable> extends 
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T entityLivingBaseIn,
                        float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw,
                        float headPitch) {
+        if (!ResourceUtil.isResourceReloadFinished) return;
+
         ResourceLocation id = getRenderer().getGeoModelProvider().getTextureLocation(entityLivingBaseIn);
         id = new ResourceLocation(IsleofBerk.MOD_ID, id.getPath() + ".mcmeta");
         if (Minecraft.getInstance().getResourceManager().hasResource(id))

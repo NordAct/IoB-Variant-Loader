@@ -12,7 +12,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import nordmods.iobvariantloader.util.DragonVariantUtil;
+import nordmods.iobvariantloader.util.dragonVariant.DragonVariantUtil;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

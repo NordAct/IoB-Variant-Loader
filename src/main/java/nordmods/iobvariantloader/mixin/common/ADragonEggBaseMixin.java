@@ -9,7 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import nordmods.iobvariantloader.util.DragonVariantUtil;
+import nordmods.iobvariantloader.util.dragonVariant.DragonVariantUtil;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -54,7 +54,7 @@ public abstract class ADragonEggBaseMixin extends Entity implements VariantNameH
 
     @Redirect(method = "hatch()V", at = @At( value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
     private boolean assignVariant(Level world, Entity entity) {
-        if (world instanceof  ServerLevelAccessor serverLevelAccessor) entity = DragonVariantUtil.assignVariant(serverLevelAccessor, entity);
+        if (world instanceof  ServerLevelAccessor serverLevelAccessor) DragonVariantUtil.assignVariant(serverLevelAccessor, entity);
         return world.addFreshEntity(entity);
     }
 }

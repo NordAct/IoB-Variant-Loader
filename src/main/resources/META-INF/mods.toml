@@ -30,4 +30,4 @@ modId="isleofberk"
 mandatory=true
 versionRange="[1.0.0,)"
 ordering="NONE"
-side="CLIENT"
+side="BOTH"

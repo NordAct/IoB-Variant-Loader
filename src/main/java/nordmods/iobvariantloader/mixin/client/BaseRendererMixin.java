@@ -14,7 +14,7 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
 @Mixin(BaseRenderer.class)
-public class BaseRendererMixin<T extends ADragonBase & IAnimatable> extends GeoEntityRenderer<T> {
+public abstract class BaseRendererMixin<T extends ADragonBase & IAnimatable> extends GeoEntityRenderer<T> {
     public BaseRendererMixin(EntityRendererProvider.Context renderManager, AnimatedGeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
     }
