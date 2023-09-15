@@ -1,0 +1,21 @@
+{
+	"comment1": "Example asset redirect declaration. Name - custom name of the dragon (the one given via nametag) or variant name. If used for custom name, it must be in a lower case",
+	"comment2": "model and animation fields are optional. Both must represent file name to which you want to redirect model or animation for specified custom name or variant",
+	"comment3": "You can yeet those comments btw, they do nothing in game",
+	
+	"redirects":[
+		{
+			"name": "horny",
+			"model": "horny.geo.json",
+			"animation": "horny.animation.json"
+		},
+		{
+			"name": "nord",
+			"animation": "horny.animation.json"
+		},
+		{
+			"name": "iggy",
+			"model": "horny.geo.json"
+		}
+	]
+}
