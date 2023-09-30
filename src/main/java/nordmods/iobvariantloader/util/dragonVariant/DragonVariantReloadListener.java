@@ -1,65 +1,49 @@
 package nordmods.iobvariantloader.util.dragonVariant;
 
-import com.google.gson.*;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
+import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
-import nordmods.iobvariantloader.IoBVariantLoader;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class DragonVariantReloadListener extends SimplePreparableReloadListener<Map<String, List<DragonVariant>>> {
+public class DragonVariantReloadListener extends SimpleJsonResourceReloadListener {
 
-    //idgaf who and how, but without synchronized this thing is called from multiple threads... And yet it still sometimes somehow does ConcurrentModificationException
+    public DragonVariantReloadListener() {
+        super(new GsonBuilder().create(), "dragon_variants");
+    }
+
     @Override
-    protected synchronized Map<String, List<DragonVariant>> prepare(ResourceManager manager, ProfilerFiller pProfiler) {
+    protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
         DragonVariantUtil.dragonVariants.clear();
-        Collection<ResourceLocation> resourceCollection = manager.listResources("dragon_variants", path -> path.endsWith(".json"));
-        for (ResourceLocation id : resourceCollection) {
-            String path = id.getPath();
-            String dragon = path.substring(path.lastIndexOf("/") + 1, path.indexOf(".json"));
-
+        for (Map.Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
+            String dragon = entry.getKey().getPath();
             List<DragonVariant> variants = new ArrayList<>();
 
-            try (InputStream stream = manager.getResource(id).getInputStream()) {
+            JsonArray array = entry.getValue().getAsJsonObject().get("variants").getAsJsonArray();
 
-                InputStreamReader inputStreamReader = new InputStreamReader(stream, StandardCharsets.UTF_8);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                try {
-                    JsonElement element = JsonParser.parseReader(bufferedReader);
-                    JsonArray array = GsonHelper.getAsJsonArray((JsonObject) element, "variants");
-                    for (JsonElement elem : array) {
-                        JsonObject input = elem.getAsJsonObject();
-                        String name = input.get("name").getAsString();
-                        int weight = input.get("weight").getAsInt();
+            for (JsonElement elem : array) {
+                JsonObject input = elem.getAsJsonObject();
+                String name = input.get("name").getAsString();
+                int weight = input.get("weight").getAsInt();
 
-                        DragonVariant.BiomeRestrictions allowedBiomes = getBiomes("allowed_biomes", input);
-                        DragonVariant.BiomeRestrictions bannedBiomes = getBiomes("banned_biomes", input);
-                        DragonVariant.AltitudeRestriction altitudeRestriction = getAltitude(input);
+                DragonVariant.BiomeRestrictions allowedBiomes = getBiomes("allowed_biomes", input);
+                DragonVariant.BiomeRestrictions bannedBiomes = getBiomes("banned_biomes", input);
+                DragonVariant.AltitudeRestriction altitudeRestriction = getAltitude(input);
 
-                        DragonVariant dragonVariant = new DragonVariant(name, weight, allowedBiomes, bannedBiomes, altitudeRestriction);
-                        if (!variants.contains(dragonVariant)) variants.add(dragonVariant);
-                    }
-                } catch (JsonIOException e) {
-                    IoBVariantLoader.LOGGER.error("Failed to read json " + id, e);
-                }
-
-            } catch (Exception e) {
-                IoBVariantLoader.LOGGER.error("Error occurred while loading resource json " + id, e);
+                DragonVariant dragonVariant = new DragonVariant(name, weight, allowedBiomes, bannedBiomes, altitudeRestriction);
+                if (!variants.contains(dragonVariant)) variants.add(dragonVariant);
             }
-           DragonVariantUtil.add(dragon, variants);
+            DragonVariantUtil.add(dragon, variants);
         }
         DragonVariantUtil.debugPrint();
-        return DragonVariantUtil.dragonVariants;
     }
 
     private DragonVariant.BiomeRestrictions getBiomes(String list, JsonObject input) {
@@ -88,14 +72,11 @@ public class DragonVariantReloadListener extends SimplePreparableReloadListener<
         int min = -1000;
         int max = 1000;
         if (input.has("altitude")) {
-            JsonObject object = GsonHelper.getAsJsonObject(input,"altitude");
+            JsonObject object = GsonHelper.getAsJsonObject(input, "altitude");
             if (object.has("min")) min = object.get("min").getAsInt();
             if (object.has("max")) max = object.get("max").getAsInt();
         }
         return new DragonVariant.AltitudeRestriction(min, max);
     }
 
-    @Override
-    protected void apply(Map<String, List<DragonVariant>> pObject, ResourceManager pResourceManager, ProfilerFiller pProfiler) {
-    }
 }

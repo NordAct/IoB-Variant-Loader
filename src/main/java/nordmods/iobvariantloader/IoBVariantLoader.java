@@ -8,6 +8,7 @@ import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.loading.FMLLoader;
+import nordmods.iobvariantloader.network.VerifyModPresenceS2CPacket;
 import nordmods.iobvariantloader.util.dragonVariant.DragonVariantReloadListener;
 import nordmods.iobvariantloader.util.modelRedirect.ModelRedirectReloadListener;
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ public class IoBVariantLoader {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public IoBVariantLoader() {
-        MinecraftForge.EVENT_BUS.addListener(this::reloadVariants);
+        VerifyModPresenceS2CPacket.init();
         MinecraftForge.EVENT_BUS.register(this);
     }
 
