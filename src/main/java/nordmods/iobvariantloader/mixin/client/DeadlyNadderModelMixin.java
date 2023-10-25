@@ -39,13 +39,13 @@ public abstract class DeadlyNadderModelMixin {
         if (!ResourceUtil.isResourceReloadFinished) return;
 
         ResourceLocation id = ModelRedirectUtil.getCustomModelPath(entity, ID);
-        if (Minecraft.getInstance().getResourceManager().hasResource(id)) {
+        if (ResourceUtil.isValid(id)) {
             cir.setReturnValue(id);
             return;
         }
 
         id = ModelRedirectUtil.getVariantModelPath(entity, ID);
-        if (Minecraft.getInstance().getResourceManager().hasResource(id)) cir.setReturnValue(id);
+        if (ResourceUtil.isValid(id)) cir.setReturnValue(id);
     }
 
     @Inject(method = "getAnimationFileLocation*", at = @At("RETURN"), cancellable = true, remap = false)
@@ -53,12 +53,12 @@ public abstract class DeadlyNadderModelMixin {
         if (!ResourceUtil.isResourceReloadFinished) return;
 
         ResourceLocation id = ModelRedirectUtil.getCustomAnimationPath(entity, ID);
-        if (Minecraft.getInstance().getResourceManager().hasResource(id)) {
+        if (ResourceUtil.isValid(id)) {
             cir.setReturnValue(id);
             return;
         }
 
         id = ModelRedirectUtil.getVariantAnimationPath(entity, ID);
-        if (Minecraft.getInstance().getResourceManager().hasResource(id)) cir.setReturnValue(id);
+        if (ResourceUtil.isValid(id)) cir.setReturnValue(id);
     }
 }

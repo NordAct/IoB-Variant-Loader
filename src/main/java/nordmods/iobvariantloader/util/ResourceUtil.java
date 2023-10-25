@@ -2,6 +2,7 @@ package nordmods.iobvariantloader.util;
 
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.HashMap;
@@ -34,6 +35,10 @@ public class ResourceUtil {
         name = replaceCyrillic(name);
         if (!name.matches("^[a-zA-Z0-9_]+$")) name = "";
         return name;
+    }
+
+    public static boolean isValid(ResourceLocation id) {
+        return Minecraft.getInstance().getResourceManager().hasResource(id) && id.getPath().endsWith(".json");
     }
 
     private static final Map<String, String> letters = new HashMap<>();
