@@ -2,9 +2,8 @@ package nordmods.iobvariantloader.mixin.client;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.render.render.BaseRenderer;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import nordmods.iobvariantloader.util.OptimisedGlowingLayer;
+import nordmods.iobvariantloader.util.VLGlowLayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,9 +20,6 @@ public abstract class BaseRendererMixin<T extends ADragonBase & IAnimatable> ext
 
     @Inject(method = "<init>(Lnet/minecraft/client/renderer/entity/EntityRendererProvider$Context;Lsoftware/bernie/geckolib3/model/AnimatedGeoModel;)V", at = @At("TAIL"))
     private void addGlowLayer(EntityRendererProvider.Context renderManager, AnimatedGeoModel<T> modelProvider, CallbackInfo ci) {
-        addLayer(new OptimisedGlowingLayer<>(this,
-                modelProvider::getTextureLocation,
-                modelProvider::getModelLocation,
-                RenderType::eyes));
+        addLayer(new VLGlowLayer<>(this));
     }
 }

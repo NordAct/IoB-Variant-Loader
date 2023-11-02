@@ -28,8 +28,8 @@ public final class ModelRedirectUtil {
 
     public static String getModel(String dragon, String name) {
        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name))
-           return dragonModelRedirects.get(dragon).get(name).model() == null ? "" : dragonModelRedirects.get(dragon).get(name).model();
-       else return "";
+           return dragonModelRedirects.get(dragon).get(name).model() == null ? ".json" : dragonModelRedirects.get(dragon).get(name).model();
+       else return ".json";
     }
 
     public static ResourceLocation getCustomAnimationPath(ADragonBase dragon, String dragonID) {
@@ -45,8 +45,25 @@ public final class ModelRedirectUtil {
 
     public static String getAnimation(String dragon, String name) {
         if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name))
-            return dragonModelRedirects.get(dragon).get(name).animation() == null ? "" : dragonModelRedirects.get(dragon).get(name).animation();
-        else return "";
+            return dragonModelRedirects.get(dragon).get(name).animation() == null ? ".json" : dragonModelRedirects.get(dragon).get(name).animation();
+        else return ".json";
+    }
+
+    public static ResourceLocation getCustomSaddlePath(ADragonBase dragon, String dragonID) {
+        String model = ModelRedirectUtil.getSaddle(dragonID, ResourceUtil.parseName(dragon));
+        return new ResourceLocation(IsleofBerk.MOD_ID,
+                "animations/dragons/" + dragonID + "/" + model);
+    }
+
+    public static ResourceLocation getVariantSaddlePath(ADragonBase dragon, String dragonID) {
+        return new ResourceLocation(IsleofBerk.MOD_ID,
+                "textures/dragons/" + dragonID + "/" + ModelRedirectUtil.getSaddle(dragonID, ((VariantNameHelper)dragon).getVariantName()));
+    }
+
+    public static String getSaddle(String dragon, String name) {
+        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name))
+            return dragonModelRedirects.get(dragon).get(name).saddle() == null ? ".png" : dragonModelRedirects.get(dragon).get(name).saddle();
+        else return ".png";
     }
 
     public static synchronized void add(String dragon, Map<String, ModelRedirect> redirects) {

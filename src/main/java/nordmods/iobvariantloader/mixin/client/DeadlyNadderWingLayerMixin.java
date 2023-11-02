@@ -7,25 +7,29 @@ import net.minecraft.resources.ResourceLocation;
 import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(DeadlyNadderWingLayer.class)
 public abstract class DeadlyNadderWingLayerMixin {
+    @Unique
+    private final String ID = "deadly_nadder";
+
     @Inject(method = "getNadderEntityTexture", at = @At("RETURN"), cancellable = true, remap = false)
     private void setVariantFromName(DeadlyNadder entity, CallbackInfoReturnable<ResourceLocation> cir) {
         if (!ResourceUtil.isResourceReloadFinished) return;
 
-        ResourceLocation id = ResourceUtil.getCustomTexturePath(entity, "deadly_nadder","_membranes");
-        if (Minecraft.getInstance().getResourceManager().hasResource(id)) {
+        ResourceLocation id = ResourceUtil.getCustomTexturePath(entity, ID,"_membranes");
+        if (ResourceUtil.isValid(id)) {
             cir.setReturnValue(id);
             return;
         }
 
         if (entity instanceof VariantNameHelper helper) {
-            ResourceLocation variant = ResourceUtil.getVariantTexturePath(helper.getVariantName(), "deadly_nadder","_membranes");
-            if (Minecraft.getInstance().getResourceManager().hasResource(variant)) cir.setReturnValue(variant);
+            id = ResourceUtil.getVariantTexturePath(helper.getVariantName(), ID,"_membranes");
+            if (Minecraft.getInstance().getResourceManager().hasResource(id)) cir.setReturnValue(id);
         }
     }
 }

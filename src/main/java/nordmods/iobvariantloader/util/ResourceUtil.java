@@ -38,7 +38,7 @@ public class ResourceUtil {
     }
 
     public static boolean isValid(ResourceLocation id) {
-        return Minecraft.getInstance().getResourceManager().hasResource(id) && id.getPath().endsWith(".json");
+        return Minecraft.getInstance().getResourceManager().hasResource(id);
     }
 
     private static final Map<String, String> letters = new HashMap<>();

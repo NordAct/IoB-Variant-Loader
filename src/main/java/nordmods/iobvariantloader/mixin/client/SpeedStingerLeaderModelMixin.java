@@ -22,15 +22,15 @@ public abstract class SpeedStingerLeaderModelMixin {
     private void setVariantFromName(SpeedStingerLeader entity, CallbackInfoReturnable<ResourceLocation> cir) {
         if (!ResourceUtil.isResourceReloadFinished) return;
 
-        ResourceLocation id = ResourceUtil.getCustomTexturePath(entity, ID, "_leader");
-        if (Minecraft.getInstance().getResourceManager().hasResource(id)) {
+        ResourceLocation id = ResourceUtil.getCustomTexturePath(entity, ID);
+        if (ResourceUtil.isValid(id)) {
             cir.setReturnValue(id);
             return;
         }
 
         if (entity instanceof VariantNameHelper helper) {
-            ResourceLocation variant = ResourceUtil.getVariantTexturePath(helper.getVariantName(), ID, "_leader");
-            if (Minecraft.getInstance().getResourceManager().hasResource(variant)) cir.setReturnValue(variant);
+            id = ResourceUtil.getVariantTexturePath(helper.getVariantName(), ID);
+            if (ResourceUtil.isValid(id)) cir.setReturnValue(id);
         }
     }
 

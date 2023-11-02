@@ -19,6 +19,7 @@
     "client.NightFuryModelMixin",
     "client.NightLightModelMixin",
     "client.ResourceLoadStateTrackerMixin",
+    "client.SaddleLayerMixin",
     "client.SkrillModelMixin",
     "client.SpeedStingerLeaderModelMixin",
     "client.SpeedStingerModelMixin",
