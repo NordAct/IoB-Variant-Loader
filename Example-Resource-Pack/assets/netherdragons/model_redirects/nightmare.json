@@ -1,0 +1,18 @@
+{
+	"comment1": "Name represents name of the variant or name of the entity",
+	"comment2": "model and animation fields represent file names located in assets/isleofberk/geo/entity/*dragon ID*/ and assets/isleofberk/animations/entity/*dragon ID*/ respectively",
+	"comment3": "*dragon ID* represents path part in entity's ID. I.e. for Deadly Nadder dragon ID would be deadly_nadder, for Gronckle - gronckle. Exception is Monstrous Nightmare. It'll be just nightmare",
+	"comment4": "It's not necessary to declare both name and model fields. In fact, you can declare neither of them",
+	"comment5": "You also can redirect saddle textures in similar manner. Look at any dragon with saddle here to see example",
+	"comment6": "Redirect declarations can be added under any namespace",
+	"comment7": "Full path to redirect file would look something like this: assets/yournamespace/model_redirect/*dragon ID*.json",
+	"comment8": "Comments do nothing btw, you can yeet them",
+
+	"redirects":[
+		{
+			"name": "soul",
+			"saddle": "saddle_nether.png",
+			"model": "soul.geo.json"
+		}
+	]
+}
