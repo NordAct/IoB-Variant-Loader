@@ -3,61 +3,32 @@ package nordmods.iobvariantloader.mixin.client;
 import com.GACMD.isleofberk.entity.dragons.lightfury.LightFury;
 import com.GACMD.isleofberk.entity.dragons.lightfury.LightFuryModel;
 import net.minecraft.resources.ResourceLocation;
-import nordmods.iobvariantloader.util.ResourceUtil;
-import nordmods.iobvariantloader.util.VariantNameHelper;
-import nordmods.iobvariantloader.util.modelRedirect.ModelRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LightFuryModel.class)
-public abstract class LightfuryModelMixin {
-    @Unique
-    private final String ID = "light_fury";
-
-    @Inject(method = "getTextureLocation*", at = @At("RETURN"), cancellable = true, remap = false)
-    private void setVariantFromName(LightFury entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        if (!ResourceUtil.isResourceReloadFinished) return;
-
-        ResourceLocation id = ResourceUtil.getCustomTexturePath(entity, ID);
-        if (ResourceUtil.isValid(id)) {
-            cir.setReturnValue(id);
-            return;
-        }
-
-        if (entity instanceof VariantNameHelper helper) {
-            id = ResourceUtil.getVariantTexturePath(helper.getVariantName(), ID);
-            if (ResourceUtil.isValid(id)) cir.setReturnValue(id);
-        }
+public abstract class LightfuryModelMixin extends BaseDragonModelMixin<LightFury>{
+    @Override
+    public String getDragonFolder() {
+        return "light_fury";
     }
 
-    @Inject(method = "getModelLocation*", at = @At("RETURN"), cancellable = true, remap = false)
-    private void setModelFromName(LightFury entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        if (!ResourceUtil.isResourceReloadFinished) return;
-
-        ResourceLocation id = ModelRedirectUtil.getCustomModelPath(entity, ID);
-        if (ResourceUtil.isValid(id)) {
-            cir.setReturnValue(id);
-            return;
-        }
-
-        id = ModelRedirectUtil.getVariantModelPath(entity, ID);
-        if (ResourceUtil.isValid(id)) cir.setReturnValue(id);
+    @Override
+    public String getDefaultTexture() {
+        return "light_fury";
     }
 
-    @Inject(method = "getAnimationFileLocation*", at = @At("RETURN"), cancellable = true, remap = false)
-    private void setAnimationFromName(LightFury entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        if (!ResourceUtil.isResourceReloadFinished) return;
+    @Override
+    public ResourceLocation getModelLocation(LightFury entity) {
+        return super.getModelLocation(entity);
+    }
 
-        ResourceLocation id = ModelRedirectUtil.getCustomAnimationPath(entity, ID);
-        if (ResourceUtil.isValid(id)) {
-            cir.setReturnValue(id);
-            return;
-        }
+    @Override
+    public ResourceLocation getTextureLocation(LightFury entity) {
+        return super.getTextureLocation(entity);
+    }
 
-        id = ModelRedirectUtil.getVariantAnimationPath(entity, ID);
-        if (ResourceUtil.isValid(id)) cir.setReturnValue(id);
+    @Override
+    public ResourceLocation getAnimationFileLocation(LightFury entity) {
+        return super.getAnimationFileLocation(entity);
     }
 }

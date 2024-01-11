@@ -29,7 +29,7 @@ public class VLGlowLayer<T extends ADragonBase & IAnimatable> extends GeoLayerRe
                 bufferIn.getBuffer(cameo), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
     }
 
-    private ResourceLocation getGlowLayerLocation(T dragon) {
+    protected ResourceLocation getGlowLayerLocation(T dragon) {
         BaseRenderer<T> baseRenderer = (BaseRenderer<T>) getRenderer();
         String namespace = baseRenderer.getTextureLocation(dragon).getNamespace();
         String path = baseRenderer.getTextureLocation(dragon).getPath().replace(".png", "_glowing.png");

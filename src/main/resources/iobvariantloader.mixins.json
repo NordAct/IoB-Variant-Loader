@@ -7,11 +7,14 @@
   "mixins": [
     "common.ADragonBaseMixin",
     "common.ADragonEggBaseMixin",
+    "common.EntityMixin",
     "common.SpeedStingerMixin"
   ],
   "client": [
+    "client.BaseDragonModelMixin",
     "client.BaseRendererMixin",
     "client.DeadlyNadderModelMixin",
+    "client.DeadlyNadderRenderMixin",
     "client.DeadlyNadderWingLayerMixin",
     "client.GronckleModelMixin",
     "client.LightfuryModelMixin",
