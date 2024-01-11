@@ -2,6 +2,7 @@ package nordmods.iobvariantloader.mixin.common;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -14,14 +15,16 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import nordmods.iobvariantloader.util.ModelCacheHelper;
-import nordmods.iobvariantloader.util.dragonVariant.DragonVariantUtil;
 import nordmods.iobvariantloader.util.VariantNameHelper;
+import nordmods.iobvariantloader.util.dragonVariant.DragonVariantUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import javax.annotation.Nullable;
 
 @Mixin(ADragonBase.class)
 public abstract class ADragonBaseMixin extends LivingEntity implements VariantNameHelper, ModelCacheHelper {
@@ -68,7 +71,15 @@ public abstract class ADragonBaseMixin extends LivingEntity implements VariantNa
         DragonVariantUtil.assignVariant(world, this);
     }
 
-    //all below should be called only from clientside
+    @Override
+    public void setCustomName(@Nullable Component name) {
+        super.setCustomName(name);
+        setTextureLocationCache(null);
+        setAnimationLocationCache(null);
+        setModelLocationCache(null);
+    }
+
+    //All below should be called only from clientside. Would be glad to write it on model class, but it doesn't work well
     public ResourceLocation getModelLocationCache() {
         return modelLocationCache;
     }

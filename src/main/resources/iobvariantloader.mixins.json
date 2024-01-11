@@ -7,7 +7,6 @@
   "mixins": [
     "common.ADragonBaseMixin",
     "common.ADragonEggBaseMixin",
-    "common.EntityMixin",
     "common.SpeedStingerMixin"
   ],
   "client": [
