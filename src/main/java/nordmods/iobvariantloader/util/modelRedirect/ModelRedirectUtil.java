@@ -66,6 +66,11 @@ public final class ModelRedirectUtil {
         else return ".png";
     }
 
+    public static boolean isNametagAccessible(String dragon, String name) {
+        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)) return dragonModelRedirects.get(dragon).get(name).nametagAccessible();
+        else return true;
+    }
+
     public static synchronized void add(String dragon, Map<String, ModelRedirect> redirects) {
         Map<String, ModelRedirect> content = dragonModelRedirects.get(dragon);
         if (content != null) {

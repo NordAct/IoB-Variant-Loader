@@ -24,7 +24,7 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
         if (getModelLocationCache(entity) != null) return getModelLocationCache(entity);
 
         ResourceLocation id = ModelRedirectUtil.getCustomModelPath(entity, getDragonFolder());
-        if (ResourceUtil.isValid(id)) {
+        if (ResourceUtil.isValid(id) && ModelRedirectUtil.isNametagAccessible(getDragonFolder(), ResourceUtil.parseName(entity))) {
             setModelLocationCache(entity, id);
             return id;
         }
@@ -35,6 +35,7 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
             return id;
         }
 
+        setModelLocationCache(entity,getDefaultModel());
         return getDefaultModel();
     }
 
@@ -48,7 +49,7 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
         if (getTextureLocationCache(entity) != null) return getTextureLocationCache(entity);
 
         ResourceLocation id = ResourceUtil.getCustomTexturePath(entity, getDragonFolder());
-        if (ResourceUtil.isValid(id)) {
+        if (ResourceUtil.isValid(id) && ModelRedirectUtil.isNametagAccessible(getDragonFolder(), ResourceUtil.parseName(entity))) {
             setTextureLocationCache(entity, id);
             return id;
         }
@@ -61,6 +62,7 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
             }
         }
 
+        setTextureLocationCache(entity, getDefaultVariant());
         return getDefaultVariant();
     }
 
@@ -74,7 +76,7 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
         if (getAnimationLocationCache(entity) != null) return getAnimationLocationCache(entity);
 
         ResourceLocation id = ModelRedirectUtil.getCustomAnimationPath(entity, getDragonFolder());
-        if (ResourceUtil.isValid(id)) {
+        if (ResourceUtil.isValid(id) && ModelRedirectUtil.isNametagAccessible(getDragonFolder(), ResourceUtil.parseName(entity))) {
             setAnimationLocationCache(entity, id);
             return id;
         }
@@ -85,6 +87,7 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
             return id;
         }
 
+        setAnimationLocationCache(entity, getDefaultAnimation());
         return getDefaultAnimation();
     }
 
