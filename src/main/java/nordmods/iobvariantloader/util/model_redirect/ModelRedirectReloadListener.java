@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util.modelRedirect;
+package nordmods.iobvariantloader.util.model_redirect;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;

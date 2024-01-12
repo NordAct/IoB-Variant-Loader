@@ -1,0 +1,56 @@
+{
+  "redirects": [
+    {
+      "name": "fanghook",
+      "nametag_accessible": false
+    },
+    {
+      "name": "tsukarion",
+      "nametag_accessible": false
+    },
+    {
+      "name": "rainbow",
+      "nametag_accessible": false
+    },
+    {
+      "name": "sunfyre",
+      "nametag_accessible": false
+    },
+    {
+      "name": "cardinal",
+      "nametag_accessible": false
+    },
+    {
+      "name": "carnation",
+      "nametag_accessible": false
+    },
+    {
+      "name": "hellebore",
+      "nametag_accessible": false
+    },
+    {
+      "name": "exiled",
+      "nametag_accessible": false
+    },
+    {
+      "name": "wolfsbane",
+      "nametag_accessible": false
+    },
+    {
+      "name": "burlystorm",
+      "nametag_accessible": false
+    },
+    {
+      "name": "fangmaster",
+      "nametag_accessible": false
+    },
+    {
+      "name": "bloodroot",
+      "nametag_accessible": false
+    },
+    {
+      "name": "mountain",
+      "nametag_accessible": false
+    }
+  ]
+}

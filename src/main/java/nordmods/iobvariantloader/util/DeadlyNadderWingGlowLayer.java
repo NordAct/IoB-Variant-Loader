@@ -12,9 +12,20 @@ public class DeadlyNadderWingGlowLayer extends VLGlowLayer<DeadlyNadder>{
 
     @Override
     protected ResourceLocation getGlowLayerLocation(DeadlyNadder dragon) {
+        if (((DeadlyNadderModelCacheHelper)dragon).getWingGlowLayerLocationCache() != null) return ((DeadlyNadderModelCacheHelper)dragon).getWingGlowLayerLocationCache();
+
         BaseRenderer<DeadlyNadder> baseRenderer = (BaseRenderer<DeadlyNadder>) getRenderer();
         String namespace = baseRenderer.getTextureLocation(dragon).getNamespace();
         String path = baseRenderer.getTextureLocation(dragon).getPath().replace(".png", "_membranes_glowing.png");
-        return new ResourceLocation(namespace, path);
+        ResourceLocation id = new ResourceLocation(namespace, path);
+        ((DeadlyNadderModelCacheHelper)dragon).setWingGlowLayerLocationCache(id);
+
+        return id;
+    }
+
+    @Override
+    protected void resetCache(DeadlyNadder dragon) {
+        super.resetCache(dragon);
+        ((DeadlyNadderModelCacheHelper)dragon).setWingGlowLayerLocationCache(null);
     }
 }

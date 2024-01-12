@@ -20,8 +20,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.ModelCacheHelper;
 import nordmods.iobvariantloader.util.VariantNameHelper;
-import nordmods.iobvariantloader.util.dragonVariant.DragonVariant;
-import nordmods.iobvariantloader.util.dragonVariant.DragonVariantUtil;
+import nordmods.iobvariantloader.util.dragon_variant.DragonVariant;
+import nordmods.iobvariantloader.util.dragon_variant.DragonVariantUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -38,6 +38,8 @@ public abstract class ADragonBaseMixin extends LivingEntity implements VariantNa
     @Unique private ResourceLocation modelLocationCache;
     @Unique private ResourceLocation textureLocationCache;
     @Unique private ResourceLocation animationLocationCache;
+    @Unique private ResourceLocation saddleTextureLocationCache;
+    @Unique private ResourceLocation glowLayerLocationCache;
     protected ADragonBaseMixin(EntityType<? extends LivingEntity> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -56,6 +58,8 @@ public abstract class ADragonBaseMixin extends LivingEntity implements VariantNa
         setTextureLocationCache(null);
         setAnimationLocationCache(null);
         setModelLocationCache(null);
+        setSaddleTextureLocationCache(null);
+        setGlowLayerLocationCache(null);
     }
 
     @Inject(method = "addAdditionalSaveData(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("TAIL"))
@@ -84,6 +88,8 @@ public abstract class ADragonBaseMixin extends LivingEntity implements VariantNa
         setTextureLocationCache(null);
         setAnimationLocationCache(null);
         setModelLocationCache(null);
+        setSaddleTextureLocationCache(null);
+        setGlowLayerLocationCache(null);
     }
 
     //All cache stuff should be called only from clientside. Would be glad to write it on model class, but it doesn't work well
@@ -96,6 +102,12 @@ public abstract class ADragonBaseMixin extends LivingEntity implements VariantNa
     public ResourceLocation getTextureLocationCache() {
         return textureLocationCache;
     }
+    public ResourceLocation getSaddleTextureLocationCache() {
+        return saddleTextureLocationCache;
+    }
+    public ResourceLocation getGlowLayerLocationCache() {
+        return glowLayerLocationCache;
+    }
     public void setModelLocationCache(ResourceLocation state) {
         modelLocationCache = state;
     }
@@ -105,9 +117,16 @@ public abstract class ADragonBaseMixin extends LivingEntity implements VariantNa
     public void setTextureLocationCache(ResourceLocation state) {
         textureLocationCache = state;
     }
+    public void setSaddleTextureLocationCache(ResourceLocation state) {
+        saddleTextureLocationCache = state;
+    }
+    public void setGlowLayerLocationCache(ResourceLocation state) {
+        glowLayerLocationCache = state;
+    }
 
     @Redirect(method = "spawnChildFromBreeding(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/animal/Animal;)V",
-            at = @At(value = "INVOKE", target = "Lcom/GACMD/isleofberk/entity/base/dragon/ADragonBase;getBreedEggResult(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/AgeableMob;)Lcom/GACMD/isleofberk/entity/eggs/entity/base/ADragonEggBase;"))
+            at = @At(value = "INVOKE", target = "Lcom/GACMD/isleofberk/entity/base/dragon/ADragonBase;getBreedEggResult(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/AgeableMob;)Lcom/GACMD/isleofberk/entity/eggs/entity/base/ADragonEggBase;"),
+            remap = false)
     private ADragonEggBase assignVariant(ADragonBase instance, ServerLevel world, AgeableMob parent) {
         if (parent instanceof ADragonBase dragonPartner) {
             ADragonEggBase egg = instance.getBreedEggResult(world, dragonPartner);

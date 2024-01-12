@@ -82,10 +82,18 @@ repositories {
         name = 'GeckoLib'
         url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
     }
-    maven {
-        url "https://cursemaven.com"
-        content {
-            includeGroup "curse.maven"
+    repositories {
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = "Modrinth"
+                    url = "https://api.modrinth.com/maven"
+                }
+            }
+            forRepositories(fg.repository) // Only add this if you're using ForgeGradle, otherwise remove this line
+            filter {
+                includeGroup "maven.modrinth"
+            }
         }
     }
 }
@@ -95,7 +103,9 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.18:3.0.46')
     //on curseforge mod was deleted, but I'm too lazy to change this
-    implementation fg.deobf("curse.maven:isleofberk-349956:4728868")
+    implementation fg.deobf("maven.modrinth:isle-of-berk:1.2.0")
+    implementation fg.deobf("maven.modrinth:rubidium:0.5.6")
+    implementation fg.deobf("maven.modrinth:oculus:1.18.2-1.6.4")
 
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.2"))
     implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.3.2")) {

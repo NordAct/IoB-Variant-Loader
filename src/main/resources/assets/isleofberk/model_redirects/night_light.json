@@ -1,0 +1,48 @@
+{
+  "redirects": [
+    {
+      "name": "dart",
+      "nametag_accessible": false
+    },
+    {
+      "name": "pouncer",
+      "nametag_accessible": false
+    },
+    {
+      "name": "ruffrunner",
+      "nametag_accessible": false
+    },
+    {
+      "name": "leopard",
+      "nametag_accessible": false
+    },
+    {
+      "name": "dusk",
+      "nametag_accessible": false
+    },
+    {
+      "name": "appaloosa",
+      "nametag_accessible": false
+    },
+    {
+      "name": "skydancer",
+      "nametag_accessible": false
+    },
+    {
+      "name": "nightdancer",
+      "nametag_accessible": false
+    },
+    {
+      "name": "iridescence",
+      "nametag_accessible": false
+    },
+    {
+      "name": "ashwing",
+      "nametag_accessible": false
+    },
+    {
+      "name": "harlequeen",
+      "nametag_accessible": false
+    }
+  ]
+}

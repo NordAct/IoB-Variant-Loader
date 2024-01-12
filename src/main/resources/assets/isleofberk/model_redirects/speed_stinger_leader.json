@@ -1,0 +1,20 @@
+{
+  "redirects": [
+    {
+      "name": "speed_stinger",
+      "nametag_accessible": false
+    },
+    {
+      "name": "floutscout",
+      "nametag_accessible": false
+    },
+    {
+      "name": "ice_breaker",
+      "nametag_accessible": false
+    },
+    {
+      "name": "sweet_sting",
+      "nametag_accessible": false
+    }
+  ]
+}

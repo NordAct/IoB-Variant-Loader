@@ -1,0 +1,44 @@
+{
+  "redirects": [
+    {
+      "name": "rosethorn",
+      "nametag_accessible": false
+    },
+    {
+      "name": "sleuther",
+      "nametag_accessible": false
+    },
+    {
+      "name": "boreas",
+      "nametag_accessible": false
+    },
+    {
+      "name": "blue",
+      "nametag_accessible": false
+    },
+    {
+      "name": "spyro",
+      "nametag_accessible": false
+    },
+    {
+      "name": "triple_stryke",
+      "nametag_accessible": false
+    },
+    {
+      "name": "starstreak",
+      "nametag_accessible": false
+    },
+    {
+      "name": "nikora_triple_stryke",
+      "nametag_accessible": false
+    },
+    {
+      "name": "eclipser",
+      "nametag_accessible": false
+    },
+    {
+      "name": "champion",
+      "nametag_accessible": false
+    }
+  ]
+}

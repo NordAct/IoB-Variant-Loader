@@ -1,0 +1,28 @@
+{
+  "redirects": [
+    {
+      "name": "albino",
+      "nametag_accessible": false
+    },
+    {
+      "name": "svartr",
+      "nametag_accessible": false
+    },
+    {
+      "name": "arsian",
+      "nametag_accessible": false
+    },
+    {
+      "name": "karma",
+      "nametag_accessible": false
+    },
+    {
+      "name": "sentinel",
+      "nametag_accessible": false
+    },
+    {
+      "name": "night_fury",
+      "nametag_accessible": false
+    }
+  ]
+}

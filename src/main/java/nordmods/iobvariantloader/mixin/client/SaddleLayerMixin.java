@@ -9,8 +9,10 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import nordmods.iobvariantloader.IoBVariantLoader;
+import nordmods.iobvariantloader.util.ModelCacheHelper;
 import nordmods.iobvariantloader.util.ResourceUtil;
-import nordmods.iobvariantloader.util.modelRedirect.ModelRedirectUtil;
+import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -29,16 +31,23 @@ public abstract class SaddleLayerMixin <T extends ADragonBase & IAnimatable> ext
         super(entityRendererIn);
     }
 
-    @Inject(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILcom/GACMD/isleofberk/entity/base/dragon/ADragonBase;FFFFFF)V", at = @At("HEAD"), cancellable = true, remap = false)
+    @Inject(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILcom/GACMD/isleofberk/entity/base/dragon/ADragonBase;FFFFFF)V",
+            at = @At("HEAD"),
+            cancellable = true,
+            remap = false)
     private void getCustomSaddleTexture(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
         if (!ResourceUtil.isResourceReloadFinished) return;
 
         if (!(dragon instanceof ADragonRideableUtility dragonRideableUtility) || !dragonRideableUtility.isSaddled() && !dragonRideableUtility.hasChest()) return;
+        if (((ModelCacheHelper)dragon).getSaddleTextureLocationCache() != null) return;
 
-        ResourceLocation id = ModelRedirectUtil.getCustomSaddlePath(dragon, baseRenderer.getDragonFolder());
-        if (ResourceUtil.isValid(id)) {
-            renderSaddle(id, matrixStackIn, bufferIn, packedLightIn, dragon, partialTicks);
-            ci.cancel();
+        ResourceLocation id;
+        if (!IoBVariantLoader.clientConfig.disableNamedVariants.get()) {
+            id = ModelRedirectUtil.getCustomSaddlePath(dragon, baseRenderer.getDragonFolder());
+            if (ResourceUtil.isValid(id)) {
+                renderSaddle(id, matrixStackIn, bufferIn, packedLightIn, dragon, partialTicks);
+                ci.cancel();
+            }
         }
 
         id = ModelRedirectUtil.getVariantSaddlePath(dragon, baseRenderer.getDragonFolder());

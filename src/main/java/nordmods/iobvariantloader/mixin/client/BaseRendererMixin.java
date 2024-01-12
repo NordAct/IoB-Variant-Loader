@@ -18,7 +18,9 @@ public abstract class BaseRendererMixin<T extends ADragonBase & IAnimatable> ext
         super(renderManager, modelProvider);
     }
 
-    @Inject(method = "<init>(Lnet/minecraft/client/renderer/entity/EntityRendererProvider$Context;Lsoftware/bernie/geckolib3/model/AnimatedGeoModel;)V", at = @At("TAIL"))
+    @Inject(method = "<init>(Lnet/minecraft/client/renderer/entity/EntityRendererProvider$Context;Lsoftware/bernie/geckolib3/model/AnimatedGeoModel;)V",
+            at = @At("TAIL"),
+            remap = false)
     private void addGlowLayer(EntityRendererProvider.Context renderManager, AnimatedGeoModel<T> modelProvider, CallbackInfo ci) {
         addLayer(new VLGlowLayer<>(this));
     }

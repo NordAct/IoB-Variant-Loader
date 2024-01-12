@@ -1,0 +1,36 @@
+{
+  "redirects": [
+    {
+      "name": "terrible_terror",
+      "nametag_accessible": false
+    },
+    {
+      "name": "blar",
+      "nametag_accessible": false
+    },
+    {
+      "name": "sneaky",
+      "nametag_accessible": false
+    },
+    {
+      "name": "terror",
+      "nametag_accessible": false
+    },
+    {
+      "name": "sharpshot",
+      "nametag_accessible": false
+    },
+    {
+      "name": "iggy",
+      "nametag_accessible": false
+    },
+    {
+      "name": "pain",
+      "nametag_accessible": false
+    },
+    {
+      "name": "head",
+      "nametag_accessible": false
+    }
+  ]
+}

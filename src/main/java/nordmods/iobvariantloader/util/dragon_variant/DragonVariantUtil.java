@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util.dragonVariant;
+package nordmods.iobvariantloader.util.dragon_variant;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;

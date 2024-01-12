@@ -1,0 +1,28 @@
+{
+  "redirects": [
+    {
+      "name": "sveinn_grogaldr",
+      "nametag_accessible": false
+    },
+    {
+      "name": "light_fury",
+      "nametag_accessible": false
+    },
+    {
+      "name": "sveinn",
+      "nametag_accessible": false
+    },
+    {
+      "name": "drottinn",
+      "nametag_accessible": false
+    },
+    {
+      "name": "grogaldr",
+      "nametag_accessible": false
+    },
+    {
+      "name": "drottinn_grogaldr",
+      "nametag_accessible": false
+    }
+  ]
+}

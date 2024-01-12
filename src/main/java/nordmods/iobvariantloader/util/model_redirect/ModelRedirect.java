@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util.modelRedirect;
+package nordmods.iobvariantloader.util.model_redirect;
 
 import org.jetbrains.annotations.Nullable;
 

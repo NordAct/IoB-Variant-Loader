@@ -1,0 +1,44 @@
+{
+  "redirects": [
+    {
+      "name": "deadly_nadder",
+      "nametag_accessible": false
+    },
+    {
+      "name": "kingstail",
+      "nametag_accessible": false
+    },
+    {
+      "name": "scardian",
+      "nametag_accessible": false
+    },
+    {
+      "name": "springshedder",
+      "nametag_accessible": false
+    },
+    {
+      "name": "hjarta",
+      "nametag_accessible": false
+    },
+    {
+      "name": "bork_week",
+      "nametag_accessible": false
+    },
+    {
+      "name": "flystorm",
+      "nametag_accessible": false
+    },
+    {
+      "name": "hjaldr",
+      "nametag_accessible": false
+    },
+    {
+      "name": "barklethorn",
+      "nametag_accessible": false
+    },
+    {
+      "name": "lethal_lancebeak",
+      "nametag_accessible": false
+    }
+  ]
+}

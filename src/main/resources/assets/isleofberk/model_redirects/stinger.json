@@ -1,0 +1,30 @@
+{
+  "redirects": [
+    {
+      "name": "coastal_predator",
+      "nametag_accessible": false
+    },
+    {
+      "name": "mudsmasher",
+      "nametag_accessible": false
+    },
+    {
+      "name": "wildroar",
+      "nametag_accessible": false
+    },
+    {
+      "name": "badlands",
+      "nametag_accessible": false
+    },
+    {
+      "name": "sandscorcher",
+      "nametag_accessible": false
+
+    },
+    {
+      "name": "kingly",
+      "nametag_accessible": false
+
+    }
+  ]
+}

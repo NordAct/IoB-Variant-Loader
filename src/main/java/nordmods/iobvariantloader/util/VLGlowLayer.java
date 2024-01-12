@@ -24,6 +24,11 @@ public class VLGlowLayer<T extends ADragonBase & IAnimatable> extends GeoLayerRe
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (IoBVariantLoader.clientConfig.disableGlowing.get()) return;
 
+        if (!ResourceUtil.isResourceReloadFinished) {
+            resetCache(dragon);
+            return;
+        }
+
         ResourceLocation id = getGlowLayerLocation(dragon);
         if (!ResourceUtil.isValid(id)) return;
 
@@ -33,13 +38,22 @@ public class VLGlowLayer<T extends ADragonBase & IAnimatable> extends GeoLayerRe
     }
 
     protected ResourceLocation getGlowLayerLocation(T dragon) {
+        if (((ModelCacheHelper)dragon).getGlowLayerLocationCache() != null) return ((ModelCacheHelper)dragon).getGlowLayerLocationCache();
+
         BaseRenderer<T> baseRenderer = (BaseRenderer<T>) getRenderer();
         String namespace = baseRenderer.getTextureLocation(dragon).getNamespace();
         String path = baseRenderer.getTextureLocation(dragon).getPath().replace(".png", "_glowing.png");
-        return new ResourceLocation(namespace, path);
+        ResourceLocation id = new ResourceLocation(namespace, path);
+        ((ModelCacheHelper)dragon).setGlowLayerLocationCache(id);
+
+        return id;
     }
 
     private GeoModel getModel(T dragon) {
         return getEntityModel().getModel(getEntityModel().getModelLocation(dragon));
+    }
+
+    protected void resetCache(T dragon) {
+        ((ModelCacheHelper)dragon).setGlowLayerLocationCache(null);
     }
 }

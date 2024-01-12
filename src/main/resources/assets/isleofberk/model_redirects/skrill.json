@@ -1,0 +1,56 @@
+{
+  "redirects": [
+    {
+      "name": "moonshock",
+      "nametag_accessible": false
+    },
+    {
+      "name": "albino",
+      "nametag_accessible": false
+    },
+    {
+      "name": "spring_storm",
+      "nametag_accessible": false
+    },
+    {
+      "name": "skrill",
+      "nametag_accessible": false
+    },
+    {
+      "name": "spark",
+      "nametag_accessible": false
+    },
+    {
+      "name": "zen",
+      "nametag_accessible": false
+    },
+    {
+      "name": "pickle",
+      "nametag_accessible": false
+    },
+    {
+      "name": "tempest",
+      "nametag_accessible": false
+    },
+    {
+      "name": "nemesis",
+      "nametag_accessible": false
+    },
+    {
+      "name": "crimson",
+      "nametag_accessible": false
+    },
+    {
+      "name": "fryrir",
+      "nametag_accessible": false
+    },
+    {
+      "name": "icebane",
+      "nametag_accessible": false
+    },
+    {
+      "name": "stormshadow",
+      "nametag_accessible": false
+    }
+  ]
+}

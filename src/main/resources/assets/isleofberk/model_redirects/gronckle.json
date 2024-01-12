@@ -1,0 +1,40 @@
+{
+  "redirects": [
+    {
+      "name": "hjarta",
+      "nametag_accessible": false
+    },
+    {
+      "name": "junior_tuffnut_junior",
+      "nametag_accessible": false
+    },
+    {
+      "name": "gronckle",
+      "nametag_accessible": false
+    },
+    {
+      "name": "cheesemonger",
+      "nametag_accessible": false
+    },
+    {
+      "name": "exiled",
+      "nametag_accessible": false
+    },
+    {
+      "name": "rubblegrubber",
+      "nametag_accessible": false
+    },
+    {
+      "name": "barn",
+      "nametag_accessible": false
+    },
+    {
+      "name": "crubble",
+      "nametag_accessible": false
+    },
+    {
+      "name": "yawnckle",
+      "nametag_accessible": false
+    }
+  ]
+}

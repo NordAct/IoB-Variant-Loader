@@ -7,7 +7,7 @@ import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.ModelCacheHelper;
 import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.VariantNameHelper;
-import nordmods.iobvariantloader.util.modelRedirect.ModelRedirectUtil;
+import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.model.AnimatedGeoModel;

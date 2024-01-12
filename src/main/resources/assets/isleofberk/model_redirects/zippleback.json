@@ -1,0 +1,44 @@
+{
+  "variants": [
+    {
+      "name": "hamfeist",
+      "nametag_accessible": false
+    },
+    {
+      "name": "purple_n_nurple",
+      "nametag_accessible": false
+    },
+    {
+      "name": "leaf_n_bark",
+      "nametag_accessible": false
+    },
+    {
+      "name": "whip_n_lash",
+      "nametag_accessible": false
+    },
+    {
+      "name": "exiled",
+      "nametag_accessible": false
+    },
+    {
+      "name": "hjarta",
+      "nametag_accessible": false
+    },
+    {
+      "name": "hodd",
+      "nametag_accessible": false
+    },
+    {
+      "name": "fart_n_sniff",
+      "nametag_accessible": false
+    },
+    {
+      "name": "sandr",
+      "nametag_accessible": false
+    },
+    {
+      "name": "pistill",
+      "nametag_accessible": false
+    }
+  ]
+}

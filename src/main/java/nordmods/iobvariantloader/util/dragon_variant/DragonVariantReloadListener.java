@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util.dragonVariant;
+package nordmods.iobvariantloader.util.dragon_variant;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
