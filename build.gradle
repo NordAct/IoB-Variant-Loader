@@ -94,6 +94,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.18:3.0.46')
+    //on curseforge mod was deleted, but I'm too lazy to change this
     implementation fg.deobf("curse.maven:isleofberk-349956:4728868")
 
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.2"))

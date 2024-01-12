@@ -85,7 +85,7 @@ public abstract class ADragonBaseMixin extends LivingEntity implements VariantNa
         setModelLocationCache(null);
     }
 
-    //All below should be called only from clientside. Would be glad to write it on model class, but it doesn't work well
+    //All cache stuff should be called only from clientside. Would be glad to write it on model class, but it doesn't work well
     public ResourceLocation getModelLocationCache() {
         return modelLocationCache;
     }
@@ -131,8 +131,8 @@ public abstract class ADragonBaseMixin extends LivingEntity implements VariantNa
             at = @At(value = "INVOKE", target = "Lcom/GACMD/isleofberk/entity/eggs/entity/base/ADragonEggBase;setBaby(Z)V"))
     private void assignNightLightVariant(ServerLevel world, Animal partner, CallbackInfo ci, @Local LocalRef<ADragonEggBase> localRef){
         if (localRef.get() instanceof NightLightEgg egg
-                && (this.getType().getRegistryName().equals(new ResourceLocation("isleofberk", "night_fury")) && partner.getType().getRegistryName().equals(new ResourceLocation("isleofberk", "light_fury"))
-                    || this.getType().getRegistryName().equals(new ResourceLocation("isleofberk", "light_fury")) && partner.getType().getRegistryName().equals(new ResourceLocation("isleofberk", "night_fury")))) {
+                && (getType().getRegistryName().equals(new ResourceLocation("isleofberk", "night_fury")) && partner.getType().getRegistryName().equals(new ResourceLocation("isleofberk", "light_fury"))
+                    || getType().getRegistryName().equals(new ResourceLocation("isleofberk", "light_fury")) && partner.getType().getRegistryName().equals(new ResourceLocation("isleofberk", "night_fury")))) {
 
             List<DragonVariant> variants = DragonVariantUtil.getVariantsFor("night_light");
             if (variants != null) {
@@ -147,6 +147,9 @@ public abstract class ADragonBaseMixin extends LivingEntity implements VariantNa
                         if (DragonVariantUtil.isVariantIn(variant.allowedBiomes(), world, partner.blockPosition())) totalWeight += variant.breedingWeight();
                     } else totalWeight += variant.breedingWeight();
                 }
+
+                if (totalWeight <= 0)
+                    throw new RuntimeException("Failed to assign dragon variant due impossible total weight of all variants for " + egg);
 
                 int roll = partner.getRandom().nextInt(totalWeight);
                 int previousBound = 0;
