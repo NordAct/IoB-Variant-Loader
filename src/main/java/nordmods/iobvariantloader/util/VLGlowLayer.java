@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import nordmods.iobvariantloader.IoBVariantLoader;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
@@ -21,6 +22,8 @@ public class VLGlowLayer<T extends ADragonBase & IAnimatable> extends GeoLayerRe
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        if (IoBVariantLoader.clientConfig.disableGlowing.get()) return;
+
         ResourceLocation id = getGlowLayerLocation(dragon);
         if (!ResourceUtil.isValid(id)) return;
 

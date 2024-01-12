@@ -5,6 +5,7 @@ import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
+import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragonVariant.DragonVariantUtil;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,7 +23,7 @@ public abstract class SpeedStingerMixin {
                     String parent1Variant = parent1.getVariantName();
                     String parent2Variant = parent2.getVariantName();
 
-                    if (instance.getRandom().nextFloat() > 0.15f) {
+                    if (instance.getRandom().nextDouble() < IoBVariantLoader.config.inheritanceChance.get()) {
                         if (instance.getRandom().nextBoolean()) helper.setVariantName(parent1Variant);
                         else helper.setVariantName(parent2Variant);
                     }

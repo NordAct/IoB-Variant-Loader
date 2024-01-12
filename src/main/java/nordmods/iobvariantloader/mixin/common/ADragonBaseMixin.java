@@ -17,6 +17,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.ModelCacheHelper;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragonVariant.DragonVariant;
@@ -115,7 +116,7 @@ public abstract class ADragonBaseMixin extends LivingEntity implements VariantNa
                     String parent1Variant = parent1.getVariantName();
                     String parent2Variant = parent2.getVariantName();
 
-                    if (instance.getRandom().nextFloat() > 0.15f) {
+                    if (instance.getRandom().nextDouble() < IoBVariantLoader.config.inheritanceChance.get()) {
                         if (instance.getRandom().nextBoolean()) helper.setVariantName(parent1Variant);
                         else helper.setVariantName(parent2Variant);
                     }

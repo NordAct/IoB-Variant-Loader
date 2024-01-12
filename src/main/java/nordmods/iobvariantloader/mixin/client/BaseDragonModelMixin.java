@@ -3,6 +3,7 @@ package nordmods.iobvariantloader.mixin.client;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
 import net.minecraft.resources.ResourceLocation;
+import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.ModelCacheHelper;
 import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.VariantNameHelper;
@@ -23,10 +24,13 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
 
         if (getModelLocationCache(entity) != null) return getModelLocationCache(entity);
 
-        ResourceLocation id = ModelRedirectUtil.getCustomModelPath(entity, getDragonFolder());
-        if (ResourceUtil.isValid(id) && ModelRedirectUtil.isNametagAccessible(getDragonFolder(), ResourceUtil.parseName(entity))) {
-            setModelLocationCache(entity, id);
-            return id;
+        ResourceLocation id;
+        if (!IoBVariantLoader.clientConfig.disableNamedVariants.get()) {
+            id = ModelRedirectUtil.getCustomModelPath(entity, getDragonFolder());
+            if (ResourceUtil.isValid(id) && ModelRedirectUtil.isNametagAccessible(getDragonFolder(), ResourceUtil.parseName(entity))) {
+                setModelLocationCache(entity, id);
+                return id;
+            }
         }
 
         id = ModelRedirectUtil.getVariantModelPath(entity, getDragonFolder());
@@ -48,11 +52,15 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
 
         if (getTextureLocationCache(entity) != null) return getTextureLocationCache(entity);
 
-        ResourceLocation id = ResourceUtil.getCustomTexturePath(entity, getDragonFolder());
-        if (ResourceUtil.isValid(id) && ModelRedirectUtil.isNametagAccessible(getDragonFolder(), ResourceUtil.parseName(entity))) {
-            setTextureLocationCache(entity, id);
-            return id;
+        ResourceLocation id;
+        if (!IoBVariantLoader.clientConfig.disableNamedVariants.get()) {
+            id = ResourceUtil.getCustomTexturePath(entity, getDragonFolder());
+            if (ResourceUtil.isValid(id) && ModelRedirectUtil.isNametagAccessible(getDragonFolder(), ResourceUtil.parseName(entity))) {
+                setTextureLocationCache(entity, id);
+                return id;
+            }
         }
+
 
         if (entity instanceof VariantNameHelper helper) {
             id = ResourceUtil.getVariantTexturePath(helper.getVariantName(), getDragonFolder());
@@ -75,10 +83,13 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
 
         if (getAnimationLocationCache(entity) != null) return getAnimationLocationCache(entity);
 
-        ResourceLocation id = ModelRedirectUtil.getCustomAnimationPath(entity, getDragonFolder());
-        if (ResourceUtil.isValid(id) && ModelRedirectUtil.isNametagAccessible(getDragonFolder(), ResourceUtil.parseName(entity))) {
-            setAnimationLocationCache(entity, id);
-            return id;
+        ResourceLocation id;
+        if (!IoBVariantLoader.clientConfig.disableNamedVariants.get()) {
+            id = ModelRedirectUtil.getCustomAnimationPath(entity, getDragonFolder());
+            if (ResourceUtil.isValid(id) && ModelRedirectUtil.isNametagAccessible(getDragonFolder(), ResourceUtil.parseName(entity))) {
+                setAnimationLocationCache(entity, id);
+                return id;
+            }
         }
 
         id = ModelRedirectUtil.getVariantAnimationPath(entity, getDragonFolder());
