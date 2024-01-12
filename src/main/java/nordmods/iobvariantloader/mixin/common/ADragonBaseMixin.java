@@ -33,13 +33,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(ADragonBase.class)
-public abstract class ADragonBaseMixin extends LivingEntity implements VariantNameHelper, ModelCacheHelper {
+public abstract class ADragonBaseMixin extends TamableAnimal implements VariantNameHelper, ModelCacheHelper {
     @Unique private ResourceLocation modelLocationCache;
     @Unique private ResourceLocation textureLocationCache;
     @Unique private ResourceLocation animationLocationCache;
     @Unique private ResourceLocation saddleTextureLocationCache;
     @Unique private ResourceLocation glowLayerLocationCache;
-    protected ADragonBaseMixin(EntityType<? extends LivingEntity> pEntityType, Level pLevel) {
+    protected ADragonBaseMixin(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
@@ -54,11 +54,6 @@ public abstract class ADragonBaseMixin extends LivingEntity implements VariantNa
     @Unique
     public void setVariantName(String variantName) {
         entityData.set(VARIANT_NAME, variantName);
-        setTextureLocationCache(null);
-        setAnimationLocationCache(null);
-        setModelLocationCache(null);
-        setSaddleTextureLocationCache(null);
-        setGlowLayerLocationCache(null);
     }
 
     @Inject(method = "addAdditionalSaveData(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("TAIL"))
@@ -160,48 +155,7 @@ public abstract class ADragonBaseMixin extends LivingEntity implements VariantNa
                     || getType().getRegistryName().equals(new ResourceLocation("isleofberk", "light_fury")) && partner.getType().getRegistryName().equals(new ResourceLocation("isleofberk", "night_fury")))) {
 
             List<DragonVariant> variants = DragonVariantUtil.getVariantsFor("night_light");
-            if (variants != null) {
-                int totalWeight = 0;
-                for (DragonVariant variant : variants) {
-                    //banned biomes check (blacklist)
-                    if (variant.hasBannedBiomes() && DragonVariantUtil.isVariantIn(variant.bannedBiomes(), world, partner.blockPosition())) continue;
-                    if (variant.altitudeRestriction().min() > partner.blockPosition().getY() || partner.blockPosition().getY() > variant.altitudeRestriction().max()) continue;
-
-                    //allowed biomes check (whitelist)
-                    if (variant.hasAllowedBiomes()) {
-                        if (DragonVariantUtil.isVariantIn(variant.allowedBiomes(), world, partner.blockPosition())) totalWeight += variant.breedingWeight();
-                    } else totalWeight += variant.breedingWeight();
-                }
-
-                if (totalWeight <= 0)
-                    throw new RuntimeException("Failed to assign dragon variant due impossible total weight of all variants for " + egg);
-
-                int roll = partner.getRandom().nextInt(totalWeight);
-                int previousBound = 0;
-
-                for (DragonVariant variant : variants) {
-                    //banned biomes check (blacklist)
-                    if (variant.hasBannedBiomes() && DragonVariantUtil.isVariantIn(variant.bannedBiomes(), world, partner.blockPosition())) continue;
-                    if (variant.altitudeRestriction().min() > partner.blockPosition().getY() || partner.blockPosition().getY() > variant.altitudeRestriction().max()) continue;
-
-                    //allowed biomes check (whitelist)
-                    if (variant.hasAllowedBiomes()) {
-                        if (DragonVariantUtil.isVariantIn(variant.allowedBiomes(), world, partner.blockPosition())) {
-                            if (roll >= previousBound && roll < previousBound + variant.breedingWeight()) {
-                                ((VariantNameHelper)egg).setVariantName(variant.name());
-                                break;
-                            }
-                            previousBound += variant.breedingWeight();
-                        }
-                    } else {
-                        if (roll >= previousBound && roll < previousBound + variant.breedingWeight()) {
-                            ((VariantNameHelper)egg).setVariantName(variant.name());
-                            break;
-                        }
-                        previousBound += variant.breedingWeight();
-                    }
-                }
-            }
+            DragonVariantUtil.assignVariantFromList(world, egg, false, variants);
             localRef.set(egg);
         }
     }

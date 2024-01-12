@@ -3,7 +3,7 @@ package nordmods.iobvariantloader.mixin.common;
 import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.level.Level;
 import nordmods.iobvariantloader.util.DeadlyNadderModelCacheHelper;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,7 +15,7 @@ public abstract class DeadlyNadderMixin extends ADragonBaseMixin implements Dead
     private ResourceLocation wingGlowLayerLocationCache;
     @Unique private ResourceLocation wingLayerLocationCache;
 
-    protected DeadlyNadderMixin(EntityType<? extends LivingEntity> pEntityType, Level pLevel) {
+    protected DeadlyNadderMixin(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 

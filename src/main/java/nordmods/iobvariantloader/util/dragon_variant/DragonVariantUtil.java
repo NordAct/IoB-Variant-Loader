@@ -71,8 +71,12 @@ public final class DragonVariantUtil {
     }
 
     public static void assignVariant(ServerLevelAccessor world, Entity entity, boolean naturalSpawn, @Nullable VariantNameHelper sourceEntity) {
+        List<DragonVariant> variants = sourceEntity != null ? DragonVariantUtil.getVariantsFor(sourceEntity) : DragonVariantUtil.getVariantsFor((VariantNameHelper)entity);
+        assignVariantFromList(world, entity, naturalSpawn, variants);
+    }
+
+    public static void assignVariantFromList(ServerLevelAccessor world, Entity entity, boolean naturalSpawn, List<DragonVariant> variants) {
         if (entity instanceof VariantNameHelper helper) {
-            List<DragonVariant> variants = sourceEntity != null ? DragonVariantUtil.getVariantsFor(sourceEntity) : DragonVariantUtil.getVariantsFor(helper);
             if (variants != null) {
 
                 int totalWeight = 0;
@@ -128,6 +132,7 @@ public final class DragonVariantUtil {
                 }
             }
         }
+
     }
 
     public static List<DragonVariant> getVariantsFor(VariantNameHelper entity) {
