@@ -1,18 +1,20 @@
 {
-	"comment1": "Name represents name of the variant or name of the entity",
-	"comment2": "model and animation fields represent file names located in assets/isleofberk/geo/entity/*dragon ID*/ and assets/isleofberk/animations/entity/*dragon ID*/ respectively",
-	"comment3": "*dragon ID* represents path part in entity's ID. I.e. for Deadly Nadder dragon ID would be deadly_nadder, for Gronckle - gronckle. Exception is Monstrous Nightmare. It'll be just nightmare",
-	"comment4": "It's not necessary to declare both animation and model fields. In fact, you can declare neither of them",
-	"comment5": "You also can redirect saddle textures in similar manner. Look at any dragon with saddle here to see example",
-	"comment6": "Redirect declarations can be added under any namespace",
-	"comment7": "Full path to redirect file would look something like this: assets/yournamespace/model_redirect/*dragon ID*.json",
-	"comment8": "Comments do nothing btw, you can yeet them",
+	"comment": "Name represents name of the variant or name of the entity",
+	"comment": "model and animation fields represent file names located in assets/isleofberk/geo/entity/*dragon ID*/ and assets/isleofberk/animations/entity/*dragon ID*/ respectively",
+	"comment": "*dragon ID* represents path part in entity's ID. I.e. for Deadly Nadder dragon ID would be deadly_nadder, for Gronckle - gronckle. Exception is Monstrous Nightmare. It'll be just nightmare",
+	"comment": "It's not necessary to declare both animation and model fields. In fact, you can declare neither of them",
+	"comment": "You also can redirect saddle textures in similar manner. Look at any dragon with saddle here to see example",
+	"comment": "Redirect declarations can be added under any namespace",
+	"comment": "Full path to redirect file would look something like this: assets/yournamespace/model_redirect/*dragon ID*.json",
+	"comment": "You can use nametag_accessible field to prevent variant from being appliceable via nametags. If not specified, by default variant can be applied via nametag",
+	"comment": "Comments do nothing btw, you can yeet them",
 
 	"redirects":[
 		{
 			"name": "warped",
 			"saddle": "saddle_nether.png",
-			"model": "fungus.geo.json"
+			"model": "fungus.geo.json",
+			"nametag_accessible": false
 		},
 		{
 			"name": "crimson",
