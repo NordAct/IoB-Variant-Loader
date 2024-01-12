@@ -8,15 +8,16 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import nordmods.iobvariantloader.util.VariantNameHelper;
+import nordmods.iobvariantloader.util.dragon_variant.DragonVariant;
 import nordmods.iobvariantloader.util.dragon_variant.DragonVariantUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -26,8 +27,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 @Mixin(ADragonEggBase.class)
-public abstract class ADragonEggBaseMixin extends Entity implements VariantNameHelper {
+public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantNameHelper {
     @Shadow protected abstract DragonEggItem getItemVersion();
 
     @Shadow public abstract ResourceLocation getTextureLocation(ADragonEggBase dragonBase);
@@ -36,10 +40,12 @@ public abstract class ADragonEggBaseMixin extends Entity implements VariantNameH
 
     @Shadow protected abstract int getHatchTime();
 
+    @Shadow public abstract void setCanHatch(boolean canHatch);
+
     @Unique
     private static final EntityDataAccessor<String> VARIANT_NAME = SynchedEntityData.defineId(ADragonEggBase.class, EntityDataSerializers.STRING);
 
-    protected ADragonEggBaseMixin(EntityType<?> pEntityType, Level pLevel) {
+    protected ADragonEggBaseMixin(EntityType<? extends  AgeableMob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
@@ -90,5 +96,28 @@ public abstract class ADragonEggBaseMixin extends Entity implements VariantNameH
         } else {
             return false;
         }
+    }
+
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        setCanHatch(pReason != MobSpawnType.STRUCTURE);
+        if (getVariantName().isEmpty()) {
+            List<DragonVariant> variants = DragonVariantUtil.getVariantsFor(getSpecies());
+            DragonVariantUtil.assignVariantFromList(pLevel, this, false, variants);
+        }
+
+        return pSpawnData;
+    }
+
+    public String getSpecies() {
+        ResourceLocation resourcelocation = EntityType.getKey(getType());
+        String dragonID = resourcelocation.getPath().replace("_egg", "");
+        //this inconsistency in names just kills me
+        return switch (dragonID) {
+            default -> dragonID;
+            case "m_nightmare" -> "monstrous_nightmare";
+            case "nadder" -> "deadly_nadder";
+        };
     }
 }

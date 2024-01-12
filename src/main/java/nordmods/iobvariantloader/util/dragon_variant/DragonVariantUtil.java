@@ -79,13 +79,11 @@ public final class DragonVariantUtil {
         if (entity instanceof VariantNameHelper helper) {
             if (variants != null) {
 
-                int totalWeight = 0;
+                long totalWeight = 0;
                 for (DragonVariant variant : variants) {
                     //banned biomes check (blacklist)
-                    if (variant.hasBannedBiomes() && DragonVariantUtil.isVariantIn(variant.bannedBiomes(), world, entity.blockPosition()))
-                        continue;
-                    if (variant.altitudeRestriction().min() > entity.blockPosition().getY() || entity.blockPosition().getY() > variant.altitudeRestriction().max())
-                        continue;
+                    if (variant.hasBannedBiomes() && DragonVariantUtil.isVariantIn(variant.bannedBiomes(), world, entity.blockPosition())) continue;
+                    if (variant.altitudeRestriction().min() > entity.blockPosition().getY() || entity.blockPosition().getY() > variant.altitudeRestriction().max()) continue;
 
                     //allowed biomes check (whitelist)
                     if (variant.hasAllowedBiomes()) {
@@ -102,8 +100,8 @@ public final class DragonVariantUtil {
                 if (totalWeight <= 0)
                     throw new RuntimeException("Failed to assign dragon variant due impossible total weight of all variants for " + entity);
 
-                int roll = ((LivingEntity) entity).getRandom().nextInt(totalWeight);
-                int previousBound = 0;
+                long roll = ((LivingEntity) entity).getRandom().nextLong(totalWeight);
+                long previousBound = 0;
 
                 for (DragonVariant variant : variants) {
                     //banned biomes check (blacklist)

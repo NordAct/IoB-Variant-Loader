@@ -54,20 +54,17 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
 
         ResourceLocation id;
         if (!IoBVariantLoader.clientConfig.disableNamedVariants.get()) {
-            id = ResourceUtil.getCustomTexturePath(entity, getDragonFolder());
+            id = getCustomTexture(entity);
             if (ResourceUtil.isValid(id) && ModelRedirectUtil.isNametagAccessible(getDragonFolder(), ResourceUtil.parseName(entity))) {
                 setTextureLocationCache(entity, id);
                 return id;
             }
         }
 
-
-        if (entity instanceof VariantNameHelper helper) {
-            id = ResourceUtil.getVariantTexturePath(helper.getVariantName(), getDragonFolder());
-            if (ResourceUtil.isValid(id)) {
-                setTextureLocationCache(entity, id);
-                return id;
-            }
+        id = getVariantTexture(entity);
+        if (ResourceUtil.isValid(id)) {
+            setTextureLocationCache(entity, id);
+            return id;
         }
 
         setTextureLocationCache(entity, getDefaultVariant());
@@ -139,5 +136,13 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
 
     public void setTextureLocationCache(T entity, ResourceLocation state) {
         ((ModelCacheHelper)entity).setTextureLocationCache(state);
+    }
+
+    public ResourceLocation getCustomTexture(T entity) {
+        return ResourceUtil.getCustomTexturePath(entity, getDragonFolder());
+    }
+
+    public ResourceLocation getVariantTexture(T entity) {
+        return ResourceUtil.getVariantTexturePath(((VariantNameHelper)entity).getVariantName(), getDragonFolder());
     }
 }

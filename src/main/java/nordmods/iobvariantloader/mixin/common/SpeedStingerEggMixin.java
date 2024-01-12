@@ -6,6 +6,7 @@ import com.GACMD.isleofberk.items.DragonEggItem;
 import com.GACMD.isleofberk.registery.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
@@ -39,7 +40,7 @@ public abstract class SpeedStingerEggMixin extends ADragonEggBaseMixin implement
 
     @Shadow @Final private int floutscoutHatchTime;
 
-    protected SpeedStingerEggMixin(EntityType<?> pEntityType, Level pLevel) {
+    protected SpeedStingerEggMixin(EntityType<? extends AgeableMob> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
 
