@@ -33,12 +33,13 @@ public class DragonVariantReloadListener extends SimpleJsonResourceReloadListene
                 JsonObject input = elem.getAsJsonObject();
                 String name = input.get("name").getAsString();
                 int weight = input.get("weight").getAsInt();
+                int breedingWeight = input.has("breeding_weight") ? input.get("breeding_weight").getAsInt() : weight;
 
                 DragonVariant.BiomeRestrictions allowedBiomes = getBiomes("allowed_biomes", input);
                 DragonVariant.BiomeRestrictions bannedBiomes = getBiomes("banned_biomes", input);
                 DragonVariant.AltitudeRestriction altitudeRestriction = getAltitude(input);
 
-                DragonVariant dragonVariant = new DragonVariant(name, weight, allowedBiomes, bannedBiomes, altitudeRestriction);
+                DragonVariant dragonVariant = new DragonVariant(name, weight, breedingWeight, allowedBiomes, bannedBiomes, altitudeRestriction);
                 if (!variants.contains(dragonVariant)) variants.add(dragonVariant);
             }
             DragonVariantUtil.add(dragon, variants);

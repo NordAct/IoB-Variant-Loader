@@ -54,7 +54,10 @@ public abstract class ADragonEggBaseMixin extends Entity implements VariantNameH
 
     @Redirect(method = "hatch()V", at = @At( value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
     private boolean assignVariant(Level world, Entity entity) {
-        if (world instanceof  ServerLevelAccessor serverLevelAccessor) DragonVariantUtil.assignVariant(serverLevelAccessor, entity);
+        if (world instanceof ServerLevelAccessor serverLevelAccessor) {
+            if (getVariantName().isEmpty()) DragonVariantUtil.assignVariant(serverLevelAccessor, entity, false);
+            else ((VariantNameHelper)entity).setVariantName(getVariantName());
+        }
         return world.addFreshEntity(entity);
     }
 }

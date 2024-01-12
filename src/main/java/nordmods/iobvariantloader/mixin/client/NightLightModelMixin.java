@@ -31,4 +31,9 @@ public abstract class NightLightModelMixin extends BaseDragonModelMixin<NightLig
     public ResourceLocation getAnimationFileLocation(NightLight entity) {
         return super.getAnimationFileLocation(entity);
     }
+
+    @Override
+    public ResourceLocation getDefaultAnimation() {
+        return new ResourceLocation("isleofberk", "animations/dragons/night_fury.animation.json");
+    }
 }

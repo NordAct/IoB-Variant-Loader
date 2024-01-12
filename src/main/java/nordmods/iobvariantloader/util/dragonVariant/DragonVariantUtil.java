@@ -12,6 +12,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.VariantNameHelper;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.Map;
 public final class DragonVariantUtil {
     public static final Map<String, List<DragonVariant>> dragonVariants = new HashMap<>();
 
-    public static List<DragonVariant> getVariants(String name) {
+    public static List<DragonVariant> getVariantsFor(String name) {
         return dragonVariants.get(name);
     }
 
@@ -34,7 +35,7 @@ public final class DragonVariantUtil {
 
     public static void debugPrint() {
         for (Map.Entry<String, List<DragonVariant>> entry : dragonVariants.entrySet()) {
-            for ( DragonVariant variant : entry.getValue()) {
+            for (DragonVariant variant : entry.getValue()) {
                 IoBVariantLoader.LOGGER.debug("{}: variant {} was loaded", entry.getKey(), variant);
             }
         }
@@ -65,9 +66,13 @@ public final class DragonVariantUtil {
         return isIn;
     }
 
-    public static void assignVariant(ServerLevelAccessor world, Entity entity) {
+    public static void assignVariant(ServerLevelAccessor world, Entity entity, boolean naturalSpawn) {
+        assignVariant(world, entity, naturalSpawn, null);
+    }
+
+    public static void assignVariant(ServerLevelAccessor world, Entity entity, boolean naturalSpawn, @Nullable VariantNameHelper sourceEntity) {
         if (entity instanceof VariantNameHelper helper) {
-            List<DragonVariant> variants = DragonVariantUtil.getVariants((VariantNameHelper) entity);
+            List<DragonVariant> variants = sourceEntity != null ? DragonVariantUtil.getVariantsFor(sourceEntity) : DragonVariantUtil.getVariantsFor(helper);
             if (variants != null) {
 
                 int totalWeight = 0;
@@ -77,11 +82,17 @@ public final class DragonVariantUtil {
                         continue;
                     if (variant.altitudeRestriction().min() > entity.blockPosition().getY() || entity.blockPosition().getY() > variant.altitudeRestriction().max())
                         continue;
+
                     //allowed biomes check (whitelist)
                     if (variant.hasAllowedBiomes()) {
-                        if (DragonVariantUtil.isVariantIn(variant.allowedBiomes(), world, entity.blockPosition()))
-                            totalWeight += variant.weight();
-                    } else totalWeight += variant.weight();
+                        if (DragonVariantUtil.isVariantIn(variant.allowedBiomes(), world, entity.blockPosition())) {
+                            if (naturalSpawn) totalWeight += variant.weight();
+                            else totalWeight += variant.breedingWeight();
+                        }
+                    } else {
+                        if (naturalSpawn) totalWeight += variant.weight();
+                        else totalWeight += variant.breedingWeight();
+                    }
                 }
 
                 if (totalWeight <= 0)
@@ -99,44 +110,28 @@ public final class DragonVariantUtil {
                     //allowed biomes check (whitelist)
                     if (variant.hasAllowedBiomes()) {
                         if (DragonVariantUtil.isVariantIn(variant.allowedBiomes(), world, entity.blockPosition())) {
-                            if (roll >= previousBound && roll < previousBound + variant.weight()) {
+                            if (roll >= previousBound && roll < previousBound + (naturalSpawn ? variant.weight() : variant.breedingWeight())) {
                                 helper.setVariantName(variant.name());
                                 break;
                             }
-                            previousBound += variant.weight();
+                            if (naturalSpawn) previousBound += variant.weight();
+                            else previousBound += variant.breedingWeight();
                         }
                     } else {
-                        if (roll >= previousBound && roll < previousBound + variant.weight()) {
+                        if (roll >= previousBound && roll < previousBound + (naturalSpawn ? variant.weight() : variant.breedingWeight())) {
                             helper.setVariantName(variant.name());
                             break;
                         }
-                        previousBound += variant.weight();
+                        if (naturalSpawn) previousBound += variant.weight();
+                        else previousBound += variant.breedingWeight();
                     }
                 }
             }
         }
     }
 
-    public static List<DragonVariant> getVariants(VariantNameHelper entity) {
+    public static List<DragonVariant> getVariantsFor(VariantNameHelper entity) {
         ResourceLocation resourcelocation = EntityType.getKey(((Entity) entity).getType());
-        return DragonVariantUtil.getVariants(resourcelocation.getPath());
-    }
-
-    public static void assignVariantFrom(VariantNameHelper entity, List<DragonVariant> variants) {
-        int totalWeight = 0;
-        for (DragonVariant variant : variants) totalWeight += variant.weight();
-        if (totalWeight <= 0)
-            throw new RuntimeException("Failed to assign dragon variant due impossible total weight of all variants for " + entity);
-
-        int roll = ((LivingEntity) entity).getRandom().nextInt(totalWeight);
-        int previousBound = 0;
-
-        for (DragonVariant variant : variants) {
-            if (roll >= previousBound && roll < previousBound + variant.weight()) {
-                entity.setVariantName(variant.name());
-                break;
-            }
-            previousBound += variant.weight();
-        }
+        return DragonVariantUtil.getVariantsFor(resourcelocation.getPath());
     }
 }

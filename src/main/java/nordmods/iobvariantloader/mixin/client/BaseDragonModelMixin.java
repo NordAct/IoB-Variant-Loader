@@ -105,21 +105,27 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
 
     public abstract String getDragonFolder();
     public abstract String getDefaultTexture();
+
     public ResourceLocation getModelLocationCache(T entity) {
         return ((ModelCacheHelper)entity).getModelLocationCache();
     }
+
     public ResourceLocation getAnimationLocationCache(T entity) {
         return ((ModelCacheHelper)entity).getAnimationLocationCache();
     }
+
     public ResourceLocation getTextureLocationCache(T entity) {
         return ((ModelCacheHelper)entity).getTextureLocationCache();
     }
+
     public void setModelLocationCache(T entity, ResourceLocation state) {
         ((ModelCacheHelper)entity).setModelLocationCache(state);
     }
+
     public void setAnimationLocationCache(T entity, ResourceLocation state) {
         ((ModelCacheHelper)entity).setAnimationLocationCache(state);
     }
+
     public void setTextureLocationCache(T entity, ResourceLocation state) {
         ((ModelCacheHelper)entity).setTextureLocationCache(state);
     }

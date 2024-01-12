@@ -77,6 +77,7 @@ mixin {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    mavenCentral()
     maven {
         name = 'GeckoLib'
         url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
@@ -94,6 +95,11 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.18:3.0.46')
     implementation fg.deobf("curse.maven:isleofberk-349956:4728868")
+
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.2"))
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.3.2")) {
+        jarJar.ranged(it, "[0.3.2,)")
+    }
 }
 
 tasks.named('processResources', ProcessResources).configure {
