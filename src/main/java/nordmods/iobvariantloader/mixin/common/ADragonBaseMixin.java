@@ -6,7 +6,6 @@ import com.GACMD.isleofberk.entity.eggs.entity.eggs.NightLightEgg;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -18,6 +17,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import nordmods.iobvariantloader.IoBVariantLoader;
+import nordmods.iobvariantloader.util.DeadlyNadderModelCacheHelper;
 import nordmods.iobvariantloader.util.ModelCacheHelper;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant.DragonVariant;
@@ -30,7 +30,6 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 @Mixin(ADragonBase.class)
@@ -83,13 +82,19 @@ public abstract class ADragonBaseMixin extends LivingEntity implements VariantNa
     }
 
     @Override
-    public void setCustomName(@Nullable Component name) {
-        super.setCustomName(name);
-        setTextureLocationCache(null);
-        setAnimationLocationCache(null);
-        setModelLocationCache(null);
-        setSaddleTextureLocationCache(null);
-        setGlowLayerLocationCache(null);
+    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
+        if (DATA_CUSTOM_NAME.equals(key) || VARIANT_NAME.equals(key)) {
+            setTextureLocationCache(null);
+            setAnimationLocationCache(null);
+            setModelLocationCache(null);
+            setSaddleTextureLocationCache(null);
+            setGlowLayerLocationCache(null);
+            if (this instanceof DeadlyNadderModelCacheHelper helper) {
+                helper.setWingGlowLayerLocationCache(null);
+                helper.setWingLayerLocationCache(null);
+            }
+        }
     }
 
     //All cache stuff should be called only from clientside. Would be glad to write it on model class, but it doesn't work well

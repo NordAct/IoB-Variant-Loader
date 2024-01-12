@@ -15,9 +15,6 @@ import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
@@ -27,34 +24,44 @@ import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 public abstract class SaddleLayerMixin <T extends ADragonBase & IAnimatable> extends GeoLayerRenderer<T> {
     @Shadow private BaseRenderer<T> baseRenderer;
 
+    @Shadow protected abstract ResourceLocation getSaddleTexture();
+
     public SaddleLayerMixin(IGeoRenderer<T> entityRendererIn) {
         super(entityRendererIn);
     }
 
-    @Inject(method = "render(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILcom/GACMD/isleofberk/entity/base/dragon/ADragonBase;FFFFFF)V",
-            at = @At("HEAD"),
-            cancellable = true,
-            remap = false)
-    private void getCustomSaddleTexture(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, CallbackInfo ci) {
-        if (!ResourceUtil.isResourceReloadFinished) return;
+    @Override
+    public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        if (!ResourceUtil.isResourceReloadFinished) {
+            ((ModelCacheHelper)dragon).setSaddleTextureLocationCache(null);
+            return;
+        }
 
         if (!(dragon instanceof ADragonRideableUtility dragonRideableUtility) || !dragonRideableUtility.isSaddled() && !dragonRideableUtility.hasChest()) return;
-        if (((ModelCacheHelper)dragon).getSaddleTextureLocationCache() != null) return;
+        if (((ModelCacheHelper)dragon).getSaddleTextureLocationCache() != null) {
+            renderSaddle(((ModelCacheHelper)dragon).getSaddleTextureLocationCache(), matrixStackIn, bufferIn, packedLightIn, dragon, partialTicks);
+            return;
+        }
 
         ResourceLocation id;
         if (!IoBVariantLoader.clientConfig.disableNamedVariants.get()) {
             id = ModelRedirectUtil.getCustomSaddlePath(dragon, baseRenderer.getDragonFolder());
             if (ResourceUtil.isValid(id)) {
+                ((ModelCacheHelper)dragon).setSaddleTextureLocationCache(id);
                 renderSaddle(id, matrixStackIn, bufferIn, packedLightIn, dragon, partialTicks);
-                ci.cancel();
+                return;
             }
         }
 
         id = ModelRedirectUtil.getVariantSaddlePath(dragon, baseRenderer.getDragonFolder());
         if (ResourceUtil.isValid(id)) {
+            ((ModelCacheHelper)dragon).setSaddleTextureLocationCache(id);
             renderSaddle(id, matrixStackIn, bufferIn, packedLightIn, dragon, partialTicks);
-            ci.cancel();
+            return;
         }
+
+        ((ModelCacheHelper)dragon).setSaddleTextureLocationCache(getSaddleTexture());
+        renderSaddle(getSaddleTexture(), matrixStackIn, bufferIn, packedLightIn, dragon, partialTicks);
     }
 
     private void renderSaddle(ResourceLocation saddle, PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T dragon, float partialTicks) {
