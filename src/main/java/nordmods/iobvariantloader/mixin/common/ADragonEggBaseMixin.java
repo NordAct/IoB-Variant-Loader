@@ -110,7 +110,7 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
         return pSpawnData;
     }
 
-    public String getSpecies() {
+    private String getSpecies() {
         ResourceLocation resourcelocation = EntityType.getKey(getType());
         String dragonID = resourcelocation.getPath().replace("_egg", "");
         //this inconsistency in names just kills me

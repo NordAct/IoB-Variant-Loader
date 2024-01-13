@@ -14,6 +14,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(DragonEggSeparateVariantItem.class)
 public abstract class DragonEggSeparateVariantItemMixin extends DragonEggItemMixin {
+    public DragonEggSeparateVariantItemMixin(Properties pProperties) {
+        super(pProperties);
+    }
+
     @ModifyArg(method = "useOn(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
     private Entity setVariant(Entity entity) {
