@@ -4,7 +4,6 @@ import com.GACMD.isleofberk.entity.base.render.render.BaseRenderer;
 import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import net.minecraft.resources.ResourceLocation;
 import nordmods.iobvariantloader.util.DeadlyNadderModelCacheHelper;
-import nordmods.iobvariantloader.util.layer.VLGlowLayer;
 import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 
 public class DeadlyNadderWingGlowLayer extends VLGlowLayer<DeadlyNadder> {

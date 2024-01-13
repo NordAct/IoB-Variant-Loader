@@ -2,6 +2,7 @@ package nordmods.iobvariantloader.mixin.common;
 
 import com.GACMD.isleofberk.items.DragonEggItem;
 import net.minecraft.ChatFormatting;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -31,6 +32,7 @@ import java.util.List;
 public abstract class DragonEggItemMixin extends Item {
     @Unique
     protected String variant = "";
+    private String tooltipCache = null;
 
     public DragonEggItemMixin(Properties pProperties) {
         super(pProperties);
@@ -57,6 +59,7 @@ public abstract class DragonEggItemMixin extends Item {
         else variant = "";
     }
 
+    @Unique
     @SuppressWarnings("DataFlowIssue")
     private String getSpecies() {
         ResourceLocation resourcelocation = getRegistryName();
@@ -74,9 +77,29 @@ public abstract class DragonEggItemMixin extends Item {
     private void addVariantTooltip(ItemStack pStack, Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced, CallbackInfo ci) {
         String variant = pStack.hasTag() ? pStack.getTag().getString("VariantName") : "";
         if (!variant.isEmpty()) {
-            String firstLetter = String.valueOf(variant.charAt(0));
-            variant = variant.replaceFirst(firstLetter, firstLetter.toUpperCase());
-            pTooltipComponents.add(new TranslatableComponent("tooltip.iobvariantloader.variant", new TextComponent(variant).withStyle(ChatFormatting.GOLD)));
+            String key = "tooltip.iobvariantloader.variant." + variant;
+            if (Language.getInstance().has(key)) {
+                pTooltipComponents.add(new TranslatableComponent("tooltip.iobvariantloader.variant", new TranslatableComponent(key).withStyle(ChatFormatting.GOLD)));
+            } else {
+                variant = parseName(variant);
+                pTooltipComponents.add(new TranslatableComponent("tooltip.iobvariantloader.variant", new TextComponent(variant).withStyle(ChatFormatting.GOLD)));
+            }
         }
+    }
+
+    @Unique
+    private String parseName(String name) {
+        while (name.contains("_")) {
+            int index = name.indexOf("_");
+            if (index + 1 < name.length()) {
+                String toReplace = String.valueOf(name.charAt(index + 1));
+                name = name.replaceFirst("_" + toReplace, " " + toReplace.toUpperCase());
+                continue;
+            }
+            name = name.replace("_", " ");
+        }
+        name = name.replace(" N ", "'n'");
+        String firstLetter = String.valueOf(name.charAt(0));
+        return name.replaceFirst(firstLetter, firstLetter.toUpperCase());
     }
 }

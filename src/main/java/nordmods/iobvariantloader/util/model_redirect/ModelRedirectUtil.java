@@ -2,11 +2,13 @@ package nordmods.iobvariantloader.util.model_redirect;
 
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,5 +87,43 @@ public final class ModelRedirectUtil {
                     IoBVariantLoader.LOGGER.debug("{}: variant/name {} was redirected to model {}", entry.getKey(), redirects.getKey(), redirects.getValue());
             }
         }
+
+        if (IoBVariantLoader.clientConfig.generateTranslation.get()) {
+            Collection<ResourceLocation> list = Minecraft.getInstance().getResourceManager().listResources("textures/dragons/", s -> {
+                return s.endsWith(".png")
+                        && !s.endsWith("_sleeping.png")
+                        && !s.endsWith("_titan.png")
+                        && !s.endsWith("_leader.png")
+                        && !s.endsWith("equipment.png")
+                        && !s.endsWith("_membranes.png")
+                        && !s.contains("_glow")
+                        && !s.endsWith("fire.png")
+                        && !s.endsWith("chest.png")
+                        && !s.endsWith("collar.png")
+                        && !s.endsWith("egg.png")
+                        && !s.endsWith("stinger_color_layer.png");
+
+            });
+            for (ResourceLocation resource : list) {
+                String path = resource.getPath();
+                String key = path.substring(path.lastIndexOf("/") + 1, path.indexOf(".png"));
+                System.out.println("\"tooltip.iobvariantloader.variant." + key + "\": \"" + parseName(key) + "\",");
+            }
+        }
+    }
+
+    public static String parseName(String name) {
+        while (name.contains("_")) {
+            int index = name.indexOf("_");
+            if (index + 1 < name.length()) {
+                String toReplace = String.valueOf(name.charAt(index + 1));
+                name = name.replaceFirst("_" + toReplace, " " + toReplace.toUpperCase());
+                continue;
+            }
+            name = name.replace("_", " ");
+        }
+        name = name.replace(" N ", " & ");
+        String firstLetter = String.valueOf(name.charAt(0));
+        return name.replaceFirst(firstLetter, firstLetter.toUpperCase());
     }
 }

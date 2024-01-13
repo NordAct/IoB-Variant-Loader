@@ -112,6 +112,7 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
         return pSpawnData;
     }
 
+    @Unique
     private String getSpecies() {
         ResourceLocation resourcelocation = EntityType.getKey(getType());
         String dragonID = resourcelocation.getPath().replace("_egg", "");
