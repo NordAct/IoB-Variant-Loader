@@ -88,26 +88,22 @@ public final class ModelRedirectUtil {
             }
         }
 
-        if (IoBVariantLoader.clientConfig.generateTranslation.get()) {
-            Collection<ResourceLocation> list = Minecraft.getInstance().getResourceManager().listResources("textures/dragons/", s -> {
-                return s.endsWith(".png")
-                        && !s.endsWith("_sleeping.png")
-                        && !s.endsWith("_titan.png")
-                        && !s.endsWith("_leader.png")
-                        && !s.endsWith("equipment.png")
-                        && !s.endsWith("_membranes.png")
-                        && !s.contains("_glow")
-                        && !s.endsWith("fire.png")
-                        && !s.endsWith("chest.png")
-                        && !s.endsWith("collar.png")
-                        && !s.endsWith("egg.png")
-                        && !s.endsWith("stinger_color_layer.png");
-
-            });
+        if (IoBVariantLoader.clientConfig.generateTranslations.get()) {
+            Collection<ResourceLocation> list = Minecraft.getInstance().getResourceManager().listResources("textures/dragons/", s ->  s.endsWith(".png"));
             for (ResourceLocation resource : list) {
                 String path = resource.getPath();
                 String key = path.substring(path.lastIndexOf("/") + 1, path.indexOf(".png"));
-                System.out.println("\"tooltip.iobvariantloader.variant." + key + "\": \"" + parseName(key) + "\",");
+
+                boolean skip = false;
+                for (String ending : IoBVariantLoader.clientConfig.ignoredByGeneratorEndings.get()) {
+                    if (key.endsWith(ending)) {
+                        skip = true;
+                        break;
+                    }
+                }
+                if (skip) continue;
+
+                if (!IoBVariantLoader.clientConfig.ignoredByGenerator.get().contains(key)) System.out.println("\"tooltip.iobvariantloader.variant." + key + "\": \"" + parseName(key) + "\",");
             }
         }
     }
