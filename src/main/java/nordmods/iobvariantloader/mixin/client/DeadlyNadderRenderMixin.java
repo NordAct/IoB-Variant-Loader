@@ -4,8 +4,8 @@ import com.GACMD.isleofberk.entity.base.render.render.BaseRenderer;
 import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadderRender;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import nordmods.iobvariantloader.util.DeadlyNadderWingGlowLayer;
-import nordmods.iobvariantloader.util.VLDeadlyNadderWingLayer;
+import nordmods.iobvariantloader.util.layer.DeadlyNadderWingGlowLayer;
+import nordmods.iobvariantloader.util.layer.VLDeadlyNadderWingLayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,6 +25,7 @@ public abstract class DeadlyNadderRenderMixin extends BaseRenderer<DeadlyNadder>
         addLayer(new DeadlyNadderWingGlowLayer(this));
     }
 
+    @SuppressWarnings("rawtypes")
     @ModifyArg(method = "<init>(Lnet/minecraft/client/renderer/entity/EntityRendererProvider$Context;)V",
             at = @At(value = "INVOKE", target = "Lcom/GACMD/isleofberk/entity/dragons/deadlynadder/DeadlyNadderRender;addLayer(Lsoftware/bernie/geckolib3/renderers/geo/GeoLayerRenderer;)Z"),
             remap = false)

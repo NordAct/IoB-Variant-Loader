@@ -22,6 +22,7 @@ import nordmods.iobvariantloader.util.ModelCacheHelper;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant.DragonVariant;
 import nordmods.iobvariantloader.util.dragon_variant.DragonVariantUtil;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -43,6 +44,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         super(pEntityType, pLevel);
     }
 
+    @SuppressWarnings("WrongEntityDataParameterClass")
     @Unique
     private static final EntityDataAccessor<String> VARIANT_NAME = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.STRING);
 
@@ -77,7 +79,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     }
 
     @Override
-    public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
         if (DATA_CUSTOM_NAME.equals(key) || VARIANT_NAME.equals(key)) {
             setTextureLocationCache(null);
@@ -147,6 +149,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         return null;
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Inject(method = "spawnChildFromBreeding(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/animal/Animal;)V",
             at = @At(value = "INVOKE", target = "Lcom/GACMD/isleofberk/entity/eggs/entity/base/ADragonEggBase;setBaby(Z)V"))
     private void assignNightLightVariant(ServerLevel world, Animal partner, CallbackInfo ci, @Local LocalRef<ADragonEggBase> localRef){

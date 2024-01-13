@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.Block;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant.DragonVariant;
 import nordmods.iobvariantloader.util.dragon_variant.DragonVariantUtil;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -42,6 +43,7 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
 
     @Shadow public abstract void setCanHatch(boolean canHatch);
 
+    @SuppressWarnings("WrongEntityDataParameterClass")
     @Unique
     private static final EntityDataAccessor<String> VARIANT_NAME = SynchedEntityData.defineId(ADragonEggBase.class, EntityDataSerializers.STRING);
 
@@ -75,7 +77,7 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     }
 
     @Redirect(method = "hatch()V", at = @At( value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
-    private boolean assignVariant(Level world, Entity entity) {
+    private boolean assignEggVariant(Level world, Entity entity) {
         if (world instanceof ServerLevelAccessor serverLevelAccessor) {
             if (getVariantName().isEmpty()) DragonVariantUtil.assignVariant(serverLevelAccessor, entity, false);
             else ((VariantNameHelper)entity).setVariantName(getVariantName());
@@ -84,7 +86,7 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     }
 
     @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
+    public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
         if (!this.isRemoved() && !level.isClientSide()) {
             DragonEggItem item = getItemVersion();
             ItemStack itemStack = new ItemStack(item);
@@ -99,7 +101,7 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor pLevel, @NotNull DifficultyInstance pDifficulty, @NotNull MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         setCanHatch(pReason != MobSpawnType.STRUCTURE);
         if (getVariantName().isEmpty()) {

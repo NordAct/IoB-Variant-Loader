@@ -49,6 +49,7 @@ public abstract class DragonEggItemMixin extends Item {
         return entity;
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Inject(method = "useOn(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;", at = @At("HEAD"))
     private void getVariant(UseOnContext pContext, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = pContext.getItemInHand();
@@ -56,6 +57,7 @@ public abstract class DragonEggItemMixin extends Item {
         else variant = "";
     }
 
+    @SuppressWarnings("DataFlowIssue")
     private String getSpecies() {
         ResourceLocation resourcelocation = getRegistryName();
         String dragonID = resourcelocation.getPath().replace("_egg", "");
@@ -67,6 +69,7 @@ public abstract class DragonEggItemMixin extends Item {
         };
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Inject(method = "appendHoverText(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Ljava/util/List;Lnet/minecraft/world/item/TooltipFlag;)V", at = @At("TAIL"))
     private void addVariantTooltip(ItemStack pStack, Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced, CallbackInfo ci) {
         String variant = pStack.hasTag() ? pStack.getTag().getString("VariantName") : "";

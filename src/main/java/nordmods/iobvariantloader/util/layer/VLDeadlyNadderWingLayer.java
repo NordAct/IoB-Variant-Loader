@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util;
+package nordmods.iobvariantloader.util.layer;
 
 import com.GACMD.isleofberk.entity.base.render.render.BaseRenderer;
 import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import nordmods.iobvariantloader.util.DeadlyNadderModelCacheHelper;
 import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
@@ -26,11 +27,6 @@ public class VLDeadlyNadderWingLayer extends GeoLayerRenderer<DeadlyNadder> {
 
     private GeoModel getModel(DeadlyNadder dragon) {
         return getEntityModel().getModel(getEntityModel().getModelLocation(dragon));
-    }
-
-    @Override
-    public RenderType getRenderType(ResourceLocation textureLocation) {
-        return RenderType.entityCutout(textureLocation);
     }
 
     protected ResourceLocation getTexture(DeadlyNadder dragon) {

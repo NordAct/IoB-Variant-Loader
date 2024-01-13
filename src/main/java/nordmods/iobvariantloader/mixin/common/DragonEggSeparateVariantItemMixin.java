@@ -25,9 +25,10 @@ public abstract class DragonEggSeparateVariantItemMixin extends DragonEggItemMix
         return entity;
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Inject(method = "useOn(Lnet/minecraft/world/item/context/UseOnContext;)Lnet/minecraft/world/InteractionResult;", at = @At("HEAD"))
     private void getVariant(UseOnContext pContext, CallbackInfoReturnable<InteractionResult> cir) {
         ItemStack itemStack = pContext.getItemInHand();
-        if (itemStack.hasTag() && itemStack.getTag().contains("VariantName")) variant = itemStack.getTag().getString("VariantName");
+        if (itemStack.hasTag()) variant = itemStack.getTag().getString("VariantName");
     }
 }

@@ -75,6 +75,7 @@ public final class DragonVariantUtil {
         assignVariantFromList(world, entity, naturalSpawn, variants);
     }
 
+    @SuppressWarnings("DataFlowIssue")
     public static void assignVariantFromList(ServerLevelAccessor world, Entity entity, boolean naturalSpawn, List<DragonVariant> variants) {
         if (entity instanceof VariantNameHelper helper) {
             if (variants != null) {

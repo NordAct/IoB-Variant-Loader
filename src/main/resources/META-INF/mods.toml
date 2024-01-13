@@ -1,7 +1,7 @@
 modLoader="javafml" #mandatory
 loaderVersion="${loader_version_range}" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 license="${mod_license}"
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/" #optional
+issueTrackerURL="https://github.com/NordAct/IoB-Variant-Loader/issues" #optional
 
 [[mods]] #mandatory
 modId="${mod_id}" #mandatory
@@ -29,5 +29,12 @@ logoFile="logo.png"
 modId="isleofberk"
 mandatory=true
 versionRange="[1.0.0,)"
+ordering="BEFORE"
+side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="mixinextras"
+mandatory=true
+versionRange="[0.3.2,)"
 ordering="NONE"
 side="BOTH"

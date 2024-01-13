@@ -33,8 +33,10 @@ public class VerifyModPresenceS2CPacket {
         return new VerifyModPresenceS2CPacket();
     }
 
+    @SuppressWarnings("EmptyMethod")
     public void write(FriendlyByteBuf byteBuf) {}
 
+    @SuppressWarnings("SameReturnValue")
     public static boolean handle(VerifyModPresenceS2CPacket packet, Supplier<NetworkEvent.Context> supplier){
         NetworkEvent.Context context = supplier.get();
         context.setPacketHandled(true);
