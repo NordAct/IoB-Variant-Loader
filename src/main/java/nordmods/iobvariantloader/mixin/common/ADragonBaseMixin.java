@@ -138,10 +138,24 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
                     String parent2Variant = parent2.getVariantName();
 
                     if (instance.getRandom().nextDouble() < IoBVariantLoader.config.inheritanceChance.get()) {
-                        if (instance.getRandom().nextBoolean()) helper.setVariantName(parent1Variant);
-                        else helper.setVariantName(parent2Variant);
+                        DragonVariant variant1 = DragonVariantUtil.getVariantByName(parent1, parent1Variant);
+                        DragonVariant variant2 = DragonVariantUtil.getVariantByName(parent2, parent2Variant);
+
+                        if (variant1 != null && variant2 != null) {
+                            int weight1 = variant1.breedingWeight();
+                            int weight2 = variant2.breedingWeight();
+                            if (weight1 > 0 || weight2 > 0) {
+                                if (weight1 <= 0) helper.setVariantName(parent2Variant);
+                                else if (weight2 <= 0) helper.setVariantName(parent1Variant);
+                                else if (getRandom().nextInt(weight1 + weight2) < weight1) helper.setVariantName(parent1Variant);
+                                else helper.setVariantName(parent2Variant);
+                            }
+                        }
+
+                        if (variant1 == null && variant2 != null) helper.setVariantName(parent2Variant);
+                        else if (variant2 == null && variant1 != null) helper.setVariantName(parent1Variant);
                     }
-                    else DragonVariantUtil.assignVariant(world, egg, false, parent1);
+                    if (helper.getVariantName().isEmpty()) DragonVariantUtil.assignVariant(world, egg, false, parent1);
                     return egg;
                 }
             }
@@ -162,5 +176,4 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
             localRef.set(egg);
         }
     }
-
 }

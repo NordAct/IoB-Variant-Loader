@@ -138,4 +138,11 @@ public final class DragonVariantUtil {
         ResourceLocation resourcelocation = EntityType.getKey(((Entity) entity).getType());
         return DragonVariantUtil.getVariantsFor(resourcelocation.getPath());
     }
+
+    @Nullable
+    public static DragonVariant getVariantByName(VariantNameHelper entity, String name) {
+        List<DragonVariant> list = getVariantsFor(entity);
+        for (DragonVariant variant : list) if (variant.name().equals(name)) return variant;
+        return null;
+    }
 }
