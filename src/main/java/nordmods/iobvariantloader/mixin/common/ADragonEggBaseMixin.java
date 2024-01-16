@@ -123,4 +123,11 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
             case "nadder" -> "deadly_nadder";
         };
     }
+
+    @Override
+    public ItemStack getPickResult() {
+        ItemStack itemStack = new ItemStack(getItemVersion());
+        if (!getVariantName().isEmpty()) itemStack.addTagElement("VariantName", StringTag.valueOf(getVariantName()));
+        return itemStack;
+    }
 }

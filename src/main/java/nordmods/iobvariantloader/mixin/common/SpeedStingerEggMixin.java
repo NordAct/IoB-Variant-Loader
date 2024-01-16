@@ -61,24 +61,12 @@ public abstract class SpeedStingerEggMixin extends ADragonEggBaseMixin implement
 
     @Override
     protected DragonEggItem getItemVersion() {
-        return switch (getVariantName()) {
-            default -> ModItems.SPEED_STINGER_EGG.get();
-            case "floutscout" -> ModItems.SPEED_STINGER_EGG_FLOUTSCOOUT.get();
-            case "ice_breaker" -> ModItems.SPEED_STINGER_EGG_ICE_BREAKER.get();
-            case "sweet_sting" -> ModItems.SPEED_STINGER_EGG_SWEET_STING.get();
-        };
+        return ModItems.SPEED_STINGER_EGG.get();
     }
 
     @Override
     public ItemStack getPickResult() {
-        DragonEggItem item;
-        item = switch (getVariantName()) {
-            default -> ModItems.SPEED_STINGER_EGG.get();
-            case "floutscout" -> ModItems.SPEED_STINGER_EGG_FLOUTSCOOUT.get();
-            case "ice_breaker" -> ModItems.SPEED_STINGER_EGG_ICE_BREAKER.get();
-            case "sweet_sting" -> ModItems.SPEED_STINGER_EGG_SWEET_STING.get();
-        };
-        return new ItemStack(item);
+        return super.getPickResult();
     }
 
     @Override

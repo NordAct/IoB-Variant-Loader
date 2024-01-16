@@ -4,6 +4,7 @@ import com.GACMD.isleofberk.items.DragonEggItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -32,7 +33,6 @@ import java.util.List;
 public abstract class DragonEggItemMixin extends Item {
     @Unique
     protected String variant = "";
-    private String tooltipCache = null;
 
     public DragonEggItemMixin(Properties pProperties) {
         super(pProperties);
@@ -84,7 +84,8 @@ public abstract class DragonEggItemMixin extends Item {
                 variant = parseName(variant);
                 pTooltipComponents.add(new TranslatableComponent("tooltip.iobvariantloader.variant", new TextComponent(variant).withStyle(ChatFormatting.GOLD)));
             }
-        }
+        } else pTooltipComponents.add(new TranslatableComponent("tooltip.iobvariantloader.variant",
+                new TextComponent("unknown").setStyle(Style.EMPTY.withColor(ChatFormatting.GOLD).withObfuscated(true))));
     }
 
     @Unique
