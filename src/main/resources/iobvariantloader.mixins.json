@@ -7,11 +7,22 @@
   "mixins": [
     "common.ADragonBaseMixin",
     "common.ADragonEggBaseMixin",
+    "common.DeadlyNadderEggMixin",
     "common.DeadlyNadderMixin",
     "common.DragonEggItemMixin",
     "common.DragonEggSeparateVariantItemMixin",
+    "common.GronkleEggMixin",
+    "common.LightFuryEggMixin",
+    "common.MonstrousNightmareEggMixin",
+    "common.NightFuryEggMixin",
+    "common.NightLightEggMixin",
+    "common.SkrillEggMixin",
     "common.SpeedStingerEggMixin",
-    "common.SpeedStingerMixin"
+    "common.SpeedStingerMixin",
+    "common.StingerEggMixin",
+    "common.TerribleTerrorEggMixin",
+    "common.TripleStrykeEggMixin",
+    "common.ZippleBackEggMixin"
   ],
   "client": [
     "client.BaseDragonModelMixin",
