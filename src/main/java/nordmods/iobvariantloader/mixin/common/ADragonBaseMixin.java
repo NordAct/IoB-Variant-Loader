@@ -3,8 +3,6 @@ package nordmods.iobvariantloader.mixin.common;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.NightLightEgg;
-import com.llamalad7.mixinextras.sugar.Local;
-import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -13,7 +11,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import nordmods.iobvariantloader.IoBVariantLoader;
@@ -27,6 +24,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -163,17 +161,13 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         return null;
     }
 
-    @SuppressWarnings("DataFlowIssue")
-    @Inject(method = "spawnChildFromBreeding(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/animal/Animal;)V",
-            at = @At(value = "INVOKE", target = "Lcom/GACMD/isleofberk/entity/eggs/entity/base/ADragonEggBase;setBaby(Z)V"))
-    private void assignNightLightVariant(ServerLevel world, Animal partner, CallbackInfo ci, @Local LocalRef<ADragonEggBase> localRef){
-        if (localRef.get() instanceof NightLightEgg egg
-                && (getType().getRegistryName().equals(new ResourceLocation("isleofberk", "night_fury")) && partner.getType().getRegistryName().equals(new ResourceLocation("isleofberk", "light_fury"))
-                    || getType().getRegistryName().equals(new ResourceLocation("isleofberk", "light_fury")) && partner.getType().getRegistryName().equals(new ResourceLocation("isleofberk", "night_fury")))) {
-
+    @ModifyArg(method = "spawnChildFromBreeding(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/animal/Animal;)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
+    private Entity assignNightLightVariant(Entity egg) {
+        if (egg instanceof NightLightEgg && level instanceof ServerLevelAccessor serverLevelAccessor) {
             List<DragonVariant> variants = DragonVariantUtil.getVariantsFor("night_light");
-            DragonVariantUtil.assignVariantFromList(world, egg, false, variants);
-            localRef.set(egg);
+            DragonVariantUtil.assignVariantFromList(serverLevelAccessor, egg, false, variants);
         }
+        return egg;
     }
 }

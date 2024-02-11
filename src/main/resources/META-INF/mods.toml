@@ -31,10 +31,3 @@ mandatory=true
 versionRange="[1.0.0,)"
 ordering="BEFORE"
 side="BOTH"
-
-[[dependencies.${mod_id}]]
-modId="mixinextras"
-mandatory=true
-versionRange="[0.3.2,)"
-ordering="NONE"
-side="BOTH"
