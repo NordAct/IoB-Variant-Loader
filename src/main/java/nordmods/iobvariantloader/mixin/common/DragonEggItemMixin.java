@@ -16,6 +16,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant.DragonVariant;
 import nordmods.iobvariantloader.util.dragon_variant.DragonVariantUtil;
@@ -43,7 +44,7 @@ public abstract class DragonEggItemMixin extends Item {
     private Entity setVariant(Entity entity) {
         if (entity instanceof VariantNameHelper helper && entity.level instanceof ServerLevelAccessor serverLevelAccessor) {
             if (!variant.isEmpty()) helper.setVariantName(variant);
-            else {
+            else if (IoBVariantLoader.config.assignEggVariantOnPlaced.get()) {
                 List<DragonVariant> variants = DragonVariantUtil.getVariantsFor(getSpecies());
                 DragonVariantUtil.assignVariantFromList(serverLevelAccessor, entity, false, variants);
             }

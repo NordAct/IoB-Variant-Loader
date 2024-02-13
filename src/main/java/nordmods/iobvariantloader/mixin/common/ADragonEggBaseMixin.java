@@ -16,6 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
+import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant.DragonVariant;
 import nordmods.iobvariantloader.util.dragon_variant.DragonVariantUtil;
@@ -90,7 +91,7 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
         if (!this.isRemoved() && !level.isClientSide()) {
             DragonEggItem item = getItemVersion();
             ItemStack itemStack = new ItemStack(item);
-            itemStack.addTagElement("VariantName", StringTag.valueOf(getVariantName()));
+            if (!getVariantName().isEmpty()) itemStack.addTagElement("VariantName", StringTag.valueOf(getVariantName()));
             ItemEntity itemEntity = new ItemEntity(level, getX(), getY(), getZ(), itemStack);
             level.addFreshEntity(itemEntity);
             this.discard();
@@ -104,7 +105,7 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor pLevel, @NotNull DifficultyInstance pDifficulty, @NotNull MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         setCanHatch(pReason != MobSpawnType.STRUCTURE);
-        if (getVariantName().isEmpty()) {
+        if (getVariantName().isEmpty() && IoBVariantLoader.config.assignEggVariantOnPlaced.get()) {
             List<DragonVariant> variants = DragonVariantUtil.getVariantsFor(getSpecies());
             DragonVariantUtil.assignVariantFromList(pLevel, this, false, variants);
         }

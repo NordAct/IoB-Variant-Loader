@@ -19,6 +19,8 @@ public abstract class SpeedStingerMixin {
     private ADragonEggBase assignVariant(SpeedStinger instance, ServerLevel world, AgeableMob parent) {
         if (parent instanceof ADragonBase dragonPartner) {
             ADragonEggBase egg = instance.getBreedEggResult(world, dragonPartner);
+            if (!IoBVariantLoader.config.assignEggVariantOnBreeding.get()) return egg;
+
             if (egg instanceof VariantNameHelper helper) {
                 if (instance instanceof VariantNameHelper parent1 && dragonPartner instanceof VariantNameHelper parent2) {
                     String parent1Variant = parent1.getVariantName();

@@ -130,6 +130,8 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     private ADragonEggBase assignVariant(ADragonBase instance, ServerLevel world, AgeableMob parent) {
         if (parent instanceof ADragonBase dragonPartner) {
             ADragonEggBase egg = instance.getBreedEggResult(world, dragonPartner);
+            if (!IoBVariantLoader.config.assignEggVariantOnBreeding.get()) return egg;
+
             if (egg instanceof VariantNameHelper helper) {
                 if (instance instanceof VariantNameHelper parent1 && dragonPartner instanceof VariantNameHelper parent2) {
                     String parent1Variant = parent1.getVariantName();
@@ -164,7 +166,9 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @ModifyArg(method = "spawnChildFromBreeding(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/animal/Animal;)V",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
     private Entity assignNightLightVariant(Entity egg) {
-        if (egg instanceof NightLightEgg && level instanceof ServerLevelAccessor serverLevelAccessor) {
+        if (!IoBVariantLoader.config.assignEggVariantOnBreeding.get()) return egg;
+
+        if (egg instanceof VariantNameHelper helper && helper.getVariantName().isEmpty() && egg instanceof NightLightEgg && level instanceof ServerLevelAccessor serverLevelAccessor) {
             List<DragonVariant> variants = DragonVariantUtil.getVariantsFor("night_light");
             DragonVariantUtil.assignVariantFromList(serverLevelAccessor, egg, false, variants);
         }
