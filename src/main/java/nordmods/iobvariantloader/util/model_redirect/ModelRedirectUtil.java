@@ -54,7 +54,7 @@ public final class ModelRedirectUtil {
     public static ResourceLocation getCustomSaddlePath(ADragonBase dragon, String dragonID) {
         String model = ModelRedirectUtil.getSaddle(dragonID, ResourceUtil.parseName(dragon));
         return new ResourceLocation(IsleofBerk.MOD_ID,
-                "animations/dragons/" + dragonID + "/" + model);
+                "textures/dragons/" + dragonID + "/" + model);
     }
 
     public static ResourceLocation getVariantSaddlePath(ADragonBase dragon, String dragonID) {
