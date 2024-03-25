@@ -17,18 +17,49 @@ public final class ModelRedirectUtil {
     //value - redirects per name/variant
     public static final Map<String, Map<String, ModelRedirect>> dragonModelRedirects = new HashMap<>();
 
+    public static ResourceLocation getCustomTexturePath(ADragonBase dragon, String id) {
+        return getCustomTexturePath(dragon, id, "");
+    }
+
+    public static ResourceLocation getCustomTexturePath(ADragonBase dragon, String id, String suffix) {
+        String model = ModelRedirectUtil.getTexture(id, ResourceUtil.parseName(dragon), suffix);
+        if (model.contains(":")) return new ResourceLocation(model);
+        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/" + id + "/" + model);
+    }
+
+    public static ResourceLocation getVariantTexturePath(String variant, String id) {
+        return getVariantTexturePath(variant, id, "");
+    }
+
+    public static ResourceLocation getVariantTexturePath(String variant, String id, String suffix) {
+        String model = ModelRedirectUtil.getTexture(id, variant, suffix);
+        if (model.contains(":")) return new ResourceLocation(model);
+        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/" + id + "/" + model);
+    }
+
+    public static String getTexture(String dragon, String name, String suffix) {
+        name = name.toLowerCase();
+        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name))
+            return dragonModelRedirects.get(dragon).get(name).texture() == null ? name + suffix + ".png" : dragonModelRedirects.get(dragon).get(name).texture();
+        else return name + suffix + ".png";
+    }
+
     public static ResourceLocation getCustomModelPath(ADragonBase dragon, String dragonID) {
         String model = ModelRedirectUtil.getModel(dragonID, ResourceUtil.parseName(dragon));
+        if (model.contains(":")) return new ResourceLocation(model);
         return new ResourceLocation(IsleofBerk.MOD_ID,
                 "geo/dragons/" + dragonID + "/" + model);
     }
 
     public static ResourceLocation getVariantModelPath(ADragonBase dragon, String dragonID) {
+        String model = ModelRedirectUtil.getModel(dragonID, ((VariantNameHelper)dragon).getVariantName());
+        if (model.contains(":")) return new ResourceLocation(model);
         return new ResourceLocation(IsleofBerk.MOD_ID,
-                "geo/dragons/" + dragonID + "/" + ModelRedirectUtil.getModel(dragonID, ((VariantNameHelper)dragon).getVariantName()));
+                "geo/dragons/" + dragonID + "/" + model);
     }
 
     public static String getModel(String dragon, String name) {
+        name = name.toLowerCase();
        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name))
            return dragonModelRedirects.get(dragon).get(name).model() == null ? ".json" : dragonModelRedirects.get(dragon).get(name).model();
        else return ".json";
@@ -36,16 +67,20 @@ public final class ModelRedirectUtil {
 
     public static ResourceLocation getCustomAnimationPath(ADragonBase dragon, String dragonID) {
         String model = ModelRedirectUtil.getAnimation(dragonID, ResourceUtil.parseName(dragon));
+        if (model.contains(":")) return new ResourceLocation(model);
         return new ResourceLocation(IsleofBerk.MOD_ID,
                 "animations/dragons/" + dragonID + "/" + model);
     }
 
     public static ResourceLocation getVariantAnimationPath(ADragonBase dragon, String dragonID) {
+        String model = ModelRedirectUtil.getAnimation(dragonID, ((VariantNameHelper)dragon).getVariantName());
+        if (model.contains(":")) return new ResourceLocation(model);
         return new ResourceLocation(IsleofBerk.MOD_ID,
-                "animations/dragons/" + dragonID + "/" + ModelRedirectUtil.getAnimation(dragonID, ((VariantNameHelper)dragon).getVariantName()));
+                "animations/dragons/" + dragonID + "/" + model);
     }
 
     public static String getAnimation(String dragon, String name) {
+        name = name.toLowerCase();
         if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name))
             return dragonModelRedirects.get(dragon).get(name).animation() == null ? ".json" : dragonModelRedirects.get(dragon).get(name).animation();
         else return ".json";
@@ -53,16 +88,20 @@ public final class ModelRedirectUtil {
 
     public static ResourceLocation getCustomSaddlePath(ADragonBase dragon, String dragonID) {
         String model = ModelRedirectUtil.getSaddle(dragonID, ResourceUtil.parseName(dragon));
+        if (model.contains(":")) return new ResourceLocation(model);
         return new ResourceLocation(IsleofBerk.MOD_ID,
                 "textures/dragons/" + dragonID + "/" + model);
     }
 
     public static ResourceLocation getVariantSaddlePath(ADragonBase dragon, String dragonID) {
+        String model = ModelRedirectUtil.getSaddle(dragonID, ((VariantNameHelper)dragon).getVariantName());
+        if (model.contains(":")) return new ResourceLocation(model);
         return new ResourceLocation(IsleofBerk.MOD_ID,
-                "textures/dragons/" + dragonID + "/" + ModelRedirectUtil.getSaddle(dragonID, ((VariantNameHelper)dragon).getVariantName()));
+                "textures/dragons/" + dragonID + "/" + model);
     }
 
     public static String getSaddle(String dragon, String name) {
+        name = name.toLowerCase();
         if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name))
             return dragonModelRedirects.get(dragon).get(name).saddle() == null ? ".png" : dragonModelRedirects.get(dragon).get(name).saddle();
         else return ".png";

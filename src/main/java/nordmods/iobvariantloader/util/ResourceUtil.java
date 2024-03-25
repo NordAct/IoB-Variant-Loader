@@ -1,6 +1,5 @@
 package nordmods.iobvariantloader.util;
 
-import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
@@ -11,22 +10,6 @@ import java.util.Map;
 public class ResourceUtil {
     //check if resource reload is finished because Minecraft acknowledges new resources before Geckolib does, which leads to bad stuff
     public static boolean isResourceReloadFinished;
-
-    public static ResourceLocation getCustomTexturePath(ADragonBase dragon, String id) {
-        return getCustomTexturePath(dragon, id, "");
-    }
-
-    public static ResourceLocation getCustomTexturePath(ADragonBase dragon, String id, String suffix) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/"+ id + "/" + parseName(dragon) + suffix +".png");
-    }
-
-    public static ResourceLocation getVariantTexturePath(String variant, String id) {
-        return getVariantTexturePath(variant, id, "");
-    }
-
-    public static ResourceLocation getVariantTexturePath(String variant, String id, String suffix) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/"+ id + "/" + variant + suffix +".png");
-    }
 
     public static String parseName(ADragonBase dragon) {
         if (!dragon.hasCustomName()) return "";

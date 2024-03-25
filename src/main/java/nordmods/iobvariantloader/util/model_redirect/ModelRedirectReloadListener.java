@@ -30,12 +30,13 @@ public class ModelRedirectReloadListener extends SimpleJsonResourceReloadListene
             for (JsonElement elem : array) {
                 JsonObject input = elem.getAsJsonObject();
                 String name = input.get("name").getAsString();
+                String texture = input.has("texture") ? input.get("texture").getAsString() : null;
                 String model = input.has("model") ? input.get("model").getAsString() : null;
                 String animation = input.has("animation") ? input.get("animation").getAsString() : null;
                 String saddle = input.has("saddle") ? input.get("saddle").getAsString() : null;
                 //noinspection SimplifiableConditionalExpression
                 boolean nameTagAccessible = input.has("nametag_accessible") ? input.get("nametag_accessible").getAsBoolean() : true;
-                if (!toPut.containsKey(name)) toPut.put(name, new ModelRedirect(model, animation, saddle, nameTagAccessible));
+                if (!toPut.containsKey(name)) toPut.put(name, new ModelRedirect(texture, model, animation, saddle, nameTagAccessible));
             }
 
             ModelRedirectUtil.add(dragon, toPut);

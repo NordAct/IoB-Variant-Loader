@@ -139,10 +139,10 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
     }
 
     public ResourceLocation getCustomTexture(T entity) {
-        return ResourceUtil.getCustomTexturePath(entity, getDragonFolder());
+        return ModelRedirectUtil.getCustomTexturePath(entity, getDragonFolder());
     }
 
     public ResourceLocation getVariantTexture(T entity) {
-        return ResourceUtil.getVariantTexturePath(((VariantNameHelper)entity).getVariantName(), getDragonFolder());
+        return ModelRedirectUtil.getVariantTexturePath(((VariantNameHelper)entity).getVariantName(), getDragonFolder());
     }
 }
