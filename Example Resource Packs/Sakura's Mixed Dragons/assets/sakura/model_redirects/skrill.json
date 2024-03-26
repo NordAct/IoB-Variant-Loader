@@ -1,0 +1,45 @@
+{
+    "comment": "name represents name of the variant or name of the entity",
+    "comment": "texture - path to the main texture file",
+    "comment": "saddle - path to the saddle texture file",
+    "comment": "model - path to the model file, must be located in geo folder due to how Geckolib works",
+    "comment": "animation - path to the model file, must be located in anmations folder due to how Geckolib works",
+    "comment": "Redirect declarations can be added under any namespace",
+    "comment": "Full path to redirect file would look something like this: assets/yournamespace/model_redirect/*dragon ID*.json",
+    "comment": "*dragon ID* represents path part in entity's ID. I.e. for Deadly Nadder dragon ID would be deadly_nadder, for Gronckle - gronckle. Exception is Monstrous Nightmare. It'll be just nightmare",
+    "comment": "You can use nametag_accessible field to prevent variant from being appliceable via nametags. If not specified, by default variant can be applied via nametag",
+    "comment": "Comments do nothing btw, you can yeet them",
+
+    "redirects": [
+        {
+            "name": "lightcutter",
+			"texture": "sakura:textures/lightcutter/lightcutter.png",
+            "model": "sakura:geo/lightcutter.geo.json",
+            "animation": "sakura:animations/lightcutter.animation.json"
+        },
+        {
+            "name": "picklecutter",
+			"texture": "sakura:textures/lightcutter/picklecutter.png",
+            "model": "sakura:geo/lightcutter.geo.json",
+            "animation": "sakura:animations/lightcutter.animation.json"
+	},
+        {
+            "name": "stormshadowcutter",
+			"texture": "sakura:textures/lightcutter/stormshadowcutter.png",
+            "model": "sakura:geo/lightcutter.geo.json",
+            "animation": "sakura:animations/lightcutter.animation.json"
+        },
+        {
+            "name": "stormskriller",
+			"texture": "sakura:textures/lightcutter/stormskriller.png",
+            "model": "sakura:geo/lightcutter.geo.json",
+            "animation": "sakura:animations/lightcutter.animation.json"
+        },
+        {
+            "name": "skrillcutter",
+			"texture": "sakura:textures/lightcutter/skrillcutter.png",
+            "model": "sakura:geo/lightcutter.geo.json",
+            "animation": "sakura:animations/lightcutter.animation.json"
+        }
+    ]
+}

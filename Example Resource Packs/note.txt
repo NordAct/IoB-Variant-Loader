@@ -1,0 +1,3 @@
+Both packs use different file structure and both are correct ways to make resource packs for Variant Loader.
+
+All packs are added with the permission of their authors

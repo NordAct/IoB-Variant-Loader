@@ -123,11 +123,14 @@ public final class ModelRedirectUtil {
     public static void debugPrint() {
         for (Map.Entry<String, Map<String, ModelRedirect>> entry : dragonModelRedirects.entrySet()) {
             for ( Map.Entry<String, ModelRedirect> redirects : entry.getValue().entrySet()) {
-                    IoBVariantLoader.LOGGER.debug("{}: variant/name {} was redirected to model {}", entry.getKey(), redirects.getKey(), redirects.getValue());
+                    IoBVariantLoader.LOGGER.debug("{}: variant/name {} was redirected to {}", entry.getKey(), redirects.getKey(), redirects.getValue());
             }
         }
 
         if (IoBVariantLoader.clientConfig.generateTranslations.get()) {
+            System.out.println("==================================================================================");
+            System.out.println("ISLE OF BERK VARIANT LOADER TRANSLATION KEY AUTOGENERATOR");
+            System.out.println("==================================================================================");
             Collection<ResourceLocation> list = Minecraft.getInstance().getResourceManager().listResources("textures/dragons/", s ->  s.endsWith(".png"));
             for (ResourceLocation resource : list) {
                 String path = resource.getPath();
@@ -144,10 +147,19 @@ public final class ModelRedirectUtil {
 
                 if (!IoBVariantLoader.clientConfig.ignoredByGenerator.get().contains(key)) System.out.println("\"tooltip.iobvariantloader.variant." + key + "\": \"" + parseName(key) + "\",");
             }
+
+            for (Map.Entry<String, Map<String, ModelRedirect>> entry : dragonModelRedirects.entrySet()) {
+                for ( Map.Entry<String, ModelRedirect> redirects : entry.getValue().entrySet()) {
+                    String key = redirects.getKey();
+                    if (IoBVariantLoader.clientConfig.ignoredByGenerator.get().contains(key)) continue;
+                    System.out.println("\"tooltip.iobvariantloader.variant." + key + "\": \"" + parseName(key) + "\",");
+                }
+            }
+            System.out.println("==================================================================================");
         }
     }
 
-    public static String parseName(String name) {
+    private static String parseName(String name) {
         while (name.contains("_")) {
             int index = name.indexOf("_");
             if (index + 1 < name.length()) {
