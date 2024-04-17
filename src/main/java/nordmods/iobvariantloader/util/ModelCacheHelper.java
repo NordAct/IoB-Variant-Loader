@@ -13,4 +13,6 @@ public interface ModelCacheHelper {
     void setTextureLocationCache(ResourceLocation state);
     void setSaddleTextureLocationCache(ResourceLocation state);
     void setGlowLayerLocationCache(ResourceLocation state);
+    boolean shouldPreventGlowLayerRenderer();
+    void setPreventGlowLayer(boolean state);
 }

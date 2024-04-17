@@ -38,6 +38,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Unique private ResourceLocation animationLocationCache;
     @Unique private ResourceLocation saddleTextureLocationCache;
     @Unique private ResourceLocation glowLayerLocationCache;
+    @Unique private boolean preventGlowLayer = false;
     protected ADragonBaseMixin(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -79,20 +80,23 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
-        if (DATA_CUSTOM_NAME.equals(key) || VARIANT_NAME.equals(key)) {
+        if (level.isClientSide() && (DATA_CUSTOM_NAME.equals(key) || VARIANT_NAME.equals(key))) {
             setTextureLocationCache(null);
             setAnimationLocationCache(null);
             setModelLocationCache(null);
             setSaddleTextureLocationCache(null);
             setGlowLayerLocationCache(null);
+            setPreventGlowLayer(false);
+
             if (this instanceof DeadlyNadderModelCacheHelper helper) {
                 helper.setWingGlowLayerLocationCache(null);
                 helper.setWingLayerLocationCache(null);
+                helper.setPreventWingGlowLayer(false);
             }
         }
     }
 
-    //All cache stuff should be called only from clientside. Would be glad to write it on model class, but it doesn't work well
+    //All cache stuff should be called only from clientside... But I'm quite lazy to separate this mess
     public ResourceLocation getModelLocationCache() {
         return modelLocationCache;
     }
@@ -122,6 +126,14 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     }
     public void setGlowLayerLocationCache(ResourceLocation state) {
         glowLayerLocationCache = state;
+    }
+
+    public boolean shouldPreventGlowLayerRenderer() {
+        return preventGlowLayer;
+    }
+
+    public void setPreventGlowLayer(boolean state) {
+        preventGlowLayer = state;
     }
 
     @Redirect(method = "spawnChildFromBreeding(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/animal/Animal;)V",

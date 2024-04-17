@@ -31,8 +31,12 @@ public class VLGlowLayer<T extends ADragonBase & IAnimatable> extends GeoLayerRe
             return;
         }
 
+        if (shouldRender(dragon)) return;
         ResourceLocation id = getGlowLayerLocation(dragon);
-        if (!ResourceUtil.isValid(id)) return;
+        if (!ResourceUtil.isValid(id)) {
+            disableRender(dragon);
+            return;
+        }
 
         RenderType cameo =  RenderType.eyes(id);
         getRenderer().render(getModel(dragon), dragon, partialTicks, cameo, matrixStackIn, bufferIn,
@@ -57,5 +61,14 @@ public class VLGlowLayer<T extends ADragonBase & IAnimatable> extends GeoLayerRe
 
     protected void resetCache(T dragon) {
         ((ModelCacheHelper)dragon).setGlowLayerLocationCache(null);
+        ((ModelCacheHelper)dragon).setPreventGlowLayer(false);
+    }
+
+    protected boolean shouldRender(T dragon) {
+        return ((ModelCacheHelper)dragon).shouldPreventGlowLayerRenderer();
+    }
+
+    protected void disableRender(T dragon) {
+        ((ModelCacheHelper)dragon).setPreventGlowLayer(true);
     }
 }

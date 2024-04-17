@@ -14,6 +14,7 @@ public abstract class DeadlyNadderMixin extends ADragonBaseMixin implements Dead
     @Unique
     private ResourceLocation wingGlowLayerLocationCache;
     @Unique private ResourceLocation wingLayerLocationCache;
+    @Unique private boolean preventWingGlowLayer = false;
 
     protected DeadlyNadderMixin(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -37,6 +38,16 @@ public abstract class DeadlyNadderMixin extends ADragonBaseMixin implements Dead
     @Override
     public void setWingLayerLocationCache(ResourceLocation state) {
         wingLayerLocationCache = state;
+    }
+
+    @Override
+    public boolean shouldPreventWingGlowLayerRenderer() {
+        return preventWingGlowLayer;
+    }
+
+    @Override
+    public void setPreventWingGlowLayer(boolean state) {
+        preventWingGlowLayer = state;
     }
 
     @Override
