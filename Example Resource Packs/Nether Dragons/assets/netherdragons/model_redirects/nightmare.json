@@ -6,7 +6,7 @@
 	"comment": "You also can redirect saddle textures in similar manner. Look at any dragon with saddle here to see example",
 	"comment": "Redirect declarations can be added under any namespace",
 	"comment": "Full path to redirect file would look something like this: assets/yournamespace/model_redirect/*dragon ID*.json",
-	"comment": "You can use nametag_accessible field to prevent variant from being appliceable via nametags. If not specified, by default variant can be applied via nametag",
+	"comment": "You can use nametag_accessible field to prevent variant from being applicable via nametags. If not specified, by default variant can be applied via nametag",
 	"comment": "Comments do nothing btw, you can yeet them",
 
 	"redirects":[
