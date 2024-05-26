@@ -15,7 +15,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import nordmods.iobvariantloader.util.VariantNameHelper;
-import nordmods.iobvariantloader.util.dragon_variant.DragonVariantUtil;
+import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -48,7 +48,7 @@ public abstract class SpeedStingerEggMixin extends ADragonEggBaseMixin implement
     @Redirect(method = "hatch()V", at = @At( value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
     private boolean assignVariant(Level world, Entity entity) {
         if (world instanceof ServerLevelAccessor serverLevelAccessor) {
-            if (getVariantName().isEmpty()) DragonVariantUtil.assignVariant(serverLevelAccessor, entity, false);
+            if (getVariantName().isEmpty()) DragonVariantSpawnerUtil.assignVariant(serverLevelAccessor, entity, false);
             else ((VariantNameHelper)entity).setVariantName(getVariantName());
         }
         return world.addFreshEntity(entity);

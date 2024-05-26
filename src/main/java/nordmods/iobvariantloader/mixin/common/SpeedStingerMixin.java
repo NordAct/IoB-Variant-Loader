@@ -7,7 +7,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.VariantNameHelper;
-import nordmods.iobvariantloader.util.dragon_variant.DragonVariantUtil;
+import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
@@ -30,7 +30,7 @@ public abstract class SpeedStingerMixin {
                         if (instance.getRandom().nextBoolean()) helper.setVariantName(parent1Variant);
                         else helper.setVariantName(parent2Variant);
                     }
-                    else DragonVariantUtil.assignVariant(world, egg, false, parent1);
+                    else DragonVariantSpawnerUtil.assignVariant(world, egg, false, parent1);
                     return egg;
                 }
             }

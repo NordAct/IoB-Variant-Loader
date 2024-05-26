@@ -2,12 +2,20 @@ package nordmods.iobvariantloader.util.model_redirect;
 
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
+import com.google.gson.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.GsonHelper;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.VariantNameHelper;
+import org.jetbrains.annotations.Nullable;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +24,8 @@ public final class ModelRedirectUtil {
     //key - dragon id
     //value - redirects per name/variant
     public static final Map<String, Map<String, ModelRedirect>> dragonModelRedirects = new HashMap<>();
+    //yes, this is necessary
+    public static final Map<String, Map<String, String>> eggItemModelRedirects = new HashMap<>();
 
     public static ResourceLocation getCustomTexturePath(ADragonBase dragon, String id) {
         return getCustomTexturePath(dragon, id, "");
@@ -107,6 +117,13 @@ public final class ModelRedirectUtil {
         else return ".png";
     }
 
+    @Nullable
+    public static String getEggItemModel(String dragon, String name) {
+        name = name.toLowerCase();
+        if (eggItemModelRedirects.containsKey(dragon)) return eggItemModelRedirects.get(dragon).get(name);
+        return null;
+    }
+
     public static boolean isNametagAccessible(String dragon, String name) {
         if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)) return dragonModelRedirects.get(dragon).get(name).nametagAccessible();
         else return true;
@@ -118,6 +135,14 @@ public final class ModelRedirectUtil {
             content.putAll(redirects);
             dragonModelRedirects.put(dragon, content);
         } else dragonModelRedirects.put(dragon, redirects);
+    }
+
+    public static synchronized void addEggItemModels(String dragon, Map<String, String> redirects) {
+        Map<String, String> content = eggItemModelRedirects.get(dragon);
+        if (content != null) {
+            content.putAll(redirects);
+            eggItemModelRedirects.put(dragon, content);
+        } else eggItemModelRedirects.put(dragon, redirects);
     }
 
     public static void debugPrint() {
@@ -172,5 +197,38 @@ public final class ModelRedirectUtil {
         name = name.replace(" N ", " & ");
         String firstLetter = String.valueOf(name.charAt(0));
         return name.replaceFirst(firstLetter, firstLetter.toUpperCase());
+    }
+
+
+    public static void registerEggItemModelRedirects(ResourceManager manager) {
+        ModelRedirectUtil.eggItemModelRedirects.clear();
+        Collection<ResourceLocation> resourceCollection = manager.listResources("model_redirects", path -> path.endsWith(".json"));
+        for (ResourceLocation id : resourceCollection) {
+            String path = id.getPath();
+            String dragon = path.substring(path.lastIndexOf("/") + 1, path.indexOf(".json"));
+
+            Map<String, String> redirects = new HashMap<>();
+            try (InputStream stream = manager.getResource(id).getInputStream()) {
+                InputStreamReader inputStreamReader = new InputStreamReader(stream, StandardCharsets.UTF_8);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                try {
+                    JsonElement element = JsonParser.parseReader(bufferedReader);
+                    JsonArray array = GsonHelper.getAsJsonArray((JsonObject) element, "redirects");
+                    for (int i = 0; i < array.size(); i++) {
+                        JsonObject input = array.get(i).getAsJsonObject();
+                        String eggModel = input.has("egg_model") ? input.get("egg_model").getAsString() : null;
+                        if (eggModel == null) continue;
+                        String name = input.get("name").getAsString();
+                        redirects.put(name, eggModel);
+                    }
+                } catch (JsonIOException e) {
+                    IoBVariantLoader.LOGGER.error("Failed to read json " + id, e);
+                }
+
+            } catch (Exception e) {
+                IoBVariantLoader.LOGGER.error("Error occurred while loading resource json " + id, e);
+            }
+            if (!redirects.isEmpty()) ModelRedirectUtil.addEggItemModels(dragon, redirects);
+        }
     }
 }

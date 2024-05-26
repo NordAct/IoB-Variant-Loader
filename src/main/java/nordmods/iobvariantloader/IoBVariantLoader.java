@@ -13,7 +13,7 @@ import net.minecraftforge.fml.loading.FMLLoader;
 import nordmods.iobvariantloader.config.VLClientConfig;
 import nordmods.iobvariantloader.config.VLConfig;
 import nordmods.iobvariantloader.network.VerifyModPresenceS2CPacket;
-import nordmods.iobvariantloader.util.dragon_variant.DragonVariantReloadListener;
+import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerReloadListener;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectReloadListener;
 import org.slf4j.Logger;
 
@@ -32,7 +32,7 @@ public class IoBVariantLoader {
 
     @SubscribeEvent
     void reloadVariants(final AddReloadListenerEvent event) {
-        event.addListener(new DragonVariantReloadListener());
+        event.addListener(new DragonVariantSpawnerReloadListener());
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)

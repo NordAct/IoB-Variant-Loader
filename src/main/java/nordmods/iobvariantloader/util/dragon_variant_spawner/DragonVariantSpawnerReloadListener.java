@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util.dragon_variant;
+package nordmods.iobvariantloader.util.dragon_variant_spawner;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -15,18 +15,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class DragonVariantReloadListener extends SimpleJsonResourceReloadListener {
+public class DragonVariantSpawnerReloadListener extends SimpleJsonResourceReloadListener {
 
-    public DragonVariantReloadListener() {
+    public DragonVariantSpawnerReloadListener() {
         super(new GsonBuilder().create(), "dragon_variants");
     }
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> map, @NotNull ResourceManager pResourceManager, @NotNull ProfilerFiller pProfiler) {
-        DragonVariantUtil.dragonVariants.clear();
+        DragonVariantSpawnerUtil.dragonVariants.clear();
         for (Map.Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
             String dragon = entry.getKey().getPath();
-            List<DragonVariant> variants = new ArrayList<>();
+            List<DragonVariantSpawner> variants = new ArrayList<>();
 
             JsonArray array = entry.getValue().getAsJsonObject().get("variants").getAsJsonArray();
 
@@ -36,20 +36,20 @@ public class DragonVariantReloadListener extends SimpleJsonResourceReloadListene
                 int weight = input.get("weight").getAsInt();
                 int breedingWeight = input.has("breeding_weight") ? input.get("breeding_weight").getAsInt() : weight;
 
-                DragonVariant.BiomeRestrictions allowedBiomes = getBiomes("allowed_biomes", input);
-                DragonVariant.BiomeRestrictions bannedBiomes = getBiomes("banned_biomes", input);
-                DragonVariant.AltitudeRestriction altitudeRestriction = getAltitude(input);
+                DragonVariantSpawner.BiomeRestrictions allowedBiomes = getBiomes("allowed_biomes", input);
+                DragonVariantSpawner.BiomeRestrictions bannedBiomes = getBiomes("banned_biomes", input);
+                DragonVariantSpawner.AltitudeRestriction altitudeRestriction = getAltitude(input);
 
-                DragonVariant dragonVariant = new DragonVariant(name, weight, breedingWeight, allowedBiomes, bannedBiomes, altitudeRestriction);
+                DragonVariantSpawner dragonVariant = new DragonVariantSpawner(name, weight, breedingWeight, allowedBiomes, bannedBiomes, altitudeRestriction);
                 if (!variants.contains(dragonVariant)) variants.add(dragonVariant);
             }
-            DragonVariantUtil.add(dragon, variants);
+            DragonVariantSpawnerUtil.add(dragon, variants);
         }
-        DragonVariantUtil.debugPrint();
+        DragonVariantSpawnerUtil.debugPrint();
     }
 
-    private DragonVariant.BiomeRestrictions getBiomes(String list, JsonObject input) {
-        DragonVariant.BiomeRestrictions restrictions = null;
+    private DragonVariantSpawner.BiomeRestrictions getBiomes(String list, JsonObject input) {
+        DragonVariantSpawner.BiomeRestrictions restrictions = null;
         if (input.has(list)) {
             JsonObject biomes = GsonHelper.getAsJsonObject(input, list);
 
@@ -65,12 +65,12 @@ public class DragonVariantReloadListener extends SimpleJsonResourceReloadListene
                 for (int j = 0; j < tags.size(); j++) biomesByTag.add(tags.get(j).getAsString());
             }
 
-            restrictions = new DragonVariant.BiomeRestrictions(biomesById, biomesByTag);
+            restrictions = new DragonVariantSpawner.BiomeRestrictions(biomesById, biomesByTag);
         }
         return restrictions;
     }
 
-    private DragonVariant.AltitudeRestriction getAltitude(JsonObject input) {
+    private DragonVariantSpawner.AltitudeRestriction getAltitude(JsonObject input) {
         int min = -1000;
         int max = 1000;
         if (input.has("altitude")) {
@@ -78,7 +78,7 @@ public class DragonVariantReloadListener extends SimpleJsonResourceReloadListene
             if (object.has("min")) min = object.get("min").getAsInt();
             if (object.has("max")) max = object.get("max").getAsInt();
         }
-        return new DragonVariant.AltitudeRestriction(min, max);
+        return new DragonVariantSpawner.AltitudeRestriction(min, max);
     }
 
 }

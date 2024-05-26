@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import nordmods.iobvariantloader.IoBVariantLoader;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -30,15 +31,22 @@ public class ModelRedirectReloadListener extends SimpleJsonResourceReloadListene
             for (JsonElement elem : array) {
                 JsonObject input = elem.getAsJsonObject();
                 String name = input.get("name").getAsString();
+                if (toPut.containsKey(name)) {
+                    IoBVariantLoader.LOGGER.warn("Duplicate model redirect for variant \"{}\" for {}, skipping", name, dragon);
+                    continue;
+                }
                 String texture = input.has("texture") ? input.get("texture").getAsString() : null;
                 String model = input.has("model") ? input.get("model").getAsString() : null;
                 String animation = input.has("animation") ? input.get("animation").getAsString() : null;
                 String saddle = input.has("saddle") ? input.get("saddle").getAsString() : null;
                 //noinspection SimplifiableConditionalExpression
                 boolean nameTagAccessible = input.has("nametag_accessible") ? input.get("nametag_accessible").getAsBoolean() : true;
-                if (!toPut.containsKey(name)) toPut.put(name, new ModelRedirect(texture, model, animation, saddle, nameTagAccessible));
+                String eggModel = input.has("egg_model") ?
+                        input.get("egg_model").getAsString()
+                        : null;
+                ModelRedirect modelRedirect = new ModelRedirect(texture, model, animation, saddle, eggModel, nameTagAccessible);
+                toPut.put(name, modelRedirect);
             }
-
             ModelRedirectUtil.add(dragon, toPut);
         }
         ModelRedirectUtil.debugPrint();

@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.mixin.client;
+package nordmods.iobvariantloader.mixin.client.isleofberk;
 
 import com.GACMD.isleofberk.entity.dragons.stinger.Stinger;
 import com.GACMD.isleofberk.entity.dragons.stinger.StingerModel;

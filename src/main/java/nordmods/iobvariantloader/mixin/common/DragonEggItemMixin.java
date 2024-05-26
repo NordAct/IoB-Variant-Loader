@@ -18,8 +18,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.VariantNameHelper;
-import nordmods.iobvariantloader.util.dragon_variant.DragonVariant;
-import nordmods.iobvariantloader.util.dragon_variant.DragonVariantUtil;
+import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
+import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
+import nordmods.iobvariantloader.util.model_redirect.DragonEggItemHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(DragonEggItem.class)
-public abstract class DragonEggItemMixin extends Item {
+public abstract class DragonEggItemMixin extends Item implements DragonEggItemHelper {
     @Unique
     protected String variant = "";
 
@@ -45,8 +46,8 @@ public abstract class DragonEggItemMixin extends Item {
         if (entity instanceof VariantNameHelper helper && entity.level instanceof ServerLevelAccessor serverLevelAccessor) {
             if (!variant.isEmpty()) helper.setVariantName(variant);
             else if (IoBVariantLoader.config.assignEggVariantOnPlaced.get()) {
-                List<DragonVariant> variants = DragonVariantUtil.getVariantsFor(getSpecies());
-                DragonVariantUtil.assignVariantFromList(serverLevelAccessor, entity, false, variants);
+                List<DragonVariantSpawner> variants = DragonVariantSpawnerUtil.getVariantsFor(getSpecies());
+                DragonVariantSpawnerUtil.assignVariantFromList(serverLevelAccessor, entity, false, variants);
             }
         }
         return entity;
@@ -60,9 +61,8 @@ public abstract class DragonEggItemMixin extends Item {
         else variant = "";
     }
 
-    @Unique
     @SuppressWarnings("DataFlowIssue")
-    private String getSpecies() {
+    public String getSpecies() {
         ResourceLocation resourcelocation = getRegistryName();
         String dragonID = resourcelocation.getPath().replace("_egg", "");
         //this inconsistency in names just kills me

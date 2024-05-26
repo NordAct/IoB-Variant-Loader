@@ -18,8 +18,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.VariantNameHelper;
-import nordmods.iobvariantloader.util.dragon_variant.DragonVariant;
-import nordmods.iobvariantloader.util.dragon_variant.DragonVariantUtil;
+import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
+import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -80,7 +80,7 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     @Redirect(method = "hatch()V", at = @At( value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
     private boolean assignEggVariant(Level world, Entity entity) {
         if (world instanceof ServerLevelAccessor serverLevelAccessor) {
-            if (getVariantName().isEmpty()) DragonVariantUtil.assignVariant(serverLevelAccessor, entity, false);
+            if (getVariantName().isEmpty()) DragonVariantSpawnerUtil.assignVariant(serverLevelAccessor, entity, false);
             else ((VariantNameHelper)entity).setVariantName(getVariantName());
         }
         return world.addFreshEntity(entity);
@@ -106,8 +106,8 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         setCanHatch(pReason != MobSpawnType.STRUCTURE);
         if (getVariantName().isEmpty() && IoBVariantLoader.config.assignEggVariantOnPlaced.get()) {
-            List<DragonVariant> variants = DragonVariantUtil.getVariantsFor(getSpecies());
-            DragonVariantUtil.assignVariantFromList(pLevel, this, false, variants);
+            List<DragonVariantSpawner> variants = DragonVariantSpawnerUtil.getVariantsFor(getSpecies());
+            DragonVariantSpawnerUtil.assignVariantFromList(pLevel, this, false, variants);
         }
 
         return pSpawnData;

@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.mixin.client;
+package nordmods.iobvariantloader.mixin.client.minecraft;
 
 import net.minecraft.client.ResourceLoadStateTracker;
 import net.minecraft.server.packs.PackResources;

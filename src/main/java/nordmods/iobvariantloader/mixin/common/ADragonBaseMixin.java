@@ -17,8 +17,8 @@ import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.DeadlyNadderModelCacheHelper;
 import nordmods.iobvariantloader.util.ModelCacheHelper;
 import nordmods.iobvariantloader.util.VariantNameHelper;
-import nordmods.iobvariantloader.util.dragon_variant.DragonVariant;
-import nordmods.iobvariantloader.util.dragon_variant.DragonVariantUtil;
+import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
+import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -74,7 +74,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
 
     @Inject(method = "finalizeSpawn(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/world/DifficultyInstance;Lnet/minecraft/world/entity/MobSpawnType;Lnet/minecraft/world/entity/SpawnGroupData;Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/world/entity/SpawnGroupData;", at = @At("HEAD"))
     private void assignVariantName(ServerLevelAccessor world, DifficultyInstance p_146747_, MobSpawnType p_146748_, SpawnGroupData p_146749_, CompoundTag p_146750_, CallbackInfoReturnable<SpawnGroupData> cir) {
-        if (getVariantName().isEmpty()) DragonVariantUtil.assignVariant(world, this, true);
+        if (getVariantName().isEmpty()) DragonVariantSpawnerUtil.assignVariant(world, this, true);
     }
 
     @Override
@@ -150,8 +150,8 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
                     String parent2Variant = parent2.getVariantName();
 
                     if (instance.getRandom().nextDouble() < IoBVariantLoader.config.inheritanceChance.get()) {
-                        DragonVariant variant1 = DragonVariantUtil.getVariantByName(parent1, parent1Variant);
-                        DragonVariant variant2 = DragonVariantUtil.getVariantByName(parent2, parent2Variant);
+                        DragonVariantSpawner variant1 = DragonVariantSpawnerUtil.getVariantByName(parent1, parent1Variant);
+                        DragonVariantSpawner variant2 = DragonVariantSpawnerUtil.getVariantByName(parent2, parent2Variant);
 
                         if (variant1 != null && variant2 != null) {
                             int weight1 = variant1.breedingWeight();
@@ -167,7 +167,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
                         if (variant1 == null && variant2 != null) helper.setVariantName(parent2Variant);
                         else if (variant2 == null && variant1 != null) helper.setVariantName(parent1Variant);
                     }
-                    if (helper.getVariantName().isEmpty()) DragonVariantUtil.assignVariant(world, egg, false, parent1);
+                    if (helper.getVariantName().isEmpty()) DragonVariantSpawnerUtil.assignVariant(world, egg, false, parent1);
                     return egg;
                 }
             }
@@ -181,8 +181,8 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         if (!IoBVariantLoader.config.assignEggVariantOnBreeding.get()) return egg;
 
         if (egg instanceof VariantNameHelper helper && helper.getVariantName().isEmpty() && egg instanceof NightLightEgg && level instanceof ServerLevelAccessor serverLevelAccessor) {
-            List<DragonVariant> variants = DragonVariantUtil.getVariantsFor("night_light");
-            DragonVariantUtil.assignVariantFromList(serverLevelAccessor, egg, false, variants);
+            List<DragonVariantSpawner> variants = DragonVariantSpawnerUtil.getVariantsFor("night_light");
+            DragonVariantSpawnerUtil.assignVariantFromList(serverLevelAccessor, egg, false, variants);
         }
         return egg;
     }

@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.mixin.client;
+package nordmods.iobvariantloader.mixin.client.isleofberk;
 
 import com.GACMD.isleofberk.entity.dragons.zippleback.ZippleBack;
 import com.GACMD.isleofberk.entity.dragons.zippleback.ZippleBackModel;

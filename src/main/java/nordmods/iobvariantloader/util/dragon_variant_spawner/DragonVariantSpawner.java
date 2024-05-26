@@ -1,10 +1,10 @@
-package nordmods.iobvariantloader.util.dragon_variant;
+package nordmods.iobvariantloader.util.dragon_variant_spawner;
 
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public record DragonVariant(String name, int weight, int breedingWeight, @Nullable BiomeRestrictions allowedBiomes, @Nullable BiomeRestrictions bannedBiomes, AltitudeRestriction altitudeRestriction) {
+public record DragonVariantSpawner(String name, int weight, int breedingWeight, @Nullable BiomeRestrictions allowedBiomes, @Nullable BiomeRestrictions bannedBiomes, AltitudeRestriction altitudeRestriction) {
     //allowed biomes - works as whitelist if presented
     //banned biomes - works as blacklist if presented
     public boolean hasAllowedBiomes() {

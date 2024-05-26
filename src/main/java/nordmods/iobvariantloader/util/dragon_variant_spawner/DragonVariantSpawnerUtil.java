@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util.dragon_variant;
+package nordmods.iobvariantloader.util.dragon_variant_spawner;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -18,15 +18,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class DragonVariantUtil {
-    public static final Map<String, List<DragonVariant>> dragonVariants = new HashMap<>();
+public final class DragonVariantSpawnerUtil {
+    public static final Map<String, List<DragonVariantSpawner>> dragonVariants = new HashMap<>();
 
-    public static List<DragonVariant> getVariantsFor(String name) {
+    public static List<DragonVariantSpawner> getVariantsFor(String name) {
         return dragonVariants.get(name);
     }
 
-    public static synchronized void add(String name, List<DragonVariant> variants) {
-        List<DragonVariant> content = dragonVariants.get(name);
+    public static synchronized void add(String name, List<DragonVariantSpawner> variants) {
+        List<DragonVariantSpawner> content = dragonVariants.get(name);
         if (content != null) {
             content.addAll(variants);
             dragonVariants.put(name, content);
@@ -34,14 +34,14 @@ public final class DragonVariantUtil {
     }
 
     public static void debugPrint() {
-        for (Map.Entry<String, List<DragonVariant>> entry : dragonVariants.entrySet()) {
-            for (DragonVariant variant : entry.getValue()) {
+        for (Map.Entry<String, List<DragonVariantSpawner>> entry : dragonVariants.entrySet()) {
+            for (DragonVariantSpawner variant : entry.getValue()) {
                 IoBVariantLoader.LOGGER.debug("{}: variant {} was loaded", entry.getKey(), variant);
             }
         }
     }
 
-    public static boolean isVariantIn(DragonVariant.BiomeRestrictions restrictions, ServerLevelAccessor world, BlockPos blockPos) {
+    public static boolean isVariantIn(DragonVariantSpawner.BiomeRestrictions restrictions, ServerLevelAccessor world, BlockPos blockPos) {
         Holder<Biome> biome = world.getBiome(blockPos);
         List<String> id = restrictions.hasBiomesByIdList() ? restrictions.biomesById() : List.of();
         List<String> tags = restrictions.hasBiomesByTagList() ?restrictions.biomesByTag() : List.of();
@@ -71,24 +71,24 @@ public final class DragonVariantUtil {
     }
 
     public static void assignVariant(ServerLevelAccessor world, Entity entity, boolean naturalSpawn, @Nullable VariantNameHelper sourceEntity) {
-        List<DragonVariant> variants = sourceEntity != null ? DragonVariantUtil.getVariantsFor(sourceEntity) : DragonVariantUtil.getVariantsFor((VariantNameHelper)entity);
+        List<DragonVariantSpawner> variants = sourceEntity != null ? DragonVariantSpawnerUtil.getVariantsFor(sourceEntity) : DragonVariantSpawnerUtil.getVariantsFor((VariantNameHelper)entity);
         assignVariantFromList(world, entity, naturalSpawn, variants);
     }
 
     @SuppressWarnings("DataFlowIssue")
-    public static void assignVariantFromList(ServerLevelAccessor world, Entity entity, boolean naturalSpawn, List<DragonVariant> variants) {
+    public static void assignVariantFromList(ServerLevelAccessor world, Entity entity, boolean naturalSpawn, List<DragonVariantSpawner> variants) {
         if (entity instanceof VariantNameHelper helper) {
             if (variants != null) {
 
                 long totalWeight = 0;
-                for (DragonVariant variant : variants) {
+                for (DragonVariantSpawner variant : variants) {
                     //banned biomes check (blacklist)
-                    if (variant.hasBannedBiomes() && DragonVariantUtil.isVariantIn(variant.bannedBiomes(), world, entity.blockPosition())) continue;
+                    if (variant.hasBannedBiomes() && DragonVariantSpawnerUtil.isVariantIn(variant.bannedBiomes(), world, entity.blockPosition())) continue;
                     if (variant.altitudeRestriction().min() > entity.blockPosition().getY() || entity.blockPosition().getY() > variant.altitudeRestriction().max()) continue;
 
                     //allowed biomes check (whitelist)
                     if (variant.hasAllowedBiomes()) {
-                        if (DragonVariantUtil.isVariantIn(variant.allowedBiomes(), world, entity.blockPosition())) {
+                        if (DragonVariantSpawnerUtil.isVariantIn(variant.allowedBiomes(), world, entity.blockPosition())) {
                             if (naturalSpawn) totalWeight += variant.weight();
                             else totalWeight += variant.breedingWeight();
                         }
@@ -104,15 +104,15 @@ public final class DragonVariantUtil {
                 long roll = ((LivingEntity) entity).getRandom().nextLong(totalWeight);
                 long previousBound = 0;
 
-                for (DragonVariant variant : variants) {
+                for (DragonVariantSpawner variant : variants) {
                     //banned biomes check (blacklist)
-                    if (variant.hasBannedBiomes() && DragonVariantUtil.isVariantIn(variant.bannedBiomes(), world, entity.blockPosition()))
+                    if (variant.hasBannedBiomes() && DragonVariantSpawnerUtil.isVariantIn(variant.bannedBiomes(), world, entity.blockPosition()))
                         continue;
                     if (variant.altitudeRestriction().min() > entity.blockPosition().getY() || entity.blockPosition().getY() > variant.altitudeRestriction().max())
                         continue;
                     //allowed biomes check (whitelist)
                     if (variant.hasAllowedBiomes()) {
-                        if (DragonVariantUtil.isVariantIn(variant.allowedBiomes(), world, entity.blockPosition())) {
+                        if (DragonVariantSpawnerUtil.isVariantIn(variant.allowedBiomes(), world, entity.blockPosition())) {
                             if (roll >= previousBound && roll < previousBound + (naturalSpawn ? variant.weight() : variant.breedingWeight())) {
                                 helper.setVariantName(variant.name());
                                 break;
@@ -134,15 +134,15 @@ public final class DragonVariantUtil {
 
     }
 
-    public static List<DragonVariant> getVariantsFor(VariantNameHelper entity) {
+    public static List<DragonVariantSpawner> getVariantsFor(VariantNameHelper entity) {
         ResourceLocation resourcelocation = EntityType.getKey(((Entity) entity).getType());
-        return DragonVariantUtil.getVariantsFor(resourcelocation.getPath());
+        return DragonVariantSpawnerUtil.getVariantsFor(resourcelocation.getPath());
     }
 
     @Nullable
-    public static DragonVariant getVariantByName(VariantNameHelper entity, String name) {
-        List<DragonVariant> list = getVariantsFor(entity);
-        for (DragonVariant variant : list) if (variant.name().equals(name)) return variant;
+    public static DragonVariantSpawner getVariantByName(VariantNameHelper entity, String name) {
+        List<DragonVariantSpawner> list = getVariantsFor(entity);
+        for (DragonVariantSpawner variant : list) if (variant.name().equals(name)) return variant;
         return null;
     }
 }
