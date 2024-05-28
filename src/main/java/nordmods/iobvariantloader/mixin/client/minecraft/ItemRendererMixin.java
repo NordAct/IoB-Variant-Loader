@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import nordmods.iobvariantloader.util.model_redirect.DragonEggItemHelper;
+import nordmods.iobvariantloader.util.DragonEggHelper;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,7 +41,7 @@ public abstract class ItemRendererMixin {
         }
 
         String name = pItemStack.getTag().getString("VariantName");
-        String dragon = ((DragonEggItemHelper)dragonEggItem).getSpecies();
+        String dragon = ((DragonEggHelper)dragonEggItem).getSpecies(true);
         String modelLocation = ModelRedirectUtil.getEggItemModel(dragon, name);
         if (modelLocation != null) {
             BakedModel bakedModel = itemModelShaper.getModelManager().getModel(new ModelResourceLocation(modelLocation, "inventory"));

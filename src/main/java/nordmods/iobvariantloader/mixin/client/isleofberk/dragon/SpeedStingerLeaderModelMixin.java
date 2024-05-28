@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.mixin.client.isleofberk;
+package nordmods.iobvariantloader.mixin.client.isleofberk.dragon;
 
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeader;
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeaderModel;
@@ -8,7 +8,7 @@ import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(SpeedStingerLeaderModel.class)
-public abstract class SpeedStingerLeaderModelMixin extends BaseDragonModelMixin<SpeedStingerLeader>{
+public abstract class SpeedStingerLeaderModelMixin extends BaseDragonModelMixin<SpeedStingerLeader> {
     @Override
     public String getDragonFolder() {
         return "speed_stinger";

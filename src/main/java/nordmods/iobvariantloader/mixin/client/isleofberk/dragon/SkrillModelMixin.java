@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.mixin.client.isleofberk;
+package nordmods.iobvariantloader.mixin.client.isleofberk.dragon;
 
 import com.GACMD.isleofberk.entity.dragons.skrill.Skrill;
 import com.GACMD.isleofberk.entity.dragons.skrill.SkrillModel;
@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(SkrillModel.class)
-public abstract class SkrillModelMixin extends BaseDragonModelMixin<Skrill>{
+public abstract class SkrillModelMixin extends BaseDragonModelMixin<Skrill> {
     @Override
     public String getDragonFolder() {
         return "skrill";

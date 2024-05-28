@@ -32,7 +32,7 @@ public class ModelRedirectReloadListener extends SimpleJsonResourceReloadListene
                 JsonObject input = elem.getAsJsonObject();
                 String name = input.get("name").getAsString();
                 if (toPut.containsKey(name)) {
-                    IoBVariantLoader.LOGGER.warn("Duplicate model redirect for variant \"{}\" for {}, skipping", name, dragon);
+                    IoBVariantLoader.LOGGER.warn("Duplicate model redirect for variant \"{}\" for {} under {} namespace, skipping", name, dragon, entry.getKey().getNamespace());
                     continue;
                 }
                 String texture = input.has("texture") ? input.get("texture").getAsString() : null;
@@ -41,10 +41,9 @@ public class ModelRedirectReloadListener extends SimpleJsonResourceReloadListene
                 String saddle = input.has("saddle") ? input.get("saddle").getAsString() : null;
                 //noinspection SimplifiableConditionalExpression
                 boolean nameTagAccessible = input.has("nametag_accessible") ? input.get("nametag_accessible").getAsBoolean() : true;
-                String eggModel = input.has("egg_model") ?
-                        input.get("egg_model").getAsString()
-                        : null;
-                ModelRedirect modelRedirect = new ModelRedirect(texture, model, animation, saddle, eggModel, nameTagAccessible);
+                String eggModel = input.has("egg_model") ? input.get("egg_model").getAsString() : null;
+                String eggTexture = input.has("egg_texture") ? input.get("egg_texture").getAsString() : null;
+                ModelRedirect modelRedirect = new ModelRedirect(texture, model, animation, saddle, eggModel, eggTexture, nameTagAccessible);
                 toPut.put(name, modelRedirect);
             }
             ModelRedirectUtil.add(dragon, toPut);

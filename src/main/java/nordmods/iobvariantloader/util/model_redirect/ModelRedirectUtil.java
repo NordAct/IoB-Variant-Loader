@@ -2,12 +2,15 @@ package nordmods.iobvariantloader.util.model_redirect;
 
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.google.gson.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.world.entity.EntityType;
 import nordmods.iobvariantloader.IoBVariantLoader;
+import nordmods.iobvariantloader.util.DragonEggHelper;
 import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import org.jetbrains.annotations.Nullable;
@@ -124,6 +127,51 @@ public final class ModelRedirectUtil {
         return null;
     }
 
+    public static <T extends ADragonEggBase> String getEggFolder(T entity) {
+        ResourceLocation resourcelocation = EntityType.getKey(entity.getType());
+        String dragonID = resourcelocation.getPath().replace("_egg", "");
+        return switch (dragonID) {
+            default -> dragonID;
+            case "m_nightmare" -> "monstrous_nightmare";
+            case "nadder" -> "deadly_nadder";
+            case "night_fury" -> "nightfury";
+            case "speed_stinger" -> "speedstinger";
+            case "triple_stryke" -> "triplestryke";
+        };
+    }
+
+    public static <T extends ADragonEggBase> ResourceLocation getEggTexture(T entity) {
+        String dragon = ((DragonEggHelper)entity).getSpecies(true);
+        String name = ((VariantNameHelper)entity).getVariantName().toLowerCase();
+        String texture;
+
+        if (dragonModelRedirects.containsKey(dragon)
+                && dragonModelRedirects.get(dragon).containsKey(name)
+                && dragonModelRedirects.get(dragon).get(name).eggTexture() != null)
+            texture = dragonModelRedirects.get(dragon).get(name).eggTexture();
+        else return null;
+
+        if (texture.contains(":")) return new ResourceLocation(texture);
+        return new ResourceLocation(IsleofBerk.MOD_ID,
+                "textures/egg/" + getEggFolder(entity) + "/" + texture);
+    }
+
+    public static <T extends ADragonEggBase> ResourceLocation getEggModel(T entity) {
+        String dragon = ((DragonEggHelper)entity).getSpecies(true);
+        String name = ((VariantNameHelper)entity).getVariantName().toLowerCase();
+        String model;
+
+        if (dragonModelRedirects.containsKey(dragon)
+                && dragonModelRedirects.get(dragon).containsKey(name)
+                && dragonModelRedirects.get(dragon).get(name).eggTexture() != null)
+            model = dragonModelRedirects.get(dragon).get(name).eggTexture();
+        else return null;
+
+        if (model.contains(":")) return new ResourceLocation(model);
+        return new ResourceLocation(IsleofBerk.MOD_ID,
+                "geo/egg/" + dragon + "/" + model);
+    }
+
     public static boolean isNametagAccessible(String dragon, String name) {
         if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)) return dragonModelRedirects.get(dragon).get(name).nametagAccessible();
         else return true;
@@ -216,7 +264,7 @@ public final class ModelRedirectUtil {
                     JsonArray array = GsonHelper.getAsJsonArray((JsonObject) element, "redirects");
                     for (int i = 0; i < array.size(); i++) {
                         JsonObject input = array.get(i).getAsJsonObject();
-                        String eggModel = input.has("egg_model") ? input.get("egg_model").getAsString() : null;
+                        String eggModel = input.has("egg_item_model") ? input.get("egg_item_model").getAsString() : null;
                         if (eggModel == null) continue;
                         String name = input.get("name").getAsString();
                         redirects.put(name, eggModel);

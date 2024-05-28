@@ -17,6 +17,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import nordmods.iobvariantloader.IoBVariantLoader;
+import nordmods.iobvariantloader.util.DragonEggHelper;
+import nordmods.iobvariantloader.util.ModelCacheHelper;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
@@ -33,7 +35,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 @Mixin(ADragonEggBase.class)
-public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantNameHelper {
+public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantNameHelper, ModelCacheHelper, DragonEggHelper {
     @Shadow protected abstract DragonEggItem getItemVersion();
 
     @Shadow public abstract ResourceLocation getTextureLocation(ADragonEggBase dragonBase);
@@ -43,6 +45,11 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     @Shadow protected abstract int getHatchTime();
 
     @Shadow public abstract void setCanHatch(boolean canHatch);
+
+    @Unique private ResourceLocation modelLocationCache;
+    @Unique private ResourceLocation textureLocationCache;
+    @Unique private ResourceLocation glowLayerLocationCache;
+    @Unique private boolean preventGlowLayer = false;
 
     @SuppressWarnings("WrongEntityDataParameterClass")
     @Unique
@@ -106,7 +113,7 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         setCanHatch(pReason != MobSpawnType.STRUCTURE);
         if (getVariantName().isEmpty() && IoBVariantLoader.config.assignEggVariantOnPlaced.get()) {
-            List<DragonVariantSpawner> variants = DragonVariantSpawnerUtil.getVariantsFor(getSpecies());
+            List<DragonVariantSpawner> variants = DragonVariantSpawnerUtil.getVariantsFor(getSpecies(false));
             DragonVariantSpawnerUtil.assignVariantFromList(pLevel, this, false, variants);
         }
 
@@ -114,13 +121,13 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     }
 
     @Unique
-    private String getSpecies() {
+    public String getSpecies(boolean isClient) {
         ResourceLocation resourcelocation = EntityType.getKey(getType());
         String dragonID = resourcelocation.getPath().replace("_egg", "");
         //this inconsistency in names just kills me
         return switch (dragonID) {
             default -> dragonID;
-            case "m_nightmare" -> "monstrous_nightmare";
+            case "m_nightmare" -> isClient ? "nightmare" : "monstrous_nightmare";
             case "nadder" -> "deadly_nadder";
         };
     }
@@ -130,5 +137,53 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
         ItemStack itemStack = new ItemStack(getItemVersion());
         if (!getVariantName().isEmpty()) itemStack.addTagElement("VariantName", StringTag.valueOf(getVariantName()));
         return itemStack;
+    }
+
+    public ResourceLocation getModelLocationCache() {
+        return modelLocationCache;
+    }
+    public ResourceLocation getAnimationLocationCache() {
+        throw new UnsupportedOperationException();
+    }
+    public ResourceLocation getTextureLocationCache() {
+        return textureLocationCache;
+    }
+    public ResourceLocation getSaddleTextureLocationCache() {throw new UnsupportedOperationException();}
+    public ResourceLocation getGlowLayerLocationCache() {
+        return glowLayerLocationCache;
+    }
+    public void setModelLocationCache(ResourceLocation state) {
+        modelLocationCache = state;
+    }
+    public void setAnimationLocationCache(ResourceLocation state) {
+        throw new UnsupportedOperationException();
+    }
+    public void setTextureLocationCache(ResourceLocation state) {
+        textureLocationCache = state;
+    }
+    public void setSaddleTextureLocationCache(ResourceLocation state) {
+        throw new UnsupportedOperationException();
+    }
+    public void setGlowLayerLocationCache(ResourceLocation state) {
+        glowLayerLocationCache = state;
+    }
+
+    public boolean shouldPreventGlowLayerRenderer() {
+        return preventGlowLayer;
+    }
+
+    public void setPreventGlowLayer(boolean state) {
+        preventGlowLayer = state;
+    }
+
+    @Override
+    public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
+        if (level.isClientSide() && (DATA_CUSTOM_NAME.equals(key) || VARIANT_NAME.equals(key))) {
+            setTextureLocationCache(null);
+            setModelLocationCache(null);
+            setGlowLayerLocationCache(null);
+            setPreventGlowLayer(false);
+        }
     }
 }

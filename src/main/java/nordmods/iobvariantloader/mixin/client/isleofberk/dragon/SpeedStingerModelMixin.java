@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.mixin.client.isleofberk;
+package nordmods.iobvariantloader.mixin.client.isleofberk.dragon;
 
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStingerModel;
@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(SpeedStingerModel.class)
-public abstract class SpeedStingerModelMixin extends BaseDragonModelMixin<SpeedStinger>{
+public abstract class SpeedStingerModelMixin extends BaseDragonModelMixin<SpeedStinger> {
     @Override
     public String getDragonFolder() {
         return "speed_stinger";

@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.mixin.client.isleofberk;
+package nordmods.iobvariantloader.mixin.client.isleofberk.dragon;
 
 import com.GACMD.isleofberk.entity.dragons.montrous_nightmare.MonstrousNightmare;
 import com.GACMD.isleofberk.entity.dragons.montrous_nightmare.MonstrousNightmareModel;
@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(MonstrousNightmareModel.class)
-public abstract class MonstrousNightmareModelMixin extends BaseDragonModelMixin<MonstrousNightmare>{
+public abstract class MonstrousNightmareModelMixin extends BaseDragonModelMixin<MonstrousNightmare> {
     @Override
     public String getDragonFolder() {
         return "nightmare";

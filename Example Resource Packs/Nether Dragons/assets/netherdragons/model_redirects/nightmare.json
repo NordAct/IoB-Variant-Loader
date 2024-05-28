@@ -13,7 +13,8 @@
 		{
 			"name": "soul",
 			"saddle": "saddle_nether.png",
-			"model": "soul.geo.json"
+			"model": "soul.geo.json",
+			"egg_item_model": "netherdragons:soul_egg"
 		}
 	]
 }

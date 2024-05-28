@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.mixin.client.isleofberk;
+package nordmods.iobvariantloader.mixin.client.isleofberk.dragon;
 
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFuryModel;
@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(NightFuryModel.class)
-public abstract class NightFuryModelMixin extends  BaseDragonModelMixin<NightFury>{
+public abstract class NightFuryModelMixin extends BaseDragonModelMixin<NightFury> {
     @Override
     public String getDragonFolder() {
         return "night_fury";

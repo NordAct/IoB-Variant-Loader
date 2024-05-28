@@ -20,7 +20,7 @@ import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
-import nordmods.iobvariantloader.util.model_redirect.DragonEggItemHelper;
+import nordmods.iobvariantloader.util.DragonEggHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(DragonEggItem.class)
-public abstract class DragonEggItemMixin extends Item implements DragonEggItemHelper {
+public abstract class DragonEggItemMixin extends Item implements DragonEggHelper {
     @Unique
     protected String variant = "";
 
@@ -46,7 +46,7 @@ public abstract class DragonEggItemMixin extends Item implements DragonEggItemHe
         if (entity instanceof VariantNameHelper helper && entity.level instanceof ServerLevelAccessor serverLevelAccessor) {
             if (!variant.isEmpty()) helper.setVariantName(variant);
             else if (IoBVariantLoader.config.assignEggVariantOnPlaced.get()) {
-                List<DragonVariantSpawner> variants = DragonVariantSpawnerUtil.getVariantsFor(getSpecies());
+                List<DragonVariantSpawner> variants = DragonVariantSpawnerUtil.getVariantsFor(getSpecies(false));
                 DragonVariantSpawnerUtil.assignVariantFromList(serverLevelAccessor, entity, false, variants);
             }
         }
@@ -62,16 +62,17 @@ public abstract class DragonEggItemMixin extends Item implements DragonEggItemHe
     }
 
     @SuppressWarnings("DataFlowIssue")
-    public String getSpecies() {
+    public String getSpecies(boolean isClient) {
         ResourceLocation resourcelocation = getRegistryName();
         String dragonID = resourcelocation.getPath().replace("_egg", "");
         //this inconsistency in names just kills me
         return switch (dragonID) {
             default -> dragonID;
-            case "m_nightmare" -> "monstrous_nightmare";
+            case "monstrous_nightmare" -> isClient ? "nightmare" : dragonID;
             case "nadder" -> "deadly_nadder";
         };
     }
+
 
     @SuppressWarnings("DataFlowIssue")
     @Inject(method = "appendHoverText(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/Level;Ljava/util/List;Lnet/minecraft/world/item/TooltipFlag;)V", at = @At("TAIL"))

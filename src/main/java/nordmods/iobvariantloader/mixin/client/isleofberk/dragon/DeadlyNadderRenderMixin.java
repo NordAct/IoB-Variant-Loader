@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.mixin.client.isleofberk;
+package nordmods.iobvariantloader.mixin.client.isleofberk.dragon;
 
 import com.GACMD.isleofberk.entity.base.render.render.BaseRenderer;
 import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;

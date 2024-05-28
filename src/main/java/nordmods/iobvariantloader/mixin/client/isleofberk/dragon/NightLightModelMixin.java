@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.mixin.client.isleofberk;
+package nordmods.iobvariantloader.mixin.client.isleofberk.dragon;
 
 import com.GACMD.isleofberk.entity.dragons.nightlight.NightLight;
 import com.GACMD.isleofberk.entity.dragons.nightlight.NightLightModel;
@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(NightLightModel.class)
-public abstract class NightLightModelMixin extends BaseDragonModelMixin<NightLight>{
+public abstract class NightLightModelMixin extends BaseDragonModelMixin<NightLight> {
     @Override
     public String getDragonFolder() {
         return "night_light";

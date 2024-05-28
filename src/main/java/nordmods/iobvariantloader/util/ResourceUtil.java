@@ -21,7 +21,7 @@ public class ResourceUtil {
     }
 
     public static boolean isValid(ResourceLocation id) {
-        return Minecraft.getInstance().getResourceManager().hasResource(id);
+        return id != null && Minecraft.getInstance().getResourceManager().hasResource(id);
     }
 
     private static final Map<String, String> letters = new HashMap<>();
