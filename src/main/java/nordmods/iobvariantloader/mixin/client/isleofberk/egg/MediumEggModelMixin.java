@@ -1,6 +1,6 @@
 package nordmods.iobvariantloader.mixin.client.isleofberk.egg;
 
-import com.GACMD.isleofberk.entity.eggs.entity.base.large.ADragonLargeEggBase;
+import com.GACMD.isleofberk.entity.eggs.entity.base.medium.ADragonMediumEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.base.medium.MediumEggModel;
 import net.minecraft.resources.ResourceLocation;
 import nordmods.iobvariantloader.util.DragonEggModelHelper;
@@ -8,14 +8,14 @@ import org.spongepowered.asm.mixin.Mixin;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 @Mixin(MediumEggModel.class)
-public abstract class MediumEggModelMixin extends AnimatedGeoModel<ADragonLargeEggBase> implements DragonEggModelHelper<ADragonLargeEggBase> {
+public abstract class MediumEggModelMixin extends AnimatedGeoModel<ADragonMediumEggBase> implements DragonEggModelHelper<ADragonMediumEggBase> {
     @Override
-    public ResourceLocation getModelLocation(ADragonLargeEggBase entity) {
+    public ResourceLocation getModelLocation(ADragonMediumEggBase entity) {
         return getModel(entity);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ADragonLargeEggBase entity) {
+    public ResourceLocation getTextureLocation(ADragonMediumEggBase entity) {
         return getTexture(entity);
     }
 

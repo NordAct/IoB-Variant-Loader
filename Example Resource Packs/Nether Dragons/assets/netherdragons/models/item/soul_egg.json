@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "netherdragons:egg/soul"
+    "layer0": "netherdragons:item/soul"
   }
 }
