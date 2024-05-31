@@ -13,7 +13,9 @@
 		{
 			"name": "magma",
 			"model": "magma.geo.json",
-			"animation": "example.animation.json"
+			"animation": "example.animation.json",
+			"egg_item_model": "netherdragons:magma_egg",
+			"egg_texture": "magma.png"
 		}
 	]
 }

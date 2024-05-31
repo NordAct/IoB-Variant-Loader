@@ -13,7 +13,9 @@
 		{
 			"name": "basalt",
 			"saddle": "saddle_nether.png",
-			"model": "basalt.geo.json"
+			"model": "basalt.geo.json",
+			"egg_item_model": "netherdragons:basalt_egg",
+			"egg_texture": "basalt.png"
 		}
 	]
 }

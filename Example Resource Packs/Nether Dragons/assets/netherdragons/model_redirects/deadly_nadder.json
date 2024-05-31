@@ -14,12 +14,18 @@
 			"name": "warped",
 			"saddle": "saddle_nether.png",
 			"model": "fungus.geo.json",
-			"nametag_accessible": false
+			"nametag_accessible": false,
+			"egg_item_model": "netherdragons:warped_egg",
+			"egg_texture": "warped.png",
+			"egg_model": "nether_nadder_egg.geo.json"
 		},
 		{
 			"name": "crimson",
 			"saddle": "saddle_nether.png",
-			"model": "fungus.geo.json"
+			"model": "fungus.geo.json",
+			"egg_item_model": "netherdragons:crimson_egg",
+			"egg_texture": "crimson.png",
+			"egg_model": "nether_nadder_egg.geo.json"
 		}
 	]
 }

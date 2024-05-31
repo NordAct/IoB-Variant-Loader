@@ -163,8 +163,8 @@ public final class ModelRedirectUtil {
 
         if (dragonModelRedirects.containsKey(dragon)
                 && dragonModelRedirects.get(dragon).containsKey(name)
-                && dragonModelRedirects.get(dragon).get(name).eggTexture() != null)
-            model = dragonModelRedirects.get(dragon).get(name).eggTexture();
+                && dragonModelRedirects.get(dragon).get(name).eggModel() != null)
+            model = dragonModelRedirects.get(dragon).get(name).eggModel();
         else return null;
 
         if (model.contains(":")) return new ResourceLocation(model);

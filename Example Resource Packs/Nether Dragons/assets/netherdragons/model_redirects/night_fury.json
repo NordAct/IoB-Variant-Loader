@@ -13,7 +13,9 @@
 		{
 			"name": "gilded",
 			"saddle": "saddle_nether.png",
-			"model": "gilded.geo.json"
+			"model": "gilded.geo.json",
+			"egg_item_model": "netherdragons:gilded_egg",
+			"egg_texture": "gilded.png"
 		}
 	]
 }
