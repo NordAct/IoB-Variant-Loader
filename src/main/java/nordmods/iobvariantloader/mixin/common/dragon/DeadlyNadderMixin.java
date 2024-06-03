@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.mixin.common;
+package nordmods.iobvariantloader.mixin.common.dragon;
 
 import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import net.minecraft.resources.ResourceLocation;

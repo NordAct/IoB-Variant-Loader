@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.mixin.common;
+package nordmods.iobvariantloader.mixin.common.egg;
 
 import com.GACMD.isleofberk.items.DragonEggSeparateVariantItem;
 import net.minecraft.world.InteractionResult;

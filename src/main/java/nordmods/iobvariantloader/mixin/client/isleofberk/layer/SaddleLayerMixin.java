@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.ModelCacheHelper;
+import nordmods.iobvariantloader.util.DragonModelCacheHelper;
 import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,13 +33,13 @@ public abstract class SaddleLayerMixin <T extends ADragonBase & IAnimatable> ext
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (!ResourceUtil.isResourceReloadFinished) {
-            ((ModelCacheHelper)dragon).setSaddleTextureLocationCache(null);
+            ((DragonModelCacheHelper)dragon).setSaddleTextureLocationCache(null);
             return;
         }
 
         if (!(dragon instanceof ADragonRideableUtility dragonRideableUtility) || !dragonRideableUtility.isSaddled() && !dragonRideableUtility.hasChest()) return;
-        if (((ModelCacheHelper)dragon).getSaddleTextureLocationCache() != null) {
-            renderSaddle(((ModelCacheHelper)dragon).getSaddleTextureLocationCache(), matrixStackIn, bufferIn, packedLightIn, dragon, partialTicks);
+        if (((DragonModelCacheHelper)dragon).getSaddleTextureLocationCache() != null) {
+            renderSaddle(((DragonModelCacheHelper)dragon).getSaddleTextureLocationCache(), matrixStackIn, bufferIn, packedLightIn, dragon, partialTicks);
             return;
         }
 
@@ -47,7 +47,7 @@ public abstract class SaddleLayerMixin <T extends ADragonBase & IAnimatable> ext
         if (!IoBVariantLoader.clientConfig.disableNamedVariants.get()) {
             id = ModelRedirectUtil.getCustomSaddlePath(dragon, baseRenderer.getDragonFolder());
             if (ResourceUtil.isValid(id)) {
-                ((ModelCacheHelper)dragon).setSaddleTextureLocationCache(id);
+                ((DragonModelCacheHelper)dragon).setSaddleTextureLocationCache(id);
                 renderSaddle(id, matrixStackIn, bufferIn, packedLightIn, dragon, partialTicks);
                 return;
             }
@@ -55,12 +55,12 @@ public abstract class SaddleLayerMixin <T extends ADragonBase & IAnimatable> ext
 
         id = ModelRedirectUtil.getVariantSaddlePath(dragon, baseRenderer.getDragonFolder());
         if (ResourceUtil.isValid(id)) {
-            ((ModelCacheHelper)dragon).setSaddleTextureLocationCache(id);
+            ((DragonModelCacheHelper)dragon).setSaddleTextureLocationCache(id);
             renderSaddle(id, matrixStackIn, bufferIn, packedLightIn, dragon, partialTicks);
             return;
         }
 
-        ((ModelCacheHelper)dragon).setSaddleTextureLocationCache(getSaddleTexture());
+        ((DragonModelCacheHelper)dragon).setSaddleTextureLocationCache(getSaddleTexture());
         renderSaddle(getSaddleTexture(), matrixStackIn, bufferIn, packedLightIn, dragon, partialTicks);
     }
 

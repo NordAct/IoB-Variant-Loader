@@ -1,9 +1,11 @@
-package nordmods.iobvariantloader.mixin.common;
+package nordmods.iobvariantloader.mixin.common.egg;
 
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.SpeedStingerEgg;
 import com.GACMD.isleofberk.items.DragonEggItem;
 import com.GACMD.isleofberk.registery.ModItems;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
@@ -99,5 +101,16 @@ public abstract class SpeedStingerEggMixin extends ADragonEggBaseMixin implement
             case "ice_breaker" -> iceBreakerHatchTime;
             case "sweet_sting" -> sweetStingHatchTime;
         };
+    }
+
+    @Override
+    protected Component getDefaultTypeName() {
+        String key = switch (getVariantName()) {
+            default -> "item.isleofberk.speed_stinger_egg";
+            case "floutscout" -> "item.isleofberk.speed_stinger_egg_floutscout";
+            case "ice_breaker" -> "item.isleofberk.speed_stinger_egg_ice_breaker";
+            case "sweet_sting" -> "item.isleofberk.speed_stinger_egg_sweet_sting";
+        };
+        return new TranslatableComponent(key);
     }
 }

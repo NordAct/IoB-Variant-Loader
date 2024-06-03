@@ -4,11 +4,11 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
-import nordmods.iobvariantloader.IoBVariantLoader;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -31,19 +31,20 @@ public class ModelRedirectReloadListener extends SimpleJsonResourceReloadListene
             for (JsonElement elem : array) {
                 JsonObject input = elem.getAsJsonObject();
                 String name = input.get("name").getAsString();
-                if (toPut.containsKey(name)) {
-                    IoBVariantLoader.LOGGER.warn("Duplicate model redirect for variant \"{}\" for {} under {} namespace, skipping", name, dragon, entry.getKey().getNamespace());
-                    continue;
-                }
                 String texture = input.has("texture") ? input.get("texture").getAsString() : null;
                 String model = input.has("model") ? input.get("model").getAsString() : null;
                 String animation = input.has("animation") ? input.get("animation").getAsString() : null;
                 String saddle = input.has("saddle") ? input.get("saddle").getAsString() : null;
                 //noinspection SimplifiableConditionalExpression
                 boolean nameTagAccessible = input.has("nametag_accessible") ? input.get("nametag_accessible").getAsBoolean() : true;
+
                 String eggModel = input.has("egg_model") ? input.get("egg_model").getAsString() : null;
                 String eggTexture = input.has("egg_texture") ? input.get("egg_texture").getAsString() : null;
-                ModelRedirect modelRedirect = new ModelRedirect(texture, model, animation, saddle, eggModel, eggTexture, nameTagAccessible);
+
+                TranslatableComponent eggItemName = input.has("egg_item_name") ? new TranslatableComponent(input.get("egg_item_name").getAsString()) : null;
+                TranslatableComponent eggName = input.has("egg_name") ? new TranslatableComponent(input.get("egg_name").getAsString()) : null;
+                TranslatableComponent dragonName = input.has("dragon_name") ? new TranslatableComponent(input.get("dragon_name").getAsString()) : null;
+                ModelRedirect modelRedirect = new ModelRedirect(texture, model, animation, saddle, eggModel, eggTexture, eggItemName, eggName, dragonName, nameTagAccessible);
                 toPut.put(name, modelRedirect);
             }
             ModelRedirectUtil.add(dragon, toPut);

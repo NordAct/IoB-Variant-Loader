@@ -1,9 +1,10 @@
-package nordmods.iobvariantloader.mixin.common;
+package nordmods.iobvariantloader.mixin.common.dragon;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.NightLightEgg;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -15,10 +16,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.DeadlyNadderModelCacheHelper;
-import nordmods.iobvariantloader.util.ModelCacheHelper;
+import nordmods.iobvariantloader.util.DragonModelCacheHelper;
+import nordmods.iobvariantloader.util.DragonSpeciesHelper;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
+import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -32,13 +35,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(ADragonBase.class)
-public abstract class ADragonBaseMixin extends TamableAnimal implements VariantNameHelper, ModelCacheHelper {
+public abstract class ADragonBaseMixin extends TamableAnimal implements VariantNameHelper, DragonModelCacheHelper, DragonSpeciesHelper {
     @Unique private ResourceLocation modelLocationCache;
     @Unique private ResourceLocation textureLocationCache;
     @Unique private ResourceLocation animationLocationCache;
     @Unique private ResourceLocation saddleTextureLocationCache;
     @Unique private ResourceLocation glowLayerLocationCache;
     @Unique private boolean preventGlowLayer = false;
+    @Unique private Component translationName;
     protected ADragonBaseMixin(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -87,6 +91,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
             setSaddleTextureLocationCache(null);
             setGlowLayerLocationCache(null);
             setPreventGlowLayer(false);
+            translationName = null;
 
             if (this instanceof DeadlyNadderModelCacheHelper helper) {
                 helper.setWingGlowLayerLocationCache(null);
@@ -131,7 +136,6 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     public boolean shouldPreventGlowLayerRenderer() {
         return preventGlowLayer;
     }
-
     public void setPreventGlowLayer(boolean state) {
         preventGlowLayer = state;
     }
@@ -185,5 +189,22 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
             DragonVariantSpawnerUtil.assignVariantFromList(serverLevelAccessor, egg, false, variants);
         }
         return egg;
+    }
+
+    @Override
+    protected Component getTypeName() {
+        if (translationName == null) {
+            if (ModelRedirectUtil.dragonModelRedirects.containsKey(getSpecies(true)) && ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).containsKey(getVariantName()))
+                translationName = ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(getVariantName()).dragonName();
+            if (translationName == null) translationName = super.getTypeName();
+        }
+        return translationName;
+    }
+
+    @Unique
+    public String getSpecies(boolean isClient) {
+        String dragonID = EntityType.getKey(getType()).getPath();
+        if (isClient) if (dragonID.equals("monstrous_nightmare")) return "nightmare";
+        return dragonID;
     }
 }

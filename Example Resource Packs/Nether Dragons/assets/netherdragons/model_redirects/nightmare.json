@@ -15,7 +15,10 @@
 			"saddle": "saddle_nether.png",
 			"model": "soul.geo.json",
 			"egg_item_model": "netherdragons:soul_egg",
-			"egg_texture": "soul.png"
+			"egg_texture": "soul.png",
+			"egg_item_name": "entity.iobvariantloader.egg.nightmare.soul",
+			"egg_name": "entity.iobvariantloader.egg.nightmare.soul",
+			"dragon_name": "entity.iobvariantloader.nightmare.soul"
 		}
 	]
 }

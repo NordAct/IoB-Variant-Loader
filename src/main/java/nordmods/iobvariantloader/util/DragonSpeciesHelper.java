@@ -1,5 +1,5 @@
 package nordmods.iobvariantloader.util;
 
-public interface DragonEggHelper {
+public interface DragonSpeciesHelper {
     String getSpecies(boolean isClient);
 }

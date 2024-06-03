@@ -10,7 +10,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.EntityType;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.DragonEggHelper;
+import nordmods.iobvariantloader.util.DragonSpeciesHelper;
 import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import org.jetbrains.annotations.Nullable;
@@ -19,9 +19,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public final class ModelRedirectUtil {
     //key - dragon id
@@ -137,11 +135,12 @@ public final class ModelRedirectUtil {
             case "night_fury" -> "nightfury";
             case "speed_stinger" -> "speedstinger";
             case "triple_stryke" -> "triplestryke";
+            case "gronckle" -> "gronkle";
         };
     }
 
     public static <T extends ADragonEggBase> ResourceLocation getEggTexture(T entity) {
-        String dragon = ((DragonEggHelper)entity).getSpecies(true);
+        String dragon = ((DragonSpeciesHelper)entity).getSpecies(true);
         String name = ((VariantNameHelper)entity).getVariantName().toLowerCase();
         String texture;
 
@@ -157,7 +156,7 @@ public final class ModelRedirectUtil {
     }
 
     public static <T extends ADragonEggBase> ResourceLocation getEggModel(T entity) {
-        String dragon = ((DragonEggHelper)entity).getSpecies(true);
+        String dragon = ((DragonSpeciesHelper)entity).getSpecies(true);
         String name = ((VariantNameHelper)entity).getVariantName().toLowerCase();
         String model;
 
@@ -205,9 +204,12 @@ public final class ModelRedirectUtil {
             System.out.println("ISLE OF BERK VARIANT LOADER TRANSLATION KEY AUTOGENERATOR");
             System.out.println("==================================================================================");
             Collection<ResourceLocation> list = Minecraft.getInstance().getResourceManager().listResources("textures/dragons/", s ->  s.endsWith(".png"));
+            Map <String, List<String>> dragonVariants = new HashMap<>();
             for (ResourceLocation resource : list) {
                 String path = resource.getPath();
                 String key = path.substring(path.lastIndexOf("/") + 1, path.indexOf(".png"));
+                String dragon = path.substring(0, path.lastIndexOf("/"));
+                dragon = dragon.substring(dragon.lastIndexOf("/") + 1, dragon.length() - 1);
 
                 boolean skip = false;
                 for (String ending : IoBVariantLoader.clientConfig.ignoredByGeneratorEndings.get()) {
@@ -218,15 +220,44 @@ public final class ModelRedirectUtil {
                 }
                 if (skip) continue;
 
-                if (!IoBVariantLoader.clientConfig.ignoredByGenerator.get().contains(key)) System.out.println("\"tooltip.iobvariantloader.variant." + key + "\": \"" + parseName(key) + "\",");
+                if (IoBVariantLoader.clientConfig.ignoredByGenerator.get().contains(key)) continue;
             }
 
             for (Map.Entry<String, Map<String, ModelRedirect>> entry : dragonModelRedirects.entrySet()) {
+                String dragon = entry.getKey();
                 for ( Map.Entry<String, ModelRedirect> redirects : entry.getValue().entrySet()) {
                     String key = redirects.getKey();
                     if (IoBVariantLoader.clientConfig.ignoredByGenerator.get().contains(key)) continue;
-                    System.out.println("\"tooltip.iobvariantloader.variant." + key + "\": \"" + parseName(key) + "\",");
+                    if (!dragonVariants.containsKey(dragon)) dragonVariants.put(dragon, new ArrayList<>());
+                    dragonVariants.get(dragon).add(key);
                 }
+            }
+
+            for (Map.Entry <String, List<String>> entry : dragonVariants.entrySet()) {
+                String dragon = entry.getKey();
+                for (String key : entry.getValue())
+                    System.out.println("\"item.iobvariantloader.egg." + dragon + "." + key + "\": \"" + parseName(key) + " " + parseName(dragon) + " Egg\",");
+            }
+            System.out.println();
+
+            for (Map.Entry <String, List<String>> entry : dragonVariants.entrySet()) {
+                String dragon = entry.getKey();
+                for (String key : entry.getValue())
+                    System.out.println("\"tooltip.iobvariantloader." + dragon + "." + key + "\": \"" + parseName(key) + "\",");
+            }
+            System.out.println();
+
+            for (Map.Entry <String, List<String>> entry : dragonVariants.entrySet()) {
+                String dragon = entry.getKey();
+                for (String key : entry.getValue())
+                    System.out.println("\"entity.iobvariantloader.egg." + dragon + "." + key + "\": \"" + parseName(key) + " " + parseName(dragon)  + " Egg\",");
+            }
+            System.out.println();
+
+            for (Map.Entry <String, List<String>> entry : dragonVariants.entrySet()) {
+                String dragon = entry.getKey();
+                for (String key : entry.getValue())
+                    System.out.println("\"entity.iobvariantloader." + dragon + "." + key + "\": \"" + parseName(key) + " " + parseName(dragon) + "\",");
             }
             System.out.println("==================================================================================");
         }

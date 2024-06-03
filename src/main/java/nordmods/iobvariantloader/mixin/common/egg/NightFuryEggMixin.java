@@ -1,6 +1,8 @@
-package nordmods.iobvariantloader.mixin.common;
+package nordmods.iobvariantloader.mixin.common.egg;
 
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.NightFuryEgg;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
@@ -16,5 +18,10 @@ public abstract class NightFuryEggMixin extends ADragonEggBaseMixin {
     @Override
     public ItemStack getPickResult() {
         return super.getPickResult();
+    }
+
+    @Override
+    protected Component getDefaultTypeName() {
+        return new TranslatableComponent("item.isleofberk.night_fury_egg");
     }
 }

@@ -1,7 +1,18 @@
 {
-  "tooltip.iobvariantloader.variant.warped": "Warped",
-  "tooltip.iobvariantloader.variant.basalt": "Basalt",
-  "tooltip.iobvariantloader.variant.gilded": "Gilded",
-  "tooltip.iobvariantloader.variant.soul": "Soul",
-  "tooltip.iobvariantloader.variant.magma": "Magma"
+  "tooltip.iobvariantloader.night_fury.gilded": "Gilded",
+  "tooltip.iobvariantloader.terrible_terror.magma": "Magma",
+  "tooltip.iobvariantloader.deadly_nadder.crimson": "Crimson",
+  "tooltip.iobvariantloader.deadly_nadder.warped": "Warped",
+  "tooltip.iobvariantloader.gronckle.basalt": "Basalt",
+  "tooltip.iobvariantloader.nightmare.soul": "Soul",
+
+  "entity.iobvariantloader.egg.terrible_terror.magma": "§6Magma Terror Egg",
+  "entity.iobvariantloader.egg.deadly_nadder.crimson": "§6Crimson Nadder Egg",
+  "entity.iobvariantloader.egg.deadly_nadder.warped": "§6Warped Nadder Egg",
+  "entity.iobvariantloader.egg.nightmare.soul": "§6Soul Nightmare Egg",
+
+  "entity.iobvariantloader.terrible_terror.magma": "Magma Terror",
+  "entity.iobvariantloader.deadly_nadder.crimson": "Crimson Nadder",
+  "entity.iobvariantloader.deadly_nadder.warped": "Warped Nadder",
+  "entity.iobvariantloader.nightmare.soul": "Soul Nightmare"
 }

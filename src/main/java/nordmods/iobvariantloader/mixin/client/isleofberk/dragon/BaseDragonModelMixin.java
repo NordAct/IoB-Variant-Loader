@@ -4,7 +4,7 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
 import net.minecraft.resources.ResourceLocation;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.ModelCacheHelper;
+import nordmods.iobvariantloader.util.DragonModelCacheHelper;
 import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
@@ -115,27 +115,27 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
     public abstract String getDefaultTexture();
 
     public ResourceLocation getModelLocationCache(T entity) {
-        return ((ModelCacheHelper)entity).getModelLocationCache();
+        return ((DragonModelCacheHelper)entity).getModelLocationCache();
     }
 
     public ResourceLocation getAnimationLocationCache(T entity) {
-        return ((ModelCacheHelper)entity).getAnimationLocationCache();
+        return ((DragonModelCacheHelper)entity).getAnimationLocationCache();
     }
 
     public ResourceLocation getTextureLocationCache(T entity) {
-        return ((ModelCacheHelper)entity).getTextureLocationCache();
+        return ((DragonModelCacheHelper)entity).getTextureLocationCache();
     }
 
     public void setModelLocationCache(T entity, ResourceLocation state) {
-        ((ModelCacheHelper)entity).setModelLocationCache(state);
+        ((DragonModelCacheHelper)entity).setModelLocationCache(state);
     }
 
     public void setAnimationLocationCache(T entity, ResourceLocation state) {
-        ((ModelCacheHelper)entity).setAnimationLocationCache(state);
+        ((DragonModelCacheHelper)entity).setAnimationLocationCache(state);
     }
 
     public void setTextureLocationCache(T entity, ResourceLocation state) {
-        ((ModelCacheHelper)entity).setTextureLocationCache(state);
+        ((DragonModelCacheHelper)entity).setTextureLocationCache(state);
     }
 
     public ResourceLocation getCustomTexture(T entity) {

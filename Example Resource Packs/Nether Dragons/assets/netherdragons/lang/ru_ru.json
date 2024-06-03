@@ -1,7 +1,18 @@
 {
-  "tooltip.iobvariantloader.variant.warped": "Искаженный",
-  "tooltip.iobvariantloader.variant.basalt": "Базальт",
-  "tooltip.iobvariantloader.variant.gilded": "Позолоченный",
-  "tooltip.iobvariantloader.variant.soul": "Душа",
-  "tooltip.iobvariantloader.variant.magma": "Магма"
+  "tooltip.iobvariantloader.night_fury.gilded": "Позолоченный",
+  "tooltip.iobvariantloader.terrible_terror.magma": "Магма",
+  "tooltip.iobvariantloader.deadly_nadder.crimson": "Багровый",
+  "tooltip.iobvariantloader.deadly_nadder.warped": "Искаженный",
+  "tooltip.iobvariantloader.gronckle.basalt": "Базальт",
+  "tooltip.iobvariantloader.nightmare.soul": "Душа",
+
+  "entity.iobvariantloader.egg.terrible_terror.magma": "§6Яйцо магмовой жути",
+  "entity.iobvariantloader.egg.deadly_nadder.crimson": "§6Яйцо багрового змеевика",
+  "entity.iobvariantloader.egg.deadly_nadder.warped": "§6Яйцо искаженного змеевика",
+  "entity.iobvariantloader.egg.nightmare.soul": "§6Яйцо чудовища душ",
+
+  "entity.iobvariantloader.terrible_terror.magma": "Магмовая жуть",
+  "entity.iobvariantloader.deadly_nadder.crimson": "Багровый змеевик",
+  "entity.iobvariantloader.deadly_nadder.warped": "Искаженный змеевик",
+  "entity.iobvariantloader.nightmare.soul": "Ужасный душнила"
 }

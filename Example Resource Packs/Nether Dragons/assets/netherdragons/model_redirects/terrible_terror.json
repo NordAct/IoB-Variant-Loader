@@ -15,7 +15,10 @@
 			"model": "magma.geo.json",
 			"animation": "example.animation.json",
 			"egg_item_model": "netherdragons:magma_egg",
-			"egg_texture": "magma.png"
+			"egg_texture": "magma.png",
+			"egg_item_name": "entity.iobvariantloader.egg.terrible_terror.magma",
+			"egg_name": "entity.iobvariantloader.egg.terrible_terror.magma",
+			"dragon_name": "entity.iobvariantloader.terrible_terror.magma"
 		}
 	]
 }

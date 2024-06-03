@@ -1,9 +1,10 @@
-package nordmods.iobvariantloader.mixin.common;
+package nordmods.iobvariantloader.mixin.common.egg;
 
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.items.DragonEggItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -13,15 +14,17 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.DragonEggHelper;
+import nordmods.iobvariantloader.util.DragonSpeciesHelper;
 import nordmods.iobvariantloader.util.ModelCacheHelper;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
+import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,7 +38,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 @Mixin(ADragonEggBase.class)
-public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantNameHelper, ModelCacheHelper, DragonEggHelper {
+public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantNameHelper, ModelCacheHelper, DragonSpeciesHelper {
     @Shadow protected abstract DragonEggItem getItemVersion();
 
     @Shadow public abstract ResourceLocation getTextureLocation(ADragonEggBase dragonBase);
@@ -50,6 +53,7 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     @Unique private ResourceLocation textureLocationCache;
     @Unique private ResourceLocation glowLayerLocationCache;
     @Unique private boolean preventGlowLayer = false;
+    @Unique private Component translationName;
 
     @SuppressWarnings("WrongEntityDataParameterClass")
     @Unique
@@ -96,11 +100,14 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     @Override
     public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
         if (!this.isRemoved() && !level.isClientSide()) {
-            DragonEggItem item = getItemVersion();
-            ItemStack itemStack = new ItemStack(item);
-            if (!getVariantName().isEmpty()) itemStack.addTagElement("VariantName", StringTag.valueOf(getVariantName()));
-            ItemEntity itemEntity = new ItemEntity(level, getX(), getY(), getZ(), itemStack);
-            level.addFreshEntity(itemEntity);
+            if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+                DragonEggItem item = getItemVersion();
+                ItemStack itemStack = new ItemStack(item);
+                if (!getVariantName().isEmpty())
+                    itemStack.addTagElement("VariantName", StringTag.valueOf(getVariantName()));
+                ItemEntity itemEntity = new ItemEntity(level, getX(), getY(), getZ(), itemStack);
+                level.addFreshEntity(itemEntity);
+            }
             this.discard();
             return true;
         } else {
@@ -142,27 +149,17 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     public ResourceLocation getModelLocationCache() {
         return modelLocationCache;
     }
-    public ResourceLocation getAnimationLocationCache() {
-        throw new UnsupportedOperationException();
-    }
     public ResourceLocation getTextureLocationCache() {
         return textureLocationCache;
     }
-    public ResourceLocation getSaddleTextureLocationCache() {throw new UnsupportedOperationException();}
     public ResourceLocation getGlowLayerLocationCache() {
         return glowLayerLocationCache;
     }
     public void setModelLocationCache(ResourceLocation state) {
         modelLocationCache = state;
     }
-    public void setAnimationLocationCache(ResourceLocation state) {
-        throw new UnsupportedOperationException();
-    }
     public void setTextureLocationCache(ResourceLocation state) {
         textureLocationCache = state;
-    }
-    public void setSaddleTextureLocationCache(ResourceLocation state) {
-        throw new UnsupportedOperationException();
     }
     public void setGlowLayerLocationCache(ResourceLocation state) {
         glowLayerLocationCache = state;
@@ -179,11 +176,26 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
-        if (level.isClientSide() && (DATA_CUSTOM_NAME.equals(key) || VARIANT_NAME.equals(key))) {
+        if (level.isClientSide() && VARIANT_NAME.equals(key)) {
             setTextureLocationCache(null);
             setModelLocationCache(null);
             setGlowLayerLocationCache(null);
             setPreventGlowLayer(false);
+            translationName = null;
         }
     }
+
+    @Override
+    protected Component getTypeName() {
+        if (translationName == null) {
+            if (ModelRedirectUtil.dragonModelRedirects.containsKey(getSpecies(true)) && ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).containsKey(getVariantName()))
+                translationName = ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(getVariantName()).eggName();
+            if (translationName == null) translationName = getDefaultTypeName();
+        }
+        return translationName;
+    }
+
+    //because apparently whoever coded this bs was setting item translatable component via custom name because there's no fucking translations for actual entity names...
+    //if it was RPG, this guy deserved to be banished from modded MC community twice as more
+    protected abstract Component getDefaultTypeName();
 }
