@@ -16,42 +16,78 @@
 			"texture": "sakura:textures/deathgripper/deathgripper.png",
             "saddle": "sakura:textures/deathgripper/deathgripper_saddle.png",
             "model": "sakura:geo/deathgripper.geo.json",
-            "animation": "sakura:animations/deathgripper.animation.json"
+            "animation": "sakura:animations/deathgripper.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.triple_stryke.deathgripper",
+            "egg_name": "entity.iobvariantloader.egg.triple_stryke.deathgripper",
+            "dragon_name": "entity.iobvariantloader.triple_stryke.deathgripper",
+			"egg_texture": "sakura:textures/deathgripper/egg.png",
+			"egg_model": "sakura:geo/deathgripper_egg.geo.json",
+            "egg_item_model": "sakura:deathgripper_egg"
         },
         {
             "name": "fenrirs_eavescreaper",
 			"texture": "sakura:textures/deathgripper/fenrirs_eavescreaper.png",
             "saddle": "sakura:textures/deathgripper/deathgripper_saddle.png",
             "model": "sakura:geo/deathgripper.geo.json",
-            "animation": "sakura:animations/deathgripper.animation.json"
+            "animation": "sakura:animations/deathgripper.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.triple_stryke.deathgripper",
+            "egg_name": "entity.iobvariantloader.egg.triple_stryke.deathgripper",
+            "dragon_name": "entity.iobvariantloader.triple_stryke.deathgripper",
+            "egg_texture": "sakura:textures/deathgripper/egg.png",
+            "egg_model": "sakura:geo/deathgripper_egg.geo.json",
+            "egg_item_model": "sakura:deathgripper_egg"
 		},
         {
             "name": "miasmic_deathgripper",
 			"texture": "sakura:textures/deathgripper/miasmic_deathgripper.png",
             "saddle": "sakura:textures/deathgripper/deathgripper_saddle.png",
             "model": "sakura:geo/deathgripper.geo.json",
-            "animation": "sakura:animations/deathgripper.animation.json"
+            "animation": "sakura:animations/deathgripper.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.triple_stryke.deathgripper",
+            "egg_name": "entity.iobvariantloader.egg.triple_stryke.deathgripper",
+            "dragon_name": "entity.iobvariantloader.triple_stryke.deathgripper",
+            "egg_texture": "sakura:textures/deathgripper/egg.png",
+            "egg_model": "sakura:geo/deathgripper_egg.geo.json",
+            "egg_item_model": "sakura:deathgripper_egg"
         },
         {
             "name": "sappheral",
 			"texture": "sakura:textures/deathgripper/sappheral.png",
             "saddle": "sakura:textures/deathgripper/deathgripper_saddle.png",
             "model": "sakura:geo/deathgripper.geo.json",
-            "animation": "sakura:animations/deathgripper.animation.json"
+            "animation": "sakura:animations/deathgripper.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.triple_stryke.deathgripper",
+            "egg_name": "entity.iobvariantloader.egg.triple_stryke.deathgripper",
+            "dragon_name": "entity.iobvariantloader.triple_stryke.deathgripper",
+            "egg_texture": "sakura:textures/deathgripper/egg.png",
+            "egg_model": "sakura:geo/deathgripper_egg.geo.json",
+            "egg_item_model": "sakura:deathgripper_egg"
         },
         {
             "name": "slaughterdijk",
 			"texture": "sakura:textures/deathgripper/slaughterdijk.png",
             "saddle": "sakura:textures/deathgripper/deathgripper_saddle.png",
             "model": "sakura:geo/deathgripper.geo.json",
-            "animation": "sakura:animations/deathgripper.animation.json"
+            "animation": "sakura:animations/deathgripper.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.triple_stryke.deathgripper",
+            "egg_name": "entity.iobvariantloader.egg.triple_stryke.deathgripper",
+            "dragon_name": "entity.iobvariantloader.triple_stryke.deathgripper",
+            "egg_texture": "sakura:textures/deathgripper/egg.png",
+            "egg_model": "sakura:geo/deathgripper_egg.geo.json",
+            "egg_item_model": "sakura:deathgripper_egg"
         },
         {
             "name": "sunset_deathgripper",
 			"texture": "sakura:textures/deathgripper/sunset_deathgripper.png",
             "saddle": "sakura:textures/deathgripper/deathgripper_saddle.png",
             "model": "sakura:geo/deathgripper.geo.json",
-            "animation": "sakura:animations/deathgripper.animation.json"
+            "animation": "sakura:animations/deathgripper.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.triple_stryke.deathgripper",
+            "egg_name": "entity.iobvariantloader.egg.triple_stryke.deathgripper",
+            "dragon_name": "entity.iobvariantloader.triple_stryke.deathgripper",
+            "egg_texture": "sakura:textures/deathgripper/egg.png",
+            "egg_model": "sakura:geo/deathgripper_egg.geo.json",
+            "egg_item_model": "sakura:deathgripper_egg"
         }
     ]
 }

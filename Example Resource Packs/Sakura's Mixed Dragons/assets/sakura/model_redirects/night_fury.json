@@ -16,49 +16,70 @@
 			"texture": "sakura:textures/silver_phantom/arbitrary_phantom.png",
             "saddle": "sakura:textures/silver_phantom/silver_phantom_saddle.png",
             "model": "sakura:geo/silver_phantom.geo.json",
-            "animation": "sakura:animations/silver_phantom.animation.json"
+            "animation": "sakura:animations/silver_phantom.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.night_fury.silver_phantom",
+            "egg_name": "entity.iobvariantloader.egg.night_fury.silver_phantom",
+            "dragon_name": "entity.iobvariantloader.night_fury.silver_phantom"
         },
         {
             "name": "crown_phantom",
 			"texture": "sakura:textures/silver_phantom/crown_phantom.png",
             "saddle": "sakura:textures/silver_phantom/silver_phantom_saddle.png",
             "model": "sakura:geo/silver_phantom.geo.json",
-            "animation": "sakura:animations/silver_phantom.animation.json"
+            "animation": "sakura:animations/silver_phantom.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.night_fury.silver_phantom",
+            "egg_name": "entity.iobvariantloader.egg.night_fury.silver_phantom",
+            "dragon_name": "entity.iobvariantloader.night_fury.silver_phantom"
         },
         {
             "name": "night_phantom",
 			"texture": "sakura:textures/silver_phantom/night_phantom.png",
             "saddle": "sakura:textures/silver_phantom/silver_phantom_saddle.png",
             "model": "sakura:textures/silver_phantom/silver_phantom.geo.json",
-            "animation": "sakura:animations/silver_phantom.animation.json"
+            "animation": "sakura:animations/silver_phantom.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.night_fury.silver_phantom",
+            "egg_name": "entity.iobvariantloader.egg.night_fury.silver_phantom",
+            "dragon_name": "entity.iobvariantloader.night_fury.silver_phantom"
 		},
         {
             "name": "pearlescent_poltergeist",
 			"texture": "sakura:textures/silver_phantom/pearlescent_poltergeist.png",
             "saddle": "sakura:textures/silver_phantom/silver_phantom_saddle.png",
             "model": "sakura:geo/silver_phantom.geo.json",
-            "animation": "sakura:animations/silver_phantom.animation.json"
+            "animation": "sakura:animations/silver_phantom.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.night_fury.silver_phantom",
+            "egg_name": "entity.iobvariantloader.egg.night_fury.silver_phantom",
+            "dragon_name": "entity.iobvariantloader.night_fury.silver_phantom"
         },
         {
             "name": "rob_phantom",
 			"texture": "sakura:textures/silver_phantom/rob_phantom.png",
             "saddle": "sakura:textures/silver_phantom/silver_phantom_saddle.png",
             "model": "sakura:geo/silver_phantom.geo.json",
-            "animation": "sakura:animations/silver_phantom.animation.json"
+            "animation": "sakura:animations/silver_phantom.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.night_fury.silver_phantom",
+            "egg_name": "entity.iobvariantloader.egg.night_fury.silver_phantom",
+            "dragon_name": "entity.iobvariantloader.night_fury.silver_phantom"
         },
         {
             "name": "silver_phantom",
 			"texture": "sakura:textures/silver_phantom/silver_phantom.png",
             "saddle": "sakura:textures/silver_phantom/silver_phantom_saddle.png",
             "model": "sakura:geo/silver_phantom.geo.json",
-            "animation": "sakura:animations/silver_phantom.animation.json"
+            "animation": "sakura:animations/silver_phantom.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.night_fury.silver_phantom",
+            "egg_name": "entity.iobvariantloader.egg.night_fury.silver_phantom",
+            "dragon_name": "entity.iobvariantloader.night_fury.silver_phantom"
         },
         {
             "name": "wave_phantom",
 			"texture": "sakura:textures/silver_phantom/wave_phantom.png",
             "saddle": "sakura:textures/silver_phantom/silver_phantom_saddle.png",
             "model": "sakura:geo/silver_phantom.geo.json",
-            "animation": "sakura:animations/silver_phantom.animation.json"
+            "animation": "sakura:animations/silver_phantom.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.night_fury.silver_phantom",
+            "egg_name": "entity.iobvariantloader.egg.night_fury.silver_phantom",
+            "dragon_name": "entity.iobvariantloader.night_fury.silver_phantom"
         }
     ]
 }

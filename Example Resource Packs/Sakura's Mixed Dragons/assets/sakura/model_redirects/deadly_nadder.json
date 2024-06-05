@@ -16,70 +16,100 @@
 			"texture": "sakura:textures/deathly_galeslash/celestial_royalwing.png",
             "saddle": "sakura:textures/deathly_galeslash/galeslash_saddle.png",
             "model": "sakura:geo/deathly_galeslash.geo.json",
-            "animation": "sakura:animations/deathly_galeslash.animation.json"
+            "animation": "sakura:animations/deathly_galeslash.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.deadly_nadder.deathly_galeslash",
+            "egg_name": "entity.iobvariantloader.egg.deadly_nadder.deathly_galeslash",
+            "dragon_name": "entity.iobvariantloader.deadly_nadder.deathly_galeslash"
         },
         {
             "name": "copsekeep",
 			"texture": "sakura:textures/deathly_galeslash/copsekeep.png",
             "saddle": "sakura:textures/deathly_galeslash/galeslash_saddle.png",
             "model": "sakura:geo/deathly_galeslash.geo.json",
-            "animation": "sakura:animations/deathly_galeslash.animation.json"
+            "animation": "sakura:animations/deathly_galeslash.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.deadly_nadder.deathly_galeslash",
+            "egg_name": "entity.iobvariantloader.egg.deadly_nadder.deathly_galeslash",
+            "dragon_name": "entity.iobvariantloader.deadly_nadder.deathly_galeslash"
 		},
         {
             "name": "deathly_galeslash",
 			"texture": "sakura:textures/deathly_galeslash/deathly_galeslash.png",
             "saddle": "sakura:textures/deathly_galeslash/galeslash_saddle.png",
             "model": "sakura:geo/deathly_galeslash.geo.json",
-            "animation": "sakura:animations/deathly_galeslash.animation.json"
+            "animation": "sakura:animations/deathly_galeslash.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.deadly_nadder.deathly_galeslash",
+            "egg_name": "entity.iobvariantloader.egg.deadly_nadder.deathly_galeslash",
+            "dragon_name": "entity.iobvariantloader.deadly_nadder.deathly_galeslash"
         },
         {
             "name": "fog_stalker",
 			"texture": "sakura:textures/deathly_galeslash/fog_stalker.png",
             "saddle": "sakura:textures/deathly_galeslash/galeslash_saddle.png",
             "model": "sakura:geo/deathly_galeslash.geo.json",
-            "animation": "sakura:animations/deathly_galeslash.animation.json"
+            "animation": "sakura:animations/deathly_galeslash.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.deadly_nadder.deathly_galeslash",
+            "egg_name": "entity.iobvariantloader.egg.deadly_nadder.deathly_galeslash",
+            "dragon_name": "entity.iobvariantloader.deadly_nadder.deathly_galeslash"
         },
         {
             "name": "frigid_galeslash",
 			"texture": "sakura:textures/deathly_galeslash/frigid_galeslash.png",
             "saddle": "sakura:textures/deathly_galeslash/galeslash_saddle.png",
             "model": "sakura:geo/deathly_galeslash.geo.json",
-            "animation": "sakura:animations/deathly_galeslash.animation.json"
+            "animation": "sakura:animations/deathly_galeslash.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.deadly_nadder.deathly_galeslash",
+            "egg_name": "entity.iobvariantloader.egg.deadly_nadder.deathly_galeslash",
+            "dragon_name": "entity.iobvariantloader.deadly_nadder.deathly_galeslash"
         },
         {
             "name": "dangerous_hushboggle",
 			"texture": "sakura:textures/hushboggle/dangerous_hushboggle.png",
             "saddle": "sakura:textures/hushboggle/hushboggle_saddle.png",
             "model": "sakura:geo/hushboggle.geo.json",
-            "animation": "sakura:animations/hushboggle.animation.json"
+            "animation": "sakura:animations/hushboggle.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.deadly_nadder.hushboggle",
+            "egg_name": "entity.iobvariantloader.egg.deadly_nadder.hushboggle",
+            "dragon_name": "entity.iobvariantloader.deadly_nadder.hushboggle"
         },
         {
             "name": "foe_hammer",
 			"texture": "sakura:textures/hushboggle/foe_hammer.png",
             "saddle": "sakura:textures/hushboggle/hushboggle_saddle.png",
             "model": "sakura:geo/hushboggle.geo.json",
-            "animation": "sakura:animations/hushboggle.animation.json"
+            "animation": "sakura:animations/hushboggle.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.deadly_nadder.hushboggle",
+            "egg_name": "entity.iobvariantloader.egg.deadly_nadder.hushboggle",
+            "dragon_name": "entity.iobvariantloader.deadly_nadder.hushboggle"
 	},
         {
             "name": "gorge_hushboggle",
 			"texture": "sakura:textures/hushboggle/gorge_hushboggle.png",
             "saddle": "sakura:textures/hushboggle/hushboggle_saddle.png",
             "model": "sakura:geo/hushboggle.geo.json",
-            "animation": "sakura:animations/hushboggle.animation.json"
+            "animation": "sakura:animations/hushboggle.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.deadly_nadder.hushboggle",
+            "egg_name": "entity.iobvariantloader.egg.deadly_nadder.hushboggle",
+            "dragon_name": "entity.iobvariantloader.deadly_nadder.hushboggle"
         },
         {
             "name": "hushboggle",
 			"texture": "sakura:textures/hushboggle/hushboggle.png",
             "saddle": "sakura:textures/hushboggle/hushboggle_saddle.png",
             "model": "sakura:geo/hushboggle.geo.json",
-            "animation": "sakura:animations/hushboggle.animation.json"
+            "animation": "sakura:animations/hushboggle.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.deadly_nadder.hushboggle",
+            "egg_name": "entity.iobvariantloader.egg.deadly_nadder.hushboggle",
+            "dragon_name": "entity.iobvariantloader.deadly_nadder.hushboggle"
         },
         {
             "name": "mythic_murmurquill",
 			"texture": "sakura:textures/hushboggle/mythic_murmurquill.png",
             "saddle": "sakura:textures/hushboggle/hushboggle_saddle.png",
             "model": "sakura:geo/hushboggle.geo.json",
-            "animation": "sakura:animations/hushboggle.animation.json"
+            "animation": "sakura:animations/hushboggle.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.deadly_nadder.hushboggle",
+            "egg_name": "entity.iobvariantloader.egg.deadly_nadder.hushboggle",
+            "dragon_name": "entity.iobvariantloader.deadly_nadder.hushboggle"
         }
 
     ]

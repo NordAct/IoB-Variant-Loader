@@ -15,31 +15,46 @@
             "name": "lightcutter",
 			"texture": "sakura:textures/lightcutter/lightcutter.png",
             "model": "sakura:geo/lightcutter.geo.json",
-            "animation": "sakura:animations/lightcutter.animation.json"
+            "animation": "sakura:animations/lightcutter.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.skrill.lightcutter",
+            "egg_name": "entity.iobvariantloader.egg.skrill.lightcutter",
+            "dragon_name": "entity.iobvariantloader.skrill.lightcutter"
         },
         {
             "name": "picklecutter",
 			"texture": "sakura:textures/lightcutter/picklecutter.png",
             "model": "sakura:geo/lightcutter.geo.json",
-            "animation": "sakura:animations/lightcutter.animation.json"
+            "animation": "sakura:animations/lightcutter.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.skrill.lightcutter",
+            "egg_name": "entity.iobvariantloader.egg.skrill.lightcutter",
+            "dragon_name": "entity.iobvariantloader.skrill.lightcutter"
 	},
         {
             "name": "stormshadowcutter",
 			"texture": "sakura:textures/lightcutter/stormshadowcutter.png",
             "model": "sakura:geo/lightcutter.geo.json",
-            "animation": "sakura:animations/lightcutter.animation.json"
+            "animation": "sakura:animations/lightcutter.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.skrill.lightcutter",
+            "egg_name": "entity.iobvariantloader.egg.skrill.lightcutter",
+            "dragon_name": "entity.iobvariantloader.skrill.lightcutter"
         },
         {
             "name": "stormskriller",
 			"texture": "sakura:textures/lightcutter/stormskriller.png",
             "model": "sakura:geo/lightcutter.geo.json",
-            "animation": "sakura:animations/lightcutter.animation.json"
+            "animation": "sakura:animations/lightcutter.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.skrill.lightcutter",
+            "egg_name": "entity.iobvariantloader.egg.skrill.lightcutter",
+            "dragon_name": "entity.iobvariantloader.skrill.lightcutter"
         },
         {
             "name": "skrillcutter",
 			"texture": "sakura:textures/lightcutter/skrillcutter.png",
             "model": "sakura:geo/lightcutter.geo.json",
-            "animation": "sakura:animations/lightcutter.animation.json"
+            "animation": "sakura:animations/lightcutter.animation.json",
+            "egg_item_name": "entity.iobvariantloader.egg.skrill.lightcutter",
+            "egg_name": "entity.iobvariantloader.egg.skrill.lightcutter",
+            "dragon_name": "entity.iobvariantloader.skrill.lightcutter"
         }
     ]
 }
