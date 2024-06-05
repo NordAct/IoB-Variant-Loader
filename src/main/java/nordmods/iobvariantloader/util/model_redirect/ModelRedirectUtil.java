@@ -4,7 +4,6 @@ import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.google.gson.*;
-import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
@@ -195,33 +194,16 @@ public final class ModelRedirectUtil {
     public static void debugPrint() {
         for (Map.Entry<String, Map<String, ModelRedirect>> entry : dragonModelRedirects.entrySet()) {
             for ( Map.Entry<String, ModelRedirect> redirects : entry.getValue().entrySet()) {
-                    IoBVariantLoader.LOGGER.debug("{}: variant/name {} was redirected to {}", entry.getKey(), redirects.getKey(), redirects.getValue());
+                    IoBVariantLoader.LOGGER.debug("{}: variant {} was redirected to {}", entry.getKey(), redirects.getKey(), redirects.getValue());
             }
         }
 
+        //translation keys generator
         if (IoBVariantLoader.clientConfig.generateTranslations.get()) {
             System.out.println("==================================================================================");
             System.out.println("ISLE OF BERK VARIANT LOADER TRANSLATION KEY AUTOGENERATOR");
             System.out.println("==================================================================================");
-            Collection<ResourceLocation> list = Minecraft.getInstance().getResourceManager().listResources("textures/dragons/", s ->  s.endsWith(".png"));
             Map <String, List<String>> dragonVariants = new HashMap<>();
-            for (ResourceLocation resource : list) {
-                String path = resource.getPath();
-                String key = path.substring(path.lastIndexOf("/") + 1, path.indexOf(".png"));
-                String dragon = path.substring(0, path.lastIndexOf("/"));
-                dragon = dragon.substring(dragon.lastIndexOf("/") + 1, dragon.length() - 1);
-
-                boolean skip = false;
-                for (String ending : IoBVariantLoader.clientConfig.ignoredByGeneratorEndings.get()) {
-                    if (key.endsWith(ending)) {
-                        skip = true;
-                        break;
-                    }
-                }
-                if (skip) continue;
-
-                if (IoBVariantLoader.clientConfig.ignoredByGenerator.get().contains(key)) continue;
-            }
 
             for (Map.Entry<String, Map<String, ModelRedirect>> entry : dragonModelRedirects.entrySet()) {
                 String dragon = entry.getKey();

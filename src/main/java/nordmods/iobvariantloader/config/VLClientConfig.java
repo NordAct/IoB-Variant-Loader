@@ -11,7 +11,6 @@ public class VLClientConfig {
     public ConfigHelper.ConfigValueListener<Boolean> disableNamedVariants;
     public ConfigHelper.ConfigValueListener<Boolean> generateTranslations;
     public ConfigHelper.ConfigValueListener<List<String>> ignoredByGenerator;
-    public ConfigHelper.ConfigValueListener<List<String>> ignoredByGeneratorEndings;
     public VLClientConfig(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber)
     {
         builder.push("Disable Glowing");
@@ -28,27 +27,20 @@ public class VLClientConfig {
 
         builder.push("Generate Translations");
         generateTranslations = subscriber.subscribe(builder
-                .comment("Automatically generates translations for all variants for english language based on presented textures for dragons." +
+                .comment("Automatically generates translations for all variants for english language based on presented model redirects for dragons." +
                         "\nAll generated lines will be printed to log file" +
                         "\nUse this only if you're pack developer for making your life easier")
                 .define("generate_translations", false));
         builder.pop();
 
-        builder.push("Textures Ignored by Generator");
+        builder.push("Variants Ignored by Generator");
         ignoredByGenerator = subscriber.subscribe(builder
-                .comment("Prints for textures that have same name as any value in this list will be skipped when translation key generator is used")
+                .comment("Prints for variants that have same name as any value in this list will be skipped when translation key generator is used")
                 .define("ignored_by_generator", defaultIgnored));
-        builder.pop();
-
-        builder.push("Textures Endings Ignored by Generator");
-        ignoredByGeneratorEndings = subscriber.subscribe(builder
-                .comment("Similar to previous one, but used only when texture ends with listed values")
-                .define("ignored_by_generator_endings", defaultIgnoredEndings));
         builder.pop();
     }
 
     private static List<String> defaultIgnored = new ArrayList<>();
-    private static List<String> defaultIgnoredEndings = new ArrayList<>();
 
     static {
                 defaultIgnored.add("stinger_color_layer");
@@ -199,9 +191,5 @@ public class VLClientConfig {
                 defaultIgnored.add("purple_n_nurple");
                 defaultIgnored.add("sandr");
                 defaultIgnored.add("whip_n_lash");
-
-                defaultIgnoredEndings.add("_leader");
-                defaultIgnoredEndings.add("_glowing");
-                defaultIgnoredEndings.add("_membranes");
     }
 }
