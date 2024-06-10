@@ -1,0 +1,6 @@
+- Client config no longer creates unnecessary backup files (bug fix)
+- Updated translation/localisation key generator to support new localisaton keys
+- Translation/localisation key generator now only generates keys for variants that have model redirect
+- Added possibility to redirect egg textures, models and item models per variant
+- Added possibility to redirect localisation keys used for dragon and egg entities and egg item if those don't have custom name (this may not work for already existing eggs, thank IoB's sheetcode)
+- Minimal required Forge version is now 40.2.10

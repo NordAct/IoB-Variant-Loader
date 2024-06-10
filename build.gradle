@@ -13,6 +13,8 @@ plugins {
     id 'idea'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id "com.modrinth.minotaur" version "2.+"
+    id 'net.darkhax.curseforgegradle' version '1.+'
 }
 
 apply plugin: 'org.spongepowered.mixin'
@@ -148,4 +150,34 @@ tasks.named('jar', Jar).configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+modrinth {
+    token = System.getenv("MODRINTH_TOKEN")
+    projectId = "isle-of-berk-variant-loader"
+    versionNumber = mod_version
+    versionType = "release"
+    uploadFile = jar
+    gameVersions = ["1.18.2"]
+    loaders = ["forge"]
+    dependencies {
+        required.project "isle-of-berk"
+    }
+    syncBodyFrom = rootProject.file("README.md").text
+    changelog = rootProject.file("CHANGELOG.md").text
+    versionName ="Isle of Berk Variant Loader " + mod_version
+}
+
+//reminder to myself: turn on VPN before running
+//CF's API blocks russian IP address
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    apiToken = System.getenv("CURSEFORGE_TOKEN")
+    int projectId = 908401
+    String changelogText = rootProject.file("CHANGELOG.md").text
+    def mainFile = upload(projectId, jar)
+    mainFile.changelog = changelogText
+    mainFile.changelogType = "markdown"
+    mainFile.releaseType = "release"
+    mainFile.addGameVersion("1.18.2")
+    mainFile.displayName = "Isle of Berk Variant Loader " + mod_version
 }
