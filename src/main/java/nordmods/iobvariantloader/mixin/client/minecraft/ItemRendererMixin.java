@@ -27,18 +27,8 @@ public abstract class ItemRendererMixin {
 
     @Inject(method = "render", at = @At(value = "HEAD"))
     private void getEggModel(ItemStack pItemStack, ItemTransforms.TransformType pTransformType, boolean pLeftHand, PoseStack pPoseStack, MultiBufferSource pBuffer, int pCombinedLight, int pCombinedOverlay, BakedModel pModel, CallbackInfo ci) {
-        if (pItemStack.isEmpty()) {
-            proposedModel = null;
-            return;
-        }
-        if (!(pItemStack.getItem() instanceof DragonEggItem dragonEggItem)) {
-            proposedModel = null;
-            return;
-        }
-        if (!pItemStack.hasTag() || !pItemStack.getTag().contains("VariantName")) {
-            proposedModel = null;
-            return;
-        }
+        if (!(pItemStack.getItem() instanceof DragonEggItem dragonEggItem)) return;
+        if (!pItemStack.hasTag() || !pItemStack.getTag().contains("VariantName")) return;
 
         String name = pItemStack.getTag().getString("VariantName");
         String dragon = ((DragonSpeciesHelper)dragonEggItem).getSpecies(true);
@@ -46,13 +36,16 @@ public abstract class ItemRendererMixin {
         if (modelLocation != null) {
             BakedModel bakedModel = itemModelShaper.getModelManager().getModel(new ModelResourceLocation(modelLocation, "inventory"));
             if (bakedModel != itemModelShaper.getModelManager().getMissingModel()) proposedModel = bakedModel;
-            else proposedModel = null;
         }
     }
 
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraftforge/client/ForgeHooksClient;handleCameraTransforms(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/resources/model/BakedModel;Lnet/minecraft/client/renderer/block/model/ItemTransforms$TransformType;Z)Lnet/minecraft/client/resources/model/BakedModel;"), index = 1)
     private BakedModel tryProposedModel(BakedModel model) {
-        if (proposedModel != null) return proposedModel;
+        if (proposedModel != null) {
+            BakedModel copy = proposedModel;
+            proposedModel = null;
+            return copy;
+        }
         return model;
     }
 }
