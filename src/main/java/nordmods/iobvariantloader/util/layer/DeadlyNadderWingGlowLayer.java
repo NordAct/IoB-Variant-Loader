@@ -25,12 +25,6 @@ public class DeadlyNadderWingGlowLayer extends VLGlowLayer<DeadlyNadder> {
     }
 
     @Override
-    protected void resetCache(DeadlyNadder dragon) {
-        ((DeadlyNadderModelCacheHelper)dragon).setWingGlowLayerLocationCache(null);
-        ((DeadlyNadderModelCacheHelper)dragon).setPreventWingGlowLayer(false);
-    }
-
-    @Override
     protected boolean shouldRender(DeadlyNadder dragon) {
         return ((DeadlyNadderModelCacheHelper)dragon).shouldPreventWingGlowLayerRenderer();
     }

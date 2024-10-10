@@ -32,10 +32,7 @@ public abstract class SaddleLayerMixin <T extends ADragonBase & IAnimatable> ext
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (!ResourceUtil.isResourceReloadFinished) {
-            ((DragonModelCacheHelper)dragon).setSaddleTextureLocationCache(null);
-            return;
-        }
+        if (!ResourceUtil.isResourceReloadFinished) return;
 
         if (!(dragon instanceof ADragonRideableUtility dragonRideableUtility) || !dragonRideableUtility.isSaddled() && !dragonRideableUtility.hasChest()) return;
         if (((DragonModelCacheHelper)dragon).getSaddleTextureLocationCache() != null) {

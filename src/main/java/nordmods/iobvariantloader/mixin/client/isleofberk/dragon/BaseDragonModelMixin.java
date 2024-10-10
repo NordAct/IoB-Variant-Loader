@@ -17,10 +17,7 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
 
     @Override
     public ResourceLocation getModelLocation(T entity) {
-        if (!ResourceUtil.isResourceReloadFinished) {
-            setModelLocationCache(entity,null);
-            return getDefaultModel();
-        }
+        if (!ResourceUtil.isResourceReloadFinished) return getDefaultModel();
 
         if (getModelLocationCache(entity) != null) return getModelLocationCache(entity);
 
@@ -45,10 +42,8 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
 
     @Override
     public ResourceLocation getTextureLocation(T entity) {
-        if (!ResourceUtil.isResourceReloadFinished) {
-            setTextureLocationCache(entity, null);
-            return getDefaultVariant();
-        }
+        if (!ResourceUtil.isResourceReloadFinished) return getDefaultVariant();
+
 
         if (getTextureLocationCache(entity) != null) return getTextureLocationCache(entity);
 
@@ -73,10 +68,7 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
 
     @Override
     public ResourceLocation getAnimationFileLocation(T entity) {
-        if (!ResourceUtil.isResourceReloadFinished) {
-            setAnimationLocationCache(entity,null);
-            return getDefaultAnimation();
-        }
+        if (!ResourceUtil.isResourceReloadFinished) return getDefaultAnimation();
 
         if (getAnimationLocationCache(entity) != null) return getAnimationLocationCache(entity);
 

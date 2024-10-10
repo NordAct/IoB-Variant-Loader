@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import nordmods.iobvariantloader.util.DeadlyNadderModelCacheHelper;
+import nordmods.iobvariantloader.util.ResourceUtil;
 import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
@@ -19,6 +20,8 @@ public class VLDeadlyNadderWingLayer extends GeoLayerRenderer<DeadlyNadder> {
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, DeadlyNadder dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        if (!ResourceUtil.isResourceReloadFinished) return;
+
         RenderType cameo = getRenderType(getTexture(dragon));
 
         getRenderer().render(getModel(dragon), dragon, partialTicks, cameo, matrixStackIn, bufferIn,

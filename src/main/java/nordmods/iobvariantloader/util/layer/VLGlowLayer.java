@@ -27,10 +27,7 @@ public class VLGlowLayer<T extends AgeableMob & IAnimatable> extends GeoLayerRen
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (IoBVariantLoader.clientConfig.disableGlowing.get()) return;
 
-        if (!ResourceUtil.isResourceReloadFinished) {
-            resetCache(dragon);
-            return;
-        }
+        if (!ResourceUtil.isResourceReloadFinished) return;
 
         if (shouldRender(dragon)) return;
         ResourceLocation id = getGlowLayerLocation(dragon);
@@ -58,11 +55,6 @@ public class VLGlowLayer<T extends AgeableMob & IAnimatable> extends GeoLayerRen
 
     private GeoModel getModel(T dragon) {
         return getEntityModel().getModel(getEntityModel().getModelLocation(dragon));
-    }
-
-    protected void resetCache(T dragon) {
-        ((ModelCacheHelper)dragon).setGlowLayerLocationCache(null);
-        ((ModelCacheHelper)dragon).setPreventGlowLayer(false);
     }
 
     protected boolean shouldRender(T dragon) {

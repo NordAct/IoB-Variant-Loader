@@ -67,10 +67,7 @@ public interface DragonEggModelHelper<T extends ADragonEggBase> {
     }
 
     default ResourceLocation getModel(T entity) {
-        if (!ResourceUtil.isResourceReloadFinished) {
-            setModelLocationCache(entity,null);
-            return getDefaultModel();
-        }
+        if (!ResourceUtil.isResourceReloadFinished) return getDefaultModel();
 
         if (getModelLocationCache(entity) != null) return getModelLocationCache(entity);
 
@@ -85,10 +82,7 @@ public interface DragonEggModelHelper<T extends ADragonEggBase> {
     }
 
     default ResourceLocation getTexture(T entity) {
-        if (!ResourceUtil.isResourceReloadFinished) {
-            setTextureLocationCache(entity, null);
-            return getDefaultTexture(entity);
-        }
+        if (!ResourceUtil.isResourceReloadFinished) return getDefaultTexture(entity);
 
         if (getTextureLocationCache(entity) != null) return getTextureLocationCache(entity);
 

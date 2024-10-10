@@ -11,4 +11,12 @@ public interface ModelCacheHelper {
     void setGlowLayerLocationCache(ResourceLocation state);
     boolean shouldPreventGlowLayerRenderer();
     void setPreventGlowLayer(boolean state);
+    void resetTranslationName();
+    default void resetCache() {
+        setGlowLayerLocationCache(null);
+        setModelLocationCache(null);
+        setTextureLocationCache(null);
+        setPreventGlowLayer(false);
+        resetTranslationName();
+    }
 }

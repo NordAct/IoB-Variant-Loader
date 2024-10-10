@@ -49,11 +49,4 @@ public abstract class DeadlyNadderMixin extends ADragonBaseMixin implements Dead
     public void setPreventWingGlowLayer(boolean state) {
         preventWingGlowLayer = state;
     }
-
-    @Override
-    public void setVariantName(String variantName) {
-        super.setVariantName(variantName);
-        setWingGlowLayerLocationCache(null);
-        setWingLayerLocationCache(null);
-    }
 }

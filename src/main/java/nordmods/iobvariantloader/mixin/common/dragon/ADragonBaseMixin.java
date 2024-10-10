@@ -15,7 +15,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.DeadlyNadderModelCacheHelper;
 import nordmods.iobvariantloader.util.DragonModelCacheHelper;
 import nordmods.iobvariantloader.util.DragonSpeciesHelper;
 import nordmods.iobvariantloader.util.VariantNameHelper;
@@ -84,21 +83,12 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
-        if (level.isClientSide() && (DATA_CUSTOM_NAME.equals(key) || VARIANT_NAME.equals(key))) {
-            setTextureLocationCache(null);
-            setAnimationLocationCache(null);
-            setModelLocationCache(null);
-            setSaddleTextureLocationCache(null);
-            setGlowLayerLocationCache(null);
-            setPreventGlowLayer(false);
-            translationName = null;
+        if (level.isClientSide() && (DATA_CUSTOM_NAME.equals(key) || VARIANT_NAME.equals(key))) resetCache();
+    }
 
-            if (this instanceof DeadlyNadderModelCacheHelper helper) {
-                helper.setWingGlowLayerLocationCache(null);
-                helper.setWingLayerLocationCache(null);
-                helper.setPreventWingGlowLayer(false);
-            }
-        }
+    @Override
+    public void resetTranslationName() {
+        translationName = null;
     }
 
     //All cache stuff should be called only from clientside... But I'm quite lazy to separate this mess

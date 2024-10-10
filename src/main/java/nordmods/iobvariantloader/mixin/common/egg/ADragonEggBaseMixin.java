@@ -176,13 +176,12 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
-        if (level.isClientSide() && VARIANT_NAME.equals(key)) {
-            setTextureLocationCache(null);
-            setModelLocationCache(null);
-            setGlowLayerLocationCache(null);
-            setPreventGlowLayer(false);
-            translationName = null;
-        }
+        if (level.isClientSide() && VARIANT_NAME.equals(key)) resetCache();
+    }
+
+    @Override
+    public void resetTranslationName() {
+        translationName = null;
     }
 
     @Override

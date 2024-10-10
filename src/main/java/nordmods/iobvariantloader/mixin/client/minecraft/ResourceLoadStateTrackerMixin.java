@@ -1,7 +1,9 @@
 package nordmods.iobvariantloader.mixin.client.minecraft;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.ResourceLoadStateTracker;
 import net.minecraft.server.packs.PackResources;
+import nordmods.iobvariantloader.util.DragonModelCacheHelper;
 import nordmods.iobvariantloader.util.ResourceUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,6 +21,11 @@ public abstract class ResourceLoadStateTrackerMixin {
     @Inject(method = "startReload(Lnet/minecraft/client/ResourceLoadStateTracker$ReloadReason;Ljava/util/List;)V", at = @At("TAIL"))
     private void updateStatusOnStart(ResourceLoadStateTracker.ReloadReason pReloadReason, List<PackResources> pPacks, CallbackInfo ci) {
         if (reloadState != null) ResourceUtil.isResourceReloadFinished = reloadState.finished;
+        if (Minecraft.getInstance().level != null) {
+            Minecraft.getInstance().level.entitiesForRendering().forEach(entity -> {
+                if (entity instanceof DragonModelCacheHelper cache) cache.resetCache();
+            });
+        }
     }
 
     @Inject(method = "finishReload()V", at = @At("TAIL"))
