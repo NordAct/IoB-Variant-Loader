@@ -17,9 +17,11 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.DragonModelCacheHelper;
 import nordmods.iobvariantloader.util.DragonSpeciesHelper;
+import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
+import nordmods.iobvariantloader.util.hitbox_override.HitboxRedirectUtil;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -42,6 +44,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Unique private ResourceLocation glowLayerLocationCache;
     @Unique private boolean preventGlowLayer = false;
     @Unique private Component translationName;
+    @Unique private EntityDimensions boxOverride;
     protected ADragonBaseMixin(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -84,6 +87,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
         if (level.isClientSide() && (DATA_CUSTOM_NAME.equals(key) || VARIANT_NAME.equals(key))) resetCache();
+        if (VARIANT_NAME.equals(key)) boxOverride = null;
     }
 
     @Override
@@ -183,6 +187,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
 
     @Override
     protected Component getTypeName() {
+        if (level.isClientSide() && !ResourceUtil.isResourceReloadFinished) return super.getTypeName();
         if (translationName == null) {
             if (ModelRedirectUtil.dragonModelRedirects.containsKey(getSpecies(true)) && ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).containsKey(getVariantName()))
                 translationName = ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(getVariantName()).dragonName();
@@ -196,5 +201,14 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         String dragonID = EntityType.getKey(getType()).getPath();
         if (isClient) if (dragonID.equals("monstrous_nightmare")) return "nightmare";
         return dragonID;
+    }
+
+    @Override
+    public EntityDimensions getDimensions(Pose pPose) {
+        if (boxOverride == null) {
+            EntityDimensions override = HitboxRedirectUtil.getHitboxOverride((ADragonBase) (Object)this);
+            boxOverride = override == null ? super.getDimensions(pPose) : override.scale(getScale());
+        }
+        return boxOverride;
     }
 }
