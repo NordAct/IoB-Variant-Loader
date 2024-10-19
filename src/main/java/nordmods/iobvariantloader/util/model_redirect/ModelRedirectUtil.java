@@ -55,7 +55,11 @@ public final class ModelRedirectUtil {
     }
 
     public static ResourceLocation getCustomModelPath(ADragonBase dragon, String dragonID) {
-        String model = ModelRedirectUtil.getModel(dragonID, ResourceUtil.parseName(dragon));
+        String name = ResourceUtil.parseName(dragon);
+        String model = ModelRedirectUtil.getModel(dragonID, name);
+        if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).model())) {
+            return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/"+ dragonID +".geo.json");
+        }
         if (model.contains(":")) return new ResourceLocation(model);
         return new ResourceLocation(IsleofBerk.MOD_ID,
                 "geo/dragons/" + dragonID + "/" + model);
@@ -76,7 +80,12 @@ public final class ModelRedirectUtil {
     }
 
     public static ResourceLocation getCustomAnimationPath(ADragonBase dragon, String dragonID) {
-        String model = ModelRedirectUtil.getAnimation(dragonID, ResourceUtil.parseName(dragon));
+        String name = ResourceUtil.parseName(dragon);
+        String model = ModelRedirectUtil.getAnimation(dragonID, name);
+        if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).animation())) {
+            if (dragonID.equals("night_light")) return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/night_fury.animation.json");
+            return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/"+ dragonID+".animation.json");
+        }
         if (model.contains(":")) return new ResourceLocation(model);
         return new ResourceLocation(IsleofBerk.MOD_ID,
                 "animations/dragons/" + dragonID + "/" + model);
@@ -97,7 +106,11 @@ public final class ModelRedirectUtil {
     }
 
     public static ResourceLocation getCustomSaddlePath(ADragonBase dragon, String dragonID) {
-        String model = ModelRedirectUtil.getSaddle(dragonID, ResourceUtil.parseName(dragon));
+        String name = ResourceUtil.parseName(dragon);
+        String model = ModelRedirectUtil.getSaddle(dragonID, name);
+        if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).saddle())) {
+            return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/" + dragonID + "/equipment.png");
+        }
         if (model.contains(":")) return new ResourceLocation(model);
         return new ResourceLocation(IsleofBerk.MOD_ID,
                 "textures/dragons/" + dragonID + "/" + model);
@@ -291,5 +304,17 @@ public final class ModelRedirectUtil {
             }
             if (!redirects.isEmpty()) ModelRedirectUtil.addEggItemModels(dragon, redirects);
         }
+    }
+
+    //an INCREDIBLY shitty fix for bug that occurs when variant via name tag is applied over base variant with redirects other than base texture
+    private static boolean shouldApplyFix(ADragonBase dragon, String dragonID, String name, StringArgument argument) {
+        boolean texturePresent = ResourceUtil.isValid(getCustomTexturePath(dragon, dragonID));
+        boolean absentRecord = !(dragonModelRedirects.containsKey(dragonID) && dragonModelRedirects.get(dragonID).containsKey(name));
+        boolean absentArgument = dragonModelRedirects.containsKey(dragonID) && dragonModelRedirects.get(dragonID).containsKey(name) && argument.getString() == null;
+        return texturePresent && (absentRecord || absentArgument);
+    }
+
+    private interface StringArgument {
+        String getString();
     }
 }

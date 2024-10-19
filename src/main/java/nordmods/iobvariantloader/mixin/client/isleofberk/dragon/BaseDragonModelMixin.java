@@ -1,5 +1,6 @@
 package nordmods.iobvariantloader.mixin.client.isleofberk.dragon;
 
+import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
 import net.minecraft.resources.ResourceLocation;
@@ -43,7 +44,6 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
     @Override
     public ResourceLocation getTextureLocation(T entity) {
         if (!ResourceUtil.isResourceReloadFinished) return getDefaultVariant();
-
 
         if (getTextureLocationCache(entity) != null) return getTextureLocationCache(entity);
 
@@ -92,15 +92,15 @@ public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable>
     }
 
     public ResourceLocation getDefaultModel() {
-        return new ResourceLocation("isleofberk", "geo/dragons/"+ getDragonFolder() +".geo.json");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/"+ getDragonFolder() +".geo.json");
     }
 
     public ResourceLocation getDefaultVariant() {
-        return new ResourceLocation("isleofberk", "textures/dragons/"+ getDragonFolder() +"/"+ getDefaultTexture() +".png");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/"+ getDragonFolder() +"/"+ getDefaultTexture() +".png");
     }
 
     public ResourceLocation getDefaultAnimation() {
-        return new ResourceLocation("isleofberk", "animations/dragons/"+ getDragonFolder() +".animation.json");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/"+ getDragonFolder() +".animation.json");
     }
 
     public abstract String getDragonFolder();
