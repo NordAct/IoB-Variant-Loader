@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util.hitbox_override;
+package nordmods.iobvariantloader.util.hitbox_redirect;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.phys.Vec3;

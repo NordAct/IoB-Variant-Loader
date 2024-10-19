@@ -14,7 +14,7 @@ import nordmods.iobvariantloader.config.VLClientConfig;
 import nordmods.iobvariantloader.config.VLConfig;
 import nordmods.iobvariantloader.network.VerifyModPresenceS2CPacket;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerReloadListener;
-import nordmods.iobvariantloader.util.hitbox_override.HitboxRedirectReloadListener;
+import nordmods.iobvariantloader.util.hitbox_redirect.HitboxRedirectReloadListener;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectReloadListener;
 import org.slf4j.Logger;
 

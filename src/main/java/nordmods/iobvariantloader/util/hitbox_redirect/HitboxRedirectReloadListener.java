@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util.hitbox_override;
+package nordmods.iobvariantloader.util.hitbox_redirect;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;

@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util.hitbox_override;
+package nordmods.iobvariantloader.util.hitbox_redirect;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.mojang.datafixers.util.Pair;
