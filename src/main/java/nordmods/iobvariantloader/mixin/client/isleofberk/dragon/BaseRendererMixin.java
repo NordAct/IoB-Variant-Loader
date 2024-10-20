@@ -4,9 +4,16 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.render.render.BaseRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
+import net.minecraft.CrashReport;
+import net.minecraft.ReportedException;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.world.entity.Entity;
 import nordmods.iobvariantloader.util.VLGlowLayerHelper;
 import nordmods.iobvariantloader.util.layer.VLGlowLayer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,9 +21,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.geo.render.built.GeoBone;
 import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
+import software.bernie.geckolib3.util.RenderUtils;
 
 import javax.annotation.Nullable;
 
@@ -40,16 +49,33 @@ public abstract class BaseRendererMixin<T extends ADragonBase & IAnimatable> ext
         super.render(model, animatable, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
 
-    //@Override
-    //public void renderRecursively(GeoBone bone, PoseStack stack, VertexConsumer bufferIn, int packedLightIn,
-    //                              int packedOverlayIn, float red, float green, float blue, float alpha) {
-    //    if (bone.name.equals("leftWingClaw") || bone.name.equals("rightWingClaw")) {
-    //        stack.pushPose();
-    //        preparePositionRotationScale(bone, stack);
-    //        Vector3d pos = bone.getWorldPosition();
-    //        animatable.getLevel().addParticle(ParticleTypes.DRAGON_BREATH, pos.x, pos.y, pos.z, 0, 0, 0);
-    //        stack.popPose();
-    //    }
-    //    super.renderRecursively(bone, stack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    //}
+    @Override
+    public void renderRecursively(GeoBone bone, PoseStack stack, VertexConsumer bufferIn, int packedLightIn,
+                                  int packedOverlayIn, float red, float green, float blue, float alpha) {
+        if (bone.name.equals("leftWingClaw") || bone.name.equals("rightWingClaw")) {
+            Entity passenger = animatable.getFirstPassenger();
+            if (passenger == null) return;
+            float deltaFrameTime = Minecraft.getInstance().getDeltaFrameTime();
+            stack.pushPose();
+            stack.translate(0, passenger.getMyRidingOffset(), 0);
+            RenderUtils.moveToPivot(bone, stack);
+            stack.mulPose(Vector3f.YN.rotationDegrees(180f - passenger.getViewYRot(deltaFrameTime)));
+            renderPassenger(passenger, deltaFrameTime, stack, getCurrentRTB(), packedLightIn);
+            stack.popPose();
+        }
+        super.renderRecursively(bone, stack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
+    }
+
+    private <E extends Entity> void renderPassenger(E entityIn, float partialTicks, PoseStack matrixStack, MultiBufferSource bufferIn, int packedLight) {
+        boolean isFirstPerson = Minecraft.getInstance().options.getCameraType().isFirstPerson();
+        LocalPlayer clientPlayer = Minecraft.getInstance().player;
+        if (isFirstPerson && entityIn == clientPlayer) return;
+
+        EntityRenderer<? super E> render = Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entityIn);
+        try {
+            render.render(entityIn, 0, partialTicks, matrixStack, bufferIn, packedLight);
+        } catch (Throwable throwable1) {
+            throw new ReportedException(CrashReport.forThrowable(throwable1, "Rendering entity in world"));
+        }
+    }
 }
