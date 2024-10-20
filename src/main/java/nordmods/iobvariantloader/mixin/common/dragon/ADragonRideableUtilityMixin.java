@@ -10,6 +10,7 @@ import net.minecraft.world.phys.Vec3;
 import nordmods.iobvariantloader.util.hitbox_redirect.HitboxRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -17,8 +18,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Mixin(ADragonRideableUtility.class)
-public abstract class ADragonRideableUtilityMixin extends ADragonBase {
+public abstract class ADragonRideableUtilityMixin extends ADragonBaseMixin {
     @Shadow protected abstract void setAnimalRotations(Entity pPassenger);
+    @Unique private List<Vec3> passengerPositions;
 
     protected ADragonRideableUtilityMixin(EntityType<? extends ADragonBase> animal, Level world) {
         super(animal, world);
@@ -26,7 +28,7 @@ public abstract class ADragonRideableUtilityMixin extends ADragonBase {
 
     @Inject(method = "positionRider", at = @At("HEAD"), cancellable = true)
     private void overridePosition(Entity passenger, CallbackInfo ci) {
-        List<Vec3> passengerPositions = HitboxRedirectUtil.getPassengerPositions(this);
+        if (passengerPositions == null) passengerPositions = HitboxRedirectUtil.getPassengerPositions((ADragonRideableUtility)(Object)this);
         if (passengerPositions.isEmpty()) return;
         Vec3 offset = null;
         for (int i = 0; i < getPassengers().size(); i++) {
@@ -38,9 +40,15 @@ public abstract class ADragonRideableUtilityMixin extends ADragonBase {
         }
         if (offset == null) return;
 
-        offset = offset.yRot(getYRot() * Mth.DEG_TO_RAD);
+        offset = offset.yRot(-getYRot() * Mth.DEG_TO_RAD);
         passenger.setPos(getX() + offset.x, getY() + offset.y, getZ() + offset.z);
         if (getControllingPassenger() != passenger) setAnimalRotations(passenger);
         ci.cancel();
+    }
+
+    @Override
+    public void resetHitboxData() {
+        passengerPositions = null;
+        super.resetHitboxData();
     }
 }

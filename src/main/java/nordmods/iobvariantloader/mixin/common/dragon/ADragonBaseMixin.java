@@ -1,6 +1,9 @@
 package nordmods.iobvariantloader.mixin.common.dragon;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
+import com.GACMD.isleofberk.entity.dragons.stinger.Stinger;
+import com.GACMD.isleofberk.entity.dragons.triple_stryke.TripleStryke;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.NightLightEgg;
 import net.minecraft.nbt.CompoundTag;
@@ -14,11 +17,9 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.Vec3;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.DragonModelCacheHelper;
-import nordmods.iobvariantloader.util.DragonSpeciesHelper;
-import nordmods.iobvariantloader.util.ResourceUtil;
-import nordmods.iobvariantloader.util.VariantNameHelper;
+import nordmods.iobvariantloader.util.*;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
 import nordmods.iobvariantloader.util.hitbox_redirect.HitboxRedirectUtil;
@@ -36,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(ADragonBase.class)
-public abstract class ADragonBaseMixin extends TamableAnimal implements VariantNameHelper, DragonModelCacheHelper, DragonSpeciesHelper {
+public abstract class ADragonBaseMixin extends TamableAnimal implements VariantNameHelper, DragonModelCacheHelper, DragonSpeciesHelper, HitboxRedirectHelper {
     @Unique private ResourceLocation modelLocationCache;
     @Unique private ResourceLocation textureLocationCache;
     @Unique private ResourceLocation animationLocationCache;
@@ -45,6 +46,8 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Unique private boolean preventGlowLayer = false;
     @Unique private Component translationName;
     @Unique private EntityDimensions boxOverride;
+    @Unique private EntityDimensions attackBoxOverride;
+    @Unique private Vec3 attackBoxPos;
     protected ADragonBaseMixin(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -206,9 +209,59 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Override
     public EntityDimensions getDimensions(Pose pPose) {
         if (boxOverride == null) {
+            EntityDimensions original = super.getDimensions(pPose);
             EntityDimensions override = HitboxRedirectUtil.getHitboxOverride((ADragonBase) (Object)this);
-            boxOverride = override == null ? super.getDimensions(pPose) : override.scale(getScale());
+            boxOverride = override == null ? original : override.scale(getScale());
+        }
+        if (getParts() != null && getParts()[0] instanceof AttackBoxRedirectHelper helper) {
+            EntityDimensions newBox = getAttackBox();
+            if (newBox != getParts()[0].getDimensions(pPose)) {
+                helper.setAttackBoxOverride(newBox);
+                getParts()[0].refreshDimensions();
+            }
         }
         return boxOverride;
+    }
+
+    @Override
+    public void resetHitboxData() {
+        boxOverride = null;
+        attackBoxPos = null;
+        attackBoxOverride = null;
+        refreshDimensions();
+    }
+
+    @Override
+    public EntityDimensions getAttackBox() {
+        if (getVariantName().isEmpty()) return getDefaultAttackBox((ADragonBase) (Object) this);
+        if (attackBoxOverride == null) {
+            attackBoxOverride = HitboxRedirectUtil.getAttackBoxOverride((ADragonBase) (Object) this);
+            if (attackBoxOverride == null) attackBoxOverride = getDefaultAttackBox((ADragonBase) (Object) this);
+        }
+        return attackBoxOverride;
+    }
+
+    @Override
+    public Vec3 getAttackBoxPos() {
+        if (getVariantName().isEmpty()) return getDefaultAttackBoxPos((ADragonBase) (Object) this);
+        if (attackBoxPos == null) {
+            attackBoxPos = HitboxRedirectUtil.getAttackBoxPos((ADragonBase) (Object) this);
+            if (attackBoxPos == null) attackBoxPos = getDefaultAttackBoxPos((ADragonBase) (Object) this);
+        }
+        return attackBoxPos;
+    }
+
+    private Vec3 getDefaultAttackBoxPos(ADragonBase dragon) {
+        if (dragon instanceof Gronckle) return new Vec3(2.2, 0.4, 2.2);
+        if (dragon instanceof TripleStryke) return new Vec3(3, 0.4, 3);
+        if (dragon instanceof Stinger stinger) return new Vec3(3, stinger.isUsingAbility() ? 0.4 : 2.0, 3);
+        return Vec3.ZERO;
+    }
+
+    private EntityDimensions getDefaultAttackBox(ADragonBase dragon) {
+        if (dragon instanceof Gronckle) return EntityDimensions.scalable(1.6f, 1.6f);
+        if (dragon instanceof TripleStryke) return EntityDimensions.scalable(1.8f, 1.8f);
+        if (dragon instanceof Stinger) return EntityDimensions.scalable(1.5f, 1.5f);
+        return EntityDimensions.scalable(1f, 1f);
     }
 }

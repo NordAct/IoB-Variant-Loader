@@ -6,5 +6,5 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public record HitboxRedirect(@Nullable Pair<Float, Float> hitbox, List<Vec3> passengerPositions) {
+public record HitboxRedirect(@Nullable Pair<Float, Float> hitbox, @Nullable Pair<Float, Float> attackBox, @Nullable Vec3 attackBoxPos, List<Vec3> passengerPositions) {
 }

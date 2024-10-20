@@ -37,8 +37,10 @@ public class HitboxRedirectReloadListener extends SimpleJsonResourceReloadListen
                 JsonObject input = elem.getAsJsonObject();
                 String name = input.get("name").getAsString();
                 Pair<Float, Float> hitbox = getHitbox(input);
+                Pair<Float, Float> attackBox = getAttackBox(input);
+                Vec3 attackBoxPos = getAttackBoxPos(input);
                 List<Vec3> passengerPositions = getPassengerPositions(input);
-                HitboxRedirect override = new HitboxRedirect(hitbox, passengerPositions);
+                HitboxRedirect override = new HitboxRedirect(hitbox, attackBox, attackBoxPos, passengerPositions);
                 toPut.put(name, override);
             }
             HitboxRedirectUtil.add(dragon, toPut);
@@ -61,13 +63,35 @@ public class HitboxRedirectReloadListener extends SimpleJsonResourceReloadListen
         return positions;
     }
 
+    // /summon isleofberk:triple_stryke ~ ~ ~ {NoAI:1, VariantName:blood}
+    // /summon isleofberk:triple_stryke ~ ~ ~ {NoAI:1, VariantName:snowy}
     private Pair<Float, Float> getHitbox(JsonObject input) {
         if (input.has("hitbox")) {
             JsonObject object = GsonHelper.getAsJsonObject(input, "hitbox");
-            if (object.has("width") && input.has("height"))
+            if (object.has("width") && object.has("height"))
                 return new Pair<>(object.get("width").getAsFloat(), object.get("height").getAsFloat());
         }
         return null;
     }
 
+    private Pair<Float, Float> getAttackBox(JsonObject input) {
+        if (input.has("attack_box")) {
+            JsonObject object = GsonHelper.getAsJsonObject(input, "attack_box");
+            if (object.has("width") && object.has("height"))
+                return new Pair<>(object.get("width").getAsFloat(), object.get("height").getAsFloat());
+        }
+        return null;
+    }
+
+    private Vec3 getAttackBoxPos(JsonObject input) {
+        if (input.has("attack_box_position")) {
+            JsonArray array = input.getAsJsonArray("attack_box_position");
+            float[] coords = {0,0,0};
+            for (int i = 0; i < 3; i++) {
+                coords[i] = array.get(i).getAsFloat();
+            }
+            return new Vec3(coords[0], coords[1], coords[2]);
+        }
+        return null;
+    }
 }

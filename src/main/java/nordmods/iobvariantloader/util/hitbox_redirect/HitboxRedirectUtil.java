@@ -49,6 +49,32 @@ public class HitboxRedirectUtil {
         return null;
     }
 
+    @Nullable
+    public static EntityDimensions getAttackBoxOverride(ADragonBase dragon) {
+        String species = ((DragonSpeciesHelper)dragon).getSpecies(false);
+        String variant = ((VariantNameHelper)dragon).getVariantName();
+        if (dragonHitboxRedirects.containsKey(species)) {
+            Map<String, HitboxRedirect> speciesMap = dragonHitboxRedirects.get(species);
+            if (speciesMap.containsKey(variant)) {
+                Pair<Float, Float> pair = speciesMap.get(variant).attackBox();
+                if (pair == null) return null;
+                return EntityDimensions.scalable(pair.getFirst(), pair.getSecond());
+            }
+        }
+        return null;
+    }
+
+    @Nullable
+    public static Vec3 getAttackBoxPos(ADragonBase dragon) {
+        String species = ((DragonSpeciesHelper)dragon).getSpecies(false);
+        String variant = ((VariantNameHelper)dragon).getVariantName();
+        if (dragonHitboxRedirects.containsKey(species)) {
+            Map<String, HitboxRedirect> speciesMap = dragonHitboxRedirects.get(species);
+            if (speciesMap.containsKey(variant)) return speciesMap.get(variant).attackBoxPos();
+        }
+        return null;
+    }
+
     public static List<Vec3> getPassengerPositions(ADragonBase dragon) {
         String species = ((DragonSpeciesHelper)dragon).getSpecies(false);
         String variant = ((VariantNameHelper)dragon).getVariantName();
