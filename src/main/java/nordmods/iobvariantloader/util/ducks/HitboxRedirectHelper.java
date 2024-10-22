@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util;
+package nordmods.iobvariantloader.util.ducks;
 
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.phys.Vec3;

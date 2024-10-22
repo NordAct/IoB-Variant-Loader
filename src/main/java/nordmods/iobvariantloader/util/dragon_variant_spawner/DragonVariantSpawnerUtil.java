@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.VariantNameHelper;
+import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;

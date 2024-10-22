@@ -2,7 +2,7 @@ package nordmods.iobvariantloader.mixin.common.dragon;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import net.minecraft.world.entity.EntityDimensions;
-import nordmods.iobvariantloader.util.AttackBoxRedirectHelper;
+import nordmods.iobvariantloader.util.ducks.AttackBoxRedirectHelper;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 

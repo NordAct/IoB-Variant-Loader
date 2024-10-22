@@ -15,7 +15,8 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.Entity;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.VLGlowLayerHelper;
+import nordmods.iobvariantloader.util.ducks.ModelSizeProvider;
+import nordmods.iobvariantloader.util.ducks.VLGlowLayerHelper;
 import nordmods.iobvariantloader.util.layer.VLGlowLayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -66,7 +67,7 @@ public abstract class BaseRendererMixin<T extends ADragonBase & IAnimatable> ext
                 IoBVariantLoader.PASSENGERS.remove(passenger.getUUID());
                 float deltaFrameTime = Minecraft.getInstance().getDeltaFrameTime();
                 stack.pushPose();
-                float scale = 1/animatable.getScale() * 0.8f;
+                float scale = 1/animatable.getScale() / ((ModelSizeProvider)animatable).getModelSize();
 
                 stack.translate(0, (passenger.getMyRidingOffset() * 2) * scale, 0);
                 RenderUtils.moveToPivot(bone, stack);

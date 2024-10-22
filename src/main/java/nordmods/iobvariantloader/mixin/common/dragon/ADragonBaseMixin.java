@@ -19,13 +19,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.*;
+import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
+import nordmods.iobvariantloader.util.ducks.*;
 import nordmods.iobvariantloader.util.hitbox_redirect.HitboxRedirectUtil;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -37,7 +39,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(ADragonBase.class)
-public abstract class ADragonBaseMixin extends TamableAnimal implements VariantNameHelper, DragonModelCacheHelper, DragonSpeciesHelper, HitboxRedirectHelper {
+public abstract class ADragonBaseMixin extends TamableAnimal implements VariantNameHelper, DragonModelCacheHelper, DragonSpeciesHelper, HitboxRedirectHelper, ModelSizeProvider {
+    @Shadow public abstract int getDragonVariant();
+
+    @Shadow public abstract boolean isTitanWing();
+
     @Unique private ResourceLocation modelLocationCache;
     @Unique private ResourceLocation textureLocationCache;
     @Unique private ResourceLocation animationLocationCache;
@@ -74,6 +80,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Inject(method = "readAdditionalSaveData(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("TAIL"))
     private void readVariantName(CompoundTag nbt, CallbackInfo ci) {
         if (nbt.contains("VariantName")) setVariantName(nbt.getString("VariantName"));
+        else setVariantName(getFromBaseVariant());
     }
 
     @Inject(method = "defineSynchedData()V", at = @At("TAIL"))
@@ -263,5 +270,33 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         if (dragon instanceof TripleStryke) return EntityDimensions.scalable(1.8f, 1.8f);
         if (dragon instanceof Stinger) return EntityDimensions.scalable(1.5f, 1.5f);
         return EntityDimensions.scalable(1f, 1f);
+    }
+
+    protected abstract String getFromBaseVariant();
+
+    @Override
+    public float getModelSize() {
+        String species = getSpecies(true);
+        if (isBaby()) {
+            return switch (species) {
+                case "terrible_terror" -> 0.3f;
+                default -> 0.4f;
+            };
+        }
+        if (isTitanWing()) {
+            return switch (species) {
+                case "terrible_terror" -> 1;
+                default -> 1.4f;
+            };
+        }
+
+        return switch (species) {
+            case "night_fury" -> 1.1f;
+            case "skrill" -> 1.4f;
+            case "terrible_terror" -> 0.7f;
+            case "triple_stryke" -> 1.3f;
+            case "speed_stinger_leader" -> 1.4f;
+            default -> 1;
+        };
     }
 }

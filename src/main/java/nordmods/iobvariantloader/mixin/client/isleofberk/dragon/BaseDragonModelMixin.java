@@ -5,16 +5,23 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
 import net.minecraft.resources.ResourceLocation;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.DragonModelCacheHelper;
+import nordmods.iobvariantloader.util.ducks.DragonModelCacheHelper;
 import nordmods.iobvariantloader.util.ResourceUtil;
-import nordmods.iobvariantloader.util.VariantNameHelper;
+import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 @Mixin(BaseDragonModel.class)
-public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable> extends AnimatedGeoModel<T>{
+public abstract class BaseDragonModelMixin <T extends ADragonBase & IAnimatable> extends AnimatedGeoModel<T> {
+
+    @Shadow protected abstract float getBabySize();
+
+    @Shadow protected abstract float getAdultSize();
+
+    @Shadow protected abstract float getTitanSize();
 
     @Override
     public ResourceLocation getModelLocation(T entity) {

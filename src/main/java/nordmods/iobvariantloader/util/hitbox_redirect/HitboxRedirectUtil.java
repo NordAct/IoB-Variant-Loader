@@ -5,8 +5,8 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.phys.Vec3;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.DragonSpeciesHelper;
-import nordmods.iobvariantloader.util.VariantNameHelper;
+import nordmods.iobvariantloader.util.ducks.DragonSpeciesHelper;
+import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;

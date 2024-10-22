@@ -3,7 +3,7 @@ package nordmods.iobvariantloader.mixin.client.isleofberk.dragon;
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeader;
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeaderModel;
 import net.minecraft.resources.ResourceLocation;
-import nordmods.iobvariantloader.util.VariantNameHelper;
+import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
 

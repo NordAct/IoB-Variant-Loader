@@ -1,8 +1,9 @@
-package nordmods.iobvariantloader.util;
+package nordmods.iobvariantloader.util.ducks;
 
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 
 public interface DragonEggModelHelper<T extends ADragonEggBase> {

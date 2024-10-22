@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import nordmods.iobvariantloader.util.VariantNameHelper;
+import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;

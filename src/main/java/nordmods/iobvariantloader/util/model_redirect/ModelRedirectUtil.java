@@ -9,9 +9,9 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.EntityType;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.DragonSpeciesHelper;
+import nordmods.iobvariantloader.util.ducks.DragonSpeciesHelper;
 import nordmods.iobvariantloader.util.ResourceUtil;
-import nordmods.iobvariantloader.util.VariantNameHelper;
+import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedReader;

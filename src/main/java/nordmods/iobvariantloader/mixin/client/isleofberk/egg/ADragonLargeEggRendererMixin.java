@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import nordmods.iobvariantloader.util.VLGlowLayerHelper;
+import nordmods.iobvariantloader.util.ducks.VLGlowLayerHelper;
 import nordmods.iobvariantloader.util.layer.VLGlowLayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;

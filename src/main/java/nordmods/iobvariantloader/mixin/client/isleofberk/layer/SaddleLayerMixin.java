@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.DragonModelCacheHelper;
+import nordmods.iobvariantloader.util.ducks.DragonModelCacheHelper;
 import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;

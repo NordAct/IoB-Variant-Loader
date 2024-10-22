@@ -5,15 +5,22 @@ import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AgeableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.level.Level;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.VariantNameHelper;
+import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(SpeedStinger.class)
-public abstract class SpeedStingerMixin {
+public abstract class SpeedStingerMixin extends ADragonBaseMixin{
+    protected SpeedStingerMixin(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
+        super(pEntityType, pLevel);
+    }
+
     @Redirect(method = "spawnChildFromBreeding(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/animal/Animal;)V",
             at = @At(value = "INVOKE", target = "Lcom/GACMD/isleofberk/entity/dragons/speedstinger/SpeedStinger;getBreedEggResult(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/AgeableMob;)Lcom/GACMD/isleofberk/entity/eggs/entity/base/ADragonEggBase;"))
     private ADragonEggBase assignVariant(SpeedStinger instance, ServerLevel world, AgeableMob parent) {
@@ -36,5 +43,15 @@ public abstract class SpeedStingerMixin {
             }
         }
         return null;
+    }
+
+    @Override
+    protected String getFromBaseVariant() {
+        return switch (getDragonVariant()) {
+            case 1 -> "floutscout";
+            case 2 -> "ice_breaker";
+            case 3 -> "sweet_sting";
+            default -> "speed_stinger";
+        };
     }
 }

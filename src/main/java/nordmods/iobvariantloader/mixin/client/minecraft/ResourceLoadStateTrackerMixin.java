@@ -3,7 +3,7 @@ package nordmods.iobvariantloader.mixin.client.minecraft;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ResourceLoadStateTracker;
 import net.minecraft.server.packs.PackResources;
-import nordmods.iobvariantloader.util.DragonModelCacheHelper;
+import nordmods.iobvariantloader.util.ducks.DragonModelCacheHelper;
 import nordmods.iobvariantloader.util.ResourceUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
