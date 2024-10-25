@@ -39,8 +39,9 @@ public class DragonVariantSpawnerReloadListener extends SimpleJsonResourceReload
                 DragonVariantSpawner.BiomeRestrictions allowedBiomes = getBiomes("allowed_biomes", input);
                 DragonVariantSpawner.BiomeRestrictions bannedBiomes = getBiomes("banned_biomes", input);
                 DragonVariantSpawner.AltitudeRestriction altitudeRestriction = getAltitude(input);
+                DragonVariantSpawner.SurfaceRestriction surfaceRestriction = getSurfaceRestriction(input);
 
-                DragonVariantSpawner dragonVariant = new DragonVariantSpawner(name, weight, breedingWeight, allowedBiomes, bannedBiomes, altitudeRestriction);
+                DragonVariantSpawner dragonVariant = new DragonVariantSpawner(name, weight, breedingWeight, allowedBiomes, bannedBiomes, altitudeRestriction, surfaceRestriction);
                 if (!variants.contains(dragonVariant)) variants.add(dragonVariant);
             }
             DragonVariantSpawnerUtil.add(dragon, variants);
@@ -81,4 +82,13 @@ public class DragonVariantSpawnerReloadListener extends SimpleJsonResourceReload
         return new DragonVariantSpawner.AltitudeRestriction(min, max);
     }
 
+    private DragonVariantSpawner.SurfaceRestriction getSurfaceRestriction(JsonObject input) {
+        String restriction = "";
+        if (input.has("surface_restriction")) restriction = input.get("surface_restriction").getAsString();
+        return switch (restriction) {
+            case "none" -> DragonVariantSpawner.SurfaceRestriction.NONE;
+            case "underground" -> DragonVariantSpawner.SurfaceRestriction.UNDERGROUND;
+            default -> DragonVariantSpawner.SurfaceRestriction.SURFACE;
+        };
+    }
 }

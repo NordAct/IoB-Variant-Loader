@@ -12,7 +12,8 @@
       },
       "altitude": {
         "min": 0
-      }
+      },
+      "surface_restriction" : "none"
     },
     {
       "name": "floutscout",
@@ -23,14 +24,16 @@
           "isleofberk:spawn_locations/sweet_sting_biomes",
           "isleofberk:spawn_locations/ice_breaker_biomes"
         ]
-      }
+      },
+      "surface_restriction" : "none"
     },
     {
       "name": "floutscout",
       "weight": 1,
       "altitude": {
         "max": 0
-      }
+      },
+      "surface_restriction" : "none"
     },
     {
       "name": "ice_breaker",
@@ -44,7 +47,8 @@
       },
       "altitude": {
         "min": 0
-      }
+      },
+      "surface_restriction" : "none"
     },
     {
       "name": "sweet_sting",
@@ -58,7 +62,8 @@
       },
       "altitude": {
         "min": 0
-      }
+      },
+      "surface_restriction" : "none"
     }
   ]
 }

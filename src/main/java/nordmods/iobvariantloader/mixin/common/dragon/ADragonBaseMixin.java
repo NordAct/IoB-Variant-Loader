@@ -6,6 +6,7 @@ import com.GACMD.isleofberk.entity.dragons.stinger.Stinger;
 import com.GACMD.isleofberk.entity.dragons.triple_stryke.TripleStryke;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.NightLightEgg;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -16,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import nordmods.iobvariantloader.IoBVariantLoader;
@@ -298,5 +300,10 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
             case "speed_stinger_leader" -> 1.4f;
             default -> 1;
         };
+    }
+
+    @Override
+    public float getWalkTargetValue(BlockPos pos, LevelReader levelReader) {
+        return 0;
     }
 }
