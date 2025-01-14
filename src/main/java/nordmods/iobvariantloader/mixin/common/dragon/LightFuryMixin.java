@@ -13,7 +13,7 @@ public abstract class LightFuryMixin extends ADragonBaseMixin{
     }
 
     @Override
-    protected String getFromBaseVariant() {
+    public String getFromBaseVariant() {
         return switch (getDragonVariant()) {
             case 1 -> "sveinn";
             case 2 -> "drottinn";

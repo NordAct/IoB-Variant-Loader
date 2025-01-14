@@ -46,7 +46,7 @@ public abstract class SpeedStingerMixin extends ADragonBaseMixin{
     }
 
     @Override
-    protected String getFromBaseVariant() {
+    public String getFromBaseVariant() {
         return switch (getDragonVariant()) {
             case 1 -> "floutscout";
             case 2 -> "ice_breaker";

@@ -14,7 +14,7 @@ public abstract class NightFuryMixin extends ADragonBaseMixin{
     }
 
     @Override
-    protected String getFromBaseVariant() {
+    public String getFromBaseVariant() {
         return switch (getDragonVariant()) {
             case 1 -> "sentinel";
             case 2 -> "karma";

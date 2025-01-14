@@ -14,7 +14,7 @@ public abstract class TerribleTerrorMixin extends ADragonBaseMixin{
     }
 
     @Override
-    protected String getFromBaseVariant() {
+    public String getFromBaseVariant() {
         if (isTitanWing()) return "titan_wing";
         return switch (getDragonVariant()) {
             case 1 -> "blar";

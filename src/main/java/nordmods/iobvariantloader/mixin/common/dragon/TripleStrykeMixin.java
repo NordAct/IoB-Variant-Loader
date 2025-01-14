@@ -32,7 +32,7 @@ public abstract class TripleStrykeMixin extends ADragonBaseMixin {
     }
 
     @Override
-    protected String getFromBaseVariant() {
+    public String getFromBaseVariant() {
         return switch (getDragonVariant()) {
             case 1 -> "sandr";
             case 2 -> "fart_n_sniff";

@@ -13,7 +13,7 @@ public abstract class SkrillMixin extends ADragonBaseMixin{
     }
 
     @Override
-    protected String getFromBaseVariant() {
+    public String getFromBaseVariant() {
         return switch (getDragonVariant()) {
             case 1 -> "stormshadow";
             case 2 -> "icebane";

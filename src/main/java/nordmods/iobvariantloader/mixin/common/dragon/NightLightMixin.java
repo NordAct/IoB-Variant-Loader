@@ -14,7 +14,7 @@ public abstract class NightLightMixin extends ADragonBaseMixin{
     }
 
     @Override
-    protected String getFromBaseVariant() {
+    public String getFromBaseVariant() {
         return switch (getDragonVariant()) {
             case 1 -> "pouncer";
             case 2 -> "ruffrunner";

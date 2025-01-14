@@ -11,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import nordmods.iobvariantloader.IoBVariantLoader;
+import nordmods.iobvariantloader.util.ducks.DefaultVariantNameHelper;
 import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import org.jetbrains.annotations.Nullable;
 
@@ -101,8 +102,13 @@ public final class DragonVariantSpawnerUtil {
                 }
             }
 
-            if (totalWeight <= 0)
-                throw new RuntimeException("Failed to assign dragon variant due impossible total weight of all variants for " + entity);
+            if (totalWeight <= 0) {
+                if (entity instanceof DefaultVariantNameHelper defaultVariantNameHelper) helper.setVariantName(defaultVariantNameHelper.getFromBaseVariant());
+                else helper.setVariantName("");
+
+                IoBVariantLoader.LOGGER.warn("Failed to get variant for {} ({}), setting default", entity.getName().getString(), entity.getType().getRegistryName().getPath());
+                return;
+            }
 
             long roll = ((LivingEntity) entity).getRandom().nextLong(totalWeight);
             long previousBound = 0;

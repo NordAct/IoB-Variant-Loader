@@ -41,7 +41,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(ADragonBase.class)
-public abstract class ADragonBaseMixin extends TamableAnimal implements VariantNameHelper, DragonModelCacheHelper, DragonSpeciesHelper, HitboxRedirectHelper, ModelSizeProvider {
+public abstract class ADragonBaseMixin extends TamableAnimal implements VariantNameHelper, DragonModelCacheHelper, DragonSpeciesHelper, HitboxRedirectHelper, ModelSizeProvider, DefaultVariantNameHelper {
     @Shadow public abstract int getDragonVariant();
 
     @Shadow public abstract boolean isTitanWing();
@@ -274,7 +274,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         return EntityDimensions.scalable(1f, 1f);
     }
 
-    protected abstract String getFromBaseVariant();
+    public abstract String getFromBaseVariant();
 
     @Override
     public float getModelSize() {

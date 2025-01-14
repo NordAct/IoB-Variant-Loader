@@ -32,7 +32,7 @@ public abstract class GronckleMixin extends ADragonBaseMixin {
 
 
     @Override
-    protected String getFromBaseVariant() {
+    public String getFromBaseVariant() {
         return switch (getDragonVariant()) {
             case 1 -> "hjarta";
             case 2 -> "junior_tuffnut_junior";

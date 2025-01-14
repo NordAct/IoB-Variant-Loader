@@ -32,7 +32,7 @@ public abstract class StingerMixin extends ADragonBaseMixin {
     }
 
     @Override
-    protected String getFromBaseVariant() {
+    public String getFromBaseVariant() {
         if (isTitanWing()) return "titanstinger";
         return switch (getDragonVariant()) {
             case 1 -> "mudsmasher";

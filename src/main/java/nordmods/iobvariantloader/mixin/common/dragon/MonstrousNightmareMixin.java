@@ -13,7 +13,7 @@ public abstract class MonstrousNightmareMixin extends ADragonBaseMixin{
     }
 
     @Override
-    protected String getFromBaseVariant() {
+    public String getFromBaseVariant() {
         return switch (getDragonVariant()) {
             case 1 -> "mountain";
             case 2 -> "bloodroot";
