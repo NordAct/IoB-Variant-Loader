@@ -12,8 +12,7 @@
       },
       "altitude": {
         "min": 0
-      },
-      "surface_restriction" : "none"
+      }
     },
     {
       "name": "floutscout",
@@ -47,8 +46,7 @@
       },
       "altitude": {
         "min": 0
-      },
-      "surface_restriction" : "none"
+      }
     },
     {
       "name": "sweet_sting",
@@ -62,8 +60,7 @@
       },
       "altitude": {
         "min": 0
-      },
-      "surface_restriction" : "none"
+      }
     }
   ]
 }

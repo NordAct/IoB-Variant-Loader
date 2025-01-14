@@ -77,52 +77,45 @@ public final class DragonVariantSpawnerUtil {
 
     @SuppressWarnings("DataFlowIssue")
     public static void assignVariantFromList(ServerLevelAccessor world, Entity entity, boolean naturalSpawn, List<DragonVariantSpawner> variants) {
-        if (entity instanceof VariantNameHelper helper) {
-            if (variants != null) {
-                BlockPos pos = entity.blockPosition();
-                long totalWeight = 0;
-                for (DragonVariantSpawner variant : variants) {
-                    //surface check
-                    if (!(variant.surfaceRestriction().canSpawn(pos, world))) continue;
-                    //banned biomes check (blacklist)
-                    if (variant.hasBannedBiomes() && DragonVariantSpawnerUtil.isVariantIn(variant.bannedBiomes(), world, pos)) continue;
-                    if (variant.altitudeRestriction().min() > pos.getY() || pos.getY() > variant.altitudeRestriction().max()) continue;
+        if (!(entity instanceof VariantNameHelper helper)) return;
 
-                    //allowed biomes check (whitelist)
-                    if (variant.hasAllowedBiomes()) {
-                        if (DragonVariantSpawnerUtil.isVariantIn(variant.allowedBiomes(), world, pos)) {
-                            if (naturalSpawn) totalWeight += variant.weight();
-                            else totalWeight += variant.breedingWeight();
-                        }
-                    } else {
+        if (variants != null) {
+            BlockPos pos = entity.blockPosition();
+            long totalWeight = 0;
+            for (DragonVariantSpawner variant : variants) {
+                //surface check
+                if (!(variant.surfaceRestriction().canSpawn(pos, world))) continue;
+                //banned biomes check (blacklist)
+                if (variant.hasBannedBiomes() && DragonVariantSpawnerUtil.isVariantIn(variant.bannedBiomes(), world, pos)) continue;
+                if (variant.altitudeRestriction().min() > pos.getY() || pos.getY() > variant.altitudeRestriction().max()) continue;
+
+                //allowed biomes check (whitelist)
+                if (variant.hasAllowedBiomes()) {
+                    if (DragonVariantSpawnerUtil.isVariantIn(variant.allowedBiomes(), world, pos)) {
                         if (naturalSpawn) totalWeight += variant.weight();
                         else totalWeight += variant.breedingWeight();
                     }
+                } else {
+                    if (naturalSpawn) totalWeight += variant.weight();
+                    else totalWeight += variant.breedingWeight();
                 }
+            }
 
-                if (totalWeight <= 0)
-                    throw new RuntimeException("Failed to assign dragon variant due impossible total weight of all variants for " + entity);
+            if (totalWeight <= 0)
+                throw new RuntimeException("Failed to assign dragon variant due impossible total weight of all variants for " + entity);
 
-                long roll = ((LivingEntity) entity).getRandom().nextLong(totalWeight);
-                long previousBound = 0;
+            long roll = ((LivingEntity) entity).getRandom().nextLong(totalWeight);
+            long previousBound = 0;
 
-                for (DragonVariantSpawner variant : variants) {
-                    //surface check
-                    if (!(variant.surfaceRestriction().canSpawn(pos, world))) continue;
-                    //banned biomes check (blacklist)
-                    if (variant.hasBannedBiomes() && DragonVariantSpawnerUtil.isVariantIn(variant.bannedBiomes(), world, pos)) continue;
-                    if (variant.altitudeRestriction().min() > pos.getY() || pos.getY() > variant.altitudeRestriction().max()) continue;
-                    //allowed biomes check (whitelist)
-                    if (variant.hasAllowedBiomes()) {
-                        if (DragonVariantSpawnerUtil.isVariantIn(variant.allowedBiomes(), world, pos)) {
-                            if (roll >= previousBound && roll < previousBound + (naturalSpawn ? variant.weight() : variant.breedingWeight())) {
-                                helper.setVariantName(variant.name());
-                                break;
-                            }
-                            if (naturalSpawn) previousBound += variant.weight();
-                            else previousBound += variant.breedingWeight();
-                        }
-                    } else {
+            for (DragonVariantSpawner variant : variants) {
+                //surface check
+                if (!(variant.surfaceRestriction().canSpawn(pos, world))) continue;
+                //banned biomes check (blacklist)
+                if (variant.hasBannedBiomes() && DragonVariantSpawnerUtil.isVariantIn(variant.bannedBiomes(), world, pos)) continue;
+                if (variant.altitudeRestriction().min() > pos.getY() || pos.getY() > variant.altitudeRestriction().max()) continue;
+                //allowed biomes check (whitelist)
+                if (variant.hasAllowedBiomes()) {
+                    if (DragonVariantSpawnerUtil.isVariantIn(variant.allowedBiomes(), world, pos)) {
                         if (roll >= previousBound && roll < previousBound + (naturalSpawn ? variant.weight() : variant.breedingWeight())) {
                             helper.setVariantName(variant.name());
                             break;
@@ -130,10 +123,37 @@ public final class DragonVariantSpawnerUtil {
                         if (naturalSpawn) previousBound += variant.weight();
                         else previousBound += variant.breedingWeight();
                     }
+                } else {
+                    if (roll >= previousBound && roll < previousBound + (naturalSpawn ? variant.weight() : variant.breedingWeight())) {
+                        helper.setVariantName(variant.name());
+                        break;
+                    }
+                    if (naturalSpawn) previousBound += variant.weight();
+                    else previousBound += variant.breedingWeight();
                 }
             }
         }
+    }
 
+    public static boolean hasNaturalVariantsForSpot(String entity, ServerLevelAccessor world, BlockPos pos) {
+        List<DragonVariantSpawner> variants = getVariantsFor(entity);
+        for (DragonVariantSpawner variant : variants) {
+            //weight check
+            if (variant.weight() <= 0) continue;
+            //surface check
+            if (!(variant.surfaceRestriction().canSpawn(pos, world))) continue;
+            //banned biomes check (blacklist)
+            if (variant.hasBannedBiomes() && DragonVariantSpawnerUtil.isVariantIn(variant.bannedBiomes(), world, pos)) continue;
+            if (variant.altitudeRestriction().min() > pos.getY() || pos.getY() > variant.altitudeRestriction().max()) continue;
+
+            //allowed biomes check (whitelist)
+            if (variant.hasAllowedBiomes()) {
+                if (!DragonVariantSpawnerUtil.isVariantIn(variant.allowedBiomes(), world, pos)) continue;
+            }
+
+            return true;
+        }
+        return false;
     }
 
     public static List<DragonVariantSpawner> getVariantsFor(VariantNameHelper entity) {

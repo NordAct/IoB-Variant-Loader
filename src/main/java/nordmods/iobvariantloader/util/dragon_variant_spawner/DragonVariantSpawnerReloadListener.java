@@ -36,8 +36,8 @@ public class DragonVariantSpawnerReloadListener extends SimpleJsonResourceReload
                 int weight = input.get("weight").getAsInt();
                 int breedingWeight = input.has("breeding_weight") ? input.get("breeding_weight").getAsInt() : weight;
 
-                DragonVariantSpawner.BiomeRestrictions allowedBiomes = getBiomes("allowed_biomes", input);
-                DragonVariantSpawner.BiomeRestrictions bannedBiomes = getBiomes("banned_biomes", input);
+                DragonVariantSpawner.BiomeRestrictions allowedBiomes = getBiomes("allowed_biomes", input, true);
+                DragonVariantSpawner.BiomeRestrictions bannedBiomes = getBiomes("banned_biomes", input, false);
                 DragonVariantSpawner.AltitudeRestriction altitudeRestriction = getAltitude(input);
                 DragonVariantSpawner.SurfaceRestriction surfaceRestriction = getSurfaceRestriction(input);
 
@@ -49,7 +49,7 @@ public class DragonVariantSpawnerReloadListener extends SimpleJsonResourceReload
         DragonVariantSpawnerUtil.debugPrint();
     }
 
-    private DragonVariantSpawner.BiomeRestrictions getBiomes(String list, JsonObject input) {
+    private DragonVariantSpawner.BiomeRestrictions getBiomes(String list, JsonObject input, boolean defaultIfEmpty) {
         DragonVariantSpawner.BiomeRestrictions restrictions = null;
         if (input.has(list)) {
             JsonObject biomes = GsonHelper.getAsJsonObject(input, list);
@@ -65,6 +65,8 @@ public class DragonVariantSpawnerReloadListener extends SimpleJsonResourceReload
                 JsonArray tags = biomes.get("tag").getAsJsonArray();
                 for (int j = 0; j < tags.size(); j++) biomesByTag.add(tags.get(j).getAsString());
             }
+
+            if (defaultIfEmpty && biomesById.isEmpty() && biomesByTag.isEmpty()) biomesByTag.add("minecraft:is_overworld");
 
             restrictions = new DragonVariantSpawner.BiomeRestrictions(biomesById, biomesByTag);
         }
@@ -86,9 +88,9 @@ public class DragonVariantSpawnerReloadListener extends SimpleJsonResourceReload
         String restriction = "";
         if (input.has("surface_restriction")) restriction = input.get("surface_restriction").getAsString();
         return switch (restriction) {
-            case "none" -> DragonVariantSpawner.SurfaceRestriction.NONE;
             case "underground" -> DragonVariantSpawner.SurfaceRestriction.UNDERGROUND;
-            default -> DragonVariantSpawner.SurfaceRestriction.SURFACE;
+            case "surface" -> DragonVariantSpawner.SurfaceRestriction.SURFACE;
+            default -> DragonVariantSpawner.SurfaceRestriction.NONE;
         };
     }
 }

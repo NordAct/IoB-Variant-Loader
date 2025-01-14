@@ -25,7 +25,6 @@ public record DragonVariantSpawner(String name, int weight, int breedingWeight, 
         public boolean hasBiomesByTagList() {
             return biomesByTag != null && !biomesByTag.isEmpty();
         }
-
     }
 
     public record AltitudeRestriction(int min, int max) {}
