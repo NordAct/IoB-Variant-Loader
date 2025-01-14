@@ -1,3 +1,7 @@
+## Very Important
+Mod requires Forge 40.2.10 or above! Forge may not tell you about this and throw an exception with different error.
+Mod also is incompatible with Optifine
+
 ## Description
 Adds ability to add new variants with condition support or configure existing ones for [Isle of Berk](https://modrinth.com/mod/isle-of-berk) dragons via resource and data packs and change textures, animations or models via nametags. Also adds support adds ability to add glowing layer to the texture.
 **Note:** using this mod to add own variants already considers that user is familiar with making resource and data packs (no matter the complexity).

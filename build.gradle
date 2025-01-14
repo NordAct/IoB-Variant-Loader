@@ -169,16 +169,16 @@ modrinth {
     versionName ="Isle of Berk Variant Loader " + mod_version
 }
 
-//reminder to myself: turn on VPN before running
-//CF's API blocks russian IP address
-//task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
-//    apiToken = System.getenv("CURSEFORGE_TOKEN")
-//    int projectId = 908401
-//    String changelogText = rootProject.file("CHANGELOG.md").text
-//    def mainFile = upload(projectId, jar)
-//    mainFile.changelog = changelogText
-//    mainFile.changelogType = "markdown"
-//    mainFile.releaseType = "release"
-//    mainFile.addGameVersion("1.18.2")
-//    mainFile.displayName = "Isle of Berk Variant Loader " + mod_version
-//}
+////reminder to myself: turn on VPN before running
+////CF's API blocks russian IP address
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    apiToken = System.getenv("CURSEFORGE_TOKEN")
+    int projectId = 908401
+    String changelogText = rootProject.file("CHANGELOG.md").text
+    def mainFile = upload(projectId, jar)
+    mainFile.changelog = changelogText
+    mainFile.changelogType = "markdown"
+    mainFile.releaseType = "release"
+    mainFile.addGameVersion("1.18.2")
+    mainFile.displayName = "Isle of Berk Variant Loader " + mod_version
+}
