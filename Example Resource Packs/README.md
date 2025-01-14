@@ -22,6 +22,8 @@ Textures, models and animation can be eiter specified as file names if they are 
 Model redirect files should go in `model_redirects` folder under any custom namespace. 
 WARNING: if you add model redirect files under same namespace in your resource pack as someone else's or `isleofberk` one, this will cause an override of model redirect files under those namespaces. If this is not your intention, **don't do that**.
 
+**MAKE SURE NAMESPACE UNIQUE IF YOU DON'T INTEND TO OVERRIDE ANYTHING OR OTHERWISE PREPARE FOR POSSIBLE TECHNICAL ISSUES AND ANGRY USERS SLAMMING YOUR DOOR FOR PACK NOT WORKING**
+
 Model redirect file names should be respective to their in-game dragon's ID with small exception in face of Monstrous Nightmare (blame Isle of Berk's name inconsistency, it's actually horrible).
 
 | Dragon              | File name                   |

@@ -54,6 +54,51 @@
       "name": "harlequeen",
       "breeding_weight": 1,
       "weight": 0
+    },
+
+    {
+      "name": "dart",
+      "weight": 1
+    },
+    {
+      "name": "pouncer",
+      "weight": 1
+    },
+    {
+      "name": "ruffrunner",
+      "weight": 1
+    },
+    {
+      "name": "leopard",
+      "weight": 1
+    },
+    {
+      "name": "dusk",
+      "weight": 1
+    },
+    {
+      "name": "appaloosa",
+      "weight": 1
+    },
+    {
+      "name": "skydancer",
+      "weight": 1
+    },
+    {
+      "name": "nightdancer",
+      "weight": 1
+    },
+    {
+      "name": "iridescence",
+      "weight": 1
+    },
+    {
+      "name": "ashwing",
+      "weight": 1
+    },
+    {
+      "name": "harlequeen",
+      "weight": 1
     }
   ]
 }
