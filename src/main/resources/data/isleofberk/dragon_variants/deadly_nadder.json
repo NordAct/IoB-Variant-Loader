@@ -63,51 +63,63 @@
 
     {
       "name": "stormfly",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "deadly_nadder",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "kingstail",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "scardian",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "springshedder",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "hjarta",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "bork_week",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "flystorm",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "hjaldr",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "barklethorn",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "lethal_lancebeak",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "seedling_stormpest",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     }
   ]
 }

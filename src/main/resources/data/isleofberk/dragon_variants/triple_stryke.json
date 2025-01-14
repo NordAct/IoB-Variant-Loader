@@ -53,43 +53,53 @@
 
     {
       "name": "rosethorn",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "sleuther",
-      "weight": 20
+      "weight": 20,
+      "breeding_weight": 0
     },
     {
       "name": "boreas",
-      "weight": 20
+      "weight": 20,
+      "breeding_weight": 0
     },
     {
       "name": "blue",
-      "weight": 20
+      "weight": 20,
+      "breeding_weight": 0
     },
     {
       "name": "spyro",
-      "weight": 20
+      "weight": 20,
+      "breeding_weight": 0
     },
     {
       "name": "triple_stryke",
-      "weight": 184
+      "weight": 184,
+      "breeding_weight": 0
     },
     {
       "name": "starstreak",
-      "weight": 184
+      "weight": 184,
+      "breeding_weight": 0
     },
     {
       "name": "nikora_triple_stryke",
-      "weight": 184
+      "weight": 184,
+      "breeding_weight": 0
     },
     {
       "name": "eclipser",
-      "weight": 184
+      "weight": 184,
+      "breeding_weight": 0
     },
     {
       "name": "champion",
-      "weight": 184
+      "weight": 184,
+      "breeding_weight": 0
     }
   ]
 }

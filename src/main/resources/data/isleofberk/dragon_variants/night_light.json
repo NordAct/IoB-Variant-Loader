@@ -58,47 +58,58 @@
 
     {
       "name": "dart",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "pouncer",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "ruffrunner",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "leopard",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "dusk",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "appaloosa",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "skydancer",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "nightdancer",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "iridescence",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "ashwing",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "harlequeen",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     }
   ]
 }

@@ -45,7 +45,7 @@ public final class DragonVariantSpawnerUtil {
     public static boolean isVariantIn(DragonVariantSpawner.BiomeRestrictions restrictions, ServerLevelAccessor world, BlockPos blockPos) {
         Holder<Biome> biome = world.getBiome(blockPos);
         List<String> id = restrictions.hasBiomesByIdList() ? restrictions.biomesById() : List.of();
-        List<String> tags = restrictions.hasBiomesByTagList() ?restrictions.biomesByTag() : List.of();
+        List<String> tags = restrictions.hasBiomesByTagList() ? restrictions.biomesByTag() : List.of();
 
         boolean isIn = false;
         for (String s : id) {
@@ -106,7 +106,7 @@ public final class DragonVariantSpawnerUtil {
                 if (entity instanceof DefaultVariantNameHelper defaultVariantNameHelper) helper.setVariantName(defaultVariantNameHelper.getFromBaseVariant());
                 else helper.setVariantName("");
 
-                IoBVariantLoader.LOGGER.warn("Failed to get variant for {} ({}), setting default", entity.getName().getString(), entity.getType().getRegistryName().getPath());
+                IoBVariantLoader.LOGGER.warn("Failed to get variant for {} ({}) at {}, setting default", entity.getName().getString(), entity.getType().getRegistryName().getPath(), pos.toShortString());
                 return;
             }
 

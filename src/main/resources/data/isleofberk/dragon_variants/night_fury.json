@@ -33,27 +33,33 @@
 
     {
       "name": "albino",
-      "weight": 5
+      "weight": 5,
+      "breeding_weight": 0
     },
     {
       "name": "svartr",
-      "weight": 999
+      "weight": 999,
+      "breeding_weight": 0
     },
     {
       "name": "arsian",
-      "weight": 999
+      "weight": 999,
+      "breeding_weight": 0
     },
     {
       "name": "karma",
-      "weight": 999
+      "weight": 999,
+      "breeding_weight": 0
     },
     {
       "name": "sentinel",
-      "weight": 999
+      "weight": 999,
+      "breeding_weight": 0
     },
     {
       "name": "night_fury",
-      "weight": 999
+      "weight": 999,
+      "breeding_weight": 0
     }
   ]
 }

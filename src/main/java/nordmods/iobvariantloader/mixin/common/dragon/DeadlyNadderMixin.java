@@ -49,4 +49,22 @@ public abstract class DeadlyNadderMixin extends ADragonBaseMixin implements Dead
     public void setPreventWingGlowLayer(boolean state) {
         preventWingGlowLayer = state;
     }
+
+    @Override
+    public String getFromBaseVariant() {
+        return switch (getDragonVariant()) {
+            case 1 -> "deadly_nadder";
+            case 2 -> "kingstail";
+            case 3 -> "scardian";
+            case 4 -> "springshedder";
+            case 5 -> "hjarta";
+            case 6 -> "bork_week";
+            case 7 -> "flystorm";
+            case 8 -> "hjaldr";
+            case 9 -> "barklethorn";
+            case 10 -> "lethal_lancebeak";
+            case 11 -> "seedling_stormpest";
+            default -> "stormfly";
+        };
+    }
 }

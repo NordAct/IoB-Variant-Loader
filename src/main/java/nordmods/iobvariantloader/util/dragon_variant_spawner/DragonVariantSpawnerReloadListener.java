@@ -66,10 +66,10 @@ public class DragonVariantSpawnerReloadListener extends SimpleJsonResourceReload
                 for (int j = 0; j < tags.size(); j++) biomesByTag.add(tags.get(j).getAsString());
             }
 
-            if (defaultIfEmpty && biomesById.isEmpty() && biomesByTag.isEmpty()) biomesByTag.add("minecraft:is_overworld");
+            if (defaultIfEmpty && biomesById.isEmpty() && biomesByTag.isEmpty()) biomesByTag.add("forge:is_overworld");
 
             restrictions = new DragonVariantSpawner.BiomeRestrictions(biomesById, biomesByTag);
-        }
+        } else if (defaultIfEmpty) restrictions = new DragonVariantSpawner.BiomeRestrictions(List.of(), List.of("forge:is_overworld"));
         return restrictions;
     }
 

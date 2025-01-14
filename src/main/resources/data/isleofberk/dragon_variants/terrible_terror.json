@@ -43,35 +43,43 @@
 
     {
       "name": "terrible_terror",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "blar",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "sneaky",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "terror",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "sharpshot",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "iggy",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "pain",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "head",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     }
   ]
 }

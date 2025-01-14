@@ -274,8 +274,6 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         return EntityDimensions.scalable(1f, 1f);
     }
 
-    public abstract String getFromBaseVariant();
-
     @Override
     public float getModelSize() {
         String species = getSpecies(true);

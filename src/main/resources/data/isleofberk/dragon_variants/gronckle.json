@@ -53,43 +53,53 @@
 
     {
       "name": "meatlug",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "hjarta",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "junior_tuffnut_junior",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "gronckle",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "cheesemonger",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "exiled",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "rubblegrubber",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "barn",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "crubble",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     },
     {
       "name": "yawnckle",
-      "weight": 1
+      "weight": 1,
+      "breeding_weight": 0
     }
   ]
 }
