@@ -1,5 +1,5 @@
 - Added hitbox redirects. **Note: hitbox redirects are applied via checking base variant and will not be applied if you use nametag.**
-  - Hitbox redirects should go in `hitbox_redirects` folder in your datapack under any namespace. 
+  - Hitbox redirects should go in `hitbox_redirects` folder in your data pack under any namespace. 
   - For each species file should be named respectively (i.e. `triple_stryke` for Triple Stryke and `monstrous_nightmare` for Monstrous Nightmare)
     - Each record in hitbox redirects file can have the following fields: 
       - `name` - name of the variant to which will be affected, mandatory
@@ -26,3 +26,5 @@
 - Fixed bug that caused variants that applied via nametags to be applied incorrectly if those variants didn't have redirects that base variant has
 - Fixed issue that caused model caches to be reset incorrectly, which caused all sorts of weird visual issues with models
 - Mod now will automatically assign corresponding Variant Loader variant according to variant id from base mod if it can't find. This means you no longer have to fix dragon variants manually when adding Variant Loader to existing worlds
+- Added new `surface_restriction` field to spawn conditions that allows to define if dragon has or has not to be on surface in order to spawn
+- If place has dragon spawn, but no variants, dragon will now simply not spawn. If it still manages to spawn, mod will set variant to default and warn in logs instead of throwing exception
