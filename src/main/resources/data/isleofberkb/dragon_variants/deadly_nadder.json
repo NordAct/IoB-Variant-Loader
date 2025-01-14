@@ -1,0 +1,52 @@
+{
+  "variants": [
+    {
+      "name": "stormfly",
+      "weight": 1
+    },
+    {
+      "name": "deadly_nadder",
+      "weight": 1
+    },
+    {
+      "name": "kingstail",
+      "weight": 1
+    },
+    {
+      "name": "scardian",
+      "weight": 1
+    },
+    {
+      "name": "springshedder",
+      "weight": 1
+    },
+    {
+      "name": "hjarta",
+      "weight": 1
+    },
+    {
+      "name": "bork_week",
+      "weight": 1
+    },
+    {
+      "name": "flystorm",
+      "weight": 1
+    },
+    {
+      "name": "hjaldr",
+      "weight": 1
+    },
+    {
+      "name": "barklethorn",
+      "weight": 1
+    },
+    {
+      "name": "lethal_lancebeak",
+      "weight": 1
+    },
+    {
+      "name": "seedling_stormpest",
+      "weight": 1
+    }
+  ]
+}

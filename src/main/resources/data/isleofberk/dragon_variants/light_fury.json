@@ -2,27 +2,33 @@
   "variants": [
     {
       "name": "sveinn_grogaldr",
-      "weight": 5
+      "breeding_weight": 5,
+      "weight": 0
     },
     {
       "name": "light_fury",
-      "weight": 19
+      "breeding_weight": 19,
+      "weight": 0
     },
     {
       "name": "sveinn",
-      "weight": 19
+      "breeding_weight": 19,
+      "weight": 0
     },
     {
       "name": "drottinn",
-      "weight": 19
+      "breeding_weight": 19,
+      "weight": 0
     },
     {
       "name": "grogaldr",
-      "weight": 19
+      "breeding_weight": 19,
+      "weight": 0
     },
     {
       "name": "drottinn_grogaldr",
-      "weight": 19
+      "breeding_weight": 19,
+      "weight": 0
     }
   ]
 }

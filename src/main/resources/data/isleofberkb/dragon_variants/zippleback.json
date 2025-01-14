@@ -1,0 +1,44 @@
+{
+  "variants": [
+    {
+      "name": "hamfeist",
+      "weight": 1
+    },
+    {
+      "name": "purple_n_nurple",
+      "weight": 1
+    },
+    {
+      "name": "leaf_n_bark",
+      "weight": 1
+    },
+    {
+      "name": "whip_n_lash",
+      "weight": 1
+    },
+    {
+      "name": "exiled",
+      "weight": 1
+    },
+    {
+      "name": "hjarta",
+      "weight": 1
+    },
+    {
+      "name": "hodd",
+      "weight": 1
+    },
+    {
+      "name": "fart_n_sniff",
+      "weight": 1
+    },
+    {
+      "name": "sandr",
+      "weight": 1
+    },
+    {
+      "name": "pistill",
+      "weight": 1
+    }
+  ]
+}

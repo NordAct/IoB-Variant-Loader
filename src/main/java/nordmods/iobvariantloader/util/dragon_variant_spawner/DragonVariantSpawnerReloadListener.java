@@ -36,7 +36,7 @@ public class DragonVariantSpawnerReloadListener extends SimpleJsonResourceReload
                 int weight = input.get("weight").getAsInt();
                 int breedingWeight = input.has("breeding_weight") ? input.get("breeding_weight").getAsInt() : weight;
 
-                DragonVariantSpawner.BiomeRestrictions allowedBiomes = getBiomes("allowed_biomes", input, true);
+                DragonVariantSpawner.BiomeRestrictions allowedBiomes = getBiomes("allowed_biomes", input, weight > 0);
                 DragonVariantSpawner.BiomeRestrictions bannedBiomes = getBiomes("banned_biomes", input, false);
                 DragonVariantSpawner.AltitudeRestriction altitudeRestriction = getAltitude(input);
                 DragonVariantSpawner.SurfaceRestriction surfaceRestriction = getSurfaceRestriction(input);

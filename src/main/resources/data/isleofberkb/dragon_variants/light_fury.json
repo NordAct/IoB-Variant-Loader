@@ -1,0 +1,28 @@
+{
+  "variants": [
+    {
+      "name": "sveinn_grogaldr",
+      "weight": 5
+    },
+    {
+      "name": "light_fury",
+      "weight": 19
+    },
+    {
+      "name": "sveinn",
+      "weight": 19
+    },
+    {
+      "name": "drottinn",
+      "weight": 19
+    },
+    {
+      "name": "grogaldr",
+      "weight": 19
+    },
+    {
+      "name": "drottinn_grogaldr",
+      "weight": 19
+    }
+  ]
+}

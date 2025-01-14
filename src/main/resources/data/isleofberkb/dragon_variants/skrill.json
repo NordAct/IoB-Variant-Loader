@@ -1,0 +1,56 @@
+{
+  "variants": [
+    {
+      "name": "moonshock",
+      "weight": 10
+    },
+    {
+      "name": "albino",
+      "weight": 10
+    },
+    {
+      "name": "spring_storm",
+      "weight": 100
+    },
+    {
+      "name": "skrill",
+      "weight": 988
+    },
+    {
+      "name": "spark",
+      "weight": 988
+    },
+    {
+      "name": "zen",
+      "weight": 988
+    },
+    {
+      "name": "pickle",
+      "weight": 988
+    },
+    {
+      "name": "tempest",
+      "weight": 988
+    },
+    {
+      "name": "nemesis",
+      "weight": 988
+    },
+    {
+      "name": "crimson",
+      "weight": 988
+    },
+    {
+      "name": "fryrir",
+      "weight": 988
+    },
+    {
+      "name": "icebane",
+      "weight": 988
+    },
+    {
+      "name": "stormshadow",
+      "weight": 988
+    }
+  ]
+}
