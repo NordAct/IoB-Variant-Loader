@@ -8,25 +8,17 @@ This addon changes how some stuff in original mod works gameplay wise:
 - All eggs now can hold variant as NBT that will determine variant of the dragon that will be hatched
 
 ## Example Packs
-- [Example data pack](https://github.com/NordAct/IoB-Variant-Loader/tree/2.2.0/Example%20Data%20Packs)
-- [Example resource packs](https://github.com/NordAct/IoB-Variant-Loader/tree/2.2.0/Example%20Resource%20Packs)
+- [Example data pack](https://github.com/NordAct/IoB-Variant-Loader/tree/2.3.0/Example%20Data%20Packs)
+- [Example resource packs](https://github.com/NordAct/IoB-Variant-Loader/tree/2.3.0/Example%20Resource%20Packs)
 
 
-## Adding custom variant spawns/editing existing via datapack
-If you wish to override default variants spawns, you'll need to edit main file in isleofberk namespace and ship it with your data pack. Else just declare spawns under different namespace. You can look up example of variant declaration in example data pack. Full path to the file would look something like this: "data/\*your\_namespace\*/dragon\_variants/\*dragon_id\*.json", where dragon_id is dragon's in game id. I.e. for Night Fury it'd be night_fury.
-### Variant declaration supports some conditions:
-- `weight` - declares a chance of certain variant appearing naturally (not via breeding). Higher the weight, higher the chances (formula for a chance looks like something like this: `variantWeight / totalWeightOfAllVariantsThatCanApppearOnThisSpot`)
-- `breeding_weight` - declares a chanse of a variant being applied via breeding. Higher the weight, higher the chances (formula for a chance looks like something like this: `variantWeight / totalWeightOfAllVariantsThatCanBeObtainedViaBreeding`). If not specified, value defaults to one declared in `weight` field (optional)
-- `banned_biomes` - declares biomes in which variant cannot appear under any circumstances. Basically a biome blacklist. Supports declaration via tags (optional) and biome IDs (optional)
-- `allowed_biomes` - declares biomes where certain variant only can appear. Works like a whitelist. If not presented, variant will spawn in any biome it can. Supports declaration via tags (optional) and biome IDs (optional)
-- `altitude` - defines on which range of world height variant can spawn. If not stated, variant will spawn on any world height. Supports declaration of minimum (optional) and maximum (optional) height
-### Mandatory fields for each variant:
-- `name` - name of the variant. Texture file name must correspond to the variant name in order to work correctly
-- `weight` - weight must be defined in order to variant to spawn
+## Adding custom variant spawns/editing existing via datapack, editing hit and attack boxes, changing passenger positions
+Variant Loader allows adding their own variants for spawning, as well as changing hitboxes and even passenger offsets via data packs.
+Full explanation on how to use those can be found [here](https://github.com/NordAct/IoB-Variant-Loader/blob/2.3.0/Example%20Data%20Packs/README.md)
 
-## Model redirects and glowing layer
+## Model redirects, glowing layer and making passenger follow movement of the model
 Model redirects is a tool that allows you to replace models, animations and saddle textures per variant for dragons and models with textures for eggs. Example declaration can be found in example resource pack.
-Full explanation on how to use those can be found [here](https://github.com/NordAct/IoB-Variant-Loader/blob/2.2.0/Example%20Resource%20Packs/README.md)
+Full explanation on how to use those can be found [here](https://github.com/NordAct/IoB-Variant-Loader/blob/2.3.0/Example%20Resource%20Packs/README.md)
 
 ## Config
 Mod has client and server config with options that can affect your gameplay experience

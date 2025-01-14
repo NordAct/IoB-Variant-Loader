@@ -22,7 +22,8 @@
 			},
 			"attack_box_position": [5, 0, 5],
 			"passenger_positions": [
-				[-1, 2, 0]
+				[-1, 2, 0],
+				[-3, -4, 0]
 			]
 		}
 	]

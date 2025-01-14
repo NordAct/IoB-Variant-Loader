@@ -111,6 +111,7 @@ dependencies {
     implementation fg.deobf("maven.modrinth:oculus:1.18.2-1.6.4")
     implementation fg.deobf("maven.modrinth:spark:1.9.11-forge")
     implementation fg.deobf("maven.modrinth:jade:5.3.2")
+    implementation fg.deobf("maven.modrinth:forge-carpet:0.2.0")
     //required for Oculus and Rubidium to work in dev
     implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.3.2")) {
         jarJar.ranged(it, "[0.3.2,)")

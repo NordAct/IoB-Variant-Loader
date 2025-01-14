@@ -53,3 +53,13 @@ Alternatively, if `nametag_accessible` for specific variant wasn't set to `false
 
 ## Autogenerating translation keys
 By setting `generate_translations` in client config to `true`, you enable translation key autogenerator. It'll autogenerate localisation keys for eggs and dragons and print them in log file for all variants that have model redirects (yes, even if model redirect contains only a name) on each resource reload.
+
+## Making passenger model follow dragon movement
+Mod automatically will try to detect any bone on the model named `passengerX`, where X is the number of passenger, starting from 0. So i.e. for first passenger it'll be `passenger0`, for second `passenger1` and so on. If mod manages to find respective bone, it'll attempt to move passenger's model relative to position of named bone (and yes, it'll follow animated bones too).
+To see example models, you can check example packs:
+### In Nether Dragons:
+- `isleofberk/geo/dragons/nightmare/soul.geo.json` - Model of Monstrous Nightmare of "Soul" variant
+- `isleofberk/geo/dragons/deadly_nadder/fungus.geo.json` - Model of Deadly Nadder of "Warped" and "Crimson" variant
+### Sakura's Mixed Dragons:
+- `sakura/geo/deathgripper.geo.json` - Model of Triple Stryke remade to look like Deathgripper
+- `sakura/geo/deathly_galeslash.geo.json` - Model of Deadly Nadder remade to look like Deathly Galeslash

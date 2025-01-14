@@ -153,6 +153,11 @@
 					]
 				},
 				{
+					"name": "passenger0",
+					"parent": "main2",
+					"pivot": [0, 24.5, -1.5]
+				},
+				{
 					"name": "spikeremove",
 					"parent": "main2",
 					"pivot": [0, 24.9303, -0.0989],

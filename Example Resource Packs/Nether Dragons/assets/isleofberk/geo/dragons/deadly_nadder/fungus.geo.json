@@ -2106,6 +2106,11 @@
 					]
 				},
 				{
+					"name": "passenger0",
+					"parent": "Chest",
+					"pivot": [0, 36.64162, -0.09133]
+				},
+				{
 					"name": "Saddle",
 					"parent": "Chest",
 					"pivot": [0, 36.39162, -3.09133],

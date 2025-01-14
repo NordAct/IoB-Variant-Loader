@@ -11,6 +11,10 @@ For example refer to Nether Dragons pack
 - `banned_biomes` - declares biomes in which variant cannot appear under any circumstances. Basically a biome blacklist. Supports declaration via tags (optional) and biome IDs (optional)
 - `allowed_biomes` - declares biomes where certain variant only can appear. Works like a whitelist. If not presented, variant will spawn in any biome it can. Supports declaration via tags (optional) and biome IDs (optional). If not specified and weight is over 0, variants will be able to spawn only in OW biomes
 - `altitude` - defines on which range of world height variant can spawn. If not stated, variant will spawn on any world height. Supports declaration of minimum (optional) and maximum (optional) height
+- `surface_restriction` - allows to specify if dragon has to be able to see sky or not in order to spawn. Possible values (if not specified, defaults to `none`):
+  - `none` - no restrictions
+  - `underground` - dragon has to not be able to see sky in order to spawn
+  - `surface` - dragon has to be able to see sky in order to spawn
 ### Mandatory fields for each variant:
 - `name` - name of the variant. Texture file name must correspond to the variant name in order to work correctly
 - `weight` - weight must be defined in order to variant to spawn
