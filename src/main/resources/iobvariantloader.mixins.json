@@ -62,6 +62,7 @@
     "client.isleofberk.egg.SmallEggRendererMixin",
     "client.isleofberk.layer.SaddleLayerMixin",
     "client.minecraft.ItemRendererMixin",
+    "client.minecraft.LivingEntityRendererMixin",
     "client.minecraft.ModelBakeryMixin",
     "client.minecraft.ResourceLoadStateTrackerMixin"
   ],

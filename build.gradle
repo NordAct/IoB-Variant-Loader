@@ -111,7 +111,6 @@ dependencies {
     implementation fg.deobf("maven.modrinth:oculus:1.18.2-1.6.4")
     implementation fg.deobf("maven.modrinth:spark:1.9.11-forge")
     implementation fg.deobf("maven.modrinth:jade:5.3.2")
-    implementation fg.deobf("maven.modrinth:forge-carpet:0.2.0")
     //required for Oculus and Rubidium to work in dev
     implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.3.2")) {
         jarJar.ranged(it, "[0.3.2,)")
@@ -169,16 +168,16 @@ modrinth {
     versionName ="Isle of Berk Variant Loader " + mod_version
 }
 
-////reminder to myself: turn on VPN before running
-////CF's API blocks russian IP address
-task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
-    apiToken = System.getenv("CURSEFORGE_TOKEN")
-    int projectId = 908401
-    String changelogText = rootProject.file("CHANGELOG.md").text
-    def mainFile = upload(projectId, jar)
-    mainFile.changelog = changelogText
-    mainFile.changelogType = "markdown"
-    mainFile.releaseType = "release"
-    mainFile.addGameVersion("1.18.2")
-    mainFile.displayName = "Isle of Berk Variant Loader " + mod_version
-}
+//reminder to myself: turn on VPN before running
+//CF's API blocks russian IP address
+//task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+//    apiToken = System.getenv("CURSEFORGE_TOKEN")
+//    int projectId = 908401
+//    String changelogText = rootProject.file("CHANGELOG.md").text
+//    def mainFile = upload(projectId, jar)
+//    mainFile.changelog = changelogText
+//    mainFile.changelogType = "markdown"
+//    mainFile.releaseType = "release"
+//    mainFile.addGameVersion("1.18.2")
+//    mainFile.displayName = "Isle of Berk Variant Loader " + mod_version
+//}

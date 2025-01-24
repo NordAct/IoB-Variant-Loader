@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.Entity;
-import nordmods.iobvariantloader.IoBVariantLoader;
+import nordmods.iobvariantloader.IoBVariantLoaderClient;
 import nordmods.iobvariantloader.util.ducks.ModelSizeProvider;
 import nordmods.iobvariantloader.util.ducks.VLGlowLayerHelper;
 import nordmods.iobvariantloader.util.layer.VLGlowLayer;
@@ -60,11 +60,11 @@ public abstract class BaseRendererMixin<T extends ADragonBase & IAnimatable> ext
             Entity passenger = passengers.get(i);
             String name = "passenger" + i;
             if (modelProvider.getAnimationProcessor().getBone(name) == null) {
-                IoBVariantLoader.PASSENGERS.remove(passenger.getUUID());
+                IoBVariantLoaderClient.PASSENGERS.remove(passenger.getUUID());
                 continue;
             }
             if (bone.name.equals(name)) {
-                IoBVariantLoader.PASSENGERS.remove(passenger.getUUID());
+                IoBVariantLoaderClient.PASSENGERS.remove(passenger.getUUID());
                 float deltaFrameTime = Minecraft.getInstance().getDeltaFrameTime();
                 stack.pushPose();
                 float scale = 1/animatable.getScale() / ((ModelSizeProvider)animatable).getModelSize();
@@ -76,7 +76,7 @@ public abstract class BaseRendererMixin<T extends ADragonBase & IAnimatable> ext
                 renderPassenger(passenger, deltaFrameTime, stack, getCurrentRTB(), packedLightIn);
                 bufferIn = getCurrentRTB().getBuffer(getRenderType(animatable, deltaFrameTime, stack, getCurrentRTB(), bufferIn, packedLightIn, getTextureLocation(animatable)));
                 stack.popPose();
-                IoBVariantLoader.PASSENGERS.add(passenger.getUUID());
+                IoBVariantLoaderClient.PASSENGERS.add(passenger.getUUID());
             }
         }
         super.renderRecursively(bone, stack, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
