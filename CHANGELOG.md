@@ -1,1 +1,1 @@
-- Fixed serverside crash caused by Forge being the worst mod loader to ever exist
+- Fixed glowing layer being applied incorrectly when dragon has passenger riding it
