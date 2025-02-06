@@ -1,1 +1,1 @@
-- Fixed glowing layer being applied incorrectly when dragon has passenger riding it
+- Fixed missing mixin refmap (I have no idea how it didn't include it as I literally didn't touch ANYTHING related to it, bruh)
