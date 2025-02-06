@@ -35,6 +35,11 @@ public class ModelRedirectReloadListener extends SimpleJsonResourceReloadListene
                 String model = input.has("model") ? input.get("model").getAsString() : null;
                 String animation = input.has("animation") ? input.get("animation").getAsString() : null;
                 String saddle = input.has("saddle") ? input.get("saddle").getAsString() : null;
+
+                String babyTexture = input.has("baby_texture") ? input.get("baby_texture").getAsString() : null;
+                String babyModel = input.has("baby_model") ? input.get("baby_model").getAsString() : null;
+                String babyAnimation = input.has("baby_animation") ? input.get("baby_animation").getAsString() : null;
+                String babySaddle = input.has("baby_saddle") ? input.get("baby_saddle").getAsString() : null;
                 //noinspection SimplifiableConditionalExpression
                 boolean nameTagAccessible = input.has("nametag_accessible") ? input.get("nametag_accessible").getAsBoolean() : true;
 
@@ -44,7 +49,7 @@ public class ModelRedirectReloadListener extends SimpleJsonResourceReloadListene
                 TranslatableComponent eggItemName = input.has("egg_item_name") ? new TranslatableComponent(input.get("egg_item_name").getAsString()) : null;
                 TranslatableComponent eggName = input.has("egg_name") ? new TranslatableComponent(input.get("egg_name").getAsString()) : null;
                 TranslatableComponent dragonName = input.has("dragon_name") ? new TranslatableComponent(input.get("dragon_name").getAsString()) : null;
-                ModelRedirect modelRedirect = new ModelRedirect(texture, model, animation, saddle, eggModel, eggTexture, eggItemName, eggName, dragonName, nameTagAccessible);
+                ModelRedirect modelRedirect = new ModelRedirect(texture, model, animation, saddle, babyTexture, babyModel, babyAnimation, babySaddle, eggModel, eggTexture, eggItemName, eggName, dragonName, nameTagAccessible);
                 toPut.put(name, modelRedirect);
             }
             ModelRedirectUtil.add(dragon, toPut);
