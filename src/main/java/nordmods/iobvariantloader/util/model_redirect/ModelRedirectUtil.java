@@ -206,6 +206,7 @@ public final class ModelRedirectUtil {
     }
 
     public static void debugPrint() {
+        if (!IoBVariantLoader.clientConfig.logModelRedirects.get()) return;
         for (Map.Entry<String, Map<String, ModelRedirect>> entry : dragonModelRedirects.entrySet()) {
             for ( Map.Entry<String, ModelRedirect> redirects : entry.getValue().entrySet()) {
                 ModelRedirect modelRedirect = redirects.getValue();

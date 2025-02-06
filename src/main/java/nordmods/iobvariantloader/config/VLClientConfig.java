@@ -9,6 +9,7 @@ import java.util.List;
 public class VLClientConfig {
     public ConfigHelper.ConfigValueListener<Boolean> disableGlowing;
     public ConfigHelper.ConfigValueListener<Boolean> disableNamedVariants;
+    public ConfigHelper.ConfigValueListener<Boolean> logModelRedirects;
     public ConfigHelper.ConfigValueListener<Boolean> generateTranslations;
     public ConfigHelper.ConfigValueListener<List<String>> ignoredByGenerator;
     public VLClientConfig(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber)
@@ -23,6 +24,12 @@ public class VLClientConfig {
         disableNamedVariants = subscriber.subscribe(builder
                 .comment("Disables variant display via nametag")
                 .define("disable_named_variants", false));
+        builder.pop();
+
+        builder.push("Log Model Redirects");
+        logModelRedirects = subscriber.subscribe(builder
+                .comment("Logs any added model redirect in console for easier debugging")
+                .define("log_model_redirects", false));
         builder.pop();
 
         builder.push("Generate Translations");

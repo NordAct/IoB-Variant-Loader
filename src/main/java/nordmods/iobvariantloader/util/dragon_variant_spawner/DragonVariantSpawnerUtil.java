@@ -35,9 +35,52 @@ public final class DragonVariantSpawnerUtil {
     }
 
     public static void debugPrint() {
+        if (!IoBVariantLoader.config.logDragonVariantSpawns.get()) return;
         for (Map.Entry<String, List<DragonVariantSpawner>> entry : dragonVariants.entrySet()) {
             for (DragonVariantSpawner variant : entry.getValue()) {
-                IoBVariantLoader.LOGGER.debug("{}: variant {} was loaded", entry.getKey(), variant);
+                String variantName = variant.name();
+                StringBuilder conditions = new StringBuilder();
+                conditions.append("Weight: ").append(variant.weight()).append("\n");
+                conditions.append("Breeding Weight: ").append(variant.breedingWeight()).append("\n");
+                if (variant.hasAllowedBiomes()) {
+                    conditions.append("Allowed Biomes: \n");
+                    List<String> biomesById = variant.allowedBiomes().biomesById();
+                    List<String> biomesByTag = variant.allowedBiomes().biomesByTag();
+                    if (biomesById != null && !biomesById.isEmpty()) {
+                        conditions.append("- Biomes by ID: ");
+                        biomesById.forEach(id -> conditions.append(id).append(" "));
+                        conditions.append("\n");
+                    }
+                    if (biomesByTag != null && !biomesByTag.isEmpty()) {
+                        conditions.append("- Biomes by tag: ");
+                        biomesByTag.forEach(id -> conditions.append(id).append(" "));
+                        conditions.append("\n");
+                    }
+                }
+
+                if (variant.hasBannedBiomes()) {
+                    conditions.append("Banned Biomes: \n");
+                    List<String> biomesById = variant.bannedBiomes().biomesById();
+                    List<String> biomesByTag = variant.bannedBiomes().biomesByTag();
+                    if (biomesById != null && !biomesById.isEmpty()) {
+                        conditions.append("- Biomes by ID: ");
+                        biomesById.forEach(id -> conditions.append(id).append(" "));
+                        conditions.append("\n");
+                    }
+                    if (biomesByTag != null && !biomesByTag.isEmpty()) {
+                        conditions.append("- Biomes by tag: ");
+                        biomesByTag.forEach(id -> conditions.append(id).append(" "));
+                        conditions.append("\n");
+                    }
+                }
+
+                conditions.append("Altitude Restriction: \n");
+                conditions.append("- Min: ").append(variant.altitudeRestriction().min()).append("\n");
+                conditions.append("- Max: ").append(variant.altitudeRestriction().max()).append("\n");
+
+                conditions.append("Surface Restriction: ").append(variant.surfaceRestriction()).append("\n");
+
+                IoBVariantLoader.LOGGER.debug("{}: variant {} was loaded with following conditions:\n{}", entry.getKey(), variantName, conditions);
             }
         }
     }

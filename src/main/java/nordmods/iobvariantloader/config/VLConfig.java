@@ -7,6 +7,7 @@ public class VLConfig {
     public ConfigHelper.ConfigValueListener<Double> inheritanceChance;
     public ConfigHelper.ConfigValueListener<Boolean> assignEggVariantOnBreeding;
     public ConfigHelper.ConfigValueListener<Boolean> assignEggVariantOnPlaced;
+    public ConfigHelper.ConfigValueListener<Boolean> logDragonVariantSpawns;
     public VLConfig(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber)
     {
         builder.push("Inheritance Chance");
@@ -25,6 +26,12 @@ public class VLConfig {
         assignEggVariantOnPlaced = subscriber.subscribe(builder
                 .comment("Enables variant assignment when egg is placed and has empty or invalid variant tag. If false, all eggs always will have no variant assigned when placed")
                 .define("assign_egg_variant_on_placed", false));
+        builder.pop();
+
+        builder.push("Log Variant Spawns");
+        logDragonVariantSpawns = subscriber.subscribe(builder
+                .comment("Logs any added variant spawn in console for easier debugging")
+                .define("log_variant_spawns", false));
         builder.pop();
     }
 }
