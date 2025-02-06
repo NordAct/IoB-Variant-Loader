@@ -40,6 +40,6 @@ public abstract class SpeedStingerLeaderModelMixin extends BaseDragonModelMixin<
     }
     @Override
     public ResourceLocation getVariantTexture(SpeedStingerLeader entity) {
-        return ModelRedirectUtil.getVariantTexturePath(((VariantNameHelper)entity).getVariantName(), getDragonFolder(), "_leader");
+        return ModelRedirectUtil.getVariantTexturePath(((VariantNameHelper)entity).getVariantName(), getDragonFolder(), "_leader", entity.isBaby());
     }
 }

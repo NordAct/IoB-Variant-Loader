@@ -33,31 +33,33 @@ public final class ModelRedirectUtil {
     }
 
     public static ResourceLocation getCustomTexturePath(ADragonBase dragon, String id, String suffix) {
-        String model = ModelRedirectUtil.getTexture(id, ResourceUtil.parseName(dragon), suffix);
+        String model = ModelRedirectUtil.getTexture(id, ResourceUtil.parseName(dragon), suffix, dragon.isBaby());
         if (model.contains(":")) return new ResourceLocation(model);
         return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/" + id + "/" + model);
     }
 
-    public static ResourceLocation getVariantTexturePath(String variant, String id) {
-        return getVariantTexturePath(variant, id, "");
+    public static ResourceLocation getVariantTexturePath(String variant, String id, boolean isBaby) {
+        return getVariantTexturePath(variant, id, "", isBaby);
     }
 
-    public static ResourceLocation getVariantTexturePath(String variant, String id, String suffix) {
-        String model = ModelRedirectUtil.getTexture(id, variant, suffix);
+    public static ResourceLocation getVariantTexturePath(String variant, String id, String suffix, boolean isBaby) {
+        String model = ModelRedirectUtil.getTexture(id, variant, suffix, isBaby);
         if (model.contains(":")) return new ResourceLocation(model);
         return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/" + id + "/" + model);
     }
 
-    public static String getTexture(String dragon, String name, String suffix) {
+    public static String getTexture(String dragon, String name, String suffix, boolean isBaby) {
         name = name.toLowerCase();
-        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name))
+        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)) {
+            if (isBaby && dragonModelRedirects.get(dragon).get(name).babyTexture() != null) return dragonModelRedirects.get(dragon).get(name).babyTexture();
             return dragonModelRedirects.get(dragon).get(name).texture() == null ? name + suffix + ".png" : dragonModelRedirects.get(dragon).get(name).texture();
+        }
         else return name + suffix + ".png";
     }
 
     public static ResourceLocation getCustomModelPath(ADragonBase dragon, String dragonID) {
         String name = ResourceUtil.parseName(dragon);
-        String model = ModelRedirectUtil.getModel(dragonID, name);
+        String model = ModelRedirectUtil.getModel(dragonID, name, dragon.isBaby());
         if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).model())) {
             return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/"+ dragonID +".geo.json");
         }
@@ -67,22 +69,24 @@ public final class ModelRedirectUtil {
     }
 
     public static ResourceLocation getVariantModelPath(ADragonBase dragon, String dragonID) {
-        String model = ModelRedirectUtil.getModel(dragonID, ((VariantNameHelper)dragon).getVariantName());
+        String model = ModelRedirectUtil.getModel(dragonID, ((VariantNameHelper)dragon).getVariantName(), dragon.isBaby());
         if (model.contains(":")) return new ResourceLocation(model);
         return new ResourceLocation(IsleofBerk.MOD_ID,
                 "geo/dragons/" + dragonID + "/" + model);
     }
 
-    public static String getModel(String dragon, String name) {
+    public static String getModel(String dragon, String name, boolean isBaby) {
         name = name.toLowerCase();
-       if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name))
+       if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)) {
+           if (isBaby && dragonModelRedirects.get(dragon).get(name).babyModel() != null) return dragonModelRedirects.get(dragon).get(name).babyModel();
            return dragonModelRedirects.get(dragon).get(name).model() == null ? ".json" : dragonModelRedirects.get(dragon).get(name).model();
+       }
        else return ".json";
     }
 
     public static ResourceLocation getCustomAnimationPath(ADragonBase dragon, String dragonID) {
         String name = ResourceUtil.parseName(dragon);
-        String model = ModelRedirectUtil.getAnimation(dragonID, name);
+        String model = ModelRedirectUtil.getAnimation(dragonID, name, dragon.isBaby());
         if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).animation())) {
             if (dragonID.equals("night_light")) return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/night_fury.animation.json");
             return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/"+ dragonID+".animation.json");
@@ -93,22 +97,23 @@ public final class ModelRedirectUtil {
     }
 
     public static ResourceLocation getVariantAnimationPath(ADragonBase dragon, String dragonID) {
-        String model = ModelRedirectUtil.getAnimation(dragonID, ((VariantNameHelper)dragon).getVariantName());
+        String model = ModelRedirectUtil.getAnimation(dragonID, ((VariantNameHelper)dragon).getVariantName(), dragon.isBaby());
         if (model.contains(":")) return new ResourceLocation(model);
         return new ResourceLocation(IsleofBerk.MOD_ID,
                 "animations/dragons/" + dragonID + "/" + model);
     }
 
-    public static String getAnimation(String dragon, String name) {
+    public static String getAnimation(String dragon, String name, boolean isBaby) {
         name = name.toLowerCase();
-        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name))
+        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)){
+            if (isBaby && dragonModelRedirects.get(dragon).get(name).babyAnimation() != null) return dragonModelRedirects.get(dragon).get(name).babyAnimation();
             return dragonModelRedirects.get(dragon).get(name).animation() == null ? ".json" : dragonModelRedirects.get(dragon).get(name).animation();
-        else return ".json";
+        } else return ".json";
     }
 
     public static ResourceLocation getCustomSaddlePath(ADragonBase dragon, String dragonID) {
         String name = ResourceUtil.parseName(dragon);
-        String model = ModelRedirectUtil.getSaddle(dragonID, name);
+        String model = ModelRedirectUtil.getSaddle(dragonID, name, dragon.isBaby());
         if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).saddle())) {
             return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/" + dragonID + "/equipment.png");
         }
@@ -118,17 +123,18 @@ public final class ModelRedirectUtil {
     }
 
     public static ResourceLocation getVariantSaddlePath(ADragonBase dragon, String dragonID) {
-        String model = ModelRedirectUtil.getSaddle(dragonID, ((VariantNameHelper)dragon).getVariantName());
+        String model = ModelRedirectUtil.getSaddle(dragonID, ((VariantNameHelper)dragon).getVariantName(), dragon.isBaby());
         if (model.contains(":")) return new ResourceLocation(model);
         return new ResourceLocation(IsleofBerk.MOD_ID,
                 "textures/dragons/" + dragonID + "/" + model);
     }
 
-    public static String getSaddle(String dragon, String name) {
+    public static String getSaddle(String dragon, String name, boolean isBaby) {
         name = name.toLowerCase();
-        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name))
+        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)){
+            if (isBaby && dragonModelRedirects.get(dragon).get(name).babySaddle() != null) return dragonModelRedirects.get(dragon).get(name).babySaddle();
             return dragonModelRedirects.get(dragon).get(name).saddle() == null ? ".png" : dragonModelRedirects.get(dragon).get(name).saddle();
-        else return ".png";
+        } else return ".png";
     }
 
     @Nullable
