@@ -4,6 +4,7 @@ import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.google.gson.*;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.GsonHelper;
@@ -207,7 +208,26 @@ public final class ModelRedirectUtil {
     public static void debugPrint() {
         for (Map.Entry<String, Map<String, ModelRedirect>> entry : dragonModelRedirects.entrySet()) {
             for ( Map.Entry<String, ModelRedirect> redirects : entry.getValue().entrySet()) {
-                    IoBVariantLoader.LOGGER.debug("{}: variant {} was redirected to {}", entry.getKey(), redirects.getKey(), redirects.getValue());
+                ModelRedirect modelRedirect = redirects.getValue();
+                StringBuilder modelRedirectInfo = new StringBuilder();
+                modelRedirectInfo.append("Model: ").append(modelRedirect.model()).append("\n");
+                modelRedirectInfo.append("Animation: ").append(modelRedirect.animation()).append("\n");
+                modelRedirectInfo.append("Texture: ").append(modelRedirect.texture()).append("\n");
+                modelRedirectInfo.append("Saddle: ").append(modelRedirect.saddle()).append("\n");
+                modelRedirectInfo.append("Baby Model: ").append(modelRedirect.babyModel()).append("\n");
+                modelRedirectInfo.append("Baby Animation: ").append(modelRedirect.babyAnimation()).append("\n");
+                modelRedirectInfo.append("Baby Texture: ").append(modelRedirect.babyTexture()).append("\n");
+                modelRedirectInfo.append("Baby Saddle: ").append(modelRedirect.babySaddle()).append("\n");
+                modelRedirectInfo.append("Egg Model: ").append(modelRedirect.eggModel()).append("\n");
+                modelRedirectInfo.append("Egg Texture: ").append(modelRedirect.eggTexture()).append("\n");
+                Component component = modelRedirect.eggItemName();
+                modelRedirectInfo.append("Egg Item Name: ").append(component != null ? component.getString() : null).append("\n");
+                component = modelRedirect.eggName();
+                modelRedirectInfo.append("Egg Name: ").append(component != null ? component.getString() : null).append("\n");
+                component = modelRedirect.dragonName();
+                modelRedirectInfo.append("Dragon Name: ").append(component != null ? component.getString() : null).append("\n");
+                modelRedirectInfo.append("Is Accessible via Nametag: ").append(modelRedirect.nametagAccessible()).append("\n");
+                IoBVariantLoader.LOGGER.debug("{}: variant {} was redirected to:\n{}", entry.getKey(), redirects.getKey(), modelRedirectInfo);
             }
         }
 
