@@ -1,1 +1,1 @@
-- Fixed missing mixin refmap (I have no idea how it didn't include it as I literally didn't touch ANYTHING related to it, bruh)
+- Fixed glowing layer on eggs causing crash

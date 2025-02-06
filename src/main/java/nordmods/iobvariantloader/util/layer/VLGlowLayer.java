@@ -9,8 +9,9 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.AgeableMob;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.ducks.ModelCacheHelper;
+import nordmods.iobvariantloader.util.ResourceUtil;
+import nordmods.iobvariantloader.util.ducks.VLGlowLayerHelper;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
@@ -34,8 +35,9 @@ public class VLGlowLayer<T extends AgeableMob & IAnimatable> extends GeoLayerRen
             disableRender(dragon);
             return;
         }
+
         RenderType cameo =  RenderType.eyes(id);
-        getRenderer().render(getModel(dragon), dragon, partialTicks, cameo, matrixStackIn, bufferIn,
+        ((VLGlowLayerHelper<T>)getRenderer()).reRender(getModel(dragon), dragon, partialTicks, cameo, matrixStackIn, bufferIn,
                 bufferIn.getBuffer(cameo), LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
     }
 
