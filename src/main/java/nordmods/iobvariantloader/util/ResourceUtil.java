@@ -4,6 +4,7 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,5 +69,37 @@ public class ResourceUtil {
             sb.append(letters.getOrDefault(l, l));
         }
         return sb.toString();
+    }
+
+    public enum AllowedValues {
+        DEADLY_NADDER("deadly_nadder"),
+        GRONCKLE("gronckle"),
+        LIGHT_FURY("light_fury"),
+        MONSTROUS_NIGHTMARE("nightmare", "monstrous_nightmare"),
+        NIGHT_FURY("night_fury"),
+        NIGHT_LIGHT("night_lihght"),
+        SKRILL("skrill"),
+        SPEED_STINGER("speed_stinger"),
+        SPEED_STINGER_LEADER("speed_stinger_leader"),
+        STINGER("stinger"),
+        TERRIBLE_TERROR("terrible_terror"),
+        TRIPLE_STRYKE("triple_stryke"),
+        ZIPPLEBACK("zippleback");
+
+        private final String client;
+        private final String server;
+
+        AllowedValues(String client, String server) {
+            this.client = client;
+            this.server = server;
+        }
+
+        AllowedValues(String val) {
+            this(val, val);
+        }
+
+        public static boolean isValid(String string, boolean isClient) {
+            return Arrays.stream(values()).anyMatch(allowedValues -> string.equals(isClient ? allowedValues.client : allowedValues.server));
+        }
     }
 }

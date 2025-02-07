@@ -214,7 +214,7 @@ public final class ModelRedirectUtil {
     public static void debugPrint() {
         if (!IoBVariantLoader.clientConfig.logModelRedirects.get()) return;
         for (Map.Entry<String, Map<String, ModelRedirect>> entry : dragonModelRedirects.entrySet()) {
-            for ( Map.Entry<String, ModelRedirect> redirects : entry.getValue().entrySet()) {
+            for (Map.Entry<String, ModelRedirect> redirects : entry.getValue().entrySet()) {
                 ModelRedirect modelRedirect = redirects.getValue();
                 StringBuilder modelRedirectInfo = new StringBuilder();
                 modelRedirectInfo.append("Model: ").append(modelRedirect.model()).append("\n");
@@ -234,7 +234,7 @@ public final class ModelRedirectUtil {
                 component = modelRedirect.dragonName();
                 modelRedirectInfo.append("Dragon Name: ").append(component != null ? component.getString() : null).append("\n");
                 modelRedirectInfo.append("Is Accessible via Nametag: ").append(modelRedirect.nametagAccessible()).append("\n");
-                IoBVariantLoader.LOGGER.debug("{}: variant {} was redirected to:\n{}", entry.getKey(), redirects.getKey(), modelRedirectInfo);
+                IoBVariantLoader.LOGGER.info("{}: variant {} was redirected to:\n{}", entry.getKey(), redirects.getKey(), modelRedirectInfo);
             }
         }
 

@@ -19,6 +19,18 @@ For example refer to Nether Dragons pack
 - `name` - name of the variant. Texture file name must correspond to the variant name in order to work correctly
 - `weight` - weight must be defined in order to variant to spawn
 
+Additionally, you can specify to which dragon variant spawn or hitbox override belongs right within file. If done so, file name will be ignored. To do that, you have to add field called `dragon` outside `redirects` array. I.e.:
+```json
+{
+  "dragon": "some_dragon",
+  "variants": [
+    ...
+  ]
+}
+```
+In this case, whatever file name is, this specific model redirect file will always belong to dragon with ID `some_dragon`.
+Same rules for `dragon` field apply as for file name.
+
 ## Modifying attack boxes, hit boxes and passenger positions per variant
 You can modify offsets for attack box (if dragon got one), hit box and passenger positions per variant. This will work only if dragon actual variant (nbt value `VariantName`) matches with one you defined, **renaming dragon will not work**. 
 To make redirect for any of those, you have to declare them in `data/your_namespace/hitbox_redirects/dragon_id.json`, where `dragon_id` is dragon's in game id. I.e. for Night Fury it'd be night_fury, and `your_namespace` is unique name for your folder, that contains only `a-z`, `0-9` or `_`.

@@ -27,9 +27,47 @@ public class HitboxRedirectUtil {
     }
 
     public static void debugPrint() {
+        if (!IoBVariantLoader.config.logHitboxRedirects.get()) return;
         for (Map.Entry<String, Map<String, HitboxRedirect>> entry : dragonHitboxRedirects.entrySet()) {
             for (Map.Entry<String, HitboxRedirect> overrideEntry : entry.getValue().entrySet()) {
-                IoBVariantLoader.LOGGER.debug("{}: variant {} got following hitbox redirects {}", entry.getKey(), overrideEntry.getKey(), overrideEntry.getValue());
+                HitboxRedirect hitboxRedirect = overrideEntry.getValue();
+
+                StringBuilder hitboxRedirectInfo = new StringBuilder();
+                if (hitboxRedirect.hitbox() != null) {
+                    hitboxRedirectInfo.append("Hitbox: ").append("\n");
+                    hitboxRedirectInfo.append("- Width: ").append(hitboxRedirect.hitbox().getFirst()).append("\n");
+                    hitboxRedirectInfo.append("- Height: ").append(hitboxRedirect.hitbox().getSecond()).append("\n");
+                }
+
+                if (hitboxRedirect.attackBox() != null) {
+                    hitboxRedirectInfo.append("Attack Box: ").append("\n");
+                    hitboxRedirectInfo.append("- Width: ").append(hitboxRedirect.attackBox().getFirst()).append("\n");
+                    hitboxRedirectInfo.append("- Height: ").append(hitboxRedirect.attackBox().getSecond()).append("\n");
+                }
+
+                if (hitboxRedirect.attackBoxPos() != null) {
+                    Vec3 pos = hitboxRedirect.attackBoxPos();
+                    hitboxRedirectInfo.append("Attack Box Position: ")
+                            .append("(x: ").append(pos.x())
+                            .append(", y: ").append(pos.y())
+                            .append(", z: ").append(pos.z())
+                            .append(")");
+                    hitboxRedirectInfo.append("\n");
+                }
+
+                if (!hitboxRedirect.passengerPositions().isEmpty()) {
+                    hitboxRedirectInfo.append("Passenger Positions:");
+                    hitboxRedirect.passengerPositions().forEach(pos -> {
+                        hitboxRedirectInfo.append(" ")
+                                .append("(x: ").append(pos.x())
+                                .append(", y: ").append(pos.y())
+                                .append(", z: ").append(pos.z())
+                                .append(")");
+                    });
+                }
+                hitboxRedirectInfo.append("\n");
+
+                IoBVariantLoader.LOGGER.info("{}: variant {} got following hitbox redirects:\n{}", entry.getKey(), overrideEntry.getKey(), hitboxRedirectInfo);
             }
         }
     }

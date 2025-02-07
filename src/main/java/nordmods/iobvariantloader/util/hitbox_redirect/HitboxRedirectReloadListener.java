@@ -11,6 +11,8 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.phys.Vec3;
+import nordmods.iobvariantloader.IoBVariantLoader;
+import nordmods.iobvariantloader.util.ResourceUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -28,11 +30,16 @@ public class HitboxRedirectReloadListener extends SimpleJsonResourceReloadListen
     protected void apply(Map<ResourceLocation, JsonElement> map, @NotNull ResourceManager pResourceManager, @NotNull ProfilerFiller pProfiler) {
         HitboxRedirectUtil.dragonHitboxRedirects.clear();
         for (Map.Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
-            String dragon = entry.getKey().getPath();
+            JsonObject entryObject = entry.getValue().getAsJsonObject();
+
+            String dragon = entryObject.has("dragon") ? entryObject.get("dragon").getAsString() : entry.getKey().getPath();
+            if (!ResourceUtil.AllowedValues.isValid(dragon, false)) {
+                IoBVariantLoader.LOGGER.warn("Hitbox override entry {} does not match any dragon id and will be skipped", entry.getKey());
+                continue;
+            }
             Map<String, HitboxRedirect> toPut = new HashMap<>();
 
             JsonArray array = entry.getValue().getAsJsonObject().get("redirects").getAsJsonArray();
-
             for (JsonElement elem : array) {
                 JsonObject input = elem.getAsJsonObject();
                 String name = input.get("name").getAsString();

@@ -8,6 +8,7 @@ public class VLConfig {
     public ConfigHelper.ConfigValueListener<Boolean> assignEggVariantOnBreeding;
     public ConfigHelper.ConfigValueListener<Boolean> assignEggVariantOnPlaced;
     public ConfigHelper.ConfigValueListener<Boolean> logDragonVariantSpawns;
+    public ConfigHelper.ConfigValueListener<Boolean> logHitboxRedirects;
     public VLConfig(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber)
     {
         builder.push("Inheritance Chance");
@@ -32,6 +33,12 @@ public class VLConfig {
         logDragonVariantSpawns = subscriber.subscribe(builder
                 .comment("Logs any added variant spawn in console for easier debugging")
                 .define("log_variant_spawns", false));
+        builder.pop();
+
+        builder.push("Log Hitbox Redirects");
+        logHitboxRedirects = subscriber.subscribe(builder
+                .comment("Logs any added hitbox redirects in console for easier debugging")
+                .define("log_hitbox_redirects", false));
         builder.pop();
     }
 }

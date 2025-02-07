@@ -8,6 +8,10 @@ All packs are added with the permission of their authors
 - `model` - dragon's model file. If not specified, default one from the base mod will be used
 - `animation` - dragon's animation model file. If not specified, default one from the base mod will be used
 - `saddle` - dragon's saddle texture. If not specified, default one from the base mod will be used
+- `baby_texture` - baby dragon's texture. If not specified, will apply texture as described in `texture` field description
+- `baby_model` - baby dragon's model file. If not specified, will apply model as described in `model` field description
+- `baby_animation` - baby dragon's animation model file. If not specified, will apply animation as described in `animation` field description
+- `baby_saddle` - baby dragon's saddle texture. If not specified, will apply saddle texture as described in `saddle` field description
 - `egg_texture` - egg's entity texture. If not specified, default one from the base mod will be used
 - `egg_model` - egg's entity model file. If not specified, default one from the base mod will be used
 - `egg_item_model` - model of egg in item form. Must be specified as location of item model. If not specified, default one from the base mod will be used
@@ -41,6 +45,18 @@ Model redirect file names should be respective to their in-game dragon's ID with
 | Terrible Terror     | `terrible_terror.json`      |
 | Triple Stryke       | `triple_stryke.json`        |
 | Hideous Zippleback  | `zippleback.json`           |
+
+Additionally, you can specify to which dragon model redirect belongs right within file. If done so, file name will be ignored. To do that, you have to add field called `dragon` outside `redirects` array. I.e.:
+```json
+{
+  "dragon": "some_dragon",
+  "redirects": [
+    ...
+  ]
+}
+```
+In this case, whatever file name is, this specific model redirect file will always belong to dragon with ID `some_dragon`.
+Same rules for `dragon` field apply as for file name
 
 ## Glowing layer and Deadly Nadder's membranes
 To add glowing layer to either dragon or egg, just place texture with parts you want to glow in the same folder as main texture file and named same as main texture file, but with postfix `_glowing`. I.e. if dragon's variant name is `red`, main texture file name will be `red.png`. To add glowing layer, you need to place texture named `red_glowing.png` alongside it.

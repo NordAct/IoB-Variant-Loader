@@ -9,6 +9,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
+import nordmods.iobvariantloader.IoBVariantLoader;
+import nordmods.iobvariantloader.util.ResourceUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -23,11 +25,16 @@ public class ModelRedirectReloadListener extends SimpleJsonResourceReloadListene
     protected void apply(Map<ResourceLocation, JsonElement> map, @NotNull ResourceManager manager, @NotNull ProfilerFiller pProfiler) {
         ModelRedirectUtil.dragonModelRedirects.clear();
         for (Map.Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
-            String dragon = entry.getKey().getPath();
+            JsonObject entryObject = entry.getValue().getAsJsonObject();
+
+            String dragon = entryObject.has("dragon") ? entryObject.get("dragon").getAsString() : entry.getKey().getPath();
+            if (!ResourceUtil.AllowedValues.isValid(dragon, false)) {
+                IoBVariantLoader.LOGGER.warn("Model redirect entry {} does not match any dragon id and will be skipped", entry.getKey());
+                continue;
+            }
             Map<String, ModelRedirect> toPut = new HashMap<>();
 
-            JsonArray array = entry.getValue().getAsJsonObject().get("redirects").getAsJsonArray();
-
+            JsonArray array = entryObject.get("redirects").getAsJsonArray();
             for (JsonElement elem : array) {
                 JsonObject input = elem.getAsJsonObject();
                 String name = input.get("name").getAsString();

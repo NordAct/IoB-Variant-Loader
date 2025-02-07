@@ -80,7 +80,7 @@ public final class DragonVariantSpawnerUtil {
 
                 conditions.append("Surface Restriction: ").append(variant.surfaceRestriction()).append("\n");
 
-                IoBVariantLoader.LOGGER.debug("{}: variant {} was loaded with following conditions:\n{}", entry.getKey(), variantName, conditions);
+                IoBVariantLoader.LOGGER.info("{}: variant {} was loaded with following conditions:\n{}", entry.getKey(), variantName, conditions);
             }
         }
     }
