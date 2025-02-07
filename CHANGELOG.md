@@ -12,9 +12,9 @@
   - If `log_hitbox_redirects` set to `false`, information about registered hitbox redirects will not be printed in logs
   
 - Added `dragon` field for model redirects, hitbox redirects and variant spawns.
-  - `dragon` field allows to specify dragon ID to which this file belongs
+  - `dragon` field allows to specify dragon ID to which this file belongs. If specified, file name will be ignored
   - If `dragon` is not specified, it'll attempt to define dragon ID from file name as before
-  - Field must be specified outside entry list for both cases, i.e.:
+  - Field must be specified outside entry list for all cases, i.e.:
   ```json
   {
     "dragon": "some_dragon",
