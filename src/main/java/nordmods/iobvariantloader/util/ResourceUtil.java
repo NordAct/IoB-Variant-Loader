@@ -77,7 +77,7 @@ public class ResourceUtil {
         LIGHT_FURY("light_fury"),
         MONSTROUS_NIGHTMARE("nightmare", "monstrous_nightmare"),
         NIGHT_FURY("night_fury"),
-        NIGHT_LIGHT("night_lihght"),
+        NIGHT_LIGHT("night_light"),
         SKRILL("skrill"),
         SPEED_STINGER("speed_stinger"),
         SPEED_STINGER_LEADER("speed_stinger_leader"),

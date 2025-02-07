@@ -306,7 +306,7 @@ public final class ModelRedirectUtil {
         Collection<ResourceLocation> resourceCollection = manager.listResources("model_redirects", path -> path.endsWith(".json"));
         for (ResourceLocation id : resourceCollection) {
             String path = id.getPath();
-            String dragon = path.substring(path.lastIndexOf("/") + 1, path.indexOf(".json"));
+            String dragon = "";
 
             Map<String, String> redirects = new HashMap<>();
             try (InputStream stream = manager.getResource(id).getInputStream()) {
@@ -314,6 +314,8 @@ public final class ModelRedirectUtil {
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 try {
                     JsonElement element = JsonParser.parseReader(bufferedReader);
+                    dragon = element.getAsJsonObject().has("dragon") ? element.getAsJsonObject().get("dragon").getAsString() : path.substring(path.lastIndexOf("/") + 1, path.indexOf(".json"));
+                    if (!ResourceUtil.AllowedValues.isValid(dragon, true)) continue;
                     JsonArray array = GsonHelper.getAsJsonArray((JsonObject) element, "redirects");
                     for (int i = 0; i < array.size(); i++) {
                         JsonObject input = array.get(i).getAsJsonObject();

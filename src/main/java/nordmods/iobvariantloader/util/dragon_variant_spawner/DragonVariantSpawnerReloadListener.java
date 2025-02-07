@@ -30,7 +30,7 @@ public class DragonVariantSpawnerReloadListener extends SimpleJsonResourceReload
             JsonObject entryObject = entry.getValue().getAsJsonObject();
 
             String dragon = entryObject.has("dragon") ? entryObject.get("dragon").getAsString() : entry.getKey().getPath();
-            if (!ResourceUtil.AllowedValues.isValid(dragon, true)) {
+            if (!ResourceUtil.AllowedValues.isValid(dragon, false)) {
                 IoBVariantLoader.LOGGER.warn("Variant spawns entry {} does not match any dragon id and will be skipped", entry.getKey());
                 continue;
             }

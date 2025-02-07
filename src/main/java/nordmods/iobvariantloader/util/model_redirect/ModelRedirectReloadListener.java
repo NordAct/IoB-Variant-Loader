@@ -28,7 +28,7 @@ public class ModelRedirectReloadListener extends SimpleJsonResourceReloadListene
             JsonObject entryObject = entry.getValue().getAsJsonObject();
 
             String dragon = entryObject.has("dragon") ? entryObject.get("dragon").getAsString() : entry.getKey().getPath();
-            if (!ResourceUtil.AllowedValues.isValid(dragon, false)) {
+            if (!ResourceUtil.AllowedValues.isValid(dragon, true)) {
                 IoBVariantLoader.LOGGER.warn("Model redirect entry {} does not match any dragon id and will be skipped", entry.getKey());
                 continue;
             }
