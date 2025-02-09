@@ -98,7 +98,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Override
     public void onSyncedDataUpdated(@NotNull EntityDataAccessor<?> key) {
         super.onSyncedDataUpdated(key);
-        if (level.isClientSide() && (DATA_CUSTOM_NAME.equals(key) || VARIANT_NAME.equals(key))) resetCache();
+        if (level.isClientSide() && (DATA_CUSTOM_NAME.equals(key) || VARIANT_NAME.equals(key) || DATA_BABY_ID.equals(key))) resetCache();
         if (VARIANT_NAME.equals(key)) boxOverride = null;
     }
 
