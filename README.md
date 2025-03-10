@@ -38,48 +38,45 @@ Mod has client and server config with options that can affect your gameplay expe
 - `assign_egg_variant_on_placed` - Enables variant assignment when egg is placed and has empty or invalid variant tag. If false, all eggs always will have no variant assigned when placed
 
 ## FAQ
-- **Q:** Is there any video guide on how to use Variant Loader?
-- **A:** Yes - https://youtu.be/Ettk4RiZnx0
+## FAQ
+**Q:** Is there any video guide on how to use Variant Loader?\
+**A:** Yes - https://youtu.be/Ettk4RiZnx0
+
+**Q:** Do I need to add default textures to resource pack?\
+**A:** No! This is only adding to the size of the pack and also may cause conflicts with other packs that rely on texture replacement. Such practice has no benefit
+
+**Q:** Does adding variant spawn also makes dragon spawn in specific biome(s)?\
+**A:** No, mod does not automatically add dragon spawns in specific biomes. Restricting variant to specific biome only makes variant obtainable in this biome. If dragon can't naturally spawn in specified biome, only way to obtain it would be via hatching/breeding in this biome.
+
+**Q:** Why my added variants of Speed Stingers are not spawning?\
+**A:** Speed Stinger spawns are tied to structures purely. Either you add them to same biomes where those structures can spawn, add your own structures where they can spawn or try to obtain them via breeding
+
+**Q:** How do I make variant nametag only?\
+**A:** Just don't add variant spawn via data pack
 
 
-- **Q:** Do I need to add default textures to resource pack?
-- **A:** No! This is only adding to the size of the pack and also may cause conflicts with other packs that rely on texture replacement. Such practice has no benefit
+**Q:** Can I make variant impossible to be applied via nametag?\
+**A:** Set `nametag_accessible` in model redirect file to false for your variant
 
 
-- **Q:** Does adding variant spawn also makes dragon spawn in specific biome(s)?
-- **A:** No, mod does not automatically add dragon spawns in specific biomes. Restricting variant to specific biome only makes variant obtainable in this biome. If dragon can't naturally spawn in specified biome, only way to obtain it would be via hatching/breeding in this biome.
+**Q:** Can I make variant obtainable via only hatching(breeding)/only natural spawn?\
+**A:** If you want variant to only appear via natural spawn, set breeding_weight to 0. If you want it to be obtainable only via breeding, set weight to 0
 
 
-- **Q:** Why my added variants of Speed Stingers are not spawning?
-- **A:** Speed Stinger spawns are tied to structures purely. Either you add them to same biomes where those structures can spawn, add your own structures where they can spawn or try to obtain them via breeding
+**Q:** How can I summon specific variant with Variant Loader?\
+**A:** Use `/summon ~ ~ ~ isleofberk:dragon_id {VariantName:name}` where name is the name of the variant
 
 
-- **Q:** How do I make variant nametag only?
-- **A:** Just don't add variant spawn via data pack
+**Q:** Can I add new animations with Variant Loader?\
+**A:** No. Animation names and conditions for them are hardcoded for each dragon individually
 
 
-- **Q:** Can I make variant impossible to be applied via nametag?
-- **A:** Set `nametag_accessible` in model redirect file to false for your variant
+**Q:** My pack is not working/breaks stuff. What went wrong?\
+**A:** Most common mistakes are using upper case letters in file names or paths to the files in packs (Minecraft is very sensitive to this) and malforming .json files. To validate syntax in .json files, you can use online services.
 
 
-- **Q:** Can I make variant obtainable via only hatching(breeding)/only natural spawn?
-- **A:** If you want variant to only appear via natural spawn, set breeding_weight to 0. If you want it to be obtainable only via breeding, set weight to 0
-
-
-- **Q:** How can I summon specific variant with Variant Loader?
-- **A:** Use `/summon ~ ~ ~ isleofberk:dragon_id {VariantName:name}` where name is the name of the variant
-
-
-- **Q:** Can I add new animations with Variant Loader?
-- **A:** No. Animation names and conditions for them are hardcoded for each dragon individually
-
-
-- **Q:** My pack is not working/breaks stuff. What went wrong?
-- **A:** Most common mistakes are using upper case letters in file names or paths to the files in packs (Minecraft is very sensitive to this) and malforming .json files. To validate syntax in .json files, you can use online services.
-
-
-- **Q:** How do I make resource/data pack?
-- **A:** Search engines and YouTube are your best friends. I'm not going to explain this myself, this is out my scope
+**Q:** How do I make resource/data pack?\
+**A:** Search engines and YouTube are your best friends. I'm not going to explain this myself, this is out my scope
 
 ## Troubleshooting
 Still have questions? You can either ask on GitHub or hop on [New Berk's Dawn Discord Server](https://discord.gg/r7CzMyajm7) and ask questions in the [mod thread](https://discord.com/channels/614526777590546453/1146579340738441316) in the extras channel
