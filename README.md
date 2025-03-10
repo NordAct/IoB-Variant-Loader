@@ -38,7 +38,6 @@ Mod has client and server config with options that can affect your gameplay expe
 - `assign_egg_variant_on_placed` - Enables variant assignment when egg is placed and has empty or invalid variant tag. If false, all eggs always will have no variant assigned when placed
 
 ## FAQ
-## FAQ
 **Q:** Is there any video guide on how to use Variant Loader?\
 **A:** Yes - https://youtu.be/Ettk4RiZnx0
 
