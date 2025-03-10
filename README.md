@@ -12,23 +12,24 @@ This addon changes how some stuff in original mod works gameplay wise:
 - All eggs now can hold variant as NBT that will determine variant of the dragon that will be hatched
 
 ## Example Packs
-- [Example data pack](https://github.com/NordAct/IoB-Variant-Loader/tree/2.3.0/Example%20Data%20Packs)
-- [Example resource packs](https://github.com/NordAct/IoB-Variant-Loader/tree/2.3.0/Example%20Resource%20Packs)
+- [Example data pack](https://github.com/NordAct/IoB-Variant-Loader/tree/2.4.0/Example%20Data%20Packs)
+- [Example resource packs](https://github.com/NordAct/IoB-Variant-Loader/tree/2.4.0/Example%20Resource%20Packs)
 
 
 ## Adding custom variant spawns/editing existing via datapack, editing hit and attack boxes, changing passenger positions
 Variant Loader allows adding their own variants for spawning, as well as changing hitboxes and even passenger offsets via data packs.
-Full explanation on how to use those can be found [here](https://github.com/NordAct/IoB-Variant-Loader/blob/2.3.0/Example%20Data%20Packs/README.md)
+Full explanation on how to use those can be found [here](https://github.com/NordAct/IoB-Variant-Loader/blob/2.4.0/Example%20Data%20Packs/README.md)
 
 ## Model redirects, glowing layer and making passenger follow movement of the model
 Model redirects is a tool that allows you to replace models, animations and saddle textures per variant for dragons and models with textures for eggs. Example declaration can be found in example resource pack.
-Full explanation on how to use those can be found [here](https://github.com/NordAct/IoB-Variant-Loader/blob/2.3.0/Example%20Resource%20Packs/README.md)
+Full explanation on how to use those can be found [here](https://github.com/NordAct/IoB-Variant-Loader/blob/2.4.0/Example%20Resource%20Packs/README.md)
 
 ## Config
 Mod has client and server config with options that can affect your gameplay experience
 ### Client
 - `disable_glowing` - Disables glowing layer on textures. Off by default
-- `disable_named_variants` - Disables variant display via nametag completely, ignoring nametag_accessible field. Off by default
+- `disable_named_variants` - Disables variant display via nametag completely, ignoring `nametag_accessible` field. Off by default
+- `display_original_variant_name` - Forces actual variant name to be displayed in tooltip (aka one in `VariantName` NBT)
 - `generate_translations` - Automatically generates translations for all variants for english language based on presented model redirects for dragons. All generated lines will be printed to log file. Use this only if you're pack developer for making your life easier
 - `ignored_by_generator` - Prints for variants that have same name as any value in this list will be skipped when translation key generator is used
 ### Common

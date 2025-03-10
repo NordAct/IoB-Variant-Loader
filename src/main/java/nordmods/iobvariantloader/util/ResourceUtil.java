@@ -1,8 +1,16 @@
 package nordmods.iobvariantloader.util;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.locale.Language;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import nordmods.iobvariantloader.IoBVariantLoader;
+import nordmods.iobvariantloader.util.ducks.DragonSpeciesHelper;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -23,6 +31,37 @@ public class ResourceUtil {
 
     public static boolean isValid(ResourceLocation id) {
         return id != null && Minecraft.getInstance().getResourceManager().hasResource(id);
+    }
+
+    private static String prepareVariantName(String name) {
+        while (name.contains("_")) {
+            int index = name.indexOf("_");
+            if (index + 1 < name.length()) {
+                String toReplace = String.valueOf(name.charAt(index + 1));
+                name = name.replaceFirst("_" + toReplace, " " + toReplace.toUpperCase());
+                continue;
+            }
+            name = name.replace("_", " ");
+        }
+        name = name.replace(" N ", "'n'");
+        String firstLetter = String.valueOf(name.charAt(0));
+        return name.replaceFirst(firstLetter, firstLetter.toUpperCase());
+    }
+
+    public static TranslatableComponent getVariantNameTooltip(@NotNull String variant, DragonSpeciesHelper helper) {
+        if (IoBVariantLoader.clientConfig.displayOriginalVariantName.get())
+            return new TranslatableComponent("tooltip.iobvariantloader.variant", new TranslatableComponent(variant).withStyle(ChatFormatting.GOLD));
+
+        if (!variant.isEmpty()) {
+            String key = "tooltip.iobvariantloader." + helper.getSpecies(true) + "." + variant;
+            if (Language.getInstance().has(key)) {
+                return  new TranslatableComponent("tooltip.iobvariantloader.variant", new TranslatableComponent(key).withStyle(ChatFormatting.GOLD));
+            } else {
+                variant = prepareVariantName(variant);
+                return new TranslatableComponent("tooltip.iobvariantloader.variant", new TextComponent(variant).withStyle(ChatFormatting.GOLD));
+            }
+        } else return new TranslatableComponent("tooltip.iobvariantloader.variant",
+                new TextComponent("unknown").setStyle(Style.EMPTY.withColor(ChatFormatting.GOLD).withObfuscated(true)));
     }
 
     private static final Map<String, String> letters = new HashMap<>();

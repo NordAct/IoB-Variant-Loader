@@ -25,3 +25,6 @@
   ```
 
 - Now if mod is unable to recognize dragon ID in model redirect, hitbox redirect or variant spawn file, file will be skipped and warning will be printed in console
+
+- Added Jade integration for displaying dragon and egg variants in tooltip
+  - Additionally added `display_original_variant_name` client config option that can enforce display of string form `VariantName` NBT in dragon variant tooltip

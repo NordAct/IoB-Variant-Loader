@@ -9,6 +9,7 @@ import java.util.List;
 public class VLClientConfig {
     public ConfigHelper.ConfigValueListener<Boolean> disableGlowing;
     public ConfigHelper.ConfigValueListener<Boolean> disableNamedVariants;
+    public ConfigHelper.ConfigValueListener<Boolean> displayOriginalVariantName;
     public ConfigHelper.ConfigValueListener<Boolean> logModelRedirects;
     public ConfigHelper.ConfigValueListener<Boolean> generateTranslations;
     public ConfigHelper.ConfigValueListener<List<String>> ignoredByGenerator;
@@ -24,6 +25,12 @@ public class VLClientConfig {
         disableNamedVariants = subscriber.subscribe(builder
                 .comment("Disables variant display via nametag")
                 .define("disable_named_variants", false));
+        builder.pop();
+
+        builder.push("Display Original Variant Name");
+        displayOriginalVariantName = subscriber.subscribe(builder
+                .comment("Forces actual variant name to be displayed in tooltip (aka one in VariantName NBT)")
+                .define("display_original_variant_name", false));
         builder.pop();
 
         builder.push("Log Model Redirects");
