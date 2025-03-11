@@ -32,10 +32,14 @@ Mod has client and server config with options that can affect your gameplay expe
 - `display_original_variant_name` - Forces actual variant name to be displayed in tooltip (aka one in `VariantName` NBT)
 - `generate_translations` - Automatically generates translations for all variants for english language based on presented model redirects for dragons. All generated lines will be printed to log file. Use this only if you're pack developer for making your life easier
 - `ignored_by_generator` - Prints for variants that have same name as any value in this list will be skipped when translation key generator is used
+- `log_model_redirects` - Logs any added model redirect in console for easier debugging
+
 ### Common
 - `inheritance_chance` - Defines the chance of dragon inheriting variant of their parents. 1 means variant will always be the same as their parents one
 - `assign_egg_variant_on_breeding` - Enables variant assignment on breeding. If false, all eggs always will have no variant assigned during breeding
 - `assign_egg_variant_on_placed` - Enables variant assignment when egg is placed and has empty or invalid variant tag. If false, all eggs always will have no variant assigned when placed
+- `log_variant_spawns` - Logs any added variant spawn in console for easier debugging
+- `log_hitbox_redirects` - Logs any added hitbox redirects in console for easier debugging
 
 ## FAQ
 **Q:** Is there any video guide on how to use Variant Loader?\
