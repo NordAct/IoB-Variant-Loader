@@ -3,6 +3,7 @@ package nordmods.iobvariantloader.mixin.common.egg;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.items.DragonEggItem;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -64,8 +65,8 @@ public abstract class DragonEggItemMixin extends Item implements DragonSpeciesHe
             String variant = itemStack.getTag().getString("VariantName");
             if (ModelRedirectUtil.dragonModelRedirects.containsKey(getSpecies(true))
                     && ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).containsKey(variant)
-                    && ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(variant).eggItemName() != null)
-                return ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(variant).eggItemName();
+                    && ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(variant).eggItemName().isPresent())
+                return new TranslatableComponent(ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(variant).eggItemName().get());
         }
         return super.getName(itemStack);
     }

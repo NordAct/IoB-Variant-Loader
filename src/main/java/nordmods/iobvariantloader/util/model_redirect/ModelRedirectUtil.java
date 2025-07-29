@@ -50,8 +50,8 @@ public final class ModelRedirectUtil {
     public static String getTexture(String dragon, String name, String suffix, boolean isBaby) {
         name = name.toLowerCase();
         if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)) {
-            if (isBaby && dragonModelRedirects.get(dragon).get(name).babyTexture() != null) return dragonModelRedirects.get(dragon).get(name).babyTexture();
-            return dragonModelRedirects.get(dragon).get(name).texture() == null ? name + suffix + ".png" : dragonModelRedirects.get(dragon).get(name).texture();
+            if (isBaby && dragonModelRedirects.get(dragon).get(name).babyTexture().isPresent()) return dragonModelRedirects.get(dragon).get(name).babyTexture().get();
+            return dragonModelRedirects.get(dragon).get(name).texture().isEmpty() ? name + suffix + ".png" : dragonModelRedirects.get(dragon).get(name).texture().get();
         }
         else return name + suffix + ".png";
     }
@@ -59,7 +59,7 @@ public final class ModelRedirectUtil {
     public static ResourceLocation getCustomModelPath(ADragonBase dragon, String dragonID) {
         String name = ResourceUtil.parseName(dragon);
         String model = ModelRedirectUtil.getModel(dragonID, name, dragon.isBaby());
-        if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).model())) {
+        if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).model().orElse(""))) {
             return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/"+ dragonID +".geo.json");
         }
         if (model.contains(":")) return new ResourceLocation(model);
@@ -77,8 +77,8 @@ public final class ModelRedirectUtil {
     public static String getModel(String dragon, String name, boolean isBaby) {
         name = name.toLowerCase();
        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)) {
-           if (isBaby && dragonModelRedirects.get(dragon).get(name).babyModel() != null) return dragonModelRedirects.get(dragon).get(name).babyModel();
-           return dragonModelRedirects.get(dragon).get(name).model() == null ? ".json" : dragonModelRedirects.get(dragon).get(name).model();
+           if (isBaby && dragonModelRedirects.get(dragon).get(name).babyModel().isPresent()) return dragonModelRedirects.get(dragon).get(name).babyModel().get();
+           return dragonModelRedirects.get(dragon).get(name).model().isEmpty() ? ".json" : dragonModelRedirects.get(dragon).get(name).model().get();
        }
        else return ".json";
     }
@@ -86,7 +86,7 @@ public final class ModelRedirectUtil {
     public static ResourceLocation getCustomAnimationPath(ADragonBase dragon, String dragonID) {
         String name = ResourceUtil.parseName(dragon);
         String model = ModelRedirectUtil.getAnimation(dragonID, name, dragon.isBaby());
-        if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).animation())) {
+        if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).animation().orElse(""))) {
             if (dragonID.equals("night_light")) return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/night_fury.animation.json");
             return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/"+ dragonID+".animation.json");
         }
@@ -105,15 +105,15 @@ public final class ModelRedirectUtil {
     public static String getAnimation(String dragon, String name, boolean isBaby) {
         name = name.toLowerCase();
         if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)){
-            if (isBaby && dragonModelRedirects.get(dragon).get(name).babyAnimation() != null) return dragonModelRedirects.get(dragon).get(name).babyAnimation();
-            return dragonModelRedirects.get(dragon).get(name).animation() == null ? ".json" : dragonModelRedirects.get(dragon).get(name).animation();
+            if (isBaby && dragonModelRedirects.get(dragon).get(name).babyAnimation().isPresent()) return dragonModelRedirects.get(dragon).get(name).babyAnimation().get();
+            return dragonModelRedirects.get(dragon).get(name).animation().isEmpty() ? ".json" : dragonModelRedirects.get(dragon).get(name).animation().get();
         } else return ".json";
     }
 
     public static ResourceLocation getCustomSaddlePath(ADragonBase dragon, String dragonID) {
         String name = ResourceUtil.parseName(dragon);
         String model = ModelRedirectUtil.getSaddle(dragonID, name, dragon.isBaby());
-        if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).saddle())) {
+        if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).saddle().orElse(""))) {
             return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/" + dragonID + "/equipment.png");
         }
         if (model.contains(":")) return new ResourceLocation(model);
@@ -131,8 +131,8 @@ public final class ModelRedirectUtil {
     public static String getSaddle(String dragon, String name, boolean isBaby) {
         name = name.toLowerCase();
         if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)){
-            if (isBaby && dragonModelRedirects.get(dragon).get(name).babySaddle() != null) return dragonModelRedirects.get(dragon).get(name).babySaddle();
-            return dragonModelRedirects.get(dragon).get(name).saddle() == null ? ".png" : dragonModelRedirects.get(dragon).get(name).saddle();
+            if (isBaby && dragonModelRedirects.get(dragon).get(name).babySaddle().isPresent()) return dragonModelRedirects.get(dragon).get(name).babySaddle().get();
+            return dragonModelRedirects.get(dragon).get(name).saddle().isEmpty() ? ".png" : dragonModelRedirects.get(dragon).get(name).saddle().get();
         } else return ".png";
     }
 
@@ -147,13 +147,13 @@ public final class ModelRedirectUtil {
         ResourceLocation resourcelocation = EntityType.getKey(entity.getType());
         String dragonID = resourcelocation.getPath().replace("_egg", "");
         return switch (dragonID) {
-            default -> dragonID;
             case "m_nightmare" -> "monstrous_nightmare";
             case "nadder" -> "deadly_nadder";
             case "night_fury" -> "nightfury";
             case "speed_stinger" -> "speedstinger";
             case "triple_stryke" -> "triplestryke";
             case "gronckle" -> "gronkle";
+            default -> dragonID;
         };
     }
 
@@ -164,8 +164,8 @@ public final class ModelRedirectUtil {
 
         if (dragonModelRedirects.containsKey(dragon)
                 && dragonModelRedirects.get(dragon).containsKey(name)
-                && dragonModelRedirects.get(dragon).get(name).eggTexture() != null)
-            texture = dragonModelRedirects.get(dragon).get(name).eggTexture();
+                && dragonModelRedirects.get(dragon).get(name).eggTexture().isPresent())
+            texture = dragonModelRedirects.get(dragon).get(name).eggTexture().get();
         else return null;
 
         if (texture.contains(":")) return new ResourceLocation(texture);
@@ -180,8 +180,8 @@ public final class ModelRedirectUtil {
 
         if (dragonModelRedirects.containsKey(dragon)
                 && dragonModelRedirects.get(dragon).containsKey(name)
-                && dragonModelRedirects.get(dragon).get(name).eggModel() != null)
-            model = dragonModelRedirects.get(dragon).get(name).eggModel();
+                && dragonModelRedirects.get(dragon).get(name).eggModel().isPresent())
+            model = dragonModelRedirects.get(dragon).get(name).eggModel().get();
         else return null;
 
         if (model.contains(":")) return new ResourceLocation(model);
@@ -216,19 +216,19 @@ public final class ModelRedirectUtil {
             for (Map.Entry<String, ModelRedirect> redirects : entry.getValue().entrySet()) {
                 ModelRedirect modelRedirect = redirects.getValue();
                 StringBuilder modelRedirectInfo = new StringBuilder();
-                if (modelRedirect.model() != null) modelRedirectInfo.append("Model: ").append(modelRedirect.model()).append("\n");
-                if (modelRedirect.animation() != null) modelRedirectInfo.append("Animation: ").append(modelRedirect.animation()).append("\n");
-                if (modelRedirect.texture() != null) modelRedirectInfo.append("Texture: ").append(modelRedirect.texture()).append("\n");
-                if (modelRedirect.saddle() != null) modelRedirectInfo.append("Saddle: ").append(modelRedirect.saddle()).append("\n");
-                if (modelRedirect.babyModel() != null) modelRedirectInfo.append("Baby Model: ").append(modelRedirect.babyModel()).append("\n");
-                if (modelRedirect.babyAnimation() != null) modelRedirectInfo.append("Baby Animation: ").append(modelRedirect.babyAnimation()).append("\n");
-                if (modelRedirect.babyTexture() != null) modelRedirectInfo.append("Baby Texture: ").append(modelRedirect.babyTexture()).append("\n");
-                if (modelRedirect.babySaddle() != null) modelRedirectInfo.append("Baby Saddle: ").append(modelRedirect.babySaddle()).append("\n");
-                if (modelRedirect.eggModel() != null) modelRedirectInfo.append("Egg Model: ").append(modelRedirect.eggModel()).append("\n");
-                if (modelRedirect.eggTexture() != null) modelRedirectInfo.append("Egg Texture: ").append(modelRedirect.eggTexture()).append("\n");
-                if (modelRedirect.eggItemName() != null) modelRedirectInfo.append("Egg Item Name: ").append(modelRedirect.eggItemName().getString()).append("\n");
-                if (modelRedirect.eggName() != null) modelRedirectInfo.append("Egg Name: ").append(modelRedirect.eggName().getString()).append("\n");
-                if (modelRedirect.dragonName() != null) modelRedirectInfo.append("Dragon Name: ").append(modelRedirect.dragonName().getString()).append("\n");
+                if (modelRedirect.model().isPresent()) modelRedirectInfo.append("Model: ").append(modelRedirect.model()).append("\n");
+                if (modelRedirect.animation().isPresent()) modelRedirectInfo.append("Animation: ").append(modelRedirect.animation()).append("\n");
+                if (modelRedirect.texture().isPresent()) modelRedirectInfo.append("Texture: ").append(modelRedirect.texture()).append("\n");
+                if (modelRedirect.saddle().isPresent()) modelRedirectInfo.append("Saddle: ").append(modelRedirect.saddle()).append("\n");
+                if (modelRedirect.babyModel().isPresent()) modelRedirectInfo.append("Baby Model: ").append(modelRedirect.babyModel()).append("\n");
+                if (modelRedirect.babyAnimation().isPresent()) modelRedirectInfo.append("Baby Animation: ").append(modelRedirect.babyAnimation()).append("\n");
+                if (modelRedirect.babyTexture().isPresent()) modelRedirectInfo.append("Baby Texture: ").append(modelRedirect.babyTexture()).append("\n");
+                if (modelRedirect.babySaddle().isPresent()) modelRedirectInfo.append("Baby Saddle: ").append(modelRedirect.babySaddle()).append("\n");
+                if (modelRedirect.eggModel().isPresent()) modelRedirectInfo.append("Egg Model: ").append(modelRedirect.eggModel()).append("\n");
+                if (modelRedirect.eggTexture().isPresent()) modelRedirectInfo.append("Egg Texture: ").append(modelRedirect.eggTexture()).append("\n");
+                if (modelRedirect.eggItemName().isPresent()) modelRedirectInfo.append("Egg Item Name: ").append(modelRedirect.eggItemName().get()).append("\n");
+                if (modelRedirect.eggName().isPresent()) modelRedirectInfo.append("Egg Name: ").append(modelRedirect.eggName().get()).append("\n");
+                if (modelRedirect.dragonName().isPresent()) modelRedirectInfo.append("Dragon Name: ").append(modelRedirect.dragonName().get()).append("\n");
                 modelRedirectInfo.append("Is Accessible via Nametag: ").append(modelRedirect.nametagAccessible()).append("\n");
                 IoBVariantLoader.LOGGER.info("{}: variant {} was redirected to:\n{}", entry.getKey(), redirects.getKey(), modelRedirectInfo);
             }
@@ -316,7 +316,7 @@ public final class ModelRedirectUtil {
                     for (int i = 0; i < array.size(); i++) {
                         JsonObject input = array.get(i).getAsJsonObject();
                         String eggModel = input.has("egg_item_model") ? input.get("egg_item_model").getAsString() : null;
-                        if (eggModel == null) continue;
+                        if (eggModel.isEmpty()) continue;
                         String name = input.get("name").getAsString();
                         redirects.put(name, eggModel);
                     }
@@ -335,7 +335,7 @@ public final class ModelRedirectUtil {
     private static boolean shouldApplyFix(ADragonBase dragon, String dragonID, String name, StringArgument argument) {
         boolean texturePresent = ResourceUtil.isValid(getCustomTexturePath(dragon, dragonID));
         boolean absentRecord = !(dragonModelRedirects.containsKey(dragonID) && dragonModelRedirects.get(dragonID).containsKey(name));
-        boolean absentArgument = dragonModelRedirects.containsKey(dragonID) && dragonModelRedirects.get(dragonID).containsKey(name) && argument.getString() == null;
+        boolean absentArgument = dragonModelRedirects.containsKey(dragonID) && dragonModelRedirects.get(dragonID).containsKey(name) && argument.getString().isEmpty();
         return texturePresent && (absentRecord || absentArgument);
     }
 

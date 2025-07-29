@@ -5,6 +5,7 @@ import com.GACMD.isleofberk.items.DragonEggItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -187,9 +188,11 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     @Override
     protected Component getTypeName() {
         if (translationName == null) {
+            String key = null;
             if (ModelRedirectUtil.dragonModelRedirects.containsKey(getSpecies(true)) && ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).containsKey(getVariantName()))
-                translationName = ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(getVariantName()).eggName();
-            if (translationName == null) translationName = getDefaultTypeName();
+                key = ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(getVariantName()).eggName().orElse(null);
+            if (key == null) translationName = getDefaultTypeName();
+            else translationName = new TranslatableComponent(key);
         }
         return translationName;
     }

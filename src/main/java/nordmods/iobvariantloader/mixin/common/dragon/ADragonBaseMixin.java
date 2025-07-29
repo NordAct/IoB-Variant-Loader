@@ -9,6 +9,7 @@ import com.GACMD.isleofberk.entity.eggs.entity.eggs.NightLightEgg;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -203,9 +204,12 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     protected Component getTypeName() {
         if (level.isClientSide() && !ResourceUtil.isResourceReloadFinished) return super.getTypeName();
         if (translationName == null) {
-            if (ModelRedirectUtil.dragonModelRedirects.containsKey(getSpecies(true)) && ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).containsKey(getVariantName()))
-                translationName = ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(getVariantName()).dragonName();
-            if (translationName == null) translationName = super.getTypeName();
+            String key = null;
+            if (ModelRedirectUtil.dragonModelRedirects.containsKey(getSpecies(true)) && ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).containsKey(getVariantName())) {
+                key = ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(getVariantName()).dragonName().orElse(null);
+            }
+            if (key == null) translationName = super.getTypeName();
+            else translationName = new TranslatableComponent(key);
         }
         return translationName;
     }
