@@ -29,14 +29,14 @@ public class DragonVariantSpawnerReloadListener extends SimpleJsonResourceReload
             ResourceLocation fileID = entry.getKey();
             JsonObject entryObject = entry.getValue().getAsJsonObject();
 
-            String dragon = entryObject.has("dragon") ? entryObject.get("dragon").getAsString() : entry.getKey().getPath();
+            String dragon = entryObject.has("dragon") ? entryObject.get("dragon").getAsString() : fileID.getPath();
             if (!ResourceUtil.AllowedValues.isValid(dragon, false)) {
-                IoBVariantLoader.LOGGER.warn("Variant spawns entry {} does not match any dragon id and will be skipped", entry.getKey());
+                IoBVariantLoader.LOGGER.warn("Variant spawns entry {} does not match any dragon id and will be skipped", fileID);
                 continue;
             }
             DataResult<List<DragonVariantSpawner>> result = DragonVariantSpawner.CODEC.listOf().parse(JsonOps.INSTANCE, entryObject.get("variants"));
             List<DragonVariantSpawner> variants = result.getOrThrow(false, (error) -> {
-                IoBVariantLoader.LOGGER.error("Failed to parse mob model data file {} correctly. Check for syntax errors and try again", fileID.toString());
+                IoBVariantLoader.LOGGER.error("Failed to parse dragon variant spawner data file {} correctly. Check for syntax errors and try again", fileID.toString());
                 IoBVariantLoader.LOGGER.error(error);
             });
             DragonVariantSpawnerUtil.add(dragon, variants);
