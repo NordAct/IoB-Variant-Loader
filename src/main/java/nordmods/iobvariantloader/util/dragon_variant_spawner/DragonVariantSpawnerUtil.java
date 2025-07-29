@@ -46,12 +46,12 @@ public final class DragonVariantSpawnerUtil {
                     conditions.append("Allowed Biomes: \n");
                     List<String> biomesById = variant.allowedBiomes().biomesById();
                     List<String> biomesByTag = variant.allowedBiomes().biomesByTag();
-                    if (biomesById != null && !biomesById.isEmpty()) {
+                    if (!biomesById.isEmpty()) {
                         conditions.append("- Biomes by ID: ");
                         biomesById.forEach(id -> conditions.append(id).append(" "));
                         conditions.append("\n");
                     }
-                    if (biomesByTag != null && !biomesByTag.isEmpty()) {
+                    if (!biomesByTag.isEmpty()) {
                         conditions.append("- Biomes by tag: ");
                         biomesByTag.forEach(id -> conditions.append(id).append(" "));
                         conditions.append("\n");
@@ -62,12 +62,12 @@ public final class DragonVariantSpawnerUtil {
                     conditions.append("Banned Biomes: \n");
                     List<String> biomesById = variant.bannedBiomes().biomesById();
                     List<String> biomesByTag = variant.bannedBiomes().biomesByTag();
-                    if (biomesById != null && !biomesById.isEmpty()) {
+                    if (!biomesById.isEmpty()) {
                         conditions.append("- Biomes by ID: ");
                         biomesById.forEach(id -> conditions.append(id).append(" "));
                         conditions.append("\n");
                     }
-                    if (biomesByTag != null && !biomesByTag.isEmpty()) {
+                    if (!biomesByTag.isEmpty()) {
                         conditions.append("- Biomes by tag: ");
                         biomesByTag.forEach(id -> conditions.append(id).append(" "));
                         conditions.append("\n");
