@@ -227,6 +227,12 @@ public final class ModelRedirectUtil {
                 if (modelRedirect.eggModel().isPresent()) modelRedirectInfo.append("Egg Model: ").append(modelRedirect.eggModel()).append("\n");
                 if (modelRedirect.eggTexture().isPresent()) modelRedirectInfo.append("Egg Texture: ").append(modelRedirect.eggTexture()).append("\n");
                 if (modelRedirect.eggItemName().isPresent()) modelRedirectInfo.append("Egg Item Name: ").append(modelRedirect.eggItemName().get()).append("\n");
+
+                if (eggItemModelRedirects.containsKey(entry.getKey())
+                        && eggItemModelRedirects.get(entry.getKey()).containsKey(redirects.getKey())) {
+                    modelRedirectInfo.append("Egg Item Model: ").append(eggItemModelRedirects.get(entry.getKey()).get(redirects.getKey())).append("\n");
+                }
+
                 if (modelRedirect.eggName().isPresent()) modelRedirectInfo.append("Egg Name: ").append(modelRedirect.eggName().get()).append("\n");
                 if (modelRedirect.dragonName().isPresent()) modelRedirectInfo.append("Dragon Name: ").append(modelRedirect.dragonName().get()).append("\n");
                 modelRedirectInfo.append("Is Accessible via Nametag: ").append(modelRedirect.nametagAccessible()).append("\n");
@@ -316,7 +322,7 @@ public final class ModelRedirectUtil {
                     for (int i = 0; i < array.size(); i++) {
                         JsonObject input = array.get(i).getAsJsonObject();
                         String eggModel = input.has("egg_item_model") ? input.get("egg_item_model").getAsString() : null;
-                        if (eggModel.isEmpty()) continue;
+                        if (eggModel == null) continue;
                         String name = input.get("name").getAsString();
                         redirects.put(name, eggModel);
                     }

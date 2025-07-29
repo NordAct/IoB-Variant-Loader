@@ -6,14 +6,17 @@
     },
     {
       "name": "floutscout",
+      "egg_item_model": "isleofberk:speed_stinger_egg_floutscout",
       "nametag_accessible": false
     },
     {
       "name": "ice_breaker",
+      "egg_item_model": "isleofberk:speed_stinger_egg_ice_breaker",
       "nametag_accessible": false
     },
     {
       "name": "sweet_sting",
+      "egg_item_model": "isleofberk:speed_stinger_egg_sweet_sting",
       "nametag_accessible": false
     }
   ]
