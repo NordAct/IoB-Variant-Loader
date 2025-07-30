@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//todo make it in datapack and packet for client sync
 public class SoundRedirectUtil {
     //hardcoded sound names
     public static final String BITE = "bite"; //bite attack sound
@@ -46,17 +45,6 @@ public class SoundRedirectUtil {
             soundInfo = SoundRedirectUtil.getSoundInfo(entity.getSpecies(true), entity.getVariantName(), sound);
         }
         if (soundInfo != null) {
-            //SoundEvent event = entity.level.registryAccess().registry(Registry.SOUND_EVENT_REGISTRY).orElseThrow().getOptional(soundInfo.id()).orElse(null);
-            //if (event != null) {
-            //    entity.level.playSound(
-            //            player,
-            //            entity,
-            //            event,
-            //            entity.getSoundSource(),
-            //            soundInfo.volume(),
-            //            soundInfo.pitch()
-            //    );
-            //}
             if (entity.level.isClientSide()) {
                 entity.level.playSound(
                         entity.level.players().stream().filter(Player::isLocalPlayer).findFirst().orElse(null), //incredible mental gymnastic

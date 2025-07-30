@@ -106,15 +106,17 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.18:3.0.46')
     implementation fg.deobf("maven.modrinth:isle-of-berk:1.2.0")
+
+    implementation fg.deobf("maven.modrinth:jade:5.3.2")
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0"))
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.5.0")) {
+        jarJar.ranged(it, "[0.5.0,)")
+    }
+
     //test mods
     //implementation fg.deobf("maven.modrinth:rubidium:0.5.6")
     //implementation fg.deobf("maven.modrinth:oculus:1.18.2-1.6.4")
     //implementation fg.deobf("maven.modrinth:spark:1.9.11-forge")
-    implementation fg.deobf("maven.modrinth:jade:5.3.2")
-    //required for Oculus and Rubidium to work in dev
-    //implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.3.2")) {
-    //    jarJar.ranged(it, "[0.3.2,)")
-    //}
 }
 
 tasks.named('processResources', ProcessResources).configure {
@@ -157,7 +159,7 @@ modrinth {
     projectId = "isle-of-berk-variant-loader"
     versionNumber = mod_version
     versionType = "release"
-    uploadFile = jar
+    uploadFile = jarJar
     gameVersions = ["1.18.2"]
     loaders = ["forge"]
     dependencies {
@@ -174,7 +176,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     apiToken = System.getenv("CURSEFORGE_TOKEN")
     int projectId = 908401
     String changelogText = rootProject.file("CHANGELOG.md").text
-    def mainFile = upload(projectId, jar)
+    def mainFile = upload(projectId, jarJar)
     mainFile.changelog = changelogText
     mainFile.changelogType = "markdown"
     mainFile.releaseType = "release"

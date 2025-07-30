@@ -4,6 +4,7 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
@@ -11,9 +12,12 @@ import net.minecraft.world.level.Level;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
+import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SpeedStinger.class)
 public abstract class SpeedStingerMixin extends ADragonBaseMixin{
@@ -53,5 +57,20 @@ public abstract class SpeedStingerMixin extends ADragonBaseMixin{
             case 3 -> "sweet_sting";
             default -> "speed_stinger";
         };
+    }
+
+    @Inject(method = "getDeathSound", at = @At("HEAD"), cancellable = true)
+    public void swapDeathSound(CallbackInfoReturnable<SoundEvent> cir) {
+        if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.DEATH)) cir.setReturnValue(null);
+    }
+
+    @Inject(method = "get1stAttackSound", at = @At("HEAD"), cancellable = true, remap = false)
+    public void swapBiteSound(CallbackInfoReturnable<SoundEvent> cir) {
+        if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.BITE)) cir.setReturnValue(null);
+    }
+
+    @Inject(method = "get2ndAttackSound", at = @At("HEAD"), cancellable = true, remap = false)
+    public void swapStingSound(CallbackInfoReturnable<SoundEvent> cir) {
+        if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.STING)) cir.setReturnValue(null);
     }
 }

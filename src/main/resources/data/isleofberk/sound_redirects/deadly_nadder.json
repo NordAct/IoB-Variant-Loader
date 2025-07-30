@@ -13,7 +13,32 @@
         },
         {
           "name": "flap",
-          "id": "iobvariantloader:dragon.woosh"
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 3
+        },
+        {
+          "name": "death",
+          "id": "minecraft:block.anvil.place"
+        },
+        {
+          "name": "tame",
+          "id": "minecraft:block.anvil.use"
+        },
+        {
+          "name": "bite",
+          "id": "minecraft:entity.evoker_fangs.attack"
+        },
+        {
+          "name": "fire",
+          "id": "minecraft:entity.blaze.ambient"
+        },
+        {
+          "name": "step",
+          "id": "minecraft:intentionally_empty"
+        },
+        {
+          "name": "sting",
+          "id": "minecraft:entity.firework_rocket.shoot"
         }
       ]
     }

@@ -15,12 +15,14 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.ResourceUtil;
@@ -328,5 +330,35 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Inject(method = "playHurtSound", at = @At("HEAD"), cancellable = true)
     private void swapHurtSound(DamageSource pSource, CallbackInfo ci) {
         if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.HURT)) ci.cancel();
+    }
+
+    @Inject(method = "getDeathSound", at = @At("HEAD"), cancellable = true)
+    public void swapDeathSound(CallbackInfoReturnable<SoundEvent> cir) {
+        if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.DEATH)) cir.setReturnValue(null);
+    }
+
+    @Inject(method = "getTameSound", at = @At("HEAD"), cancellable = true, remap = false)
+    public void swapTameSound(CallbackInfoReturnable<SoundEvent> cir) {
+        if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.TAME)) cir.setReturnValue(null);
+    }
+
+    @Inject(method = "get1stAttackSound", at = @At("HEAD"), cancellable = true, remap = false)
+    public void swapBiteSound(CallbackInfoReturnable<SoundEvent> cir) {
+        if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.BITE)) cir.setReturnValue(null);
+    }
+
+    @Inject(method = "get2ndAttackSound", at = @At("HEAD"), cancellable = true, remap = false)
+    public void swapStingSound(CallbackInfoReturnable<SoundEvent> cir) {
+        if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.STING)) cir.setReturnValue(null);
+    }
+
+    @Inject(method = "getProjectileSound", at = @At("HEAD"), cancellable = true, remap = false)
+    public void swapFireSound(CallbackInfoReturnable<SoundEvent> cir) {
+        if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.FIRE)) cir.setReturnValue(null);
+    }
+
+    @Override
+    public void playStepSound(BlockPos pos, BlockState state) {
+        if (!SoundRedirectUtil.playSound(this, SoundRedirectUtil.STEP)) super.playStepSound(pos, state);
     }
 }

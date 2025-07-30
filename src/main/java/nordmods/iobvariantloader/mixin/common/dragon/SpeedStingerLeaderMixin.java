@@ -1,10 +1,15 @@
 package nordmods.iobvariantloader.mixin.common.dragon;
 
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeader;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.level.Level;
+import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SpeedStingerLeader.class)
 public abstract class SpeedStingerLeaderMixin extends ADragonBaseMixin{
@@ -20,5 +25,10 @@ public abstract class SpeedStingerLeaderMixin extends ADragonBaseMixin{
             case 3 -> "sweet_sting";
             default -> "speed_stinger";
         };
+    }
+
+    @Inject(method = "getDeathSound", at = @At("HEAD"), cancellable = true)
+    public void swapDeathSound(CallbackInfoReturnable<SoundEvent> cir) {
+        if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.DEATH)) cir.setReturnValue(null);
     }
 }
