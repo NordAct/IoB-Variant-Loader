@@ -6,6 +6,7 @@
   "mixins": [
     "common.SpawnPlacementsMixin",
     "common.dragon.ADragonBaseFlyingRideableMixin",
+    "common.dragon.ADragonBaseFlyingRideableProjUserMixin",
     "common.dragon.ADragonBaseMixin",
     "common.dragon.ADragonRideableUtilityMixin",
     "common.dragon.DeadlyNadderMixin",

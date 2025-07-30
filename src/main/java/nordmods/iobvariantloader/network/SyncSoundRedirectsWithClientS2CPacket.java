@@ -62,6 +62,7 @@ public record SyncSoundRedirectsWithClientS2CPacket(Map<String, Map<String, List
         context.setPacketHandled(true);
         if (context.getDirection().getReceptionSide().isClient()) {
             SoundRedirectUtil.soundRedirectMap.clear();
+            SoundRedirectUtil.clearCahce();
             SoundRedirectUtil.soundRedirectMap.putAll(packet.soundRedirectMap);
         }
         return true;

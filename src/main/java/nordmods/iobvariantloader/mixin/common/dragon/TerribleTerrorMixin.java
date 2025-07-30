@@ -1,6 +1,8 @@
 package nordmods.iobvariantloader.mixin.common.dragon;
 
 import com.GACMD.isleofberk.entity.dragons.terrible_terror.TerribleTerror;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
@@ -47,5 +49,11 @@ public abstract class TerribleTerrorMixin extends ADragonBaseMixin{
     @Inject(method = "getProjectileSound", at = @At("HEAD"), cancellable = true, remap = false)
     public void swapFireSound(CallbackInfoReturnable<SoundEvent> cir) {
         if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.FIRE)) cir.setReturnValue(null);
+    }
+
+    @WrapOperation(method = "aiStep", at = @At(value = "INVOKE", target = "Lcom/GACMD/isleofberk/entity/dragons/terrible_terror/TerribleTerror;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"))
+    private void swapAnotherFireSound(TerribleTerror instance, SoundEvent soundEvent, float a, float b, Operation<Void> original) {
+        if (!SoundRedirectUtil.playSound(this, SoundRedirectUtil.FIRE_WEAK))
+            original.call(instance, soundEvent, a, b);
     }
 }

@@ -18,7 +18,7 @@ import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectReloadListener
 import org.slf4j.Logger;
 
 @Mod(IoBVariantLoader.MOD_ID)
-public class IoBVariantLoader {
+public class IoBVariantLoader { //I'll do anything but use forge's registries because this is legit porn
     public static final String MOD_ID = "iobvariantloader";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static VLConfig config = null;

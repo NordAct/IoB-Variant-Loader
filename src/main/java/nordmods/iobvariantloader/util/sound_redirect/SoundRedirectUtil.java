@@ -18,11 +18,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SoundRedirectUtil {
+public class SoundRedirectUtil { //todo docs
     //hardcoded sound names
     public static final String BITE = "bite"; //bite attack sound
     public static final String STING = "sting"; //sting attack sound
     public static final String FIRE = "fire"; //shot/fire attack sound
+    public static final String FIRE_WEAK = "fire_weak"; //weak shot/fire attack sound
     public static final String TAME = "tame"; //dragon tame sound
     public static final String SLEEP = "sleep"; //dragon sleep sound
     public static final String GROWL = "growl"; //dragon idle sound
