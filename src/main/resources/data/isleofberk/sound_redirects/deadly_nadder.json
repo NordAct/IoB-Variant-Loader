@@ -1,0 +1,17 @@
+{
+  "redirects": [
+    {
+      "name": "warped",
+      "sounds": [
+        {
+          "name": "growl",
+          "id": "minecraft:entity.ender_dragon.growl"
+        },
+        {
+          "name": "hurt",
+          "id": "minecraft:entity.ender_dragon.hurt"
+        }
+      ]
+    }
+  ]
+}
