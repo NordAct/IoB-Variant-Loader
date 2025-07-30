@@ -18,7 +18,7 @@ import org.apache.maven.artifact.versioning.ArtifactVersion;
 
 import java.util.function.Supplier;
 
-public class VerifyModPresenceS2CPacket {
+public record VerifyModPresenceS2CPacket() {
     private static final ResourceLocation ID = new ResourceLocation(IoBVariantLoader.MOD_ID, "mod_presence_check");
     private static final String VERSION = ModList.get().getModContainerById(IoBVariantLoader.MOD_ID).map(ModContainer::getModInfo).map(IModInfo::getVersion).map(ArtifactVersion::toString).orElse("[UNKNOWN]");
     public static final SimpleChannel INSTANCE = NetworkRegistry.ChannelBuilder
@@ -27,8 +27,6 @@ public class VerifyModPresenceS2CPacket {
             .clientAcceptedVersions(VERSION::equals)
             .serverAcceptedVersions(VERSION::equals)
             .simpleChannel();
-
-    public VerifyModPresenceS2CPacket() {}
 
     public static VerifyModPresenceS2CPacket read(FriendlyByteBuf byteBuf) {
         return new VerifyModPresenceS2CPacket();

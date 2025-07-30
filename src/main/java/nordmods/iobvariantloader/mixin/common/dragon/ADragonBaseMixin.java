@@ -322,11 +322,11 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     //SOUNDS
     @Override
     public void playAmbientSound() {
-        if (!SoundRedirectUtil.playSound(null, this, isSleeping() ? SoundRedirectUtil.SLEEP : SoundRedirectUtil.GROWL)) super.playAmbientSound();
+        if (!SoundRedirectUtil.playSound(this, isSleeping() ? SoundRedirectUtil.SLEEP : SoundRedirectUtil.GROWL)) super.playAmbientSound();
     }
 
     @Inject(method = "playHurtSound", at = @At("HEAD"), cancellable = true)
     private void swapHurtSound(DamageSource pSource, CallbackInfo ci) {
-        if (SoundRedirectUtil.playSound(null,this, SoundRedirectUtil.HURT)) ci.cancel();
+        if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.HURT)) ci.cancel();
     }
 }

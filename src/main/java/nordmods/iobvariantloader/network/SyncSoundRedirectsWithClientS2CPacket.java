@@ -15,15 +15,13 @@ import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.sound_redirect.SoundRedirect;
 import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectUtil;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
 //ffs, I really hate bs Forge made people do to make packets. This is atrocious
-public class SyncSoundRedirectsWithClientS2CPacket { //todo
-    private final Map<String, Map<String, List<SoundRedirect>>> soundRedirectMap;
+public record SyncSoundRedirectsWithClientS2CPacket(Map<String, Map<String, List<SoundRedirect>>> soundRedirectMap) {
     private static final ResourceLocation ID = new ResourceLocation(IoBVariantLoader.MOD_ID, "sync_sound_redirects");
     private static final String VERSION = "1";
     public static final SimpleChannel INSTANCE = NetworkRegistry.ChannelBuilder
@@ -33,16 +31,12 @@ public class SyncSoundRedirectsWithClientS2CPacket { //todo
             .serverAcceptedVersions(VERSION::equals)
             .simpleChannel();
 
-    public SyncSoundRedirectsWithClientS2CPacket(Map<String, Map<String, List<SoundRedirect>>> soundRedirectMap) {
-        this.soundRedirectMap = soundRedirectMap;
-    }
-
     public static SyncSoundRedirectsWithClientS2CPacket read(FriendlyByteBuf byteBuf) {
         Map<String, Map<String, List<SoundRedirect>>> map = byteBuf.readMap(
-                SyncSoundRedirectsWithClientS2CPacket::readString,
+                NetworkUtil::readString,
                 byteBuf1 ->
                         byteBuf1.readMap(
-                                SyncSoundRedirectsWithClientS2CPacket::readString,
+                                NetworkUtil::readString,
                                 SyncSoundRedirectsWithClientS2CPacket::readSoundRedirectList
 
                 )
@@ -53,10 +47,10 @@ public class SyncSoundRedirectsWithClientS2CPacket { //todo
 
     public void write(FriendlyByteBuf byteBuf) {
         byteBuf.writeMap(SoundRedirectUtil.soundRedirectMap,
-                SyncSoundRedirectsWithClientS2CPacket::writeString,
+                NetworkUtil::writeString,
                 (byteBuf1, variantSoundRedirects) ->
                         byteBuf1.writeMap(variantSoundRedirects,
-                                SyncSoundRedirectsWithClientS2CPacket::writeString,
+                                NetworkUtil::writeString,
                                 SyncSoundRedirectsWithClientS2CPacket::writeSoundRedirectList
                         )
         );
@@ -87,25 +81,11 @@ public class SyncSoundRedirectsWithClientS2CPacket { //todo
             SyncSoundRedirectsWithClientS2CPacket.INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new SyncSoundRedirectsWithClientS2CPacket(SoundRedirectUtil.soundRedirectMap));
     }
 
-    private static void writeString(ByteBuf buf, String text) {
-        byte[] temp = text.getBytes(StandardCharsets.UTF_8);
-        buf.writeInt(temp.length);
-        buf.writeBytes(temp);
-    }
-
-    private static String readString(ByteBuf buf) {
-        int size = buf.readInt();
-        byte[] temp = new byte[size];
-        buf.readBytes(temp);
-
-        return new String(temp, StandardCharsets.UTF_8);
-    }
-
     private static void writeSoundRedirectList(ByteBuf buf, List<SoundRedirect> list) {
         buf.writeInt(list.size());
         list.forEach(soundRedirect -> {
-            writeString(buf, soundRedirect.name());
-            writeString(buf, soundRedirect.sound());
+            NetworkUtil.writeString(buf, soundRedirect.name());
+            NetworkUtil.writeString(buf, soundRedirect.sound());
             buf.writeFloat(soundRedirect.volume());
             buf.writeFloat(soundRedirect.pitch());
         });
@@ -115,8 +95,8 @@ public class SyncSoundRedirectsWithClientS2CPacket { //todo
         int size = buf.readInt();
         List<SoundRedirect> list = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
-            String name = readString(buf);
-            String sound = readString(buf);
+            String name = NetworkUtil.readString(buf);
+            String sound = NetworkUtil.readString(buf);
             float volume = buf.readFloat();
             float pitch = buf.readFloat();
             list.add(new SoundRedirect(name, sound, volume, pitch));

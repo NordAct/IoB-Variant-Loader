@@ -9,6 +9,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import nordmods.iobvariantloader.config.VLClientConfig;
 import nordmods.iobvariantloader.config.VLConfig;
+import nordmods.iobvariantloader.network.PlayDragonSoundS2CPacket;
 import nordmods.iobvariantloader.network.SyncSoundRedirectsWithClientS2CPacket;
 import nordmods.iobvariantloader.network.VerifyModPresenceS2CPacket;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerReloadListener;
@@ -26,6 +27,7 @@ public class IoBVariantLoader {
     public IoBVariantLoader() {
         VerifyModPresenceS2CPacket.init();
         SyncSoundRedirectsWithClientS2CPacket.init();
+        PlayDragonSoundS2CPacket.init();
         MinecraftForge.EVENT_BUS.register(this);
         config = ConfigHelper.register(ModConfig.Type.COMMON, VLConfig::new, "iob_variant_loader.toml");
         clientConfig = ConfigHelper.register(ModConfig.Type.CLIENT, VLClientConfig::new, "iob_variant_loader-client.toml");

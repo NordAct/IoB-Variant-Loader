@@ -1,13 +1,16 @@
 package nordmods.iobvariantloader.util.sound_redirect;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import nordmods.iobvariantloader.util.ResourceUtil;
+import net.minecraftforge.network.PacketDistributor;
+import nordmods.iobvariantloader.network.PlayDragonSoundS2CPacket;
 import nordmods.iobvariantloader.util.ducks.DragonSpeciesHelper;
 import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -34,20 +37,50 @@ public class SoundRedirectUtil {
     private static final Map<String, Map<String, Map<String, SoundInfo>>> soundCache = new HashMap<>();
     public static final Map<String, Map<String, List<SoundRedirect>>> soundRedirectMap = new HashMap<>();
 
-
-
-
-
-    public static <T extends Entity & VariantNameHelper & DragonSpeciesHelper> boolean playSound(@Nullable Player player, T entity, String sound) {
+    public static <T extends Entity & VariantNameHelper & DragonSpeciesHelper> boolean playSound(@NotNull T entity, String sound) {
         SoundRedirectUtil.SoundInfo soundInfo = null;
-        if (entity.hasCustomName() && ModelRedirectUtil.isNametagAccessible(entity.getSpecies(true), entity.getName().getString().toLowerCase())) {
+        if (entity.hasCustomName() && ModelRedirectUtil.isNametagAccessible(entity.getSpecies(entity.level.isClientSide()), entity.getName().getString().toLowerCase())) {
             soundInfo = SoundRedirectUtil.getSoundInfo(entity.getSpecies(true), entity.getName().getString().toLowerCase(), sound);
         }
         if (soundInfo == null) {
             soundInfo = SoundRedirectUtil.getSoundInfo(entity.getSpecies(true), entity.getVariantName(), sound);
         }
         if (soundInfo != null) {
-            entity.level.playSound(player, entity, new SoundEvent(soundInfo.id()), entity.getSoundSource(), soundInfo.volume(), soundInfo.pitch());
+            //SoundEvent event = entity.level.registryAccess().registry(Registry.SOUND_EVENT_REGISTRY).orElseThrow().getOptional(soundInfo.id()).orElse(null);
+            //if (event != null) {
+            //    entity.level.playSound(
+            //            player,
+            //            entity,
+            //            event,
+            //            entity.getSoundSource(),
+            //            soundInfo.volume(),
+            //            soundInfo.pitch()
+            //    );
+            //}
+            if (entity.level.isClientSide()) {
+                entity.level.playSound(
+                        entity.level.players().stream().filter(Player::isLocalPlayer).findFirst().orElse(null), //incredible mental gymnastic
+                        entity,
+                        new SoundEvent(soundInfo.id()),
+                        entity.getSoundSource(),
+                        soundInfo.volume(),
+                        soundInfo.pitch()
+                );
+            } else {
+                for (Player player : entity.getLevel().players()) {
+                    if (player instanceof ServerPlayer serverPlayer)
+                        PlayDragonSoundS2CPacket.INSTANCE
+                                .send(PacketDistributor.PLAYER.with(() ->
+                                                serverPlayer),
+                                        new PlayDragonSoundS2CPacket(
+                                                entity.getId(),
+                                                soundInfo.id(),
+                                                soundInfo.pitch(),
+                                                soundInfo.pitch()
+                                        )
+                                );
+                }
+            }
         }
         else return false;
 
@@ -56,7 +89,6 @@ public class SoundRedirectUtil {
 
     @Nullable
     public static SoundInfo getSoundInfo(String dragon, String variant, String sound) {
-        if (!ResourceUtil.isResourceReloadFinished) return null;
         generateCache(dragon, variant, sound);
         return soundCache
                 .getOrDefault(dragon, Collections.emptyMap())
