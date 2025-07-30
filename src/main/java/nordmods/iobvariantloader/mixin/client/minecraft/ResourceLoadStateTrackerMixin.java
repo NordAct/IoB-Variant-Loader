@@ -3,8 +3,9 @@ package nordmods.iobvariantloader.mixin.client.minecraft;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.ResourceLoadStateTracker;
 import net.minecraft.server.packs.PackResources;
-import nordmods.iobvariantloader.util.ducks.DragonModelCacheHelper;
 import nordmods.iobvariantloader.util.ResourceUtil;
+import nordmods.iobvariantloader.util.ducks.DragonModelCacheHelper;
+import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,6 +27,7 @@ public abstract class ResourceLoadStateTrackerMixin {
                 if (entity instanceof DragonModelCacheHelper cache) cache.resetCache();
             });
         }
+        SoundRedirectUtil.clearCahce();
     }
 
     @Inject(method = "finishReload()V", at = @At("TAIL"))

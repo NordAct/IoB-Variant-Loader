@@ -13,13 +13,14 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
+import nordmods.iobvariantloader.IoBVariantLoader;
 import org.apache.maven.artifact.versioning.ArtifactVersion;
 
 import java.util.function.Supplier;
 
 public class VerifyModPresenceS2CPacket {
-    private static final ResourceLocation ID = new ResourceLocation("iobvariantloader", "mod_presence_check");
-    private static final String VERSION = ModList.get().getModContainerById("iobvariantloader").map(ModContainer::getModInfo).map(IModInfo::getVersion).map(ArtifactVersion::toString).orElse("[UNKNOWN]");
+    private static final ResourceLocation ID = new ResourceLocation(IoBVariantLoader.MOD_ID, "mod_presence_check");
+    private static final String VERSION = ModList.get().getModContainerById(IoBVariantLoader.MOD_ID).map(ModContainer::getModInfo).map(IModInfo::getVersion).map(ArtifactVersion::toString).orElse("[UNKNOWN]");
     public static final SimpleChannel INSTANCE = NetworkRegistry.ChannelBuilder
             .named(ID)
             .networkProtocolVersion(() -> VERSION)

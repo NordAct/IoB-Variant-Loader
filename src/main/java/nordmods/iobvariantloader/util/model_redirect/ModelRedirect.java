@@ -36,4 +36,5 @@ public record ModelRedirect(
             Codec.STRING.optionalFieldOf("dragon_name").forGetter(ModelRedirect::dragonName),
             Codec.BOOL.optionalFieldOf("nametag_accessible", true).forGetter(ModelRedirect::nametagAccessible)
     ).apply(instance, ModelRedirect::new));
+
 }

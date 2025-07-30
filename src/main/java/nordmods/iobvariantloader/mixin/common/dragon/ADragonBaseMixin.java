@@ -16,6 +16,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -28,6 +29,7 @@ import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawne
 import nordmods.iobvariantloader.util.ducks.*;
 import nordmods.iobvariantloader.util.hitbox_redirect.HitboxRedirectUtil;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
+import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectUtil;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -46,6 +48,12 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Shadow public abstract int getDragonVariant();
 
     @Shadow public abstract boolean isTitanWing();
+
+    @Shadow public abstract double getX(double pScale);
+
+    @Shadow public abstract double getY(double pScale);
+
+    @Shadow public abstract double getZ(double pScale);
 
     @Unique private ResourceLocation modelLocationCache;
     @Unique private ResourceLocation textureLocationCache;
@@ -309,5 +317,16 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Override
     public float getWalkTargetValue(BlockPos pos, LevelReader levelReader) {
         return 0;
+    }
+
+    //SOUNDS
+    @Override
+    public void playAmbientSound() {
+        if (!SoundRedirectUtil.playSound(null, this, isSleeping() ? SoundRedirectUtil.SLEEP : SoundRedirectUtil.GROWL)) super.playAmbientSound();
+    }
+
+    @Inject(method = "playHurtSound", at = @At("HEAD"), cancellable = true)
+    private void swapHurtSound(DamageSource pSource, CallbackInfo ci) {
+        if (SoundRedirectUtil.playSound(null,this, SoundRedirectUtil.HURT)) ci.cancel();
     }
 }

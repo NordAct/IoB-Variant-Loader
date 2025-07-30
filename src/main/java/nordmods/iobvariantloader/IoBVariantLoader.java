@@ -9,19 +9,23 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import nordmods.iobvariantloader.config.VLClientConfig;
 import nordmods.iobvariantloader.config.VLConfig;
+import nordmods.iobvariantloader.network.SyncSoundRedirectsWithClientS2CPacket;
 import nordmods.iobvariantloader.network.VerifyModPresenceS2CPacket;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerReloadListener;
 import nordmods.iobvariantloader.util.hitbox_redirect.HitboxRedirectReloadListener;
+import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectReloadListener;
 import org.slf4j.Logger;
 
-@Mod("iobvariantloader")
+@Mod(IoBVariantLoader.MOD_ID)
 public class IoBVariantLoader {
+    public static final String MOD_ID = "iobvariantloader";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static VLConfig config = null;
     public static VLClientConfig clientConfig = null;
 
     public IoBVariantLoader() {
         VerifyModPresenceS2CPacket.init();
+        SyncSoundRedirectsWithClientS2CPacket.init();
         MinecraftForge.EVENT_BUS.register(this);
         config = ConfigHelper.register(ModConfig.Type.COMMON, VLConfig::new, "iob_variant_loader.toml");
         clientConfig = ConfigHelper.register(ModConfig.Type.CLIENT, VLClientConfig::new, "iob_variant_loader-client.toml");
@@ -31,5 +35,6 @@ public class IoBVariantLoader {
     void reloadVariants(final AddReloadListenerEvent event) {
         event.addListener(new DragonVariantSpawnerReloadListener());
         event.addListener(new HitboxRedirectReloadListener());
+        event.addListener(new SoundRedirectReloadListener());
     }
 }

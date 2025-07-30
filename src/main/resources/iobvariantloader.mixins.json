@@ -5,6 +5,7 @@
   "refmap": "iobvariantloader.refmap.json",
   "mixins": [
     "common.SpawnPlacementsMixin",
+    "common.dragon.ADragonBaseFlyingRideableMixin",
     "common.dragon.ADragonBaseMixin",
     "common.dragon.ADragonRideableUtilityMixin",
     "common.dragon.DeadlyNadderMixin",
