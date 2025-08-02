@@ -22,6 +22,7 @@ public class SoundRedirectUtil { //todo docs
     //hardcoded sound names
     public static final String BITE = "bite"; //bite attack sound
     public static final String STING = "sting"; //sting attack sound
+    public static final String MELEE_ATTACK = "melee_attack"; //melee attack sound (used only for triple stryke)
     public static final String FIRE = "fire"; //shot/fire attack sound
     public static final String FIRE_WEAK = "fire_weak"; //weak shot/fire attack sound
     public static final String TAME = "tame"; //dragon tame sound

@@ -5,6 +5,7 @@ import com.GACMD.isleofberk.entity.dragons.triple_stryke.TripleStryke;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -13,7 +14,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import software.bernie.geckolib3.core.manager.AnimationData;
 
 @Mixin(TripleStryke.class)
 public abstract class TripleStrykeMixin extends ADragonBaseMixin {
@@ -78,5 +81,17 @@ public abstract class TripleStrykeMixin extends ADragonBaseMixin {
     private void swapStingSound(TripleStryke instance, SoundEvent soundEvent, float a, float b, Operation<Void> original) {
         if (!SoundRedirectUtil.playSound(this, SoundRedirectUtil.STING))
             original.call(instance, soundEvent, a, b);
+    }
+
+    @WrapOperation(method = "playAttackSound", at = @At(value = "INVOKE", target = "Lcom/GACMD/isleofberk/entity/dragons/triple_stryke/TripleStryke;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"))
+    private void swapMeleeAttackSound(TripleStryke instance, SoundEvent soundEvent, float a, float b, Operation<Void> original) {
+        if (soundEvent != SoundEvents.SHEEP_SHEAR || !SoundRedirectUtil.playSound(this, SoundRedirectUtil.MELEE_ATTACK))
+            original.call(instance, soundEvent, a, b);
+    }
+
+    @Inject(method = "registerControllers", at = @At("TAIL"), remap = false)
+    private void registerSoundController(AnimationData data, CallbackInfo ci) {
+        data.getAnimationControllers().forEach((name, contr) -> contr.registerSoundListener(
+                event -> SoundRedirectUtil.playSound(this, event.sound)));
     }
 }

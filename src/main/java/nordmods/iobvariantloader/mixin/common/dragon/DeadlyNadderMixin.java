@@ -14,7 +14,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import software.bernie.geckolib3.core.manager.AnimationData;
 
 @Mixin(DeadlyNadder.class)
 public abstract class DeadlyNadderMixin extends ADragonBaseMixin implements DeadlyNadderModelCacheHelper {
@@ -106,5 +108,10 @@ public abstract class DeadlyNadderMixin extends ADragonBaseMixin implements Dead
     private void swapStingSoundAI(DeadlyNadder instance, SoundEvent soundEvent, float a, float b, Operation<Void> original) {
         if (!SoundRedirectUtil.playSound(this, SoundRedirectUtil.STING))
             original.call(instance, soundEvent, a, b);
+    }
+
+    @Inject(method = "registerControllers", at = @At("TAIL"), remap = false)
+    private void registerSoundController(AnimationData data, CallbackInfo ci) {
+        data.getAnimationControllers().forEach((name, contr) -> contr.registerSoundListener(event -> SoundRedirectUtil.playSound(this, event.sound)));
     }
 }

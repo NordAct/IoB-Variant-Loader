@@ -9,7 +9,9 @@ import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import software.bernie.geckolib3.core.manager.AnimationData;
 
 @Mixin(MonstrousNightmare.class)
 public abstract class MonstrousNightmareMixin extends ADragonBaseMixin{
@@ -55,5 +57,10 @@ public abstract class MonstrousNightmareMixin extends ADragonBaseMixin{
     @Inject(method = "getProjectileSound", at = @At("HEAD"), cancellable = true, remap = false)
     public void swapFireSound(CallbackInfoReturnable<SoundEvent> cir) {
         if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.FIRE)) cir.setReturnValue(null);
+    }
+
+    @Inject(method = "registerControllers", at = @At("TAIL"), remap = false)
+    private void registerSoundController(AnimationData data, CallbackInfo ci) {
+        data.getAnimationControllers().forEach((name, contr) -> contr.registerSoundListener(event -> SoundRedirectUtil.playSound(this, event.sound)));
     }
 }

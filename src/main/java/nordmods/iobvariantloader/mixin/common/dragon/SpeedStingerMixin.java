@@ -17,7 +17,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import software.bernie.geckolib3.core.manager.AnimationData;
 
 @Mixin(SpeedStinger.class)
 public abstract class SpeedStingerMixin extends ADragonBaseMixin{
@@ -72,5 +74,10 @@ public abstract class SpeedStingerMixin extends ADragonBaseMixin{
     @Inject(method = "get2ndAttackSound", at = @At("HEAD"), cancellable = true, remap = false)
     public void swapStingSound(CallbackInfoReturnable<SoundEvent> cir) {
         if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.STING)) cir.setReturnValue(null);
+    }
+
+    @Inject(method = "registerControllers", at = @At("TAIL"), remap = false)
+    private void registerSoundController(AnimationData data, CallbackInfo ci) {
+        data.getAnimationControllers().forEach((name, contr) -> contr.registerSoundListener(event -> SoundRedirectUtil.playSound(this, event.sound)));
     }
 }
