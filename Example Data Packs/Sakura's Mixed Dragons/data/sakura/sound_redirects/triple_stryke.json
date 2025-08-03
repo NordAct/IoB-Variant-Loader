@@ -1,0 +1,268 @@
+{
+  "redirects": [
+    {
+      "name": "deathgripper",
+      "sounds": [
+        {
+          "name": "flap",
+          "id": "minecraft:intentionally_empty"
+        },
+        {
+          "name": "plap",
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 3
+        },
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        },
+        {
+          "name": "bite",
+          "id": "minecraft:entity.evoker_fangs.attack"
+        },
+        {
+          "name": "fire",
+          "id": "entity.ender_dragon.shoot"
+        },
+        {
+          "name": "fire_weak",
+          "id": "entity.ender_dragon.shoot",
+          "volume": 0.5,
+          "pitch": 1.2
+        },
+        {
+          "name": "step",
+          "id": "minecraft:intentionally_empty"
+        },
+        {
+          "name": "stomp",
+          "id": "minecraft:entity.chicken.step"
+        },
+        {
+          "name": "sting",
+          "id": "entity.firework_rocket.shoot"
+        }
+      ]
+    },
+    {
+      "name": "sunset_deathgripper",
+      "sounds": [
+        {
+          "name": "flap",
+          "id": "minecraft:intentionally_empty"
+        },
+        {
+          "name": "plap",
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 3
+        },
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        },
+        {
+          "name": "bite",
+          "id": "minecraft:entity.evoker_fangs.attack"
+        },
+        {
+          "name": "fire",
+          "id": "entity.ender_dragon.shoot"
+        },
+        {
+          "name": "fire_weak",
+          "id": "entity.ender_dragon.shoot",
+          "volume": 0.5,
+          "pitch": 1.2
+        },
+        {
+          "name": "step",
+          "id": "minecraft:intentionally_empty"
+        },
+        {
+          "name": "stomp",
+          "id": "minecraft:entity.chicken.step"
+        },
+        {
+          "name": "sting",
+          "id": "entity.firework_rocket.shoot"
+        }
+      ]
+    },
+    {
+      "name": "slaughterdijk",
+      "sounds": [
+        {
+          "name": "flap",
+          "id": "minecraft:intentionally_empty"
+        },
+        {
+          "name": "plap",
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 3
+        },
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        },
+        {
+          "name": "bite",
+          "id": "minecraft:entity.evoker_fangs.attack"
+        },
+        {
+          "name": "fire",
+          "id": "entity.ender_dragon.shoot"
+        },
+        {
+          "name": "fire_weak",
+          "id": "entity.ender_dragon.shoot",
+          "volume": 0.5,
+          "pitch": 1.2
+        },
+        {
+          "name": "step",
+          "id": "minecraft:intentionally_empty"
+        },
+        {
+          "name": "stomp",
+          "id": "minecraft:entity.chicken.step"
+        },
+        {
+          "name": "sting",
+          "id": "entity.firework_rocket.shoot"
+        }
+      ]
+    },
+    {
+      "name": "sappheral",
+      "sounds": [
+        {
+          "name": "flap",
+          "id": "minecraft:intentionally_empty"
+        },
+        {
+          "name": "plap",
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 3
+        },
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        },
+        {
+          "name": "bite",
+          "id": "minecraft:entity.evoker_fangs.attack"
+        },
+        {
+          "name": "fire",
+          "id": "entity.ender_dragon.shoot"
+        },
+        {
+          "name": "fire_weak",
+          "id": "entity.ender_dragon.shoot",
+          "volume": 0.5,
+          "pitch": 1.2
+        },
+        {
+          "name": "step",
+          "id": "minecraft:intentionally_empty"
+        },
+        {
+          "name": "stomp",
+          "id": "minecraft:entity.chicken.step"
+        },
+        {
+          "name": "sting",
+          "id": "entity.firework_rocket.shoot"
+        }
+      ]
+    },
+    {
+      "name": "miasmic_deathgripper",
+      "sounds": [
+        {
+          "name": "flap",
+          "id": "minecraft:intentionally_empty"
+        },
+        {
+          "name": "plap",
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 3
+        },
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        },
+        {
+          "name": "bite",
+          "id": "minecraft:entity.evoker_fangs.attack"
+        },
+        {
+          "name": "fire",
+          "id": "entity.ender_dragon.shoot"
+        },
+        {
+          "name": "fire_weak",
+          "id": "entity.ender_dragon.shoot",
+          "volume": 0.5,
+          "pitch": 1.2
+        },
+        {
+          "name": "step",
+          "id": "minecraft:intentionally_empty"
+        },
+        {
+          "name": "stomp",
+          "id": "minecraft:entity.chicken.step"
+        },
+        {
+          "name": "sting",
+          "id": "entity.firework_rocket.shoot"
+        }
+      ]
+    },
+    {
+      "name": "fenrirs_eavescreaper",
+      "sounds": [
+        {
+          "name": "flap",
+          "id": "minecraft:intentionally_empty"
+        },
+        {
+          "name": "plap",
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 3
+        },
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        },
+        {
+          "name": "bite",
+          "id": "minecraft:entity.evoker_fangs.attack"
+        },
+        {
+          "name": "fire",
+          "id": "entity.ender_dragon.shoot"
+        },
+        {
+          "name": "fire_weak",
+          "id": "entity.ender_dragon.shoot",
+          "volume": 0.5,
+          "pitch": 1.2
+        },
+        {
+          "name": "step",
+          "id": "minecraft:intentionally_empty"
+        },
+        {
+          "name": "stomp",
+          "id": "minecraft:entity.chicken.step"
+        },
+        {
+          "name": "sting",
+          "id": "entity.firework_rocket.shoot"
+        }
+      ]
+    }
+  ]
+}

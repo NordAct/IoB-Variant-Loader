@@ -34,6 +34,7 @@ Same rules for `dragon` field apply as for file name.
 ## Modifying attack boxes, hit boxes and passenger positions per variant
 You can modify offsets for attack box (if dragon got one), hit box and passenger positions per variant. This will work only if dragon actual variant (nbt value `VariantName`) matches with one you defined, **renaming dragon will not work**. 
 To make redirect for any of those, you have to declare them in `data/your_namespace/hitbox_redirects/dragon_id.json`, where `dragon_id` is dragon's in game id. I.e. for Night Fury it'd be night_fury, and `your_namespace` is unique name for your folder, that contains only `a-z`, `0-9` or `_`.
+Similarly to `dragon_variants`, you as well can specify dragon to which it belongs to in `dragon` field in the file itself instead of file name.
 
 **MAKE SURE NAMESPACE UNIQUE IF YOU DON'T INTEND TO OVERRIDE ANYTHING OR OTHERWISE PREPARE FOR POSSIBLE TECHNICAL ISSUES AND ANGRY USERS SLAMMING YOUR DOOR FOR PACK NOT WORKING**
 
@@ -46,3 +47,37 @@ For example refer to Hitbox Example pack
 - `passenger_positions` - passenger positions offsets, must be declared as array containing arrays of 3 numbers (can be floating point ones, each number represents offsets on x, y and z axis relative to entity rotation respectively). First array will be used to change offset for first passenger, second for second and so on. If not specified, default offsets will be used instead
 ### Mandatory fields for each variant:
 - `name` - name of the variant
+
+## Sound Redirects
+Sound redirects allow you to redefine (most of) hardcoded sounds per variant, as well as add sounds to play for your sound keyframes that you added in animation. For reasons sounds having to be synced on both client and server, this has to be done in datapack.
+To make sound redirect, you need to declare it in `data/your_namespace/sound_redirects/dragon_id.json`, where `dragon_id` is dragon's in game id. I.e. for Night Fury it'd be night_fury, and `your_namespace` is unique name for your folder, that contains only `a-z`, `0-9` or `_`.
+Alternatively you can specify dragon to which it belongs to in `dragon` field in the file itself instead of file name.
+
+For example refer to Sakura's Mixed Dragons pack.
+
+### Fields
+- Sound:
+  - `pitch` - sound pitch. Field itself is not limited, but game's sound engine has some hardcoded limitations on how high or low it can go. Defaults to 1 if not specified
+  - `volume` - from 0 to 1: defines how loud sound will be. From 1 and above - defines from how afar sound can be heard, i.e. volume of 1 means 16 blocks, volume of 2 means 32 and so on. This is how sound engine of the game interprets it. Defaults to 1 if not specified
+### Mandatory fields for each variant:
+- `name` - name of the variant
+- Sound:
+  - `name` - name of sound keyframe or of hardcoded sound
+  - `id` - ID of sound to be played
+
+### Table of hardcoded sound names
+
+| Name         | Dragons                                                                      | Description                                                                                                            |
+|--------------|------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| bite         | All                                                                          | Bite attack sound                                                                                                      |
+| sting        | Speed Stinger, Lead Speed Stinger, Triple Stryke, Deadly Nadder              | Sting attack sound, for Nadder - spike throw attack                                                                    |
+| melee_attack | Triple Stryke                                                                | Sound of Triple Stryke attacking with its claw                                                                         |
+| fire         | All dragons with breath attack                                               | Sound emitted when breath projectile is created                                                                        |
+| fire_weak    | Terrible Terror, Night Fury, Light Fury, Nightlight, Gronckle, Triple Stryke | For Terrible Terror - played when it eats food it holds. For everyone else this sound is played when weak shot is made |
+| tame         | All tameable dragons                                                         | Played when dragon is tamed                                                                                            |
+| sleep        | All                                                                          | Idle sound, played when dragon is sleeping                                                                             |
+| growl        | All                                                                          | Idle sound                                                                                                             |
+| flap         | All flying dragons                                                           | Wing flap sound. Yes, that one                                                                                         |
+| hurt         | All                                                                          | Played when dragon is taking damage                                                                                    |
+| death        | All                                                                          | Played when dragon is dying                                                                                            |
+| step         | All                                                                          | Played when dragon is walking on ground                                                                                |
