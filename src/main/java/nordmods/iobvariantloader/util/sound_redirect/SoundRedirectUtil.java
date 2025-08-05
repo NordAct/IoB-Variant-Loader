@@ -6,6 +6,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.PacketDistributor;
+import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.network.PlayDragonSoundS2CPacket;
 import nordmods.iobvariantloader.util.ducks.DragonSpeciesHelper;
 import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SoundRedirectUtil { //todo docs
+public class SoundRedirectUtil {
     //hardcoded sound names
     public static final String BITE = "bite"; //bite attack sound
     public static final String STING = "sting"; //sting attack sound
@@ -120,6 +121,23 @@ public class SoundRedirectUtil { //todo docs
     public record SoundInfo(ResourceLocation id, float volume, float pitch) {
         public static SoundInfo fromNamed(SoundRedirect namedSoundInfo) {
             return new SoundInfo(new ResourceLocation(namedSoundInfo.sound()), namedSoundInfo.volume(), namedSoundInfo.pitch());
+        }
+    }
+
+    public static void debugPrint() {
+        if (!IoBVariantLoader.config.logSoundRedirects.get()) return;
+        for (Map.Entry<String, Map<String, List<SoundRedirect>>> entry : soundRedirectMap.entrySet()) {
+            for (Map.Entry<String, List<SoundRedirect>> extrasEntry : entry.getValue().entrySet()){
+                StringBuilder info = new StringBuilder();
+                for (SoundRedirect redirect : extrasEntry.getValue()) {
+                    info.append("Sound: ").append(redirect.name()).append("\n");
+                    info.append("-  Id: ").append(redirect.sound()).append("\n");
+                    info.append("-  Volume: ").append(redirect.volume()).append("\n");
+                    info.append("-  Pitch: ").append(redirect.pitch()).append("\n");
+                    info.append("\n");
+                }
+                IoBVariantLoader.LOGGER.info("{}: variant {} was redirected to:\n{}", entry.getKey(), extrasEntry.getKey(), info);
+            }
         }
     }
 }

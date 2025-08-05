@@ -47,6 +47,6 @@ public class SoundRedirectReloadListener extends SimpleJsonResourceReloadListene
             }
             SoundRedirectUtil.add(dragon, toPut);
         }
-        //SoundRedirectUtil.debugPrint(); //TODO
+        SoundRedirectUtil.debugPrint();
     }
 }

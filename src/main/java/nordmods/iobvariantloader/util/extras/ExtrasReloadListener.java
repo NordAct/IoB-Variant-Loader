@@ -45,6 +45,6 @@ public class ExtrasReloadListener extends SimpleJsonResourceReloadListener {
             }
             ExtrasUtil.add(dragon, toPut);
         }
-        //ExtrasUtil.debugPrint(); //TODO
+        ExtrasUtil.debugPrint();
     }
 }

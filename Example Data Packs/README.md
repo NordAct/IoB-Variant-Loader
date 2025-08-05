@@ -53,6 +53,8 @@ Sound redirects allow you to redefine (most of) hardcoded sounds per variant, as
 To make sound redirect, you need to declare it in `data/your_namespace/sound_redirects/dragon_id.json`, where `dragon_id` is dragon's in game id. I.e. for Night Fury it'd be night_fury, and `your_namespace` is unique name for your folder, that contains only `a-z`, `0-9` or `_`.
 Alternatively you can specify dragon to which it belongs to in `dragon` field in the file itself instead of file name.
 
+**MAKE SURE NAMESPACE UNIQUE IF YOU DON'T INTEND TO OVERRIDE ANYTHING OR OTHERWISE PREPARE FOR POSSIBLE TECHNICAL ISSUES AND ANGRY USERS SLAMMING YOUR DOOR FOR PACK NOT WORKING**
+
 For example refer to Sakura's Mixed Dragons pack.
 
 ### Fields
