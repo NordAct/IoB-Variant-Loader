@@ -81,3 +81,16 @@ For example refer to Sakura's Mixed Dragons pack.
 | hurt         | All                                                                          | Played when dragon is taking damage                                                                                    |
 | death        | All                                                                          | Played when dragon is dying                                                                                            |
 | step         | All                                                                          | Played when dragon is walking on ground                                                                                |
+
+## Extras
+Extras are various miscellaneous things that can also be configured for variant.
+To add extras for your dragon, declare your file in `data/your_namespace/extras/dragon_id.json`, where `dragon_id` is dragon's in game id. I.e. for Night Fury it'd be night_fury, and `your_namespace` is unique name for your folder, that contains only `a-z`, `0-9` or `_`.
+Alternatively you can specify dragon to which it belongs to in `dragon` field in the file itself instead of file name.
+
+For example refer to Sakura's Mixed Dragons pack.
+
+### Fields
+- `variant_group` - value of `VariantGroup` NBT. Recommended to be used for cases where you want to select multiple variants by NBT selector. This NBT field cannot be set via command, only by defining it in extras file for variant
+- `loot_table_redirect` - ID of other loot table that can replace default one. If not specified, default loot table will be used
+### Mandatory fields for each variant:
+- `name` - name of the variant

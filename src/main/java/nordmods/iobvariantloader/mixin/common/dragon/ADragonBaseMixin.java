@@ -29,6 +29,7 @@ import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
 import nordmods.iobvariantloader.util.ducks.*;
+import nordmods.iobvariantloader.util.extras.ExtrasUtil;
 import nordmods.iobvariantloader.util.hitbox_redirect.HitboxRedirectUtil;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectUtil;
@@ -88,6 +89,10 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Inject(method = "addAdditionalSaveData(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("TAIL"))
     private void saveVariantName(CompoundTag nbt, CallbackInfo ci) {
         nbt.putString("VariantName", getVariantName());
+        String group = ExtrasUtil.getVariandGroup(getSpecies(false), getVariantName());
+        if (group != null) {
+            nbt.putString("VariantGroup", group);
+        }
     }
 
     @Inject(method = "readAdditionalSaveData(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("TAIL"))
@@ -360,5 +365,11 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Override
     public void playStepSound(BlockPos pos, BlockState state) {
         if (!SoundRedirectUtil.playSound(this, SoundRedirectUtil.STEP)) super.playStepSound(pos, state);
+    }
+
+    @Override
+    protected @NotNull ResourceLocation getDefaultLootTable() {
+        String lootTable = ExtrasUtil.getLootTableRedirect(getSpecies(false), getVariantName());
+        return lootTable != null ? new ResourceLocation(lootTable) : super.getDefaultLootTable();
     }
 }

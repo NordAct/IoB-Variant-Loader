@@ -13,6 +13,7 @@ import nordmods.iobvariantloader.network.PlayDragonSoundS2CPacket;
 import nordmods.iobvariantloader.network.SyncSoundRedirectsWithClientS2CPacket;
 import nordmods.iobvariantloader.network.VerifyModPresenceS2CPacket;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerReloadListener;
+import nordmods.iobvariantloader.util.extras.ExtrasReloadListener;
 import nordmods.iobvariantloader.util.hitbox_redirect.HitboxRedirectReloadListener;
 import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectReloadListener;
 import org.slf4j.Logger;
@@ -38,5 +39,6 @@ public class IoBVariantLoader { //I'll do anything but use forge's registries be
         event.addListener(new DragonVariantSpawnerReloadListener());
         event.addListener(new HitboxRedirectReloadListener());
         event.addListener(new SoundRedirectReloadListener());
+        event.addListener(new ExtrasReloadListener());
     }
 }
