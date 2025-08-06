@@ -7,6 +7,7 @@ import com.GACMD.isleofberk.entity.dragons.triple_stryke.TripleStryke;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.NightLightEgg;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -19,6 +20,10 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -29,6 +34,7 @@ import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
 import nordmods.iobvariantloader.util.ducks.*;
+import nordmods.iobvariantloader.util.extras.Extras;
 import nordmods.iobvariantloader.util.extras.ExtrasUtil;
 import nordmods.iobvariantloader.util.hitbox_redirect.HitboxRedirectUtil;
 import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
@@ -45,6 +51,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
+import java.util.UUID;
 
 @Mixin(ADragonBase.class)
 public abstract class ADragonBaseMixin extends TamableAnimal implements VariantNameHelper, DragonModelCacheHelper, DragonSpeciesHelper, HitboxRedirectHelper, ModelSizeProvider, DefaultVariantNameHelper {
@@ -68,6 +75,8 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Unique private EntityDimensions boxOverride;
     @Unique private EntityDimensions attackBoxOverride;
     @Unique private Vec3 attackBoxPos;
+    @Unique private static final UUID VARIANT_BONUS_MODIFIER = UUID.fromString("7c152c39-d158-48ae-92c7-2655c8072705");
+    @Unique private Float ogHealth; //bandaid fix for health reset
     protected ADragonBaseMixin(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
     }
@@ -95,6 +104,11 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         }
     }
 
+    @Inject(method = "readAdditionalSaveData(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("HEAD"))
+    private void setOgHealth(CompoundTag nbt, CallbackInfo ci) {
+        if (nbt.contains("Health")) ogHealth = nbt.getFloat("Health");
+    }
+
     @Inject(method = "readAdditionalSaveData(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("TAIL"))
     private void readVariantName(CompoundTag nbt, CallbackInfo ci) {
         if (nbt.contains("VariantName")) setVariantName(nbt.getString("VariantName"));
@@ -109,6 +123,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     @Inject(method = "finalizeSpawn(Lnet/minecraft/world/level/ServerLevelAccessor;Lnet/minecraft/world/DifficultyInstance;Lnet/minecraft/world/entity/MobSpawnType;Lnet/minecraft/world/entity/SpawnGroupData;Lnet/minecraft/nbt/CompoundTag;)Lnet/minecraft/world/entity/SpawnGroupData;", at = @At("HEAD"))
     private void assignVariantName(ServerLevelAccessor world, DifficultyInstance p_146747_, MobSpawnType p_146748_, SpawnGroupData p_146749_, CompoundTag p_146750_, CallbackInfoReturnable<SpawnGroupData> cir) {
         if (getVariantName().isEmpty()) DragonVariantSpawnerUtil.assignVariant(world, this, true);
+        setHealth(getMaxHealth()); //bandaid fix for health attribute modifier
     }
 
     @Override
@@ -116,6 +131,12 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         super.onSyncedDataUpdated(key);
         if (DATA_CUSTOM_NAME.equals(key) || VARIANT_NAME.equals(key) || DATA_BABY_ID.equals(key)) {
             if (level.isClientSide()) resetCache();
+            removeVariantModifiers();
+            applyVariantModifiers();
+            if (ogHealth != null) {
+                setHealth(ogHealth);
+                ogHealth = null;
+            }
             resetHitboxData();
         }
     }
@@ -371,5 +392,32 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     protected @NotNull ResourceLocation getDefaultLootTable() {
         String lootTable = ExtrasUtil.getLootTableRedirect(getSpecies(false), getVariantName());
         return lootTable != null ? new ResourceLocation(lootTable) : super.getDefaultLootTable();
+    }
+
+    private void applyVariantModifiers() {
+        List<Extras.VariantAttributeModifier> modifiers = ExtrasUtil.getVariantAttributeModifiers(getSpecies(false), getVariantName());
+        if (modifiers == null) return;
+
+        modifiers.forEach(modifier -> {
+            Attribute attribute = getLevel().registryAccess().registry(Registry.ATTRIBUTE_REGISTRY).get().get(new ResourceLocation(modifier.id()));
+            if (attribute == null) {
+                IoBVariantLoader.LOGGER.warn("Failed to find attribute {} for {} for variant {}. Modifier will not be applied", modifier.id(), getSpecies(false), getVariantName());
+                return;
+            }
+            AttributeInstance instance = getAttribute(attribute);
+            AttributeModifier attributeModifier = new AttributeModifier(VARIANT_BONUS_MODIFIER, "Variant Bonus", modifier.amount(), AttributeModifier.Operation.valueOf(modifier.operation()));
+            if (instance != null && !instance.hasModifier(attributeModifier))
+                instance.addTransientModifier(attributeModifier);
+        });
+    }
+
+    private void removeVariantModifiers() {
+        AttributeMap container = getAttributes();
+        getLevel().registryAccess().registry(Registry.ATTRIBUTE_REGISTRY).ifPresent(registry -> {
+            registry.forEach(attribute -> {
+                if (container.hasAttribute(attribute))
+                    container.getInstance(attribute).removeModifier(VARIANT_BONUS_MODIFIER);
+            });
+        });
     }
 }

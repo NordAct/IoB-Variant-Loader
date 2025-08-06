@@ -94,5 +94,12 @@ For example refer to Sakura's Mixed Dragons pack.
 ### Fields
 - `variant_group` - value of `VariantGroup` NBT. Recommended to be used for cases where you want to select multiple variants by NBT selector. This NBT field cannot be set via command, only by defining it in extras file for variant
 - `loot_table_redirect` - ID of other loot table that can replace default one. If not specified, default loot table will be used
+- `attribute_modifiers` - attribute modifiers for variant (such as health, armor, damage etc.). Each object has following fields (all mandatory):
+  - `id` - attribute registry id. Note: specifying same attribute more than once will not work properly and only one of modifiers will be applied
+  - `amount` - amount on which attribute value will be modified. Exact behaviour depends on operation
+  - `operation` - defines how exactly modifier will be applied. Following values are allowed: 
+    - `"ADDITION"` - adds amount to base value
+    - `"MULTIPLY_BASE"` - adds multiplied on specified amount base value
+    - `"MULTIPLY_TOTAL"` - similar to "MULTIPLY_BASE", but goes after "MULTIPLY_BASE" got applied
 ### Mandatory fields for each variant:
 - `name` - name of the variant

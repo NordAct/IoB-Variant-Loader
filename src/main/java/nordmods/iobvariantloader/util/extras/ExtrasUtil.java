@@ -4,6 +4,7 @@ import nordmods.iobvariantloader.IoBVariantLoader;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ExtrasUtil {
@@ -43,12 +44,28 @@ public class ExtrasUtil {
             for (Map.Entry<String, Extras> extrasEntry : entry.getValue().entrySet()){
                 StringBuilder info = new StringBuilder();
                 Extras extra = extrasEntry.getValue();
-                if (extra.variantGroup().isPresent())
-                    info.append("Variant Group: ").append(extra.variantGroup().get()).append("\n");
-                if (extra.lootTableRedirect().isPresent())
-                    info.append("Loot Table Redirect: ").append(extra.lootTableRedirect().get()).append("\n");
+                extra.variantGroup().ifPresent(c -> info.append("Variant Group: ").append(c).append("\n"));
+                extra.lootTableRedirect().ifPresent(c -> info.append("Loot Table Redirect: ").append(c).append("\n"));
+                extra.variantAttributeModifiers().ifPresent(c -> {
+                    info.append("Attribute modifiers: ").append("\n");
+                    c.forEach(modifier -> {
+                        info.append("- Id: ").append(modifier.id()).append("\n");
+                        info.append("- Amount: ").append(modifier.amount()).append("\n");
+                        info.append("- Operation: ").append(modifier.operation()).append("\n");
+                        info.append("\n");
+                    });
+                });
                 IoBVariantLoader.LOGGER.info("{}: variant {} was redirected to:\n{}", entry.getKey(), extrasEntry.getKey(), info);
             }
         }
+    }
+
+    @Nullable
+    public static List<Extras.VariantAttributeModifier> getVariantAttributeModifiers(String dragon, String variant) {
+        if (extrasMap.containsKey(dragon)){
+            Map<String, Extras> extras = extrasMap.get(dragon);
+            if (extras.containsKey(variant)) return extras.get(variant).variantAttributeModifiers().orElse(null);
+        }
+        return null;
     }
 }

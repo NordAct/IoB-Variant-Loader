@@ -50,7 +50,7 @@ public class VLConfig {
         builder.pop();
 
         builder.push("Log Extras");
-        logSoundRedirects = subscriber.subscribe(builder
+        logExtras = subscriber.subscribe(builder
                 .comment("Logs any added extras in console for easier debugging")
                 .define("log_extras", false));
         builder.pop();
