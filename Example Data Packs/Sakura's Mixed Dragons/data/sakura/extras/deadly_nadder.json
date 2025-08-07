@@ -1,0 +1,74 @@
+{
+  "extras": [
+    {
+      "name": "dangerous_hushboggle",
+      "variant_group": "hushboggle",
+      "taming_items": {
+        "item": [
+          "minecraft:spider_eye"
+        ]
+      },
+      "breeding_items": {
+        "item": [
+          "minecraft:fermented_spider_eye"
+        ]
+      }
+    },
+    {
+      "name": "foe_hammer",
+      "variant_group": "hushboggle",
+      "taming_items": {
+        "item": [
+          "minecraft:spider_eye"
+        ]
+      },
+      "breeding_items": {
+        "item": [
+          "minecraft:fermented_spider_eye"
+        ]
+      }
+    },
+    {
+      "name": "gorge_hushboggle",
+      "variant_group": "hushboggle",
+      "taming_items": {
+        "item": [
+          "minecraft:spider_eye"
+        ]
+      },
+      "breeding_items": {
+        "item": [
+          "minecraft:fermented_spider_eye"
+        ]
+      }
+    },
+    {
+      "name": "hushboggle",
+      "variant_group": "hushboggle",
+      "taming_items": {
+        "item": [
+          "minecraft:spider_eye"
+        ]
+      },
+      "breeding_items": {
+        "item": [
+          "minecraft:fermented_spider_eye"
+        ]
+      }
+    },
+    {
+      "name": "mythic_murmurquill",
+      "variant_group": "hushboggle",
+      "taming_items": {
+        "item": [
+          "minecraft:spider_eye"
+        ]
+      },
+      "breeding_items": {
+        "item": [
+          "minecraft:fermented_spider_eye"
+        ]
+      }
+    }
+  ]
+}

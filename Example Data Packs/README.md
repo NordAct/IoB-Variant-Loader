@@ -9,7 +9,11 @@ For example refer to Nether Dragons pack
 - `weight` - declares a chance of certain variant appearing naturally (not via breeding). Higher the weight, higher the chances (formula for a chance looks like something like this: `variantWeight / totalWeightOfAllVariantsThatCanApppearOnThisSpot`)
 - `breeding_weight` - declares a chanse of a variant being applied via breeding. Higher the weight, higher the chances (formula for a chance looks like something like this: `variantWeight / totalWeightOfAllVariantsThatCanBeObtainedViaBreeding`). If not specified, value defaults to one declared in `weight` field (optional)
 - `banned_biomes` - declares biomes in which variant cannot appear under any circumstances. Basically a biome blacklist. Supports declaration via tags (optional) and biome IDs (optional)
+  - `biome` - list of biome ids
+  - `tag` - list of biome tags
 - `allowed_biomes` - declares biomes where certain variant only can appear. Works like a whitelist. If not presented, variant will spawn in any biome it can. Supports declaration via tags (optional) and biome IDs (optional). If not specified and weight is over 0, variants will be able to spawn only in OW biomes
+  - `biome` - list of biome ids
+  - `tag` - list of biome tags
 - `altitude` - defines on which range of world height variant can spawn. If not stated, variant will spawn on any world height. Supports declaration of minimum (optional) and maximum (optional) height
 - `surface_restriction` - allows to specify if dragon has to be able to see sky or not in order to spawn. Possible values (if not specified, defaults to `none`):
   - `none` - no restrictions
@@ -101,5 +105,13 @@ For example refer to Sakura's Mixed Dragons pack.
     - `"ADDITION"` - adds amount to base value
     - `"MULTIPLY_BASE"` - adds multiplied on specified amount base value
     - `"MULTIPLY_TOTAL"` - similar to "MULTIPLY_BASE", but goes after "MULTIPLY_BASE" got applied
+
+- `taming_items` - items that can be used to tame the dragon. If not specified, items from default tag will be used. If this field is specified but has both empty lists, dragon cannot be tamed with any item
+  - `item` - list of item ids
+  - `tag` - list of item tags (without #)
+
+- `breeding_items` - items that can be used to breed the dragon. If not specified, items from default tag will be used. If this field is specified but has both empty lists, dragon cannot be bred with any item
+  - `item` - list of item ids
+  - `tag` - list of item tags (without #)
 ### Mandatory fields for each variant:
 - `name` - name of the variant

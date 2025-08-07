@@ -24,6 +24,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -394,6 +395,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         return lootTable != null ? new ResourceLocation(lootTable) : super.getDefaultLootTable();
     }
 
+    @Unique
     private void applyVariantModifiers() {
         List<Extras.VariantAttributeModifier> modifiers = ExtrasUtil.getVariantAttributeModifiers(getSpecies(false), getVariantName());
         if (modifiers == null) return;
@@ -411,6 +413,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         });
     }
 
+    @Unique
     private void removeVariantModifiers() {
         AttributeMap container = getAttributes();
         getLevel().registryAccess().registry(Registry.ATTRIBUTE_REGISTRY).ifPresent(registry -> {
@@ -419,5 +422,17 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
                     container.getInstance(attribute).removeModifier(VARIANT_BONUS_MODIFIER);
             });
         });
+    }
+
+    @Inject(method = "isItemStackForTaming", at = @At("HEAD"), cancellable = true, remap = false)
+    private void getTamingItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+        Boolean isCorrect = ExtrasUtil.isTamingItem(getSpecies(false), getVariantName(), stack);
+        if (isCorrect != null) cir.setReturnValue(isCorrect);
+    }
+
+    @Inject(method = "isBreedingFood", at = @At("HEAD"), cancellable = true, remap = false)
+    private void getBreedingItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+        Boolean isCorrect = ExtrasUtil.isBreedingItem(getSpecies(false), getVariantName(), stack);
+        if (isCorrect != null) cir.setReturnValue(isCorrect);
     }
 }

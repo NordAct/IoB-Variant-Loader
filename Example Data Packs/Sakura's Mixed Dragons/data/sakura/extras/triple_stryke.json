@@ -24,23 +24,108 @@
     },
     {
       "name": "sunset_deathgripper",
-      "variant_group": "deathgripper"
+      "variant_group": "deathgripper",
+      "attribute_modifiers": [
+        {
+          "id": "minecraft:generic.max_health",
+          "amount": 20,
+          "operation": "ADDITION"
+        },
+        {
+          "id": "minecraft:generic.armor",
+          "amount": -0.5,
+          "operation": "MULTIPLY_BASE"
+        },
+        {
+          "id": "minecraft:generic.attack_damage",
+          "amount": 0.2,
+          "operation": "MULTIPLY_TOTAL"
+        }
+      ]
     },
     {
       "name": "slaughterdijk",
-      "variant_group": "deathgripper"
+      "variant_group": "deathgripper",
+      "attribute_modifiers": [
+        {
+          "id": "minecraft:generic.max_health",
+          "amount": 20,
+          "operation": "ADDITION"
+        },
+        {
+          "id": "minecraft:generic.armor",
+          "amount": -0.5,
+          "operation": "MULTIPLY_BASE"
+        },
+        {
+          "id": "minecraft:generic.attack_damage",
+          "amount": 0.2,
+          "operation": "MULTIPLY_TOTAL"
+        }
+      ]
     },
     {
       "name": "sappheral",
-      "variant_group": "deathgripper"
+      "variant_group": "deathgripper",
+      "attribute_modifiers": [
+        {
+          "id": "minecraft:generic.max_health",
+          "amount": 20,
+          "operation": "ADDITION"
+        },
+        {
+          "id": "minecraft:generic.armor",
+          "amount": -0.5,
+          "operation": "MULTIPLY_BASE"
+        },
+        {
+          "id": "minecraft:generic.attack_damage",
+          "amount": 0.2,
+          "operation": "MULTIPLY_TOTAL"
+        }
+      ]
     },
     {
       "name": "miasmic_deathgripper",
-      "variant_group": "deathgripper"
+      "variant_group": "deathgripper",
+      "attribute_modifiers": [
+        {
+          "id": "minecraft:generic.max_health",
+          "amount": 20,
+          "operation": "ADDITION"
+        },
+        {
+          "id": "minecraft:generic.armor",
+          "amount": -0.5,
+          "operation": "MULTIPLY_BASE"
+        },
+        {
+          "id": "minecraft:generic.attack_damage",
+          "amount": 0.2,
+          "operation": "MULTIPLY_TOTAL"
+        }
+      ]
     },
     {
       "name": "fenrirs_eavescreaper",
-      "variant_group": "deathgripper"
+      "variant_group": "deathgripper",
+      "attribute_modifiers": [
+        {
+          "id": "minecraft:generic.max_health",
+          "amount": 20,
+          "operation": "ADDITION"
+        },
+        {
+          "id": "minecraft:generic.armor",
+          "amount": -0.5,
+          "operation": "MULTIPLY_BASE"
+        },
+        {
+          "id": "minecraft:generic.attack_damage",
+          "amount": 0.2,
+          "operation": "MULTIPLY_TOTAL"
+        }
+      ]
     }
   ]
 }

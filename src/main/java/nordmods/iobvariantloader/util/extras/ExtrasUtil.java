@@ -1,5 +1,9 @@
 package nordmods.iobvariantloader.util.extras;
 
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.ItemStack;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import org.jetbrains.annotations.Nullable;
 
@@ -67,5 +71,48 @@ public class ExtrasUtil {
             if (extras.containsKey(variant)) return extras.get(variant).variantAttributeModifiers().orElse(null);
         }
         return null;
+    }
+
+    @Nullable
+    public static Boolean isTamingItem(String dragon, String variant, ItemStack stack) {
+        if (extrasMap.containsKey(dragon)){
+            Map<String, Extras> extras = extrasMap.get(dragon);
+            if (extras.containsKey(variant) && extras.get(variant).tamingItems().isPresent()) {
+                return isItemInList(extras.get(variant).tamingItems().get(), stack);
+            }
+        }
+        return null;
+    }
+
+    @Nullable
+    public static Boolean isBreedingItem(String dragon, String variant, ItemStack stack) {
+        if (extrasMap.containsKey(dragon)){
+            Map<String, Extras> extras = extrasMap.get(dragon);
+            if (extras.containsKey(variant) && extras.get(variant).breedingItems().isPresent()) {
+                return isItemInList(extras.get(variant).breedingItems().get(), stack);
+            }
+        }
+        return null;
+    }
+
+    private static boolean isItemInList(Extras.ItemRestriction restriction, ItemStack stack) {
+        boolean isIn = false;
+        for (String s : restriction.itemsById()) {
+            ResourceLocation name = new ResourceLocation(s);
+            if (stack.getItem().builtInRegistryHolder().key().location().equals(name)) {
+                isIn = true;
+                break;
+            }
+        }
+
+        if (!isIn) for (String tag : restriction.itemsByTag()) {
+            ResourceLocation name = new ResourceLocation(tag);
+            if (stack.is(TagKey.create(Registry.ITEM_REGISTRY, name))) {
+                isIn = true;
+                break;
+            }
+        }
+
+        return isIn;
     }
 }

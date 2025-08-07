@@ -4,7 +4,9 @@ import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeader
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import nordmods.iobvariantloader.util.extras.ExtrasUtil;
 import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -37,5 +39,11 @@ public abstract class SpeedStingerLeaderMixin extends ADragonBaseMixin{
     @Inject(method = "registerControllers", at = @At("TAIL"), remap = false)
     private void registerSoundController(AnimationData data, CallbackInfo ci) {
         data.getAnimationControllers().forEach((name, contr) -> contr.registerSoundListener(event -> SoundRedirectUtil.playSound(this, event.sound)));
+    }
+
+    @Inject(method = "isItemStackForTaming", at = @At("HEAD"), cancellable = true, remap = false)
+    private void getTamingItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+        Boolean isCorrect = ExtrasUtil.isTamingItem(getSpecies(false), getVariantName(), stack);
+        if (isCorrect != null) cir.setReturnValue(isCorrect);
     }
 }
