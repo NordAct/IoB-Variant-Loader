@@ -158,7 +158,7 @@ modrinth {
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "isle-of-berk-variant-loader"
     versionNumber = mod_version
-    versionType = "release"
+    versionType = "beta"
     uploadFile = jarJar
     gameVersions = ["1.18.2"]
     loaders = ["forge"]
@@ -179,7 +179,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     def mainFile = upload(projectId, jarJar)
     mainFile.changelog = changelogText
     mainFile.changelogType = "markdown"
-    mainFile.releaseType = "release"
+    mainFile.releaseType = "beta"
     mainFile.addGameVersion("1.18.2")
     mainFile.displayName = "Isle of Berk Variant Loader " + mod_version
 }

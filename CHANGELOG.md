@@ -1,30 +1,14 @@
-- Added `baby_texture`, `baby_model`, `baby_animation` and `baby_saddle` model redirect fields
-  - They act exactly the same as their counterparts without `baby_` prefix
-  - Anything placed in those fields will be applied only if dragon is baby
-  - If those fields are not specified, baby models, animations and textures will be applied normally
+- Added sound redirects. Sound redirects allow you to redefine (most of) hardcoded dragon sound, as well as add sound to sound keyframes. This obviously includes ability to change the infamous dragon flapping sound.
+  - Due technical limitations, sound redirects needed to be done in data pack
+  - Some sound names are hardcoded to be used as redirects for hardcoded sounds
+  - For more info on feature [check example datapacks README.md](https://github.com/NordAct/IoB-Variant-Loader/tree/2.5.0/Example%20Data%20Packs)
 
-- Improved readability of model redirect data, hitbox redirect and variant spawn debug prints in logs
-  - They also are now printed in normal log instead of debug one
+- Added extras files for various miscellaneous variant-dependent stuff, such as:
+  - Loot table redirect - specifies loot table ID that will replace default one and from which loot on death will be dropped
+  - Attribute modifiers - specifies variant attribute modifiers, allows you to control variant's health, speed, armor, etc
+  - Taming items - items with which dragon can be tamed. Overrides default item(s), so empty field can be used to make dragon unnameable
+  - Breeding items - items with which dragon can be bred. Overrides default item(s), so empty field can be used to make dragon impossible to be bred
+  - Variant group - adds NBT field `VariantGroup` that has value specified in this field. `VariantGroup` cannot be changed by normal means (via commands), only via extras file. Can be useful for developers who use NBT selectors for easier selection
+  - For more info on feature [check example datapacks README.md](https://github.com/NordAct/IoB-Variant-Loader/tree/2.5.0/Example%20Data%20Packs)
 
-- Added options `log_model_redirects` in client config and `log_variant_spawns` and `log_hitbox_redirects` in common config. Both are set to `false` by default
-  - If `log_model_redirects` set to `false`, information about registered model redirects will not be printed in logs
-  - If `log_variant_spawns` set to `false`, information about registered variant spawns will not be printed in logs
-  - If `log_hitbox_redirects` set to `false`, information about registered hitbox redirects will not be printed in logs
-  
-- Added `dragon` field for model redirects, hitbox redirects and variant spawns.
-  - `dragon` field allows to specify dragon ID to which this file belongs. If specified, file name will be ignored
-  - If `dragon` is not specified, it'll attempt to define dragon ID from file name as before
-  - Field must be specified outside entry list for all cases, i.e.:
-  ```json
-  {
-    "dragon": "some_dragon",
-    "redirects": [
-      ...
-    ]
-  }
-  ```
-
-- Now if mod is unable to recognize dragon ID in model redirect, hitbox redirect or variant spawn file, file will be skipped and warning will be printed in console
-
-- Added Jade integration for displaying dragon and egg variants in tooltip
-  - Additionally added `display_original_variant_name` client config option that can enforce display of string form `VariantName` NBT in dragon variant tooltip
+Due to amount of changes this update initially released as beta. Please report all issues on either GitHub or in [mod thread](https://discord.com/channels/614526777590546453/1146579340738441316)

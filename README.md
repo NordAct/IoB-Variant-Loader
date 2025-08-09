@@ -12,17 +12,17 @@ This addon changes how some stuff in original mod works gameplay wise:
 - All eggs now can hold variant as NBT that will determine variant of the dragon that will be hatched
 
 ## Example Packs
-- [Example data pack](https://github.com/NordAct/IoB-Variant-Loader/tree/2.4.0/Example%20Data%20Packs)
-- [Example resource packs](https://github.com/NordAct/IoB-Variant-Loader/tree/2.4.0/Example%20Resource%20Packs)
+- [Example data pack](https://github.com/NordAct/IoB-Variant-Loader/tree/2.5.0/Example%20Data%20Packs)
+- [Example resource packs](https://github.com/NordAct/IoB-Variant-Loader/tree/2.5.0/Example%20Resource%20Packs)
 
 
 ## Adding custom variant spawns/editing existing via datapack, editing hit and attack boxes, changing passenger positions
 Variant Loader allows adding their own variants for spawning, as well as changing hitboxes and even passenger offsets via data packs.
-Full explanation on how to use those can be found [here](https://github.com/NordAct/IoB-Variant-Loader/blob/2.4.0/Example%20Data%20Packs/README.md)
+Full explanation on how to use those can be found [here](https://github.com/NordAct/IoB-Variant-Loader/blob/2.5.0/Example%20Data%20Packs/README.md)
 
 ## Model redirects, glowing layer and making passenger follow movement of the model
 Model redirects is a tool that allows you to replace models, animations and saddle textures per variant for dragons and models with textures for eggs. Example declaration can be found in example resource pack.
-Full explanation on how to use those can be found [here](https://github.com/NordAct/IoB-Variant-Loader/blob/2.4.0/Example%20Resource%20Packs/README.md)
+Full explanation on how to use those can be found [here](https://github.com/NordAct/IoB-Variant-Loader/blob/2.5.0/Example%20Resource%20Packs/README.md)
 
 ## Config
 Mod has client and server config with options that can affect your gameplay experience
@@ -40,6 +40,8 @@ Mod has client and server config with options that can affect your gameplay expe
 - `assign_egg_variant_on_placed` - Enables variant assignment when egg is placed and has empty or invalid variant tag. If false, all eggs always will have no variant assigned when placed
 - `log_variant_spawns` - Logs any added variant spawn in console for easier debugging
 - `log_hitbox_redirects` - Logs any added hitbox redirects in console for easier debugging
+- `log_sound_redirects` - Logs any added sound redirects in console for easier debugging
+- `log_extras` - Logs any added extras in console for easier debugging
 
 ## FAQ
 **Q:** Is there any video guide on how to use Variant Loader?\
