@@ -100,13 +100,13 @@ public abstract class DeadlyNadderMixin extends ADragonBaseMixin implements Dead
         if (SoundRedirectUtil.playSound(this, SoundRedirectUtil.FIRE)) cir.setReturnValue(null);
     }
 
-    @WrapOperation(method = "performRangedAttack", at = @At(value = "INVOKE", target = "Lcom/GACMD/isleofberk/entity/dragons/deadlynadder/DeadlyNadder;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"), remap = false)
+    @WrapOperation(method = "performRangedAttack", at = @At(value = "INVOKE", target = "Lcom/GACMD/isleofberk/entity/dragons/deadlynadder/DeadlyNadder;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"))
     private void swapStingSound(DeadlyNadder instance, SoundEvent soundEvent, float a, float b, Operation<Void> original) {
         if (!SoundRedirectUtil.playSound(this, SoundRedirectUtil.STING))
             original.call(instance, soundEvent, a, b);
     }
 
-    @WrapOperation(method = "performRangedAttackAI", at = @At(value = "INVOKE", target = "Lcom/GACMD/isleofberk/entity/dragons/deadlynadder/DeadlyNadder;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"), remap = false)
+    @WrapOperation(method = "performRangedAttackAI", at = @At(value = "INVOKE", target = "Lcom/GACMD/isleofberk/entity/dragons/deadlynadder/DeadlyNadder;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"))
     private void swapStingSoundAI(DeadlyNadder instance, SoundEvent soundEvent, float a, float b, Operation<Void> original) {
         if (!SoundRedirectUtil.playSound(this, SoundRedirectUtil.STING))
             original.call(instance, soundEvent, a, b);
