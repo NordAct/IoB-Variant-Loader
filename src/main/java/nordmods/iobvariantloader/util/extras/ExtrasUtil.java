@@ -51,13 +51,45 @@ public class ExtrasUtil {
                 extra.variantGroup().ifPresent(c -> info.append("Variant Group: ").append(c).append("\n"));
                 extra.lootTableRedirect().ifPresent(c -> info.append("Loot Table Redirect: ").append(c).append("\n"));
                 extra.variantAttributeModifiers().ifPresent(c -> {
-                    info.append("Attribute modifiers: ").append("\n");
+                    info.append("Attribute Modifiers: ").append("\n");
                     c.forEach(modifier -> {
                         info.append("- Id: ").append(modifier.id()).append("\n");
                         info.append("- Amount: ").append(modifier.amount()).append("\n");
                         info.append("- Operation: ").append(modifier.operation()).append("\n");
                         info.append("\n");
                     });
+                });
+
+                extra.breedingItems().ifPresent(items -> {
+                    info.append("Breeding Items: \n");
+                    List<String> itemsById = items.itemsById();
+                    List<String> itemsByTag = items.itemsByTag();
+                    if (!itemsById.isEmpty()) {
+                        info.append("- Items by ID: ");
+                        itemsById.forEach(id -> info.append(id).append(" "));
+                        info.append("\n");
+                    }
+                    if (!itemsByTag.isEmpty()) {
+                        info.append("- Items by tag: ");
+                        itemsByTag.forEach(id -> info.append(id).append(" "));
+                        info.append("\n");
+                    }
+                });
+
+                extra.tamingItems().ifPresent(items -> {
+                    info.append("Taming Items: \n");
+                    List<String> itemsById = items.itemsById();
+                    List<String> itemsByTag = items.itemsByTag();
+                    if (!itemsById.isEmpty()) {
+                        info.append("- Items by ID: ");
+                        itemsById.forEach(id -> info.append(id).append(" "));
+                        info.append("\n");
+                    }
+                    if (!itemsByTag.isEmpty()) {
+                        info.append("- Items by tag: ");
+                        itemsByTag.forEach(id -> info.append(id).append(" "));
+                        info.append("\n");
+                    }
                 });
                 IoBVariantLoader.LOGGER.info("{}: variant {} was redirected to:\n{}", entry.getKey(), extrasEntry.getKey(), info);
             }
