@@ -105,6 +105,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.18:3.0.46')
+    //implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.18:3.0.57')
     implementation fg.deobf("maven.modrinth:isle-of-berk:1.2.0")
 
     implementation fg.deobf("maven.modrinth:jade:5.3.2")

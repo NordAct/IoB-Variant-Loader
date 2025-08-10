@@ -13,7 +13,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.manager.AnimationData;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Map;
 
 @Mixin(SpeedStingerLeader.class)
 public abstract class SpeedStingerLeaderMixin extends ADragonBaseMixin{
@@ -37,8 +42,19 @@ public abstract class SpeedStingerLeaderMixin extends ADragonBaseMixin{
     }
 
     @Inject(method = "registerControllers", at = @At("TAIL"), remap = false)
-    private void registerSoundController(AnimationData data, CallbackInfo ci) {
-        data.getAnimationControllers().forEach((name, contr) -> contr.registerSoundListener(event -> SoundRedirectUtil.playSound(this, event.sound)));
+    private void registerSoundController(AnimationData data, CallbackInfo ci){
+        //I have no idea how, I don't know why and don't wish to know how
+        //but SOMEHOW IT CANNOT FIND SAME METHOD IN THE SAME CLASS in different versions of Geckolib
+        //unless I specifically compile against it
+        try {
+            Class<?> clazz = data.getClass();
+            String methodName = "getAnimationControllers";
+            Method method = clazz.getMethod(methodName);
+            Map<String, AnimationController> result = (Map<String, AnimationController>) method.invoke(data);
+            result.forEach((name, contr) -> contr.registerSoundListener(event -> SoundRedirectUtil.playSound(this, event.sound)));
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Inject(method = "isItemStackForTaming", at = @At("HEAD"), cancellable = true, remap = false)
