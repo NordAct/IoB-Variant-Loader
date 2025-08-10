@@ -14,10 +14,7 @@ import nordmods.iobvariantloader.util.model_redirect.ModelRedirectUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SoundRedirectUtil {
     //hardcoded sound names
@@ -113,6 +110,15 @@ public class SoundRedirectUtil {
     public static synchronized void add(String dragon, Map<String, List<SoundRedirect>> redirects) {
         Map<String, List<SoundRedirect>> content = soundRedirectMap.get(dragon);
         if (content != null) {
+            for (Map.Entry<String, List<SoundRedirect>> entry : content.entrySet()) {
+                String variant = entry.getKey();
+                if (redirects.containsKey(variant)) {
+                    List<SoundRedirect> copy = new ArrayList<>();
+                    copy.addAll(redirects.get(variant));
+                    copy.addAll(entry.getValue());
+                    redirects.put(variant, copy);
+                }
+            }
             content.putAll(redirects);
             soundRedirectMap.put(dragon, content);
         } else soundRedirectMap.put(dragon, redirects);

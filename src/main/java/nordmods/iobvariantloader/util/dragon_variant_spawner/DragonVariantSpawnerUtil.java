@@ -15,6 +15,7 @@ import nordmods.iobvariantloader.util.ducks.DefaultVariantNameHelper;
 import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +30,10 @@ public final class DragonVariantSpawnerUtil {
     public static synchronized void add(String name, List<DragonVariantSpawner> variants) {
         List<DragonVariantSpawner> content = dragonVariants.get(name);
         if (content != null) {
-            content.addAll(variants);
-            dragonVariants.put(name, content);
+            List<DragonVariantSpawner> copy = new ArrayList<>();
+            copy.addAll(variants);
+            copy.addAll(content);
+            dragonVariants.put(name, copy);
         } else dragonVariants.put(name, variants);
     }
 
