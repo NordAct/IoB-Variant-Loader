@@ -27,7 +27,7 @@ public class SoundRedirectReloadListener extends SimpleJsonResourceReloadListene
             JsonObject entryObject = entry.getValue().getAsJsonObject();
 
             String dragon = entryObject.has("dragon") ? entryObject.get("dragon").getAsString() : fileID.getPath();
-            if (!ResourceUtil.AllowedValues.isValid(dragon, true)) {
+            if (!ResourceUtil.AllowedValues.isValid(dragon, false)) {
                 IoBVariantLoader.LOGGER.warn("Sound redirect entry {} does not match any dragon id and will be skipped", fileID);
                 continue;
             }
