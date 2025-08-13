@@ -39,10 +39,10 @@ public class SoundRedirectUtil {
     public static <T extends Entity & VariantNameHelper & DragonSpeciesHelper> boolean playSound(@NotNull T entity, String sound) {
         SoundRedirectUtil.SoundInfo soundInfo = null;
         if (entity.hasCustomName() && ModelRedirectUtil.isNametagAccessible(entity.getSpecies(entity.level.isClientSide()), entity.getName().getString().toLowerCase())) {
-            soundInfo = SoundRedirectUtil.getSoundInfo(entity.getSpecies(true), entity.getName().getString().toLowerCase(), sound);
+            soundInfo = SoundRedirectUtil.getSoundInfo(entity.getSpecies(false), entity.getName().getString().toLowerCase(), sound);
         }
         if (soundInfo == null) {
-            soundInfo = SoundRedirectUtil.getSoundInfo(entity.getSpecies(true), entity.getVariantName(), sound);
+            soundInfo = SoundRedirectUtil.getSoundInfo(entity.getSpecies(false), entity.getVariantName(), sound);
         }
         if (soundInfo != null) {
             if (entity.level.isClientSide()) {
