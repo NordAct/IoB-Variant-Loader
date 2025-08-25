@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import nordmods.iobvariantloader.util.extras.ExtrasUtil;
@@ -92,5 +93,10 @@ public abstract class TerribleTerrorMixin extends ADragonBaseMixin{
     private void getBreedingItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         Boolean isCorrect = ExtrasUtil.isBreedingItem(getSpecies(false), getVariantName(), stack);
         if (isCorrect != null) cir.setReturnValue(isCorrect);
+    }
+
+    @WrapOperation(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Item;isEdible()Z"))
+    private boolean itIsEdiblePleaseGTFO(Item instance, Operation<Boolean> original) {
+        return true;
     }
 }

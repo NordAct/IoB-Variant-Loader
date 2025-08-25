@@ -115,9 +115,11 @@ dependencies {
     }
 
     //test mods
-    //implementation fg.deobf("maven.modrinth:rubidium:0.5.6")
-    //implementation fg.deobf("maven.modrinth:oculus:1.18.2-1.6.4")
+    implementation fg.deobf("maven.modrinth:rubidium:0.5.6")
+    implementation fg.deobf("maven.modrinth:oculus:1.18.2-1.6.4")
     //implementation fg.deobf("maven.modrinth:spark:1.9.11-forge")
+    implementation fg.deobf("maven.modrinth:archipelago-additions:2.2.0-1.18.2")
+    implementation fg.deobf("maven.modrinth:isle-of-berk-addons:1.1d")
 }
 
 tasks.named('processResources', ProcessResources).configure {
