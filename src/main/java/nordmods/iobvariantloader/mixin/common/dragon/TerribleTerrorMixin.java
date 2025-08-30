@@ -12,6 +12,7 @@ import net.minecraft.world.level.Level;
 import nordmods.iobvariantloader.util.extras.ExtrasUtil;
 import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,6 +26,9 @@ import java.util.Map;
 
 @Mixin(TerribleTerror.class)
 public abstract class TerribleTerrorMixin extends ADragonBaseMixin{
+
+    @Shadow
+    protected abstract boolean isItemStackForTaming(ItemStack stack);
 
     protected TerribleTerrorMixin(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
@@ -97,6 +101,6 @@ public abstract class TerribleTerrorMixin extends ADragonBaseMixin{
 
     @WrapOperation(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Item;isEdible()Z"))
     private boolean itIsEdiblePleaseGTFO(Item instance, Operation<Boolean> original) {
-        return true;
+        return isItemStackForTaming(instance.getDefaultInstance()) || original.call(instance);
     }
 }

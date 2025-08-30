@@ -1,1 +1,1 @@
-- Fixed Terrible Terrors being picky about their taming items and refusing being tamed if it's not food
+- Terrible Terrors no longer try to eat sticks or other items that are not considered to be their food
