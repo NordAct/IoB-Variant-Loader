@@ -1,1 +1,2 @@
-- Terrible Terrors no longer try to eat sticks or other items that are not considered to be their food
+- Fix geckolib entities duplicating when rendered on passenger layer
+- Bumped min required Forge version to current latest (4.3.11) because someone marked version with critical bug as stable again
