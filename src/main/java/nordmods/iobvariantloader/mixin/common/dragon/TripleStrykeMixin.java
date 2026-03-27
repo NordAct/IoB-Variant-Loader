@@ -49,18 +49,18 @@ public abstract class TripleStrykeMixin extends ADragonBaseMixin {
 
     @Override
     public String getFromBaseVariant() {
+        if (isTitanWing()) return "titanstinger";
         return switch (getDragonVariant()) {
-            case 1 -> "sandr";
-            case 2 -> "fart_n_sniff";
-            case 3 -> "hodd";
-            case 4 -> "hjarta";
-            case 5 -> "exiled";
-            case 6 -> "whip_n_lash";
-            case 7 -> "leaf_n_bark";
-            case 8 -> "purple_n_nurple";
-            case 9 -> "hamfeist";
-            case 10 -> "kandy_n_kane";
-            default -> "pistill";
+            case 1 -> "eclipser";
+            case 2 -> "nikora_triple_stryke";
+            case 3 -> "starstreak";
+            case 4 -> "triple_stryke";
+            case 5 -> "spyro";
+            case 6 -> "blue";
+            case 7 -> "boreas";
+            case 8 -> "sleuther";
+            case 9 -> "rosethorn";
+            default -> "champion";
         };
     }
 

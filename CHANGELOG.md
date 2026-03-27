@@ -1,2 +1,1 @@
-- Fix geckolib entities duplicating when rendered on passenger layer
-- Bumped min required Forge version to current latest (4.3.11) because someone marked version with critical bug as stable again
+- Fixed incorrect variant assignment for Zippleback and Triple Stryke in cases when VariantName was not set
