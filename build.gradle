@@ -120,6 +120,7 @@ dependencies {
     //implementation fg.deobf("maven.modrinth:spark:1.9.11-forge")
     implementation fg.deobf("maven.modrinth:archipelago-additions:2.3.7-1.18.2")
     implementation fg.deobf("maven.modrinth:isle-of-berk-addons:1.1d")
+    implementation fg.deobf("maven.modrinth:debugutils:A0WvBW2D")
 }
 
 tasks.named('processResources', ProcessResources).configure {

@@ -5,6 +5,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 
 public class VLConfig {
     public ConfigHelper.ConfigValueListener<Double> inheritanceChance;
+    public ConfigHelper.ConfigValueListener<Boolean> alternativeLandNavigation;
     public ConfigHelper.ConfigValueListener<Boolean> assignEggVariantOnBreeding;
     public ConfigHelper.ConfigValueListener<Boolean> assignEggVariantOnPlaced;
     public ConfigHelper.ConfigValueListener<Boolean> logDragonVariantSpawns;
@@ -17,6 +18,12 @@ public class VLConfig {
         inheritanceChance = subscriber.subscribe(builder
                 .comment("Defines the chance of dragon inheriting variant of their parents. 1 means variant will always be the same as their parents one")
                 .defineInRange("inheritance_chance", 0.7, 0, 1));
+        builder.pop();
+
+        builder.push("Alternative Land Navigation");
+        alternativeLandNavigation = subscriber.subscribe(builder
+                .comment("Uses alternative improved navigator for dragons when they're on land. If false, default one will be used")
+                .define("alternative_land_navigation", true));
         builder.pop();
 
         builder.push("Assign Egg Variant on Breeding");

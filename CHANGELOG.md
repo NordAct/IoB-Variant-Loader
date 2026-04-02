@@ -1,1 +1,3 @@
-- Fixed incorrect variant assignment for Zippleback and Triple Stryke in cases when VariantName was not set
+- Added alternative land navigator that should make dragon movement less janky, especially for bigger ones (>1 block wide)
+  - Yes, I straight up ripped it out of Useless Reptile
+  - You can disable each one individually in config

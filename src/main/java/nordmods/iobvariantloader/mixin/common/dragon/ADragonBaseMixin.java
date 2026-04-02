@@ -31,6 +31,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import nordmods.iobvariantloader.IoBVariantLoader;
+import nordmods.iobvariantloader.util.AltLandNavigation;
 import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
@@ -434,5 +435,11 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     private void getBreedingItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         Boolean isCorrect = ExtrasUtil.isBreedingItem(getSpecies(false), getVariantName(), stack);
         if (isCorrect != null) cir.setReturnValue(isCorrect);
+    }
+
+    @Inject(method = "<init>", at = @At("TAIL"), remap = false)
+    private void updateNavigator(EntityType<?> animal, Level world, CallbackInfo ci) {
+        if (IoBVariantLoader.config.alternativeLandNavigation.get())
+            navigation = new AltLandNavigation<>((ADragonBase) (Object)this, level);
     }
 }
