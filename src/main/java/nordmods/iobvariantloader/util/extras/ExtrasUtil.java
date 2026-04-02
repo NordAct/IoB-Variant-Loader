@@ -25,7 +25,7 @@ public class ExtrasUtil {
     }
 
     @Nullable
-    public static String getLootTableRedirect(String dragon, String variant) {
+    public static ResourceLocation getLootTableRedirect(String dragon, String variant) {
         if (extrasMap.containsKey(dragon)){
             Map<String, Extras> extras = extrasMap.get(dragon);
             if (extras.containsKey(variant)) return extras.get(variant).lootTableRedirect().orElse(null);
@@ -62,32 +62,32 @@ public class ExtrasUtil {
 
                 extra.breedingItems().ifPresent(items -> {
                     info.append("Breeding Items: \n");
-                    List<String> itemsById = items.itemsById();
-                    List<String> itemsByTag = items.itemsByTag();
+                    List<ResourceLocation> itemsById = items.itemsById();
+                    List<ResourceLocation> itemsByTag = items.itemsByTag();
                     if (!itemsById.isEmpty()) {
                         info.append("- Items by ID: ");
-                        itemsById.forEach(id -> info.append(id).append(" "));
+                        itemsById.forEach(id -> info.append(id.toString()).append(" "));
                         info.append("\n");
                     }
                     if (!itemsByTag.isEmpty()) {
                         info.append("- Items by tag: ");
-                        itemsByTag.forEach(id -> info.append(id).append(" "));
+                        itemsByTag.forEach(id -> info.append(id.toString()).append(" "));
                         info.append("\n");
                     }
                 });
 
                 extra.tamingItems().ifPresent(items -> {
                     info.append("Taming Items: \n");
-                    List<String> itemsById = items.itemsById();
-                    List<String> itemsByTag = items.itemsByTag();
+                    List<ResourceLocation> itemsById = items.itemsById();
+                    List<ResourceLocation> itemsByTag = items.itemsByTag();
                     if (!itemsById.isEmpty()) {
                         info.append("- Items by ID: ");
-                        itemsById.forEach(id -> info.append(id).append(" "));
+                        itemsById.forEach(id -> info.append(id.toString()).append(" "));
                         info.append("\n");
                     }
                     if (!itemsByTag.isEmpty()) {
                         info.append("- Items by tag: ");
-                        itemsByTag.forEach(id -> info.append(id).append(" "));
+                        itemsByTag.forEach(id -> info.append(id.toString()).append(" "));
                         info.append("\n");
                     }
                 });
@@ -129,17 +129,15 @@ public class ExtrasUtil {
 
     private static boolean isItemInList(Extras.ItemRestriction restriction, ItemStack stack) {
         boolean isIn = false;
-        for (String s : restriction.itemsById()) {
-            ResourceLocation name = new ResourceLocation(s);
-            if (stack.getItem().builtInRegistryHolder().key().location().equals(name)) {
+        for (ResourceLocation item : restriction.itemsById()) {
+            if (stack.getItem().builtInRegistryHolder().key().location().equals(item)) {
                 isIn = true;
                 break;
             }
         }
 
-        if (!isIn) for (String tag : restriction.itemsByTag()) {
-            ResourceLocation name = new ResourceLocation(tag);
-            if (stack.is(TagKey.create(Registry.ITEM_REGISTRY, name))) {
+        if (!isIn) for (ResourceLocation tag : restriction.itemsByTag()) {
+            if (stack.is(TagKey.create(Registry.ITEM_REGISTRY, tag))) {
                 isIn = true;
                 break;
             }

@@ -47,32 +47,32 @@ public final class DragonVariantSpawnerUtil {
                 conditions.append("Breeding Weight: ").append(variant.breedingWeight()).append("\n");
                 if (variant.hasAllowedBiomes()) {
                     conditions.append("Allowed Biomes: \n");
-                    List<String> biomesById = variant.allowedBiomes().biomesById();
-                    List<String> biomesByTag = variant.allowedBiomes().biomesByTag();
+                    List<ResourceLocation> biomesById = variant.allowedBiomes().biomesById();
+                    List<ResourceLocation> biomesByTag = variant.allowedBiomes().biomesByTag();
                     if (!biomesById.isEmpty()) {
                         conditions.append("- Biomes by ID: ");
-                        biomesById.forEach(id -> conditions.append(id).append(" "));
+                        biomesById.forEach(id -> conditions.append(id.toString()).append(" "));
                         conditions.append("\n");
                     }
                     if (!biomesByTag.isEmpty()) {
                         conditions.append("- Biomes by tag: ");
-                        biomesByTag.forEach(id -> conditions.append(id).append(" "));
+                        biomesByTag.forEach(id -> conditions.append(id.toString()).append(" "));
                         conditions.append("\n");
                     }
                 }
 
                 if (variant.hasBannedBiomes()) {
                     conditions.append("Banned Biomes: \n");
-                    List<String> biomesById = variant.bannedBiomes().biomesById();
-                    List<String> biomesByTag = variant.bannedBiomes().biomesByTag();
+                    List<ResourceLocation> biomesById = variant.bannedBiomes().biomesById();
+                    List<ResourceLocation> biomesByTag = variant.bannedBiomes().biomesByTag();
                     if (!biomesById.isEmpty()) {
                         conditions.append("- Biomes by ID: ");
-                        biomesById.forEach(id -> conditions.append(id).append(" "));
+                        biomesById.forEach(id -> conditions.append(id.toString()).append(" "));
                         conditions.append("\n");
                     }
                     if (!biomesByTag.isEmpty()) {
                         conditions.append("- Biomes by tag: ");
-                        biomesByTag.forEach(id -> conditions.append(id).append(" "));
+                        biomesByTag.forEach(id -> conditions.append(id.toString()).append(" "));
                         conditions.append("\n");
                     }
                 }
@@ -90,21 +90,19 @@ public final class DragonVariantSpawnerUtil {
 
     public static boolean isVariantIn(DragonVariantSpawner.BiomeRestrictions restrictions, ServerLevelAccessor world, BlockPos blockPos) {
         Holder<Biome> biome = world.getBiome(blockPos);
-        List<String> id = restrictions.hasBiomesByIdList() ? restrictions.biomesById() : List.of();
-        List<String> tags = restrictions.hasBiomesByTagList() ? restrictions.biomesByTag() : List.of();
+        List<ResourceLocation> ids = restrictions.hasBiomesByIdList() ? restrictions.biomesById() : List.of();
+        List<ResourceLocation> tags = restrictions.hasBiomesByTagList() ? restrictions.biomesByTag() : List.of();
 
         boolean isIn = false;
-        for (String s : id) {
-            ResourceLocation name = new ResourceLocation(s);
-            if (biome.is(name)) {
+        for (ResourceLocation id : ids) {
+            if (biome.is(id)) {
                 isIn = true;
                 break;
             }
         }
 
-        if (!isIn) for (String tag : tags) {
-            ResourceLocation name = new ResourceLocation(tag);
-            if (biome.is(TagKey.create(Registry.BIOME_REGISTRY, name))) {
+        if (!isIn) for (ResourceLocation tag : tags) {
+            if (biome.is(TagKey.create(Registry.BIOME_REGISTRY, tag))) {
                 isIn = true;
                 break;
             }

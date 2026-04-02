@@ -391,8 +391,8 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
 
     @Override
     protected @NotNull ResourceLocation getDefaultLootTable() {
-        String lootTable = ExtrasUtil.getLootTableRedirect(getSpecies(false), getVariantName());
-        return lootTable != null ? new ResourceLocation(lootTable) : super.getDefaultLootTable();
+        ResourceLocation lootTable = ExtrasUtil.getLootTableRedirect(getSpecies(false), getVariantName());
+        return lootTable != null ? lootTable : super.getDefaultLootTable();
     }
 
     @Unique
@@ -401,7 +401,7 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         if (modifiers == null) return;
 
         modifiers.forEach(modifier -> {
-            Attribute attribute = getLevel().registryAccess().registry(Registry.ATTRIBUTE_REGISTRY).get().get(new ResourceLocation(modifier.id()));
+            Attribute attribute = getLevel().registryAccess().registry(Registry.ATTRIBUTE_REGISTRY).get().get(modifier.id());
             if (attribute == null) {
                 IoBVariantLoader.LOGGER.warn("Failed to find attribute {} for {} for variant {}. Modifier will not be applied", modifier.id(), getSpecies(false), getVariantName());
                 return;

@@ -3,6 +3,7 @@ package nordmods.iobvariantloader.util.dragon_variant_spawner;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +28,7 @@ public record DragonVariantSpawner(String name,
             SurfaceRestriction.CODEC.optionalFieldOf("surface_restriction", SurfaceRestriction.NONE).forGetter(DragonVariantSpawner::surfaceRestriction)
     ).apply(instance, (name, weight, breedingWeight, allowedBiomes, bannedBiomes, altitude, surfaceRestriction) -> {
         if (breedingWeight < 0) breedingWeight = weight;
-        if (!allowedBiomes.hasBiomesByIdList() && !allowedBiomes.hasBiomesByTagList() && weight > 0) allowedBiomes = new BiomeRestrictions(List.of(), List.of("forge:is_overworld"));
+        if (!allowedBiomes.hasBiomesByIdList() && !allowedBiomes.hasBiomesByTagList() && weight > 0) allowedBiomes = new BiomeRestrictions(List.of(), List.of(new ResourceLocation("forge:is_overworld")));
         return new DragonVariantSpawner(name, weight, breedingWeight, allowedBiomes, bannedBiomes, altitude, surfaceRestriction);
     }));
     //allowed - works as whitelist if presented
@@ -40,10 +41,10 @@ public record DragonVariantSpawner(String name,
         return bannedBiomes.hasBiomesByIdList() || bannedBiomes.hasBiomesByTagList();
     }
 
-    public record BiomeRestrictions(@NotNull List<String> biomesById, @NotNull List<String> biomesByTag) {
+    public record BiomeRestrictions(@NotNull List<ResourceLocation> biomesById, @NotNull List<ResourceLocation> biomesByTag) {
         public static Codec<BiomeRestrictions> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.STRING.listOf().optionalFieldOf("biome", List.of()).forGetter(BiomeRestrictions::biomesById),
-                Codec.STRING.listOf().optionalFieldOf("tag", List.of()).forGetter(BiomeRestrictions::biomesByTag)
+                ResourceLocation.CODEC.listOf().optionalFieldOf("biome", List.of()).forGetter(BiomeRestrictions::biomesById),
+                ResourceLocation.CODEC.listOf().optionalFieldOf("tag", List.of()).forGetter(BiomeRestrictions::biomesByTag)
         ).apply(instance, BiomeRestrictions::new));
 
         public boolean hasBiomesByIdList() {
