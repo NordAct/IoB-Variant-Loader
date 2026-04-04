@@ -1,0 +1,23 @@
+{
+  "group_name": "skrill",
+  "variant_lists": [
+    {
+      "dragon": "skrill",
+      "variants": [
+        "stormshadow",
+        "icebane",
+        "fryrir",
+        "crimson",
+        "nemesis",
+        "tempest",
+        "pickle",
+        "zen",
+        "spark",
+        "albino",
+        "moonshock",
+        "spring_storm",
+        "skrill"
+      ]
+    }
+  ]
+}

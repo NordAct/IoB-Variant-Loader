@@ -1,0 +1,17 @@
+{
+  "group_name": "silver_phantom",
+  "variant_lists": [
+    {
+      "dragon": "night_fury",
+      "variants": [
+        "arbitrary_phantom",
+        "crown_phantom",
+        "night_phantom",
+        "pearlescent_poltergeist",
+        "rob_phantom",
+        "silver_phantom",
+        "wave_phantom"
+      ]
+    }
+  ]
+}

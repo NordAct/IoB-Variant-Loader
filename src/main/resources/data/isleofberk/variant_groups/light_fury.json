@@ -1,0 +1,16 @@
+{
+  "group_name": "light_fury",
+  "variant_lists": [
+    {
+      "dragon": "light_fury",
+      "variants": [
+        "sveinn",
+        "drottinn",
+        "grogaldr",
+        "drottinn_grogaldr",
+        "sveinn_grogaldr",
+        "light_fury"
+      ]
+    }
+  ]
+}

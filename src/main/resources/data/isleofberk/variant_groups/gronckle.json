@@ -1,0 +1,20 @@
+{
+  "group_name": "gronckle",
+  "variant_lists": [
+    {
+      "dragon": "gronckle",
+      "variants": [
+        "hjarta",
+        "junior_tuffnut_junior",
+        "gronckle",
+        "cheesemonger",
+        "exiled",
+        "rubblegrubber",
+        "barn",
+        "crubble",
+        "yawnckle",
+        "meatlug"
+      ]
+    }
+  ]
+}

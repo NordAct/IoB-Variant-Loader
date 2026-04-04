@@ -1,0 +1,15 @@
+{
+  "group_name": "lightcutter",
+  "variant_lists": [
+    {
+      "dragon": "skrill",
+      "variants": [
+        "lightcutter",
+        "picklecutter",
+        "stormshadowcutter",
+        "stormskriller",
+        "skrillcutter"
+      ]
+    }
+  ]
+}

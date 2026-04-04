@@ -1,0 +1,17 @@
+{
+  "group_name": "stinger",
+  "variant_lists": [
+    {
+      "dragon": "stinger",
+      "variants": [
+        "mudsmasher",
+        "sandscorcher",
+        "badlands",
+        "kingly",
+        "coastal_predator",
+        "wildroar",
+        "titanstinger"
+      ]
+    }
+  ]
+}

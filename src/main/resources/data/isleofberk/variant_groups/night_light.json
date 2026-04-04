@@ -1,0 +1,21 @@
+{
+  "group_name": "night_light",
+  "variant_lists": [
+    {
+      "dragon": "night_light",
+      "variants": [
+        "pouncer",
+        "ruffrunner",
+        "leopard",
+        "dusk",
+        "appaloosa",
+        "skydancer",
+        "nightdancer",
+        "iridescence",
+        "ashwing",
+        "harlequeen",
+        "dart"
+      ]
+    }
+  ]
+}

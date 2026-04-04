@@ -12,6 +12,7 @@ public class VLConfig {
     public ConfigHelper.ConfigValueListener<Boolean> logHitboxRedirects;
     public ConfigHelper.ConfigValueListener<Boolean> logSoundRedirects;
     public ConfigHelper.ConfigValueListener<Boolean> logExtras;
+    public ConfigHelper.ConfigValueListener<Boolean> logVariantLists;
     public VLConfig(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber)
     {
         builder.push("Inheritance Chance");
@@ -60,6 +61,12 @@ public class VLConfig {
         logExtras = subscriber.subscribe(builder
                 .comment("Logs any added extras in console for easier debugging")
                 .define("log_extras", false));
+        builder.pop();
+
+        builder.push("Log Variant Lists");
+        logVariantLists = subscriber.subscribe(builder
+                .comment("Logs any added variant lists in console for easier debugging")
+                .define("log_variant_lists", false));
         builder.pop();
     }
 }

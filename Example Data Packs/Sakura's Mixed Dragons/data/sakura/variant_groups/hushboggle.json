@@ -1,0 +1,15 @@
+{
+  "group_name": "hushboggle",
+  "variant_lists": [
+    {
+      "dragon": "deadly_nadder",
+      "variants": [
+        "dangerous_hushboggle",
+        "foe_hammer",
+        "gorge_hushboggle",
+        "hushboggle",
+        "mythic_murmurquill"
+      ]
+    }
+  ]
+}

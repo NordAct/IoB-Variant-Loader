@@ -1,0 +1,16 @@
+{
+  "group_name": "deathgrippers",
+  "variant_lists": [
+    {
+      "dragon": "triple_stryke",
+      "variants": [
+        "deathgripper",
+        "fenrirs_eavescreaper",
+        "miasmic_deathgripper",
+        "sappheral",
+        "slaughterdijk",
+        "sunset_deathgripper"
+      ]
+    }
+  ]
+}

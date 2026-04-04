@@ -1,0 +1,15 @@
+{
+  "group_name": "galeslash",
+  "variant_lists": [
+    {
+      "dragon": "deadly_nadder",
+      "variants": [
+        "celestial_royalwing",
+        "copsekeep",
+        "deathly_galeslash",
+        "fog_stalker",
+        "frigid_galeslash"
+      ]
+    }
+  ]
+}

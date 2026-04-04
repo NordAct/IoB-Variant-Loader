@@ -1,0 +1,14 @@
+{
+  "group_name": "speed_stinger",
+  "variant_lists": [
+    {
+      "dragon": "speed_stinger",
+      "variants": [
+        "floutscout",
+        "ice_breaker",
+        "sweet_sting",
+        "speed_stinger"
+      ]
+    }
+  ]
+}

@@ -16,6 +16,7 @@ import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawne
 import nordmods.iobvariantloader.util.extras.ExtrasReloadListener;
 import nordmods.iobvariantloader.util.hitbox_redirect.HitboxRedirectReloadListener;
 import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectReloadListener;
+import nordmods.iobvariantloader.util.variant_group.VariantListReloadListener;
 import org.slf4j.Logger;
 
 @Mod(IoBVariantLoader.MOD_ID)
@@ -32,6 +33,22 @@ public class IoBVariantLoader { //I'll do anything but use forge's registries be
         MinecraftForge.EVENT_BUS.register(this);
         config = ConfigHelper.register(ModConfig.Type.COMMON, VLConfig::new, "iob_variant_loader.toml");
         clientConfig = ConfigHelper.register(ModConfig.Type.CLIENT, VLClientConfig::new, "iob_variant_loader-client.toml");
+
+        //LOGGER.info(BreedingList.CODEC.encodeStart(
+        //        JsonOps.INSTANCE,
+        //        new BreedingList(new Pair<>(
+        //                new BreedingList.Parent(
+        //                        "deadly_nadder",
+        //                        List.of("stormfly")
+        //                ),
+        //                new BreedingList.Parent(
+        //                        "monstrous_nightmare",
+        //                        List.of("hookfang")
+        //                )
+        //        ),
+        //                List.of(new BreedingList.Entry("monstrous_nightmare", "monstrous_nightmare", 1))
+        //        )
+        //).get().toString());
     }
 
     @SubscribeEvent
@@ -40,5 +57,6 @@ public class IoBVariantLoader { //I'll do anything but use forge's registries be
         event.addListener(new HitboxRedirectReloadListener());
         event.addListener(new SoundRedirectReloadListener());
         event.addListener(new ExtrasReloadListener());
+        event.addListener(new VariantListReloadListener());
     }
 }
