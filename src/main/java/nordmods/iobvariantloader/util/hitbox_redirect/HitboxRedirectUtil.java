@@ -17,19 +17,19 @@ import java.util.Optional;
 public class HitboxRedirectUtil {
     //key - dragon id
     //value - redirect per variant
-    public static final Map<String, Map<String, HitboxRedirect>> dragonHitboxRedirects = new HashMap<>();
+    public static final Map<String, Map<String, HitboxRedirect>> DRAGON_HITBOX_REDIRECTS = new HashMap<>();
 
     public static synchronized void add(String dragon, Map<String, HitboxRedirect> overrides) {
-        Map<String, HitboxRedirect> content = dragonHitboxRedirects.get(dragon);
+        Map<String, HitboxRedirect> content = DRAGON_HITBOX_REDIRECTS.get(dragon);
         if (content != null) {
             content.putAll(overrides);
-            dragonHitboxRedirects.put(dragon, content);
-        } else dragonHitboxRedirects.put(dragon, overrides);
+            DRAGON_HITBOX_REDIRECTS.put(dragon, content);
+        } else DRAGON_HITBOX_REDIRECTS.put(dragon, overrides);
     }
 
     public static void debugPrint() {
         if (!IoBVariantLoader.config.logHitboxRedirects.get()) return;
-        for (Map.Entry<String, Map<String, HitboxRedirect>> entry : dragonHitboxRedirects.entrySet()) {
+        for (Map.Entry<String, Map<String, HitboxRedirect>> entry : DRAGON_HITBOX_REDIRECTS.entrySet()) {
             for (Map.Entry<String, HitboxRedirect> overrideEntry : entry.getValue().entrySet()) {
                 HitboxRedirect hitboxRedirect = overrideEntry.getValue();
 
@@ -77,8 +77,8 @@ public class HitboxRedirectUtil {
     public static EntityDimensions getHitboxOverride(ADragonBase dragon) {
         String species = ((DragonSpeciesHelper)dragon).getSpecies(false);
         String variant = ((VariantNameHelper)dragon).getVariantName();
-        if (dragonHitboxRedirects.containsKey(species)) {
-            Map<String, HitboxRedirect> speciesMap = dragonHitboxRedirects.get(species);
+        if (DRAGON_HITBOX_REDIRECTS.containsKey(species)) {
+            Map<String, HitboxRedirect> speciesMap = DRAGON_HITBOX_REDIRECTS.get(species);
             if (speciesMap.containsKey(variant)) {
                 Optional<Pair<Float, Float>> pair = speciesMap.get(variant).hitbox();
                 return pair.map(floatFloatPair -> EntityDimensions.scalable(
@@ -94,8 +94,8 @@ public class HitboxRedirectUtil {
     public static EntityDimensions getAttackBoxOverride(ADragonBase dragon) {
         String species = ((DragonSpeciesHelper)dragon).getSpecies(false);
         String variant = ((VariantNameHelper)dragon).getVariantName();
-        if (dragonHitboxRedirects.containsKey(species)) {
-            Map<String, HitboxRedirect> speciesMap = dragonHitboxRedirects.get(species);
+        if (DRAGON_HITBOX_REDIRECTS.containsKey(species)) {
+            Map<String, HitboxRedirect> speciesMap = DRAGON_HITBOX_REDIRECTS.get(species);
             if (speciesMap.containsKey(variant)) {
                 Optional<Pair<Float, Float>> pair = speciesMap.get(variant).attackBox();
                 return pair.map(floatFloatPair -> EntityDimensions.scalable(
@@ -110,8 +110,8 @@ public class HitboxRedirectUtil {
     public static Vec3 getAttackBoxPos(ADragonBase dragon) {
         String species = ((DragonSpeciesHelper)dragon).getSpecies(false);
         String variant = ((VariantNameHelper)dragon).getVariantName();
-        if (dragonHitboxRedirects.containsKey(species)) {
-            Map<String, HitboxRedirect> speciesMap = dragonHitboxRedirects.get(species);
+        if (DRAGON_HITBOX_REDIRECTS.containsKey(species)) {
+            Map<String, HitboxRedirect> speciesMap = DRAGON_HITBOX_REDIRECTS.get(species);
             if (speciesMap.containsKey(variant)) return speciesMap.get(variant).attackBoxPos().orElse(null);
         }
         return null;
@@ -120,8 +120,8 @@ public class HitboxRedirectUtil {
     public static List<Vec3> getPassengerPositions(ADragonBase dragon) {
         String species = ((DragonSpeciesHelper)dragon).getSpecies(false);
         String variant = ((VariantNameHelper)dragon).getVariantName();
-        if (dragonHitboxRedirects.containsKey(species)) {
-            Map<String, HitboxRedirect> speciesMap = dragonHitboxRedirects.get(species);
+        if (DRAGON_HITBOX_REDIRECTS.containsKey(species)) {
+            Map<String, HitboxRedirect> speciesMap = DRAGON_HITBOX_REDIRECTS.get(species);
             if (speciesMap.containsKey(variant)) return speciesMap.get(variant).passengerPositions();
         }
         return List.of();

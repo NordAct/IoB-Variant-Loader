@@ -2,6 +2,7 @@ package nordmods.iobvariantloader;
 
 import com.GACMD.isleofberk.config.util.ConfigHelper;
 import com.mojang.logging.LogUtils;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,6 +17,8 @@ import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawne
 import nordmods.iobvariantloader.util.extras.ExtrasReloadListener;
 import nordmods.iobvariantloader.util.hitbox_redirect.HitboxRedirectReloadListener;
 import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectReloadListener;
+import nordmods.iobvariantloader.util.variant_group.KillVariantFromGroupTrigger;
+import nordmods.iobvariantloader.util.variant_group.TameVariantFromGroupTrigger;
 import nordmods.iobvariantloader.util.variant_group.VariantListReloadListener;
 import org.slf4j.Logger;
 
@@ -25,6 +28,8 @@ public class IoBVariantLoader { //I'll do anything but use forge's registries be
     public static final Logger LOGGER = LogUtils.getLogger();
     public static VLConfig config = null;
     public static VLClientConfig clientConfig = null;
+    public static KillVariantFromGroupTrigger KILL_VARIANT_FROM_GROUP_TRIGGER = CriteriaTriggers.register(new KillVariantFromGroupTrigger());
+    public static TameVariantFromGroupTrigger TAME_VARIANT_FROM_GROUP_TRIGGER = CriteriaTriggers.register(new TameVariantFromGroupTrigger());
 
     public IoBVariantLoader() {
         VerifyModPresenceS2CPacket.init();
@@ -33,22 +38,6 @@ public class IoBVariantLoader { //I'll do anything but use forge's registries be
         MinecraftForge.EVENT_BUS.register(this);
         config = ConfigHelper.register(ModConfig.Type.COMMON, VLConfig::new, "iob_variant_loader.toml");
         clientConfig = ConfigHelper.register(ModConfig.Type.CLIENT, VLClientConfig::new, "iob_variant_loader-client.toml");
-
-        //LOGGER.info(BreedingList.CODEC.encodeStart(
-        //        JsonOps.INSTANCE,
-        //        new BreedingList(new Pair<>(
-        //                new BreedingList.Parent(
-        //                        "deadly_nadder",
-        //                        List.of("stormfly")
-        //                ),
-        //                new BreedingList.Parent(
-        //                        "monstrous_nightmare",
-        //                        List.of("hookfang")
-        //                )
-        //        ),
-        //                List.of(new BreedingList.Entry("monstrous_nightmare", "monstrous_nightmare", 1))
-        //        )
-        //).get().toString());
     }
 
     @SubscribeEvent

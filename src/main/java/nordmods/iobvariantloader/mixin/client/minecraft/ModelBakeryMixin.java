@@ -26,7 +26,7 @@ public abstract class ModelBakeryMixin {
     private String isARightTimeToAdd(String s) {
         if (s.equals("special")) {
             Set<String> eggModels = new HashSet<>();
-            ModelRedirectUtil.eggItemModelRedirects.forEach((dragon, redirect) ->
+            ModelRedirectUtil.EGG_ITEM_MODEL_REDIRECTS.forEach((dragon, redirect) ->
                     redirect.forEach((variant, modelRedirect) -> {
                         if (modelRedirect != null) eggModels.add(modelRedirect);
                     }));

@@ -33,8 +33,8 @@ public class SoundRedirectUtil {
 
     //sound cache
     //dragon, <variant, <sound, sound info>>
-    private static final Map<String, Map<String, Map<String, SoundInfo>>> soundCache = new HashMap<>();
-    public static final Map<String, Map<String, List<SoundRedirect>>> soundRedirectMap = new HashMap<>();
+    private static final Map<String, Map<String, Map<String, SoundInfo>>> SOUND_CACHE = new HashMap<>();
+    public static final Map<String, Map<String, List<SoundRedirect>>> SOUND_REDIRECT = new HashMap<>();
 
     public static <T extends Entity & VariantNameHelper & DragonSpeciesHelper> boolean playSound(@NotNull T entity, String sound) {
         SoundRedirectUtil.SoundInfo soundInfo = null;
@@ -78,7 +78,7 @@ public class SoundRedirectUtil {
     @Nullable
     public static SoundInfo getSoundInfo(String dragon, String variant, String sound) {
         generateCache(dragon, variant, sound);
-        return soundCache
+        return SOUND_CACHE
                 .getOrDefault(dragon, Collections.emptyMap())
                 .getOrDefault(variant, Collections.emptyMap())
                 .get(sound);
@@ -86,14 +86,14 @@ public class SoundRedirectUtil {
 
     private static void generateCache(String dragon, String variant, String sound) {
         SoundInfo soundInfo = getSoundInfoFromRedirects(dragon, variant, sound);
-        Map<String, Map<String, SoundInfo>> variantMap = soundCache.computeIfAbsent(dragon, k -> new HashMap<>());
+        Map<String, Map<String, SoundInfo>> variantMap = SOUND_CACHE.computeIfAbsent(dragon, k -> new HashMap<>());
         Map<String, SoundInfo> soundInfoMap = variantMap.computeIfAbsent(variant, k -> new HashMap<>());
         soundInfoMap.put(sound, soundInfo);
     }
 
     @Nullable
     private static SoundInfo getSoundInfoFromRedirects(String dragon, String variant, String sound) {
-        Map<String, List<SoundRedirect>> variantRedirectMap = soundRedirectMap.get(dragon);
+        Map<String, List<SoundRedirect>> variantRedirectMap = SOUND_REDIRECT.get(dragon);
         if (variantRedirectMap == null || !variantRedirectMap.containsKey(variant)) return null;
         List<SoundRedirect> soundInfos = variantRedirectMap.get(variant);
         return soundInfos.stream()
@@ -104,11 +104,11 @@ public class SoundRedirectUtil {
     }
 
     public static void clearCahce() {
-        soundCache.clear();
+        SOUND_CACHE.clear();
     }
 
     public static synchronized void add(String dragon, Map<String, List<SoundRedirect>> redirects) {
-        Map<String, List<SoundRedirect>> content = soundRedirectMap.get(dragon);
+        Map<String, List<SoundRedirect>> content = SOUND_REDIRECT.get(dragon);
         if (content != null) {
             for (Map.Entry<String, List<SoundRedirect>> entry : content.entrySet()) {
                 String variant = entry.getKey();
@@ -120,8 +120,8 @@ public class SoundRedirectUtil {
                 }
             }
             content.putAll(redirects);
-            soundRedirectMap.put(dragon, content);
-        } else soundRedirectMap.put(dragon, redirects);
+            SOUND_REDIRECT.put(dragon, content);
+        } else SOUND_REDIRECT.put(dragon, redirects);
     }
 
     public record SoundInfo(ResourceLocation id, float volume, float pitch) {
@@ -132,7 +132,7 @@ public class SoundRedirectUtil {
 
     public static void debugPrint() {
         if (!IoBVariantLoader.config.logSoundRedirects.get()) return;
-        for (Map.Entry<String, Map<String, List<SoundRedirect>>> entry : soundRedirectMap.entrySet()) {
+        for (Map.Entry<String, Map<String, List<SoundRedirect>>> entry : SOUND_REDIRECT.entrySet()) {
             for (Map.Entry<String, List<SoundRedirect>> extrasEntry : entry.getValue().entrySet()){
                 StringBuilder info = new StringBuilder();
                 for (SoundRedirect redirect : extrasEntry.getValue()) {

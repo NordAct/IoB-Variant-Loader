@@ -20,7 +20,7 @@ public class SoundRedirectReloadListener extends SimpleJsonResourceReloadListene
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-        SoundRedirectUtil.soundRedirectMap.clear();
+        SoundRedirectUtil.SOUND_REDIRECT.clear();
         SoundRedirectUtil.clearCahce();
         for (Map.Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
             ResourceLocation fileID = entry.getKey();

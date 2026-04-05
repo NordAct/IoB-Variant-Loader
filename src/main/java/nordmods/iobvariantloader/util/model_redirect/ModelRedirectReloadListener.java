@@ -23,7 +23,7 @@ public class ModelRedirectReloadListener extends SimpleJsonResourceReloadListene
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> map, @NotNull ResourceManager manager, @NotNull ProfilerFiller pProfiler) {
-        ModelRedirectUtil.dragonModelRedirects.clear();
+        ModelRedirectUtil.DRAGON_MODEL_REDIRECTS.clear();
         for (Map.Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
             ResourceLocation fileID = entry.getKey();
             JsonObject entryObject = entry.getValue().getAsJsonObject();

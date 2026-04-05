@@ -4,6 +4,7 @@
   "package": "nordmods.iobvariantloader.mixin",
   "refmap": "iobvariantloader.refmap.json",
   "mixins": [
+    "common.ServerPlayerMixin",
     "common.SpawnPlacementsMixin",
     "common.dragon.ADragonBaseFlyingRideableMixin",
     "common.dragon.ADragonBaseFlyingRideableProjUserMixin",

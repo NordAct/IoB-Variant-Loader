@@ -16,6 +16,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
@@ -24,6 +25,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
@@ -243,8 +245,8 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         if (level.isClientSide() && !ResourceUtil.isResourceReloadFinished) return super.getTypeName();
         if (translationName == null) {
             String key = null;
-            if (ModelRedirectUtil.dragonModelRedirects.containsKey(getSpecies(true)) && ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).containsKey(getVariantName())) {
-                key = ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(getVariantName()).dragonName().orElse(null);
+            if (ModelRedirectUtil.DRAGON_MODEL_REDIRECTS.containsKey(getSpecies(true)) && ModelRedirectUtil.DRAGON_MODEL_REDIRECTS.get(getSpecies(true)).containsKey(getVariantName())) {
+                key = ModelRedirectUtil.DRAGON_MODEL_REDIRECTS.get(getSpecies(true)).get(getVariantName()).dragonName().orElse(null);
             }
             if (key == null) translationName = super.getTypeName();
             else translationName = new TranslatableComponent(key);
@@ -441,5 +443,11 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     private void updateNavigator(EntityType<?> animal, Level world, CallbackInfo ci) {
         if (IoBVariantLoader.config.alternativeLandNavigation.get())
             navigation = new AltLandNavigation<>((ADragonBase) (Object)this, level);
+    }
+
+    @Inject(method = "tame", at = @At("TAIL"))
+    private void triggerVariantTamed(Player pPlayer, CallbackInfo ci) {
+        if (pPlayer instanceof ServerPlayer player)
+            IoBVariantLoader.TAME_VARIANT_FROM_GROUP_TRIGGER.trigger(player, (ADragonBase) (Object) this);
     }
 }

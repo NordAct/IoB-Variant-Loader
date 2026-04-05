@@ -63,10 +63,10 @@ public abstract class DragonEggItemMixin extends Item implements DragonSpeciesHe
     public Component getName(ItemStack itemStack) {
         if (itemStack.hasTag()) {
             String variant = itemStack.getTag().getString("VariantName");
-            if (ModelRedirectUtil.dragonModelRedirects.containsKey(getSpecies(true))
-                    && ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).containsKey(variant)
-                    && ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(variant).eggItemName().isPresent())
-                return new TranslatableComponent(ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(variant).eggItemName().get());
+            if (ModelRedirectUtil.DRAGON_MODEL_REDIRECTS.containsKey(getSpecies(true))
+                    && ModelRedirectUtil.DRAGON_MODEL_REDIRECTS.get(getSpecies(true)).containsKey(variant)
+                    && ModelRedirectUtil.DRAGON_MODEL_REDIRECTS.get(getSpecies(true)).get(variant).eggItemName().isPresent())
+                return new TranslatableComponent(ModelRedirectUtil.DRAGON_MODEL_REDIRECTS.get(getSpecies(true)).get(variant).eggItemName().get());
         }
         return super.getName(itemStack);
     }

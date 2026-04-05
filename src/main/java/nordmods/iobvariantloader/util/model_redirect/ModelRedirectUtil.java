@@ -23,9 +23,9 @@ import java.util.*;
 public final class ModelRedirectUtil {
     //key - dragon id
     //value - redirects per name/variant
-    public static final Map<String, Map<String, ModelRedirect>> dragonModelRedirects = new HashMap<>();
+    public static final Map<String, Map<String, ModelRedirect>> DRAGON_MODEL_REDIRECTS = new HashMap<>();
     //yes, this is necessary
-    public static final Map<String, Map<String, String>> eggItemModelRedirects = new HashMap<>();
+    public static final Map<String, Map<String, String>> EGG_ITEM_MODEL_REDIRECTS = new HashMap<>();
 
     public static ResourceLocation getCustomTexturePath(ADragonBase dragon, String id) {
         return getCustomTexturePath(dragon, id, "");
@@ -49,9 +49,9 @@ public final class ModelRedirectUtil {
 
     public static String getTexture(String dragon, String name, String suffix, boolean isBaby) {
         name = name.toLowerCase();
-        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)) {
-            if (isBaby && dragonModelRedirects.get(dragon).get(name).babyTexture().isPresent()) return dragonModelRedirects.get(dragon).get(name).babyTexture().get();
-            return dragonModelRedirects.get(dragon).get(name).texture().isEmpty() ? name + suffix + ".png" : dragonModelRedirects.get(dragon).get(name).texture().get();
+        if (DRAGON_MODEL_REDIRECTS.containsKey(dragon) && DRAGON_MODEL_REDIRECTS.get(dragon).containsKey(name)) {
+            if (isBaby && DRAGON_MODEL_REDIRECTS.get(dragon).get(name).babyTexture().isPresent()) return DRAGON_MODEL_REDIRECTS.get(dragon).get(name).babyTexture().get();
+            return DRAGON_MODEL_REDIRECTS.get(dragon).get(name).texture().isEmpty() ? name + suffix + ".png" : DRAGON_MODEL_REDIRECTS.get(dragon).get(name).texture().get();
         }
         else return name + suffix + ".png";
     }
@@ -59,7 +59,7 @@ public final class ModelRedirectUtil {
     public static ResourceLocation getCustomModelPath(ADragonBase dragon, String dragonID) {
         String name = ResourceUtil.parseName(dragon);
         String model = ModelRedirectUtil.getModel(dragonID, name, dragon.isBaby());
-        if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).model().orElse(""))) {
+        if (shouldApplyFix(dragon, dragonID, name, () -> DRAGON_MODEL_REDIRECTS.get(dragonID).get(name).model().orElse(""))) {
             return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/"+ dragonID +".geo.json");
         }
         if (model.contains(":")) return new ResourceLocation(model);
@@ -76,9 +76,9 @@ public final class ModelRedirectUtil {
 
     public static String getModel(String dragon, String name, boolean isBaby) {
         name = name.toLowerCase();
-       if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)) {
-           if (isBaby && dragonModelRedirects.get(dragon).get(name).babyModel().isPresent()) return dragonModelRedirects.get(dragon).get(name).babyModel().get();
-           return dragonModelRedirects.get(dragon).get(name).model().isEmpty() ? ".json" : dragonModelRedirects.get(dragon).get(name).model().get();
+       if (DRAGON_MODEL_REDIRECTS.containsKey(dragon) && DRAGON_MODEL_REDIRECTS.get(dragon).containsKey(name)) {
+           if (isBaby && DRAGON_MODEL_REDIRECTS.get(dragon).get(name).babyModel().isPresent()) return DRAGON_MODEL_REDIRECTS.get(dragon).get(name).babyModel().get();
+           return DRAGON_MODEL_REDIRECTS.get(dragon).get(name).model().isEmpty() ? ".json" : DRAGON_MODEL_REDIRECTS.get(dragon).get(name).model().get();
        }
        else return ".json";
     }
@@ -86,7 +86,7 @@ public final class ModelRedirectUtil {
     public static ResourceLocation getCustomAnimationPath(ADragonBase dragon, String dragonID) {
         String name = ResourceUtil.parseName(dragon);
         String model = ModelRedirectUtil.getAnimation(dragonID, name, dragon.isBaby());
-        if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).animation().orElse(""))) {
+        if (shouldApplyFix(dragon, dragonID, name, () -> DRAGON_MODEL_REDIRECTS.get(dragonID).get(name).animation().orElse(""))) {
             if (dragonID.equals("night_light")) return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/night_fury.animation.json");
             return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/"+ dragonID+".animation.json");
         }
@@ -104,16 +104,16 @@ public final class ModelRedirectUtil {
 
     public static String getAnimation(String dragon, String name, boolean isBaby) {
         name = name.toLowerCase();
-        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)){
-            if (isBaby && dragonModelRedirects.get(dragon).get(name).babyAnimation().isPresent()) return dragonModelRedirects.get(dragon).get(name).babyAnimation().get();
-            return dragonModelRedirects.get(dragon).get(name).animation().isEmpty() ? ".json" : dragonModelRedirects.get(dragon).get(name).animation().get();
+        if (DRAGON_MODEL_REDIRECTS.containsKey(dragon) && DRAGON_MODEL_REDIRECTS.get(dragon).containsKey(name)){
+            if (isBaby && DRAGON_MODEL_REDIRECTS.get(dragon).get(name).babyAnimation().isPresent()) return DRAGON_MODEL_REDIRECTS.get(dragon).get(name).babyAnimation().get();
+            return DRAGON_MODEL_REDIRECTS.get(dragon).get(name).animation().isEmpty() ? ".json" : DRAGON_MODEL_REDIRECTS.get(dragon).get(name).animation().get();
         } else return ".json";
     }
 
     public static ResourceLocation getCustomSaddlePath(ADragonBase dragon, String dragonID) {
         String name = ResourceUtil.parseName(dragon);
         String model = ModelRedirectUtil.getSaddle(dragonID, name, dragon.isBaby());
-        if (shouldApplyFix(dragon, dragonID, name, () -> dragonModelRedirects.get(dragonID).get(name).saddle().orElse(""))) {
+        if (shouldApplyFix(dragon, dragonID, name, () -> DRAGON_MODEL_REDIRECTS.get(dragonID).get(name).saddle().orElse(""))) {
             return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/" + dragonID + "/equipment.png");
         }
         if (model.contains(":")) return new ResourceLocation(model);
@@ -130,16 +130,16 @@ public final class ModelRedirectUtil {
 
     public static String getSaddle(String dragon, String name, boolean isBaby) {
         name = name.toLowerCase();
-        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)){
-            if (isBaby && dragonModelRedirects.get(dragon).get(name).babySaddle().isPresent()) return dragonModelRedirects.get(dragon).get(name).babySaddle().get();
-            return dragonModelRedirects.get(dragon).get(name).saddle().isEmpty() ? ".png" : dragonModelRedirects.get(dragon).get(name).saddle().get();
+        if (DRAGON_MODEL_REDIRECTS.containsKey(dragon) && DRAGON_MODEL_REDIRECTS.get(dragon).containsKey(name)){
+            if (isBaby && DRAGON_MODEL_REDIRECTS.get(dragon).get(name).babySaddle().isPresent()) return DRAGON_MODEL_REDIRECTS.get(dragon).get(name).babySaddle().get();
+            return DRAGON_MODEL_REDIRECTS.get(dragon).get(name).saddle().isEmpty() ? ".png" : DRAGON_MODEL_REDIRECTS.get(dragon).get(name).saddle().get();
         } else return ".png";
     }
 
     @Nullable
     public static String getEggItemModel(String dragon, String name) {
         name = name.toLowerCase();
-        if (eggItemModelRedirects.containsKey(dragon)) return eggItemModelRedirects.get(dragon).get(name);
+        if (EGG_ITEM_MODEL_REDIRECTS.containsKey(dragon)) return EGG_ITEM_MODEL_REDIRECTS.get(dragon).get(name);
         return null;
     }
 
@@ -162,10 +162,10 @@ public final class ModelRedirectUtil {
         String name = ((VariantNameHelper)entity).getVariantName().toLowerCase();
         String texture;
 
-        if (dragonModelRedirects.containsKey(dragon)
-                && dragonModelRedirects.get(dragon).containsKey(name)
-                && dragonModelRedirects.get(dragon).get(name).eggTexture().isPresent())
-            texture = dragonModelRedirects.get(dragon).get(name).eggTexture().get();
+        if (DRAGON_MODEL_REDIRECTS.containsKey(dragon)
+                && DRAGON_MODEL_REDIRECTS.get(dragon).containsKey(name)
+                && DRAGON_MODEL_REDIRECTS.get(dragon).get(name).eggTexture().isPresent())
+            texture = DRAGON_MODEL_REDIRECTS.get(dragon).get(name).eggTexture().get();
         else return null;
 
         if (texture.contains(":")) return new ResourceLocation(texture);
@@ -178,10 +178,10 @@ public final class ModelRedirectUtil {
         String name = ((VariantNameHelper)entity).getVariantName().toLowerCase();
         String model;
 
-        if (dragonModelRedirects.containsKey(dragon)
-                && dragonModelRedirects.get(dragon).containsKey(name)
-                && dragonModelRedirects.get(dragon).get(name).eggModel().isPresent())
-            model = dragonModelRedirects.get(dragon).get(name).eggModel().get();
+        if (DRAGON_MODEL_REDIRECTS.containsKey(dragon)
+                && DRAGON_MODEL_REDIRECTS.get(dragon).containsKey(name)
+                && DRAGON_MODEL_REDIRECTS.get(dragon).get(name).eggModel().isPresent())
+            model = DRAGON_MODEL_REDIRECTS.get(dragon).get(name).eggModel().get();
         else return null;
 
         if (model.contains(":")) return new ResourceLocation(model);
@@ -190,29 +190,29 @@ public final class ModelRedirectUtil {
     }
 
     public static boolean isNametagAccessible(String dragon, String name) {
-        if (dragonModelRedirects.containsKey(dragon) && dragonModelRedirects.get(dragon).containsKey(name)) return dragonModelRedirects.get(dragon).get(name).nametagAccessible();
+        if (DRAGON_MODEL_REDIRECTS.containsKey(dragon) && DRAGON_MODEL_REDIRECTS.get(dragon).containsKey(name)) return DRAGON_MODEL_REDIRECTS.get(dragon).get(name).nametagAccessible();
         else return true;
     }
 
     public static synchronized void add(String dragon, Map<String, ModelRedirect> redirects) {
-        Map<String, ModelRedirect> content = dragonModelRedirects.get(dragon);
+        Map<String, ModelRedirect> content = DRAGON_MODEL_REDIRECTS.get(dragon);
         if (content != null) {
             content.putAll(redirects);
-            dragonModelRedirects.put(dragon, content);
-        } else dragonModelRedirects.put(dragon, redirects);
+            DRAGON_MODEL_REDIRECTS.put(dragon, content);
+        } else DRAGON_MODEL_REDIRECTS.put(dragon, redirects);
     }
 
     public static synchronized void addEggItemModels(String dragon, Map<String, String> redirects) {
-        Map<String, String> content = eggItemModelRedirects.get(dragon);
+        Map<String, String> content = EGG_ITEM_MODEL_REDIRECTS.get(dragon);
         if (content != null) {
             content.putAll(redirects);
-            eggItemModelRedirects.put(dragon, content);
-        } else eggItemModelRedirects.put(dragon, redirects);
+            EGG_ITEM_MODEL_REDIRECTS.put(dragon, content);
+        } else EGG_ITEM_MODEL_REDIRECTS.put(dragon, redirects);
     }
 
     public static void debugPrint() {
         if (!IoBVariantLoader.clientConfig.logModelRedirects.get()) return;
-        for (Map.Entry<String, Map<String, ModelRedirect>> entry : dragonModelRedirects.entrySet()) {
+        for (Map.Entry<String, Map<String, ModelRedirect>> entry : DRAGON_MODEL_REDIRECTS.entrySet()) {
             for (Map.Entry<String, ModelRedirect> redirects : entry.getValue().entrySet()) {
                 ModelRedirect modelRedirect = redirects.getValue();
                 StringBuilder modelRedirectInfo = new StringBuilder();
@@ -228,9 +228,9 @@ public final class ModelRedirectUtil {
                 if (modelRedirect.eggTexture().isPresent()) modelRedirectInfo.append("Egg Texture: ").append(modelRedirect.eggTexture()).append("\n");
                 if (modelRedirect.eggItemName().isPresent()) modelRedirectInfo.append("Egg Item Name: ").append(modelRedirect.eggItemName().get()).append("\n");
 
-                if (eggItemModelRedirects.containsKey(entry.getKey())
-                        && eggItemModelRedirects.get(entry.getKey()).containsKey(redirects.getKey())) {
-                    modelRedirectInfo.append("Egg Item Model: ").append(eggItemModelRedirects.get(entry.getKey()).get(redirects.getKey())).append("\n");
+                if (EGG_ITEM_MODEL_REDIRECTS.containsKey(entry.getKey())
+                        && EGG_ITEM_MODEL_REDIRECTS.get(entry.getKey()).containsKey(redirects.getKey())) {
+                    modelRedirectInfo.append("Egg Item Model: ").append(EGG_ITEM_MODEL_REDIRECTS.get(entry.getKey()).get(redirects.getKey())).append("\n");
                 }
 
                 if (modelRedirect.eggName().isPresent()) modelRedirectInfo.append("Egg Name: ").append(modelRedirect.eggName().get()).append("\n");
@@ -247,7 +247,7 @@ public final class ModelRedirectUtil {
             System.out.println("==================================================================================");
             Map <String, List<String>> dragonVariants = new HashMap<>();
 
-            for (Map.Entry<String, Map<String, ModelRedirect>> entry : dragonModelRedirects.entrySet()) {
+            for (Map.Entry<String, Map<String, ModelRedirect>> entry : DRAGON_MODEL_REDIRECTS.entrySet()) {
                 String dragon = entry.getKey();
                 for ( Map.Entry<String, ModelRedirect> redirects : entry.getValue().entrySet()) {
                     String key = redirects.getKey();
@@ -304,7 +304,7 @@ public final class ModelRedirectUtil {
 
 
     public static void registerEggItemModelRedirects(ResourceManager manager) {
-        ModelRedirectUtil.eggItemModelRedirects.clear();
+        ModelRedirectUtil.EGG_ITEM_MODEL_REDIRECTS.clear();
         Collection<ResourceLocation> resourceCollection = manager.listResources("model_redirects", path -> path.endsWith(".json"));
         for (ResourceLocation id : resourceCollection) {
             String path = id.getPath();
@@ -340,8 +340,8 @@ public final class ModelRedirectUtil {
     //an INCREDIBLY shitty fix for bug that occurs when variant via name tag is applied over base variant with redirects other than base texture
     private static boolean shouldApplyFix(ADragonBase dragon, String dragonID, String name, StringArgument argument) {
         boolean texturePresent = ResourceUtil.isValid(getCustomTexturePath(dragon, dragonID));
-        boolean absentRecord = !(dragonModelRedirects.containsKey(dragonID) && dragonModelRedirects.get(dragonID).containsKey(name));
-        boolean absentArgument = dragonModelRedirects.containsKey(dragonID) && dragonModelRedirects.get(dragonID).containsKey(name) && argument.getString().isEmpty();
+        boolean absentRecord = !(DRAGON_MODEL_REDIRECTS.containsKey(dragonID) && DRAGON_MODEL_REDIRECTS.get(dragonID).containsKey(name));
+        boolean absentArgument = DRAGON_MODEL_REDIRECTS.containsKey(dragonID) && DRAGON_MODEL_REDIRECTS.get(dragonID).containsKey(name) && argument.getString().isEmpty();
         return texturePresent && (absentRecord || absentArgument);
     }
 

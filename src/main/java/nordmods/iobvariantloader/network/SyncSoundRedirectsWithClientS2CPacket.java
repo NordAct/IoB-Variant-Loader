@@ -46,7 +46,7 @@ public record SyncSoundRedirectsWithClientS2CPacket(Map<String, Map<String, List
     }
 
     public void write(FriendlyByteBuf byteBuf) {
-        byteBuf.writeMap(SoundRedirectUtil.soundRedirectMap,
+        byteBuf.writeMap(SoundRedirectUtil.SOUND_REDIRECT,
                 NetworkUtil::writeString,
                 (byteBuf1, variantSoundRedirects) ->
                         byteBuf1.writeMap(variantSoundRedirects,
@@ -61,9 +61,9 @@ public record SyncSoundRedirectsWithClientS2CPacket(Map<String, Map<String, List
         NetworkEvent.Context context = supplier.get();
         context.setPacketHandled(true);
         if (context.getDirection().getReceptionSide().isClient()) {
-            SoundRedirectUtil.soundRedirectMap.clear();
+            SoundRedirectUtil.SOUND_REDIRECT.clear();
             SoundRedirectUtil.clearCahce();
-            SoundRedirectUtil.soundRedirectMap.putAll(packet.soundRedirectMap);
+            SoundRedirectUtil.SOUND_REDIRECT.putAll(packet.soundRedirectMap);
         }
         return true;
     }
@@ -79,7 +79,7 @@ public record SyncSoundRedirectsWithClientS2CPacket(Map<String, Map<String, List
 
     private static void onJoinedEvent(final PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getPlayer() instanceof ServerPlayer serverPlayer && SyncSoundRedirectsWithClientS2CPacket.INSTANCE.isRemotePresent(serverPlayer.connection.getConnection()) && !serverPlayer.connection.getConnection().isMemoryConnection())
-            SyncSoundRedirectsWithClientS2CPacket.INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new SyncSoundRedirectsWithClientS2CPacket(SoundRedirectUtil.soundRedirectMap));
+            SyncSoundRedirectsWithClientS2CPacket.INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new SyncSoundRedirectsWithClientS2CPacket(SoundRedirectUtil.SOUND_REDIRECT));
     }
 
     private static void writeSoundRedirectList(ByteBuf buf, List<SoundRedirect> list) {

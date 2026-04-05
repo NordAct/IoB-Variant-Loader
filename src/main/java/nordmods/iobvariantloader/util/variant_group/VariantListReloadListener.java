@@ -23,8 +23,8 @@ public class VariantListReloadListener extends SimpleJsonResourceReloadListener 
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-        VariantListUtil.variantGroupsMap.clear();
-        Map<String, Set<String>> groupInGroup = new HashMap<>();
+        VariantListUtil.VARIANT_GROUPS.clear();
+        Map<String, Set<String>> groupsToInclude = new HashMap<>();
         for (Map.Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
             ResourceLocation fileID = entry.getKey();
             JsonObject entryObject = entry.getValue().getAsJsonObject();
@@ -53,11 +53,11 @@ public class VariantListReloadListener extends SimpleJsonResourceReloadListener 
             }
 
             if (entryObject.has("included_groups")) {
-                Set<String> includedGroups = groupInGroup.computeIfAbsent(group, (g) -> new HashSet<>());
+                Set<String> includedGroups = groupsToInclude.computeIfAbsent(group, (g) -> new HashSet<>());
                 entryObject.get("included_groups").getAsJsonArray().forEach(g -> includedGroups.add(g.getAsString()));
             }
         }
-        groupInGroup.forEach((group, included) -> addIncludedGroupsToGroup(group, included, groupInGroup));
+        groupsToInclude.forEach((group, included) -> addIncludedGroupsToGroup(group, included, groupsToInclude));
         VariantListUtil.debugPrint();
     }
 
@@ -68,8 +68,8 @@ public class VariantListReloadListener extends SimpleJsonResourceReloadListener 
             if (groupInGroup.containsKey(includedGroup))
                 addIncludedGroupsToGroup(group, groupInGroup.get(includedGroup), groupInGroup);
 
-            if (VariantListUtil.variantGroupsMap.containsKey(includedGroup))
-                VariantListUtil.variantGroupsMap.get(includedGroup).forEach(includedList -> VariantListUtil.add(group, includedList));
+            if (VariantListUtil.VARIANT_GROUPS.containsKey(includedGroup))
+                VariantListUtil.VARIANT_GROUPS.get(includedGroup).forEach(includedList -> VariantListUtil.add(group, includedList));
         });
     }
 }

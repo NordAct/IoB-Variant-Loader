@@ -24,7 +24,7 @@ public class HitboxRedirectReloadListener extends SimpleJsonResourceReloadListen
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> map, @NotNull ResourceManager pResourceManager, @NotNull ProfilerFiller pProfiler) {
-        HitboxRedirectUtil.dragonHitboxRedirects.clear();
+        HitboxRedirectUtil.DRAGON_HITBOX_REDIRECTS.clear();
         for (Map.Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
             ResourceLocation fileID = entry.getKey();
             JsonObject entryObject = entry.getValue().getAsJsonObject();

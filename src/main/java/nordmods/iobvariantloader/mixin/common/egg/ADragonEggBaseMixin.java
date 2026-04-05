@@ -189,8 +189,8 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     protected Component getTypeName() {
         if (translationName == null) {
             String key = null;
-            if (ModelRedirectUtil.dragonModelRedirects.containsKey(getSpecies(true)) && ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).containsKey(getVariantName()))
-                key = ModelRedirectUtil.dragonModelRedirects.get(getSpecies(true)).get(getVariantName()).eggName().orElse(null);
+            if (ModelRedirectUtil.DRAGON_MODEL_REDIRECTS.containsKey(getSpecies(true)) && ModelRedirectUtil.DRAGON_MODEL_REDIRECTS.get(getSpecies(true)).containsKey(getVariantName()))
+                key = ModelRedirectUtil.DRAGON_MODEL_REDIRECTS.get(getSpecies(true)).get(getVariantName()).eggName().orElse(null);
             if (key == null) translationName = getDefaultTypeName();
             else translationName = new TranslatableComponent(key);
         }

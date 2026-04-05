@@ -13,21 +13,21 @@ import java.util.Map;
 
 public class ExtrasUtil {
     //dragon, <variant, extras>
-    public static final Map<String, Map<String, Extras>> extrasMap = new HashMap<>();
+    public static final Map<String, Map<String, Extras>> EXTRAS = new HashMap<>();
 
 
     public static synchronized void add(String dragon, Map<String, Extras> extras) {
-        Map<String, Extras> content = extrasMap.get(dragon);
+        Map<String, Extras> content = EXTRAS.get(dragon);
         if (content != null) {
             content.putAll(extras);
-            extrasMap.put(dragon, content);
-        } else extrasMap.put(dragon, extras);
+            EXTRAS.put(dragon, content);
+        } else EXTRAS.put(dragon, extras);
     }
 
     @Nullable
     public static ResourceLocation getLootTableRedirect(String dragon, String variant) {
-        if (extrasMap.containsKey(dragon)){
-            Map<String, Extras> extras = extrasMap.get(dragon);
+        if (EXTRAS.containsKey(dragon)){
+            Map<String, Extras> extras = EXTRAS.get(dragon);
             if (extras.containsKey(variant)) return extras.get(variant).lootTableRedirect().orElse(null);
         }
         return null;
@@ -35,8 +35,8 @@ public class ExtrasUtil {
 
     @Nullable
     public static String getVariandGroup(String dragon, String variant) {
-        if (extrasMap.containsKey(dragon)){
-            Map<String, Extras> extras = extrasMap.get(dragon);
+        if (EXTRAS.containsKey(dragon)){
+            Map<String, Extras> extras = EXTRAS.get(dragon);
             if (extras.containsKey(variant)) return extras.get(variant).variantGroup().orElse(null);
         }
         return null;
@@ -44,7 +44,7 @@ public class ExtrasUtil {
 
     public static void debugPrint() {
         if (!IoBVariantLoader.config.logExtras.get()) return;
-        for (Map.Entry<String, Map<String, Extras>> entry : extrasMap.entrySet()) {
+        for (Map.Entry<String, Map<String, Extras>> entry : EXTRAS.entrySet()) {
             for (Map.Entry<String, Extras> extrasEntry : entry.getValue().entrySet()){
                 StringBuilder info = new StringBuilder();
                 Extras extra = extrasEntry.getValue();
@@ -98,8 +98,8 @@ public class ExtrasUtil {
 
     @Nullable
     public static List<Extras.VariantAttributeModifier> getVariantAttributeModifiers(String dragon, String variant) {
-        if (extrasMap.containsKey(dragon)){
-            Map<String, Extras> extras = extrasMap.get(dragon);
+        if (EXTRAS.containsKey(dragon)){
+            Map<String, Extras> extras = EXTRAS.get(dragon);
             if (extras.containsKey(variant)) return extras.get(variant).variantAttributeModifiers().orElse(null);
         }
         return null;
@@ -107,8 +107,8 @@ public class ExtrasUtil {
 
     @Nullable
     public static Boolean isTamingItem(String dragon, String variant, ItemStack stack) {
-        if (extrasMap.containsKey(dragon)){
-            Map<String, Extras> extras = extrasMap.get(dragon);
+        if (EXTRAS.containsKey(dragon)){
+            Map<String, Extras> extras = EXTRAS.get(dragon);
             if (extras.containsKey(variant) && extras.get(variant).tamingItems().isPresent()) {
                 return isItemInList(extras.get(variant).tamingItems().get(), stack);
             }
@@ -118,8 +118,8 @@ public class ExtrasUtil {
 
     @Nullable
     public static Boolean isBreedingItem(String dragon, String variant, ItemStack stack) {
-        if (extrasMap.containsKey(dragon)){
-            Map<String, Extras> extras = extrasMap.get(dragon);
+        if (EXTRAS.containsKey(dragon)){
+            Map<String, Extras> extras = EXTRAS.get(dragon);
             if (extras.containsKey(variant) && extras.get(variant).breedingItems().isPresent()) {
                 return isItemInList(extras.get(variant).breedingItems().get(), stack);
             }

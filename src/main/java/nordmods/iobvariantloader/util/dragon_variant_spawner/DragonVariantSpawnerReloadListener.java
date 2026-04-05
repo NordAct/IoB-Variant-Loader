@@ -24,7 +24,7 @@ public class DragonVariantSpawnerReloadListener extends SimpleJsonResourceReload
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> map, @NotNull ResourceManager pResourceManager, @NotNull ProfilerFiller pProfiler) {
-        DragonVariantSpawnerUtil.dragonVariants.clear();
+        DragonVariantSpawnerUtil.DRAGON_VARIANT_SPAWNS.clear();
         for (Map.Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
             ResourceLocation fileID = entry.getKey();
             JsonObject entryObject = entry.getValue().getAsJsonObject();

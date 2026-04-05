@@ -21,25 +21,25 @@ import java.util.List;
 import java.util.Map;
 
 public final class DragonVariantSpawnerUtil {
-    public static final Map<String, List<DragonVariantSpawner>> dragonVariants = new HashMap<>();
+    public static final Map<String, List<DragonVariantSpawner>> DRAGON_VARIANT_SPAWNS = new HashMap<>();
 
     public static List<DragonVariantSpawner> getVariantsFor(String name) {
-        return dragonVariants.get(name);
+        return DRAGON_VARIANT_SPAWNS.get(name);
     }
 
     public static synchronized void add(String name, List<DragonVariantSpawner> variants) {
-        List<DragonVariantSpawner> content = dragonVariants.get(name);
+        List<DragonVariantSpawner> content = DRAGON_VARIANT_SPAWNS.get(name);
         if (content != null) {
             List<DragonVariantSpawner> copy = new ArrayList<>();
             copy.addAll(variants);
             copy.addAll(content);
-            dragonVariants.put(name, copy);
-        } else dragonVariants.put(name, variants);
+            DRAGON_VARIANT_SPAWNS.put(name, copy);
+        } else DRAGON_VARIANT_SPAWNS.put(name, variants);
     }
 
     public static void debugPrint() {
         if (!IoBVariantLoader.config.logDragonVariantSpawns.get()) return;
-        for (Map.Entry<String, List<DragonVariantSpawner>> entry : dragonVariants.entrySet()) {
+        for (Map.Entry<String, List<DragonVariantSpawner>> entry : DRAGON_VARIANT_SPAWNS.entrySet()) {
             for (DragonVariantSpawner variant : entry.getValue()) {
                 String variantName = variant.name();
                 StringBuilder conditions = new StringBuilder();
