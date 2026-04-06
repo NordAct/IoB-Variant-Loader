@@ -10,4 +10,9 @@ public record VariantList(String dragon, List<String> variants) {
             Codec.STRING.fieldOf("dragon").forGetter(VariantList::dragon),
             Codec.STRING.listOf().fieldOf("variants").forGetter(VariantList::variants)
     ).apply(i, VariantList::new));
+
+
+    public boolean isInList(String dragon, String variant) {
+        return dragon.equals(dragon()) && variants().contains(variant);
+    }
 }
