@@ -5,7 +5,9 @@ import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
 import com.GACMD.isleofberk.entity.dragons.stinger.Stinger;
 import com.GACMD.isleofberk.entity.dragons.triple_stryke.TripleStryke;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
-import com.GACMD.isleofberk.entity.eggs.entity.eggs.NightLightEgg;
+import com.GACMD.isleofberk.entity.eggs.entity.eggs.*;
+import com.GACMD.isleofberk.registery.ModEntities;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
@@ -35,6 +37,7 @@ import net.minecraft.world.phys.Vec3;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.AltLandNavigation;
 import nordmods.iobvariantloader.util.ResourceUtil;
+import nordmods.iobvariantloader.util.breeding_list.BreedingListUtil;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
 import nordmods.iobvariantloader.util.ducks.*;
@@ -194,6 +197,35 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
             remap = false)
     private ADragonEggBase assignVariant(ADragonBase instance, ServerLevel world, AgeableMob parent) {
         if (parent instanceof ADragonBase dragonPartner) {
+
+            if (!IoBVariantLoader.config.ignoreBreedingLists.get()) {
+                Pair<String, String> dragonAndVariant = BreedingListUtil.getRandomDragonAndVariant(instance, dragonPartner);
+                if (dragonAndVariant != null) {
+                    // /data merge entity @e[type=isleofberk:triple_stryke, limit=1, sort=nearest] {Age:0}
+                    // /summon isleofberk:triple_stryke ~ ~ ~ {VariantName:sappheral}
+                    // /summon isleofberk:triple_stryke ~ ~ ~ {VariantName:deathgripper}
+                    ADragonEggBase egg = switch (dragonAndVariant.getFirst()) {
+                        case "deadly_nadder" -> new DeadlyNadderEgg(ModEntities.NADDER_EGG.get(), world);
+                        case "gronckle" -> new GronkleEgg(ModEntities.GRONCKLE_EGG.get(), world);
+                        case "light_fury" -> new LightFuryEgg(ModEntities.LIGHT_FURY_EGG.get(), world);
+                        case "monstrous_nightmare" -> new MonstrousNightmareEgg(ModEntities.M_NIGHTMARE_EGG.get(), world);
+                        case "night_fury" -> new NightFuryEgg(ModEntities.NIGHT_FURY_EGG.get(), world);
+                        case "night_light" -> new NightLightEgg(ModEntities.NIGHT_LIGHT_EGG.get(), world);
+                        case "skrill" -> new SkrillEgg(ModEntities.SKRILL_EGG.get(), world);
+                        case "speed_stinger", "speed_stinger_leader" -> new SpeedStingerEgg(ModEntities.SPEED_STINGER_EGG.get(), world);
+                        case "stinger" -> new StingerEgg(ModEntities.STINGER_EGG.get(), world);
+                        case "terrible_terror" -> new TerribleTerrorEgg(ModEntities.TERRIBLE_TERROR_EGG.get(), world);
+                        case "triple_stryke" -> new TripleStrykeEgg(ModEntities.TRIPLE_STRYKE_EGG.get(), world);
+                        case "zippleback" -> new ZippleBackEgg(ModEntities.ZIPPLEBACK_EGG.get(), world);
+                        default -> null;
+                    };
+                    if (egg instanceof VariantNameHelper helper) {
+                        helper.setVariantName(dragonAndVariant.getSecond());
+                        return egg;
+                    } else if (IoBVariantLoader.config.enforceBreedingLists.get()) return null;
+                } else if (IoBVariantLoader.config.enforceBreedingLists.get()) return null;
+            }
+
             ADragonEggBase egg = instance.getBreedEggResult(world, dragonPartner);
             if (!IoBVariantLoader.config.assignEggVariantOnBreeding.get()) return egg;
 

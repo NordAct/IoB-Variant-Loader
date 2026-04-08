@@ -1,0 +1,14 @@
+{
+  "variant_lists": [
+    {
+      "dragon": "light_fury",
+      "variants": [
+        "sveinn",
+        "drottinn",
+        "grogaldr",
+        "drottinn_grogaldr",
+        "light_fury"
+      ]
+    }
+  ]
+}

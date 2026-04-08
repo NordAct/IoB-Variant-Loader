@@ -1,0 +1,14 @@
+{
+  "variant_lists": [
+    {
+      "dragon": "night_fury",
+      "variants": [
+        "sentinel",
+        "karma",
+        "arsian",
+        "svartr",
+        "night_fury"
+      ]
+    }
+  ]
+}

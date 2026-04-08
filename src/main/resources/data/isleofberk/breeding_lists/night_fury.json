@@ -1,0 +1,20 @@
+{
+  "parents": [
+    {
+      "groups":["night_fury"]
+    },
+    {
+      "groups":["night_fury"]
+    }
+  ],
+  "entries": [
+    {
+      "groups": ["night_fury_common"],
+      "weight": 999
+    },
+    {
+      "groups": ["night_fury_rare"],
+      "weight": 1
+    }
+  ]
+}

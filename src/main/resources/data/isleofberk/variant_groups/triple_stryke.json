@@ -1,21 +1,15 @@
 {
-  "group_name": "triple_stryke",
   "variant_lists": [
     {
       "dragon": "triple_stryke",
       "variants": [
-        "eclipser",
-        "nikora_triple_stryke",
-        "starstreak",
-        "triple_stryke",
-        "spyro",
-        "blue",
-        "boreas",
-        "sleuther",
-        "rosethorn",
-        "champion",
         "titanstinger"
       ]
     }
+  ],
+  "included_groups": [
+    "triple_stryke_common",
+    "triple_stryke_uncommon",
+    "triple_stryke_rare"
   ]
 }

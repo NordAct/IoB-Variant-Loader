@@ -1,0 +1,16 @@
+{
+  "parents": [
+    {
+      "groups":["deadly_nadder"]
+    },
+    {
+      "groups":["deadly_nadder"]
+    }
+  ],
+  "entries": [
+    {
+      "groups": ["deadly_nadder_common"],
+      "weight": 1
+    }
+  ]
+}

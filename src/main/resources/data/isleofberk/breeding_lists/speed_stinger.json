@@ -1,0 +1,16 @@
+{
+  "parents": [
+    {
+      "groups":["speed_stinger"]
+    },
+    {
+      "groups":["speed_stinger"]
+    }
+  ],
+  "entries": [
+    {
+      "groups": ["speed_stinger_common"],
+      "weight": 1
+    }
+  ]
+}

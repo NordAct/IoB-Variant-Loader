@@ -1,0 +1,16 @@
+{
+  "parents": [
+    {
+      "groups":["gronckle"]
+    },
+    {
+      "groups":["gronckle"]
+    }
+  ],
+  "entries": [
+    {
+      "groups": ["gronckle_common"],
+      "weight": 1
+    }
+  ]
+}

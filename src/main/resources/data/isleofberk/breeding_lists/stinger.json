@@ -1,0 +1,24 @@
+{
+  "parents": [
+    {
+      "groups":["stinger"]
+    },
+    {
+      "groups":["stinger"]
+    }
+  ],
+  "entries": [
+    {
+      "groups": ["stinger_common"],
+      "weight": 989
+    },
+    {
+      "groups": ["stinger_uncommon"],
+      "weight": 10
+    },
+    {
+      "groups": ["stinger_rare"],
+      "weight": 1
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "parents": [
+    {
+    "groups":["light_fury"]
+    },
+    {
+      "groups":["light_fury"]
+    }
+  ],
+  "entries": [
+    {
+      "groups": ["light_fury_common"],
+      "weight": 95
+    },
+    {
+      "groups": ["light_fury_uncommon"],
+      "weight": 5
+    }
+  ]
+}

@@ -2,6 +2,7 @@ package nordmods.iobvariantloader.util.breeding_list;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.mojang.datafixers.util.Pair;
+import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.ducks.DragonSpeciesHelper;
 import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import nordmods.iobvariantloader.util.variant_group.VariantList;
@@ -10,20 +11,26 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class BreedingListUtil {
     public static final List<BreedingList> BREEDING_LISTS = new ArrayList<>();
 
     @Nullable
-    public static Pair<String, String> getRandomDragonAndVariant(List<BreedingList> breedingLists, Random random) {
-        List<BreedingList.Entry> entries = breedingLists.stream().map(BreedingList::entries).flatMap(List::stream).toList();
+    public static Pair<String, String> getRandomDragonAndVariant(ADragonBase parent1, ADragonBase parent2) {
+        if (parent1.getRandom().nextDouble() < IoBVariantLoader.config.inheritanceChance.get()) {
+            boolean takeFromFirstParent = parent1.getRandom().nextBoolean();
+            return takeFromFirstParent ?
+                    new Pair<>(((DragonSpeciesHelper)parent1).getSpecies(false), ((VariantNameHelper)parent1).getVariantName()) :
+                    new Pair<>(((DragonSpeciesHelper)parent2).getSpecies(false), ((VariantNameHelper)parent2).getVariantName()) ;
+        }
+
+        List<BreedingList.Entry> entries = getAvailableLists(parent1, parent2).stream().map(BreedingList::entries).flatMap(List::stream).toList();
 
         int totalWeight = entries.stream().mapToInt(BreedingList.Entry::weight).sum();
 
         if (totalWeight <= 0) return null;
 
-        long roll = random.nextLong(totalWeight);
+        long roll = parent1.getRandom().nextLong(totalWeight);
         long previousBound = 0;
 
         BreedingList.Entry selectedEntry = null;
@@ -40,8 +47,8 @@ public class BreedingListUtil {
         List<VariantList> variantLists = new ArrayList<>(selectedEntry.variantLists().orElse(List.of()));
         selectedEntry.groups().ifPresent(groups -> groups.forEach(group -> variantLists.addAll(VariantListUtil.getGroupLists(group))));
 
-        VariantList list = variantLists.get(random.nextInt(variantLists.size()));
-        return new Pair<>(list.dragon(), list.variants().get(random.nextInt(list.variants().size())));
+        VariantList list = variantLists.get(parent1.getRandom().nextInt(variantLists.size()));
+        return new Pair<>(list.dragon(), list.variants().get(parent1.getRandom().nextInt(list.variants().size())));
     }
 
     public static List<BreedingList> getAvailableLists(ADragonBase parent1, ADragonBase parent2) {

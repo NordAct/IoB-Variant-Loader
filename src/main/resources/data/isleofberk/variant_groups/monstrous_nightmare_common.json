@@ -1,0 +1,19 @@
+{
+  "variant_lists": [
+    {
+      "dragon": "monstrous_nightmare",
+      "variants": [
+        "mountain",
+        "bloodroot",
+        "fangmaster",
+        "burlystorm",
+        "wolfsbane",
+        "exiled",
+        "hellebore",
+        "carnation",
+        "rainbow",
+        "hookfang"
+      ]
+    }
+  ]
+}

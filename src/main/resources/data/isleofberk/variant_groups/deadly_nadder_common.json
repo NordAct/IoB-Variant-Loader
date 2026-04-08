@@ -1,0 +1,21 @@
+{
+  "variant_lists": [
+    {
+      "dragon": "deadly_nadder",
+      "variants": [
+        "deadly_nadder",
+        "kingstail",
+        "scardian",
+        "springshedder",
+        "hjarta",
+        "bork_week",
+        "flystorm",
+        "hjaldr",
+        "barklethorn",
+        "lethal_lancebeak",
+        "seedling_stormpest",
+        "stormfly"
+      ]
+    }
+  ]
+}

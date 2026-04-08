@@ -1,0 +1,16 @@
+{
+  "parents": [
+    {
+      "groups":["deathgripper"]
+    },
+    {
+      "groups":["deathgripper"]
+    }
+  ],
+  "entries": [
+    {
+      "groups": ["deathgripper"],
+      "weight": 1
+    }
+  ]
+}

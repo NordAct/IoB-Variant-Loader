@@ -1,0 +1,13 @@
+{
+  "variant_lists": [
+    {
+      "dragon": "stinger",
+      "variants": [
+        "mudsmasher",
+        "sandscorcher",
+        "badlands",
+        "wildroar"
+      ]
+    }
+  ]
+}

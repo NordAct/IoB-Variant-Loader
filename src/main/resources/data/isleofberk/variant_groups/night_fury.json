@@ -1,17 +1,14 @@
 {
-  "group_name": "night_fury",
   "variant_lists": [
     {
       "dragon": "night_fury",
       "variants": [
-        "sentinel",
-        "karma",
-        "arsian",
-        "svartr",
-        "albino",
-        "toothless",
-        "night_fury"
+        "toothless"
       ]
     }
+  ],
+  "included_groups": [
+    "night_fury_common",
+    "night_fury_rare"
   ]
 }

@@ -1,23 +1,7 @@
 {
-  "group_name": "skrill",
-  "variant_lists": [
-    {
-      "dragon": "skrill",
-      "variants": [
-        "stormshadow",
-        "icebane",
-        "fryrir",
-        "crimson",
-        "nemesis",
-        "tempest",
-        "pickle",
-        "zen",
-        "spark",
-        "albino",
-        "moonshock",
-        "spring_storm",
-        "skrill"
-      ]
-    }
+  "included_groups": [
+    "skrill_common",
+    "skrill_uncommon",
+    "skrill_rare"
   ]
 }

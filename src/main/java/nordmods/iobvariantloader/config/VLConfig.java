@@ -8,11 +8,15 @@ public class VLConfig {
     public ConfigHelper.ConfigValueListener<Boolean> alternativeLandNavigation;
     public ConfigHelper.ConfigValueListener<Boolean> assignEggVariantOnBreeding;
     public ConfigHelper.ConfigValueListener<Boolean> assignEggVariantOnPlaced;
+    public ConfigHelper.ConfigValueListener<Boolean> ignoreBreedingListsInheritanceChance;
+    public ConfigHelper.ConfigValueListener<Boolean> ignoreBreedingLists;
+    public ConfigHelper.ConfigValueListener<Boolean> enforceBreedingLists;
     public ConfigHelper.ConfigValueListener<Boolean> logDragonVariantSpawns;
     public ConfigHelper.ConfigValueListener<Boolean> logHitboxRedirects;
     public ConfigHelper.ConfigValueListener<Boolean> logSoundRedirects;
     public ConfigHelper.ConfigValueListener<Boolean> logExtras;
     public ConfigHelper.ConfigValueListener<Boolean> logVariantLists;
+    public ConfigHelper.ConfigValueListener<Boolean> logBreedingLists;
     public VLConfig(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber)
     {
         builder.push("Inheritance Chance");
@@ -68,5 +72,24 @@ public class VLConfig {
                 .comment("Logs any added variant lists in console for easier debugging")
                 .define("log_variant_lists", false));
         builder.pop();
+
+        builder.push("Log Breeding Lists");
+        logBreedingLists = subscriber.subscribe(builder
+                .comment("Logs any added breeding lists in console for easier debugging")
+                .define("log_breeding_lists", false));
+        builder.pop();
+
+        builder.push("Ignore Breeding Lists");
+        ignoreBreedingLists = subscriber.subscribe(builder
+                .comment("Ignores breeding lists during dragon breeding")
+                .define("ignore_breeding_lists", false));
+        builder.pop();
+
+        builder.push("Enforce Breeding Lists");
+        enforceBreedingLists = subscriber.subscribe(builder
+                .comment("Enforces breeding lists during dragon breeding, making it impossible for dragons that don't included in any breeding list to breed")
+                .define("enforce_breeding_lists", false));
+        builder.pop();
+
     }
 }

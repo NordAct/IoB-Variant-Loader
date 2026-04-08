@@ -1,16 +1,6 @@
 {
-  "group_name": "light_fury",
-  "variant_lists": [
-    {
-      "dragon": "light_fury",
-      "variants": [
-        "sveinn",
-        "drottinn",
-        "grogaldr",
-        "drottinn_grogaldr",
-        "sveinn_grogaldr",
-        "light_fury"
-      ]
-    }
+  "included_groups": [
+    "light_fury_common",
+    "light_fury_uncommon"
   ]
 }

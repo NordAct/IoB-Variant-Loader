@@ -1,0 +1,14 @@
+{
+  "variant_lists": [
+    {
+      "dragon": "triple_stryke",
+      "variants": [
+        "eclipser",
+        "nikora_triple_stryke",
+        "starstreak",
+        "triple_stryke",
+        "champion"
+      ]
+    }
+  ]
+}

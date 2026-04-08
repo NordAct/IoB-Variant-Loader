@@ -1,0 +1,16 @@
+{
+  "parents": [
+    {
+      "groups":["night_fury"]
+    },
+    {
+      "groups":["light_fury"]
+    }
+  ],
+  "entries": [
+    {
+      "groups": ["night_light_common"],
+      "weight": 1
+    }
+  ]
+}

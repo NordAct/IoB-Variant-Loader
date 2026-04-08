@@ -1,0 +1,24 @@
+{
+  "parents": [
+    {
+      "groups":["skrill"]
+    },
+    {
+      "groups":["skrill"]
+    }
+  ],
+  "entries": [
+    {
+      "groups": ["skrill_common"],
+      "weight": 988
+    },
+    {
+      "groups": ["skrill_uncommon"],
+      "weight": 10
+    },
+    {
+      "groups": ["skrill_rare"],
+      "weight": 2
+    }
+  ]
+}

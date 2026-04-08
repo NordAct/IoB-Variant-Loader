@@ -1,0 +1,24 @@
+{
+  "parents": [
+    {
+      "groups":["monstrous_nightmare"]
+    },
+    {
+      "groups":["monstrous_nightmare"]
+    }
+  ],
+  "entries": [
+    {
+      "groups": ["monstrous_nightmare_common"],
+      "weight": 95
+    },
+    {
+      "groups": ["monstrous_nightmare_uncommon"],
+      "weight": 4
+    },
+    {
+      "groups": ["monstrous_nightmare_rare"],
+      "weight": 1
+    }
+  ]
+}

@@ -30,6 +30,6 @@ public class BreedingListReloadListener extends SimpleJsonResourceReloadListener
             });
             BreedingListUtil.BREEDING_LISTS.add(list);
         }
-        //BreedingListUtil.debugPrint();
+        //BreedingListUtil.debugPrint(); //todo
     }
 }

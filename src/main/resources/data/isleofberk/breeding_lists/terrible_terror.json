@@ -1,0 +1,16 @@
+{
+  "parents": [
+    {
+      "groups":["terrible_terror"]
+    },
+    {
+      "groups":["terrible_terror"]
+    }
+  ],
+  "entries": [
+    {
+      "groups": ["terrible_terror_common"],
+      "weight": 1
+    }
+  ]
+}

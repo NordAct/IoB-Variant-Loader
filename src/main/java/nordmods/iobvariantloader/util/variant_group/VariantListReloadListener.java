@@ -28,14 +28,7 @@ public class VariantListReloadListener extends SimpleJsonResourceReloadListener 
         for (Map.Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
             ResourceLocation fileID = entry.getKey();
             JsonObject entryObject = entry.getValue().getAsJsonObject();
-
-
-            if (!entryObject.has("group_name")) {
-                IoBVariantLoader.LOGGER.error("Variant list {} has no group specified and will be skipped", fileID);
-                continue;
-            }
-            String group = entryObject.get("group_name").getAsString();
-
+            String group = fileID.getPath();
 
             if (entryObject.has("variant_lists")) {
                 for (JsonElement elem : entryObject.get("variant_lists").getAsJsonArray()) {

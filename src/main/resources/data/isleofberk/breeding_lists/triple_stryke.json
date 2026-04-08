@@ -1,0 +1,24 @@
+{
+  "parents": [
+    {
+      "groups":["triple_stryke"]
+    },
+    {
+      "groups":["triple_stryke"]
+    }
+  ],
+  "entries": [
+    {
+      "groups": ["triple_stryke_common"],
+      "weight": 919
+    },
+    {
+      "groups": ["triple_stryke_uncommon"],
+      "weight": 80
+    },
+    {
+      "groups": ["triple_stryke_rare"],
+      "weight": 1
+    }
+  ]
+}

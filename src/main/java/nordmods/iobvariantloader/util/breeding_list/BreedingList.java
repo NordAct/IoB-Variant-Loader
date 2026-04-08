@@ -9,12 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public record BreedingList(Pair<Parent, Parent> parents, List<Entry> entries, Optional<Float> inheritanceChance) {
+public record BreedingList(Pair<Parent, Parent> parents, List<Entry> entries) {
     public static final Codec<BreedingList> CODEC = RecordCodecBuilder.create(i -> i.group(
             Parent.CODEC.listOf().fieldOf("parents").forGetter(c -> new ArrayList<>(List.of(c.parents().getFirst(), c.parents().getSecond()))),
-            Entry.CODEC.listOf().fieldOf("entries").forGetter(BreedingList::entries),
-            Codec.FLOAT.optionalFieldOf("inheritance_chance").forGetter(BreedingList::inheritanceChance)
-    ).apply(i, (parents, entries, chance) -> new BreedingList(new Pair<>(parents.get(0), parents.get(1)), entries, chance)));
+            Entry.CODEC.listOf().fieldOf("entries").forGetter(BreedingList::entries)
+    ).apply(i, (parents, entries) -> new BreedingList(new Pair<>(parents.get(0), parents.get(1)), entries)));
 
     public record Parent(Optional<List<VariantList>> variantLists, Optional<List<String>> groups) {
         public static final Codec<Parent> CODEC = RecordCodecBuilder.create(i ->  i.group(

@@ -1,20 +1,14 @@
 {
-  "group_name": "terrible_terror",
   "variant_lists": [
     {
       "dragon": "terrible_terror",
       "variants": [
-        "blar",
-        "sneaky",
-        "terror",
-        "sharpshot",
-        "iggy",
-        "pain",
-        "head",
         "chomp",
-        "terrible_terror",
         "titan_wing"
       ]
     }
+  ],
+  "groups": [
+    "terrible_terror_common"
   ]
 }
