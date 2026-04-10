@@ -10,6 +10,14 @@
   "entries": [
     {
       "groups": ["deadly_nadder_common"],
+      "weight": 90
+    },
+    {
+      "groups": ["deadly_nadder_uncommon"],
+      "weight": 9
+    },
+    {
+      "groups": ["deadly_nadder_rare"],
       "weight": 1
     }
   ]

@@ -10,7 +10,11 @@
   "entries": [
     {
       "groups": ["night_fury_common"],
-      "weight": 999
+      "weight": 90
+    },
+    {
+      "groups": ["night_fury_uncommon"],
+      "weight": 9
     },
     {
       "groups": ["night_fury_rare"],

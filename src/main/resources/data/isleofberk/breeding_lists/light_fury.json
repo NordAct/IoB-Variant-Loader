@@ -10,11 +10,15 @@
   "entries": [
     {
       "groups": ["light_fury_common"],
-      "weight": 95
+      "weight": 90
     },
     {
       "groups": ["light_fury_uncommon"],
-      "weight": 5
+      "weight": 9
+    },
+    {
+      "groups": ["light_fury_rare"],
+      "weight": 1
     }
   ]
 }

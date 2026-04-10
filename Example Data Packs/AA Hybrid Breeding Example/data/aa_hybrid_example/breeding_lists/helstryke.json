@@ -1,0 +1,24 @@
+{
+  "parents": [
+    {
+      "groups":["helstryke"]
+    },
+    {
+      "groups":["helstryke"]
+    }
+  ],
+  "entries": [
+    {
+      "groups": ["helstryke_common"],
+      "weight": 90
+    },
+    {
+      "groups": ["helstryke_uncommon"],
+      "weight": 9
+    },
+    {
+      "groups": ["helstryke_rare"],
+      "weight": 1
+    }
+  ]
+}

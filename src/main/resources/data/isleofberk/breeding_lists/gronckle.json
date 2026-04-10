@@ -10,6 +10,14 @@
   "entries": [
     {
       "groups": ["gronckle_common"],
+      "weight": 90
+    },
+    {
+      "groups": ["gronckle_uncommon"],
+      "weight": 9
+    },
+    {
+      "groups": ["gronckle_rare"],
       "weight": 1
     }
   ]

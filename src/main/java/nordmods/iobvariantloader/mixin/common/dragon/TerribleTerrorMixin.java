@@ -1,20 +1,26 @@
 package nordmods.iobvariantloader.mixin.common.dragon;
 
+import com.GACMD.isleofberk.entity.AI.breed.DragonBreedGoal;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.terrible_terror.TerribleTerror;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import nordmods.iobvariantloader.IoBVariantLoader;
+import nordmods.iobvariantloader.util.VLDragonBreedGoal;
 import nordmods.iobvariantloader.util.extras.ExtrasUtil;
 import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import software.bernie.geckolib3.core.controller.AnimationController;
@@ -102,5 +108,12 @@ public abstract class TerribleTerrorMixin extends ADragonBaseMixin{
     @WrapOperation(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/Item;isEdible()Z"))
     private boolean itIsEdiblePleaseGTFO(Item instance, Operation<Boolean> original) {
         return isItemStackForTaming(instance.getDefaultInstance()) || original.call(instance);
+    }
+
+    @ModifyArg(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V"), index = 1)
+    private Goal replaceBreedingGoal(Goal pGoal) {
+        if (IoBVariantLoader.config.breedingListsUse.get().canUseBreedingLists() && pGoal instanceof DragonBreedGoal)
+            return new VLDragonBreedGoal((ADragonBase)(Object)this, 1);
+        return pGoal;
     }
 }

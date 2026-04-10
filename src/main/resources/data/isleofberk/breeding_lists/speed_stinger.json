@@ -10,6 +10,14 @@
   "entries": [
     {
       "groups": ["speed_stinger_common"],
+      "weight": 90
+    },
+    {
+      "groups": ["speed_stinger_uncommon"],
+      "weight": 9
+    },
+    {
+      "groups": ["speed_stinger_rare"],
       "weight": 1
     }
   ]

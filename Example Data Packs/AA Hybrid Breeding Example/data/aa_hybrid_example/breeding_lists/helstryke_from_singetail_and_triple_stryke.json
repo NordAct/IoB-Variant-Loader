@@ -1,7 +1,7 @@
 {
   "parents": [
     {
-      "groups":["triple_stryke"]
+      "groups":["singetail"]
     },
     {
       "groups":["triple_stryke"]
@@ -9,15 +9,15 @@
   ],
   "entries": [
     {
-      "groups": ["triple_stryke_common"],
+      "groups": ["helstryke_common"],
       "weight": 90
     },
     {
-      "groups": ["triple_stryke_uncommon"],
+      "groups": ["helstryke_uncommon"],
       "weight": 9
     },
     {
-      "groups": ["triple_stryke_rare"],
+      "groups": ["helstryke_rare"],
       "weight": 1
     }
   ]

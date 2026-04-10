@@ -1,0 +1,18 @@
+{
+  "variant_lists": [
+    {
+      "dragon": "monstrous_nightmare",
+      "variants": [
+        "albino_singetail",
+        "aske",
+        "dragonfruit",
+        "finis",
+        "infernier",
+        "juniper",
+        "melanistic_singetail",
+        "novatail",
+        "terrestris"
+      ]
+    }
+  ]
+}

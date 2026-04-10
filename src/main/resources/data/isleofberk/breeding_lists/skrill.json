@@ -10,15 +10,15 @@
   "entries": [
     {
       "groups": ["skrill_common"],
-      "weight": 988
+      "weight": 90
     },
     {
       "groups": ["skrill_uncommon"],
-      "weight": 10
+      "weight": 9
     },
     {
       "groups": ["skrill_rare"],
-      "weight": 2
+      "weight": 1
     }
   ]
 }

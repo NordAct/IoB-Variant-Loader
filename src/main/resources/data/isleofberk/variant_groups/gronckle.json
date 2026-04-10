@@ -1,5 +1,7 @@
 {
   "included_groups": [
-    "gronckle_common"
+    "gronckle_common",
+    "gronckle_uncommon",
+    "gronckle_rare"
   ]
 }

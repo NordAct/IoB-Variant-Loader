@@ -1,0 +1,11 @@
+{
+  "variant_lists": [
+    {
+      "dragon": "triple_stryke",
+      "variants": [
+        "albino_alpha_stryke",
+        "melanistic_alpha_stryke"
+      ]
+    }
+  ]
+}

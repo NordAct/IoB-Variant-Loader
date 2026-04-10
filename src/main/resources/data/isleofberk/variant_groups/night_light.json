@@ -1,5 +1,7 @@
 {
   "included_groups": [
-    "night_light_common"
+    "night_light_common",
+    "night_light_uncommon",
+    "night_light_rare"
   ]
 }

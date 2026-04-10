@@ -10,6 +10,14 @@
   "entries": [
     {
       "groups": ["night_light_common"],
+      "weight": 90
+    },
+    {
+      "groups": ["night_light_uncommon"],
+      "weight": 9
+    },
+    {
+      "groups": ["night_light_rare"],
       "weight": 1
     }
   ]

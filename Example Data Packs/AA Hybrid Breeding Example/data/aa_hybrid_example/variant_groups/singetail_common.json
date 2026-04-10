@@ -1,0 +1,15 @@
+{
+  "variant_lists": [
+    {
+      "dragon": "monstrous_nightmare",
+      "variants": [
+        "green",
+        "purple",
+        "red",
+        "singetail",
+        "spotless",
+        "yellow"
+      ]
+    }
+  ]
+}

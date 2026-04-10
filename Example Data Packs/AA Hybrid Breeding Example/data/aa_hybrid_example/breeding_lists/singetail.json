@@ -1,0 +1,24 @@
+{
+  "parents": [
+    {
+      "groups":["singetail"]
+    },
+    {
+      "groups":["singetail"]
+    }
+  ],
+  "entries": [
+    {
+      "groups": ["singetail_common"],
+      "weight": 90
+    },
+    {
+      "groups": ["singetail_uncommon"],
+      "weight": 9
+    },
+    {
+      "groups": ["singetail_rare"],
+      "weight": 1
+    }
+  ]
+}

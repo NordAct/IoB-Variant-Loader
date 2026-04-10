@@ -1,5 +1,6 @@
 package nordmods.iobvariantloader.mixin.common.dragon;
 
+import com.GACMD.isleofberk.entity.AI.breed.DragonBreedGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
 import com.GACMD.isleofberk.entity.dragons.stinger.Stinger;
@@ -27,6 +28,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -37,6 +39,7 @@ import net.minecraft.world.phys.Vec3;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.AltLandNavigation;
 import nordmods.iobvariantloader.util.ResourceUtil;
+import nordmods.iobvariantloader.util.VLDragonBreedGoal;
 import nordmods.iobvariantloader.util.breeding_list.BreedingListUtil;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
@@ -198,13 +201,16 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     private ADragonEggBase assignVariant(ADragonBase instance, ServerLevel world, AgeableMob parent) {
         if (parent instanceof ADragonBase dragonPartner) {
 
-            if (!IoBVariantLoader.config.ignoreBreedingLists.get()) {
+            ADragonEggBase egg = instance.getBreedEggResult(world, dragonPartner);
+            if (!IoBVariantLoader.config.assignEggVariantOnBreeding.get()) return egg;
+
+            if (IoBVariantLoader.config.breedingListsUse.get().canUseBreedingLists()) {
                 Pair<String, String> dragonAndVariant = BreedingListUtil.getRandomDragonAndVariant(instance, dragonPartner);
                 if (dragonAndVariant != null) {
                     // /data merge entity @e[type=isleofberk:triple_stryke, limit=1, sort=nearest] {Age:0}
                     // /summon isleofberk:triple_stryke ~ ~ ~ {VariantName:sappheral}
                     // /summon isleofberk:triple_stryke ~ ~ ~ {VariantName:deathgripper}
-                    ADragonEggBase egg = switch (dragonAndVariant.getFirst()) {
+                    ADragonEggBase egg1 = switch (dragonAndVariant.getFirst()) {
                         case "deadly_nadder" -> new DeadlyNadderEgg(ModEntities.NADDER_EGG.get(), world);
                         case "gronckle" -> new GronkleEgg(ModEntities.GRONCKLE_EGG.get(), world);
                         case "light_fury" -> new LightFuryEgg(ModEntities.LIGHT_FURY_EGG.get(), world);
@@ -219,15 +225,12 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
                         case "zippleback" -> new ZippleBackEgg(ModEntities.ZIPPLEBACK_EGG.get(), world);
                         default -> null;
                     };
-                    if (egg instanceof VariantNameHelper helper) {
+                    if (egg1 instanceof VariantNameHelper helper) {
                         helper.setVariantName(dragonAndVariant.getSecond());
-                        return egg;
-                    } else if (IoBVariantLoader.config.enforceBreedingLists.get()) return null;
-                } else if (IoBVariantLoader.config.enforceBreedingLists.get()) return null;
+                        return egg1;
+                    } else if (!IoBVariantLoader.config.breedingListsUse.get().canUseFallback()) return null;
+                } else if (!IoBVariantLoader.config.breedingListsUse.get().canUseFallback()) return null;
             }
-
-            ADragonEggBase egg = instance.getBreedEggResult(world, dragonPartner);
-            if (!IoBVariantLoader.config.assignEggVariantOnBreeding.get()) return egg;
 
             if (egg instanceof VariantNameHelper helper) {
                 if (instance instanceof VariantNameHelper parent1 && dragonPartner instanceof VariantNameHelper parent2) {
@@ -481,5 +484,12 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     private void triggerVariantTamed(Player pPlayer, CallbackInfo ci) {
         if (pPlayer instanceof ServerPlayer player)
             IoBVariantLoader.TAME_VARIANT_FROM_GROUP_TRIGGER.trigger(player, (ADragonBase) (Object) this);
+    }
+
+    @ModifyArg(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V"), index = 1)
+    private Goal replaceBreedingGoal(Goal pGoal) {
+        if (IoBVariantLoader.config.breedingListsUse.get().canUseBreedingLists() && pGoal instanceof DragonBreedGoal)
+            return new VLDragonBreedGoal((ADragonBase)(Object)this, 1);
+        return pGoal;
     }
 }

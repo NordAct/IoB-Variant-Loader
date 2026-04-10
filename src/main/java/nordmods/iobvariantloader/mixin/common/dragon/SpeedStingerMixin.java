@@ -1,16 +1,23 @@
 package nordmods.iobvariantloader.mixin.common.dragon;
 
+import com.GACMD.isleofberk.entity.AI.breed.DragonBreedGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.entity.eggs.entity.eggs.*;
+import com.GACMD.isleofberk.registery.ModEntities;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import nordmods.iobvariantloader.IoBVariantLoader;
+import nordmods.iobvariantloader.util.VLDragonBreedGoal;
+import nordmods.iobvariantloader.util.breeding_list.BreedingListUtil;
 import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
 import nordmods.iobvariantloader.util.extras.ExtrasUtil;
@@ -18,6 +25,7 @@ import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -38,8 +46,34 @@ public abstract class SpeedStingerMixin extends ADragonBaseMixin{
             at = @At(value = "INVOKE", target = "Lcom/GACMD/isleofberk/entity/dragons/speedstinger/SpeedStinger;getBreedEggResult(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/AgeableMob;)Lcom/GACMD/isleofberk/entity/eggs/entity/base/ADragonEggBase;"))
     private ADragonEggBase assignVariant(SpeedStinger instance, ServerLevel world, AgeableMob parent) {
         if (parent instanceof ADragonBase dragonPartner) {
+
             ADragonEggBase egg = instance.getBreedEggResult(world, dragonPartner);
             if (!IoBVariantLoader.config.assignEggVariantOnBreeding.get()) return egg;
+
+            if (IoBVariantLoader.config.breedingListsUse.get().canUseBreedingLists()) {
+                Pair<String, String> dragonAndVariant = BreedingListUtil.getRandomDragonAndVariant(instance, dragonPartner);
+                if (dragonAndVariant != null) {
+                    ADragonEggBase egg1 = switch (dragonAndVariant.getFirst()) {
+                        case "deadly_nadder" -> new DeadlyNadderEgg(ModEntities.NADDER_EGG.get(), world);
+                        case "gronckle" -> new GronkleEgg(ModEntities.GRONCKLE_EGG.get(), world);
+                        case "light_fury" -> new LightFuryEgg(ModEntities.LIGHT_FURY_EGG.get(), world);
+                        case "monstrous_nightmare" -> new MonstrousNightmareEgg(ModEntities.M_NIGHTMARE_EGG.get(), world);
+                        case "night_fury" -> new NightFuryEgg(ModEntities.NIGHT_FURY_EGG.get(), world);
+                        case "night_light" -> new NightLightEgg(ModEntities.NIGHT_LIGHT_EGG.get(), world);
+                        case "skrill" -> new SkrillEgg(ModEntities.SKRILL_EGG.get(), world);
+                        case "speed_stinger", "speed_stinger_leader" -> new SpeedStingerEgg(ModEntities.SPEED_STINGER_EGG.get(), world);
+                        case "stinger" -> new StingerEgg(ModEntities.STINGER_EGG.get(), world);
+                        case "terrible_terror" -> new TerribleTerrorEgg(ModEntities.TERRIBLE_TERROR_EGG.get(), world);
+                        case "triple_stryke" -> new TripleStrykeEgg(ModEntities.TRIPLE_STRYKE_EGG.get(), world);
+                        case "zippleback" -> new ZippleBackEgg(ModEntities.ZIPPLEBACK_EGG.get(), world);
+                        default -> null;
+                    };
+                    if (egg1 instanceof VariantNameHelper helper) {
+                        helper.setVariantName(dragonAndVariant.getSecond());
+                        return egg1;
+                    } else if (!IoBVariantLoader.config.breedingListsUse.get().canUseFallback()) return null;
+                } else if (!IoBVariantLoader.config.breedingListsUse.get().canUseFallback()) return null;
+            }
 
             if (egg instanceof VariantNameHelper helper) {
                 if (instance instanceof VariantNameHelper parent1 && dragonPartner instanceof VariantNameHelper parent2) {
@@ -109,5 +143,12 @@ public abstract class SpeedStingerMixin extends ADragonBaseMixin{
     private void getBreedingItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         Boolean isCorrect = ExtrasUtil.isBreedingItem(getSpecies(false), getVariantName(), stack);
         if (isCorrect != null) cir.setReturnValue(isCorrect);
+    }
+
+    @ModifyArg(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V"), index = 1)
+    private Goal replaceBreedingGoal(Goal pGoal) {
+        if (IoBVariantLoader.config.breedingListsUse.get().canUseBreedingLists() && pGoal instanceof DragonBreedGoal)
+            return new VLDragonBreedGoal((ADragonBase)(Object)this, 1);
+        return pGoal;
     }
 }

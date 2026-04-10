@@ -1,0 +1,7 @@
+{
+  "included_groups": [
+    "singetail_common",
+    "singetail_uncommon",
+    "singetail_rare"
+  ]
+}

@@ -24,7 +24,12 @@ public class BreedingListUtil {
                     new Pair<>(((DragonSpeciesHelper)parent2).getSpecies(false), ((VariantNameHelper)parent2).getVariantName()) ;
         }
 
-        List<BreedingList.Entry> entries = getAvailableLists(parent1, parent2).stream().map(BreedingList::entries).flatMap(List::stream).toList();
+        List<BreedingList.Entry> entries = getAvailableLists(parent1, parent2)
+                .stream()
+                .map(BreedingList::entries)
+                .filter(list -> !list.isEmpty())
+                .flatMap(List::stream)
+                .toList();
 
         int totalWeight = entries.stream().mapToInt(BreedingList.Entry::weight).sum();
 

@@ -8,6 +8,8 @@
     }
   ],
   "included_groups": [
-    "zippleback_common"
+    "zippleback_common",
+    "zippleback_uncommon",
+    "zippleback_rare"
   ]
 }

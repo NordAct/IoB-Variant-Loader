@@ -10,11 +10,11 @@
   "entries": [
     {
       "groups": ["stinger_common"],
-      "weight": 989
+      "weight": 90
     },
     {
       "groups": ["stinger_uncommon"],
-      "weight": 10
+      "weight": 9
     },
     {
       "groups": ["stinger_rare"],

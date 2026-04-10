@@ -10,6 +10,14 @@
   "entries": [
     {
       "groups": ["zippleback_common"],
+      "weight": 90
+    },
+    {
+      "groups": ["zippleback_uncommon"],
+      "weight": 9
+    },
+    {
+      "groups": ["zippleback_rare"],
       "weight": 1
     }
   ]

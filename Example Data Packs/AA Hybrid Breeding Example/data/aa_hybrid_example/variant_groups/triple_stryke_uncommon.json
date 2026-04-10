@@ -1,0 +1,26 @@
+{
+  "variant_lists": [
+    {
+      "dragon": "triple_stryke",
+      "variants": [
+        "blue_alpha",
+        "boreas",
+        "champion_alpha",
+        "common_alpha",
+        "dg",
+        "eclipser_alpha",
+        "indo_alpha",
+        "ketillkott_alpha",
+        "melanistic_stryke",
+        "nikora_triple_stryke_alpha",
+        "rosethorn_alpha",
+        "scorpius_alpha",
+        "sleuther_alpha",
+        "spyro_alpha",
+        "starstreak_alpha",
+        "stone_mother_alpha",
+        "triple_stryke_alpha"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "included_groups": [
+    "helstryke_common",
+    "helstryke_uncommon",
+    "helstryke_rare"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "variant_lists": [
+    {
+      "dragon": "triple_stryke",
+      "variants": [
+        "common",
+        "deepsky",
+        "indo",
+        "ketillkott",
+        "scorpius",
+        "stone_mother"
+      ]
+    }
+  ]
+}

@@ -8,9 +8,7 @@ public class VLConfig {
     public ConfigHelper.ConfigValueListener<Boolean> alternativeLandNavigation;
     public ConfigHelper.ConfigValueListener<Boolean> assignEggVariantOnBreeding;
     public ConfigHelper.ConfigValueListener<Boolean> assignEggVariantOnPlaced;
-    public ConfigHelper.ConfigValueListener<Boolean> ignoreBreedingListsInheritanceChance;
-    public ConfigHelper.ConfigValueListener<Boolean> ignoreBreedingLists;
-    public ConfigHelper.ConfigValueListener<Boolean> enforceBreedingLists;
+    public ConfigHelper.ConfigValueListener<BreedingListUse> breedingListsUse;
     public ConfigHelper.ConfigValueListener<Boolean> logDragonVariantSpawns;
     public ConfigHelper.ConfigValueListener<Boolean> logHitboxRedirects;
     public ConfigHelper.ConfigValueListener<Boolean> logSoundRedirects;
@@ -79,17 +77,38 @@ public class VLConfig {
                 .define("log_breeding_lists", false));
         builder.pop();
 
-        builder.push("Ignore Breeding Lists");
-        ignoreBreedingLists = subscriber.subscribe(builder
-                .comment("Ignores breeding lists during dragon breeding")
-                .define("ignore_breeding_lists", false));
+        builder.push("Breeding Lists Use");
+        breedingListsUse = subscriber.subscribe(builder
+                .comment("""
+                        Mandates usage of breeding lists.
+                        IGNORED - breeding lists will be ignored and fallback method will be used (possible variants for pair will be taken from variant spawns).
+                        PRIORITIZED - if breeding list exists for pair, it'll be used with priority, otherwise fallback method will be used
+                        ENFORCED - if no breeding list exists for pair, no egg will be made
+                        """)
+                .define("breeding_lists_use", BreedingListUse.PRIORITIZED));
         builder.pop();
+    }
 
-        builder.push("Enforce Breeding Lists");
-        enforceBreedingLists = subscriber.subscribe(builder
-                .comment("Enforces breeding lists during dragon breeding, making it impossible for dragons that don't included in any breeding list to breed")
-                .define("enforce_breeding_lists", false));
-        builder.pop();
+    public enum BreedingListUse {
+        IGNORED(true, false),
+        PRIORITIZED(true, true),
+        ENFORCED(false, true),
+        ;
 
+        private final boolean canUseFallback;
+        private final boolean canUseBreedingLists;
+
+        BreedingListUse(boolean canUseFallback, boolean canBreedingLists) {
+            this.canUseFallback = canUseFallback;
+            this.canUseBreedingLists = canBreedingLists;
+        }
+
+        public boolean canUseFallback() {
+            return canUseFallback;
+        }
+
+        public boolean canUseBreedingLists() {
+            return canUseBreedingLists;
+        }
     }
 }

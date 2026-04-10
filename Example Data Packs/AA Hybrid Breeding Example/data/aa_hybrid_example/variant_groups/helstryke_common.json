@@ -1,0 +1,35 @@
+{
+  "variant_lists": [
+    {
+      "dragon": "triple_stryke",
+      "variants": [
+        "amethyst",
+        "berrysmooth",
+        "buried",
+        "cactus",
+        "cherubim",
+        "chorus",
+        "chorus_stryke",
+        "citrine",
+        "corruption",
+        "crimson_stryke",
+        "dark",
+        "desolation",
+        "earth_stryke",
+        "end",
+        "eye",
+        "floral_stryke",
+        "forest_stryke",
+        "helstryke",
+        "ice_stryke",
+        "lonelyheart",
+        "mono",
+        "nochroma",
+        "rose_quartz",
+        "singe_stryke",
+        "spectre_stryke",
+        "toucan"
+      ]
+    }
+  ]
+}
