@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "isleofberk:nadder_egg"
+    },
+    "title": {
+      "translate": "advancement.deathly_galeslash.title"
+    },
+    "description": {
+      "translate": "advancement.deathly_galeslash.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "sakura:tame_hybrid",
+  "criteria": {
+    "requirements": {
+      "trigger": "iobvariantloader:tame_variant_from_collection",
+      "conditions": {
+        "collections": ["deathly_galeslash"]
+      }
+    }
+  }
+}

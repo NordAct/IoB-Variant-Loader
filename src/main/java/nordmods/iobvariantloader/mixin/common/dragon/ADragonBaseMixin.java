@@ -486,6 +486,12 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
             IoBVariantLoader.TAME_VARIANT_FROM_GROUP_TRIGGER.trigger(player, (ADragonBase) (Object) this);
     }
 
+    @Inject(method = "tameWithName", at = @At("TAIL"), remap = false)
+    private void alsoTriggerVariantTamed(Player pPlayer, CallbackInfoReturnable<Boolean> cir) {
+        if (pPlayer instanceof ServerPlayer player)
+            IoBVariantLoader.TAME_VARIANT_FROM_GROUP_TRIGGER.trigger(player, (ADragonBase) (Object) this);
+    }
+
     @ModifyArg(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V"), index = 1)
     private Goal replaceBreedingGoal(Goal pGoal) {
         if (IoBVariantLoader.config.breedingListsUse.get().canUseBreedingLists() && pGoal instanceof DragonBreedGoal)

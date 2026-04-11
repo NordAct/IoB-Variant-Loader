@@ -1,0 +1,16 @@
+{
+  "parents": [
+    {
+      "collections":["deathly_galeslash"]
+    },
+    {
+      "collections":["deathly_galeslash"]
+    }
+  ],
+  "entries": [
+    {
+      "collections": ["deathly_galeslash"],
+      "weight": 1
+    }
+  ]
+}

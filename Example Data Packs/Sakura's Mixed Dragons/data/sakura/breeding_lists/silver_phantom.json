@@ -1,0 +1,16 @@
+{
+  "parents": [
+    {
+      "collections":["silver_phantom"]
+    },
+    {
+      "collections":["silver_phantom"]
+    }
+  ],
+  "entries": [
+    {
+      "collections": ["silver_phantom"],
+      "weight": 1
+    }
+  ]
+}

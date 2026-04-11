@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "isleofberk:triple_stryke_egg",
+      "nbt": "{VariantName:deathgripper}"
+    },
+    "title": {
+      "translate": "advancement.kill_deathgripper.title"
+    },
+    "description": {
+      "translate": "advancement.kill_deathgripper.desc"
+    },
+    "frame": "task",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "sakura:kill/kill_dragon_from_pack",
+  "criteria": {
+    "requirements": {
+      "trigger": "iobvariantloader:kill_variant_from_collection",
+      "conditions": {
+        "collections": ["deathgripper"]
+      }
+    }
+  }
+}

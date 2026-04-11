@@ -1,0 +1,16 @@
+{
+  "parents": [
+    {
+      "collections":["lightcutter"]
+    },
+    {
+      "collections":["lightcutter"]
+    }
+  ],
+  "entries": [
+    {
+      "collections": ["lightcutter"],
+      "weight": 1
+    }
+  ]
+}

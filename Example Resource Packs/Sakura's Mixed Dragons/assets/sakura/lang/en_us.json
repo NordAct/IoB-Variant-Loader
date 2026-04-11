@@ -38,5 +38,31 @@
   "entity.iobvariantloader.triple_stryke.deathgripper": "Deathgripper",
   "entity.iobvariantloader.skrill.lightcutter": "Lightcutter",
   "entity.iobvariantloader.deadly_nadder.deathly_galeslash": "Deathly Galeslash",
-  "entity.iobvariantloader.deadly_nadder.hushboggle": "Hushboggle"
+  "entity.iobvariantloader.deadly_nadder.hushboggle": "Hushboggle",
+
+  "advancement.deathgripper.title": "No Self-Preservation Instinct",
+  "advancement.deathgripper.desc": "Tame Deathgripper",
+  "advancement.deathly_galeslash.title": "Graceful Wind",
+  "advancement.deathly_galeslash.desc": "Tame Deathly Galeslash",
+  "advancement.lightcutter.title": "The Thunder and The Storm",
+  "advancement.lightcutter.desc": "Tame Lightcutter",
+  "advancement.hushboggle.title": "Right From Your Nightmares",
+  "advancement.hushboggle.desc": "Tame Hushboggle",
+  "advancement.silver_phantom.title": "Moonlight Sonata",
+  "advancement.silver_phantom.desc": "Tame Silver Phantom",
+  "advancement.tame_hybrid.title": "Double Trouble",
+  "advancement.tame_hybrid.desc": "Obtain hybrid dragon",
+
+  "advancement.kill_deathgripper.title": "To Hunt A Hunter",
+  "advancement.kill_deathgripper.desc": "Kill Deathgripper",
+  "advancement.kill_deathly_galeslash.title": "Deathlier Than You",
+  "advancement.kill_deathly_galeslash.desc": "Kill Deathly Galeslash",
+  "advancement.kill_lightcutter.title": "Lights Out",
+  "advancement.kill_lightcutter.desc": "Kill Lightcutter",
+  "advancement.kill_hushboggle.title": "Hush",
+  "advancement.kill_hushboggle.desc": "Kill Hushboggle",
+  "advancement.kill_silver_phantom.title": "Moon Eclipse",
+  "advancement.kill_silver_phantom.desc": "Kill Silver Phantom",
+  "advancement.kill_dragon_from_pack.title": "Dragon Hunter",
+  "advancement.kill_dragon_from_pack.desc": "Kill any dragon provided by example pack"
 }

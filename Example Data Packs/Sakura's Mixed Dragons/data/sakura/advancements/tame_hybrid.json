@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:grass"
+    },
+    "title": {
+      "translate": "advancement.tame_hybrid.title"
+    },
+    "description": {
+      "translate": "advancement.tame_hybrid.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "isleofberk:isleofberk",
+  "criteria": {
+    "requirements": {
+      "trigger": "iobvariantloader:tame_variant_from_collection",
+      "conditions": {
+        "collections": ["hybrid"]
+      }
+    }
+  }
+}

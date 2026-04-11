@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "isleofberk:nadder_egg"
+    },
+    "title": {
+      "translate": "advancement.kill_hushboggle.title"
+    },
+    "description": {
+      "translate": "advancement.kill_hushboggle.desc"
+    },
+    "frame": "task",
+    "hidden": true,
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "sakura:kill/kill_dragon_from_pack",
+  "criteria": {
+    "requirements": {
+      "trigger": "iobvariantloader:kill_variant_from_collection",
+      "conditions": {
+        "collections": ["hushboggle"]
+      }
+    }
+  }
+}

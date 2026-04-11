@@ -1,0 +1,16 @@
+{
+  "parents": [
+    {
+      "collections":["hushboggle"]
+    },
+    {
+      "collections":["hushboggle"]
+    }
+  ],
+  "entries": [
+    {
+      "collections": ["hushboggle"],
+      "weight": 1
+    }
+  ]
+}

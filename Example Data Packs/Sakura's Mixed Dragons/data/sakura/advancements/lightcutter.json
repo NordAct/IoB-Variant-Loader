@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "isleofberk:skrill_egg"
+    },
+    "title": {
+      "translate": "advancement.lightcutter.title"
+    },
+    "description": {
+      "translate": "advancement.lightcutter.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "sakura:tame_hybrid",
+  "criteria": {
+    "requirements": {
+      "trigger": "iobvariantloader:tame_variant_from_collection",
+      "conditions": {
+        "collections": ["lightcutter"]
+      }
+    }
+  }
+}

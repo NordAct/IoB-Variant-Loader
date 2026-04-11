@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:iron_sword"
+    },
+    "title": {
+      "translate": "advancement.kill_dragon_from_pack.title"
+    },
+    "description": {
+      "translate": "advancement.kill_dragon_from_pack.desc"
+    },
+    "frame": "task",
+    "hidden": true,
+    "show_toast": true
+  },
+  "parent": "isleofberk:isleofberk",
+  "criteria": {
+    "requirements": {
+      "trigger": "iobvariantloader:kill_variant_from_collection",
+      "conditions": {
+        "collections": [
+          "deathgripper",
+          "deathly_galeslash",
+          "hushboggle",
+          "lightcutter",
+          "silver_phantom"
+        ]
+      }
+    }
+  }
+}

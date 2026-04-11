@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "isleofberk:night_fury_egg"
+    },
+    "title": {
+      "translate": "advancement.silver_phantom.title"
+    },
+    "description": {
+      "translate": "advancement.silver_phantom.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "isleofberk:stoker",
+  "criteria": {
+    "requirements": {
+      "trigger": "iobvariantloader:tame_variant_from_collection",
+      "conditions": {
+        "collections": ["silver_phantom"]
+      }
+    }
+  }
+}
