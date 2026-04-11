@@ -1,23 +1,23 @@
 {
   "parents": [
     {
-      "groups":["speed_stinger"]
+      "collections":["speed_stinger"]
     },
     {
-      "groups":["speed_stinger"]
+      "collections":["speed_stinger"]
     }
   ],
   "entries": [
     {
-      "groups": ["speed_stinger_common"],
+      "collections": ["speed_stinger_common"],
       "weight": 90
     },
     {
-      "groups": ["speed_stinger_uncommon"],
+      "collections": ["speed_stinger_uncommon"],
       "weight": 9
     },
     {
-      "groups": ["speed_stinger_rare"],
+      "collections": ["speed_stinger_rare"],
       "weight": 1
     }
   ]

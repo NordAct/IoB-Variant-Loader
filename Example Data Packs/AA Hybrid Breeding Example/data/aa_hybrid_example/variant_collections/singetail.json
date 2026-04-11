@@ -1,5 +1,5 @@
 {
-  "included_groups": [
+  "collections": [
     "singetail_common",
     "singetail_uncommon",
     "singetail_rare"

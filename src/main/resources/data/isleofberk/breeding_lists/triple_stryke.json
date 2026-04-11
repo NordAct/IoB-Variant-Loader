@@ -1,23 +1,23 @@
 {
   "parents": [
     {
-      "groups":["triple_stryke"]
+      "collections":["triple_stryke"]
     },
     {
-      "groups":["triple_stryke"]
+      "collections":["triple_stryke"]
     }
   ],
   "entries": [
     {
-      "groups": ["triple_stryke_common"],
+      "collections": ["triple_stryke_common"],
       "weight": 90
     },
     {
-      "groups": ["triple_stryke_uncommon"],
+      "collections": ["triple_stryke_uncommon"],
       "weight": 9
     },
     {
-      "groups": ["triple_stryke_rare"],
+      "collections": ["triple_stryke_rare"],
       "weight": 1
     }
   ]

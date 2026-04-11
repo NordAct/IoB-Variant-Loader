@@ -1,23 +1,23 @@
 {
   "parents": [
     {
-      "groups":["night_light"]
+      "collections":["night_light"]
     },
     {
-      "groups":["night_light"]
+      "collections":["night_light"]
     }
   ],
   "entries": [
     {
-      "groups": ["night_light_common"],
+      "collections": ["night_light_common"],
       "weight": 90
     },
     {
-      "groups": ["night_light_uncommon"],
+      "collections": ["night_light_uncommon"],
       "weight": 9
     },
     {
-      "groups": ["night_light_rare"],
+      "collections": ["night_light_rare"],
       "weight": 1
     }
   ]

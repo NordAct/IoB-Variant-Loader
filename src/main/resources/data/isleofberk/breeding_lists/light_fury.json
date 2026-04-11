@@ -1,23 +1,23 @@
 {
   "parents": [
     {
-    "groups":["light_fury"]
+    "collections":["light_fury"]
     },
     {
-      "groups":["light_fury"]
+      "collections":["light_fury"]
     }
   ],
   "entries": [
     {
-      "groups": ["light_fury_common"],
+      "collections": ["light_fury_common"],
       "weight": 90
     },
     {
-      "groups": ["light_fury_uncommon"],
+      "collections": ["light_fury_uncommon"],
       "weight": 9
     },
     {
-      "groups": ["light_fury_rare"],
+      "collections": ["light_fury_rare"],
       "weight": 1
     }
   ]

@@ -7,7 +7,7 @@
       ]
     }
   ],
-  "included_groups": [
+  "collections": [
     "zippleback_common",
     "zippleback_uncommon",
     "zippleback_rare"

@@ -1,23 +1,23 @@
 {
   "parents": [
     {
-      "groups":["terrible_terror"]
+      "collections":["terrible_terror"]
     },
     {
-      "groups":["terrible_terror"]
+      "collections":["terrible_terror"]
     }
   ],
   "entries": [
     {
-      "groups": ["terrible_terror_common"],
+      "collections": ["terrible_terror_common"],
       "weight": 90
     },
     {
-      "groups": ["terrible_terror_uncommon"],
+      "collections": ["terrible_terror_uncommon"],
       "weight": 9
     },
     {
-      "groups": ["terrible_terror_rare"],
+      "collections": ["terrible_terror_rare"],
       "weight": 1
     }
   ]

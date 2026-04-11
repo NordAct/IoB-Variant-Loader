@@ -1,15 +1,15 @@
 {
   "parents": [
     {
-      "groups":["deathgripper"]
+      "collections":["deathgripper"]
     },
     {
-      "groups":["deathgripper"]
+      "collections":["deathgripper"]
     }
   ],
   "entries": [
     {
-      "groups": ["deathgripper"],
+      "collections": ["deathgripper"],
       "weight": 1
     }
   ]

@@ -7,7 +7,7 @@
       ]
     }
   ],
-  "included_groups": [
+  "collections": [
     "night_fury_common",
     "night_fury_uncommon",
     "night_fury_rare"

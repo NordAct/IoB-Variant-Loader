@@ -1,5 +1,5 @@
 {
-  "included_groups": [
+  "collections": [
     "light_fury_common",
     "light_fury_uncommon",
     "light_fury_rare"

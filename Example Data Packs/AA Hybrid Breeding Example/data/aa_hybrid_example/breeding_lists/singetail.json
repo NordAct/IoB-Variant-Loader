@@ -1,23 +1,23 @@
 {
   "parents": [
     {
-      "groups":["singetail"]
+      "collections":["singetail"]
     },
     {
-      "groups":["singetail"]
+      "collections":["singetail"]
     }
   ],
   "entries": [
     {
-      "groups": ["singetail_common"],
+      "collections": ["singetail_common"],
       "weight": 90
     },
     {
-      "groups": ["singetail_uncommon"],
+      "collections": ["singetail_uncommon"],
       "weight": 9
     },
     {
-      "groups": ["singetail_rare"],
+      "collections": ["singetail_rare"],
       "weight": 1
     }
   ]

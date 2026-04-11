@@ -1,5 +1,5 @@
 {
-  "included_groups": [
+  "collections": [
     "speed_stinger_common",
     "speed_stinger_uncommon",
     "speed_stinger_rare"

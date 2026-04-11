@@ -1,23 +1,23 @@
 {
   "parents": [
     {
-      "groups":["zippleback"]
+      "collections":["zippleback"]
     },
     {
-      "groups":["zippleback"]
+      "collections":["zippleback"]
     }
   ],
   "entries": [
     {
-      "groups": ["zippleback_common"],
+      "collections": ["zippleback_common"],
       "weight": 90
     },
     {
-      "groups": ["zippleback_uncommon"],
+      "collections": ["zippleback_uncommon"],
       "weight": 9
     },
     {
-      "groups": ["zippleback_rare"],
+      "collections": ["zippleback_rare"],
       "weight": 1
     }
   ]

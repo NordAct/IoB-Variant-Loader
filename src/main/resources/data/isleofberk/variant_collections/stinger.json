@@ -7,7 +7,7 @@
       ]
     }
   ],
-  "included_groups": [
+  "collections": [
     "stinger_common",
     "stinger_uncommon",
     "stinger_rare"

@@ -1,5 +1,5 @@
 {
-  "included_groups": [
+  "collections": [
     "skrill_common",
     "skrill_uncommon",
     "skrill_rare"

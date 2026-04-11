@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util.variant_group;
+package nordmods.iobvariantloader.util.variant_collections;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -16,19 +16,19 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class VariantListReloadListener extends SimpleJsonResourceReloadListener {
-    public VariantListReloadListener() {
-        super(new GsonBuilder().create(), "variant_groups");
+public class VariantCollectionsReloadListener extends SimpleJsonResourceReloadListener {
+    public VariantCollectionsReloadListener() {
+        super(new GsonBuilder().create(), "variant_collections");
     }
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager, ProfilerFiller profilerFiller) {
-        VariantListUtil.VARIANT_GROUPS.clear();
-        Map<String, Set<String>> groupsToInclude = new HashMap<>();
+        VariantCollectionsUtil.VARIANT_COLLECTIONS.clear();
+        Map<String, Set<String>> collectionsToInclude = new HashMap<>();
         for (Map.Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
             ResourceLocation fileID = entry.getKey();
             JsonObject entryObject = entry.getValue().getAsJsonObject();
-            String group = fileID.getPath();
+            String collection = fileID.getPath();
 
             if (entryObject.has("variant_lists")) {
                 for (JsonElement elem : entryObject.get("variant_lists").getAsJsonArray()) {
@@ -41,28 +41,28 @@ public class VariantListReloadListener extends SimpleJsonResourceReloadListener 
                         IoBVariantLoader.LOGGER.warn("Variant list entry of {} with dragon id {} does not match any existing dragon id and will be skipped", fileID, dragon);
                         continue;
                     }
-                    VariantListUtil.add(group, list);
+                    VariantCollectionsUtil.add(collection, list);
                 }
             }
 
-            if (entryObject.has("included_groups")) {
-                Set<String> includedGroups = groupsToInclude.computeIfAbsent(group, (g) -> new HashSet<>());
-                entryObject.get("included_groups").getAsJsonArray().forEach(g -> includedGroups.add(g.getAsString()));
+            if (entryObject.has("collections")) {
+                Set<String> includedcollections = collectionsToInclude.computeIfAbsent(collection, (g) -> new HashSet<>());
+                entryObject.get("collections").getAsJsonArray().forEach(g -> includedcollections.add(g.getAsString()));
             }
         }
-        groupsToInclude.forEach((group, included) -> addIncludedGroupsToGroup(group, included, groupsToInclude));
-        VariantListUtil.debugPrint();
+        collectionsToInclude.forEach((collection, included) -> addIncludedCollectionsToCollection(collection, included, collectionsToInclude));
+        VariantCollectionsUtil.debugPrint();
     }
 
-    private void addIncludedGroupsToGroup(String group, Set<String> includedGroups, Map<String, Set<String>> groupInGroup) {
-        includedGroups.forEach(includedGroup -> {
-            if (includedGroup.equals(group)) return;
+    private void addIncludedCollectionsToCollection(String collection, Set<String> includedCollections, Map<String, Set<String>> collectionInCollection) {
+        includedCollections.forEach(includedCollection -> {
+            if (includedCollection.equals(collection)) return;
 
-            if (groupInGroup.containsKey(includedGroup))
-                addIncludedGroupsToGroup(group, groupInGroup.get(includedGroup), groupInGroup);
+            if (collectionInCollection.containsKey(includedCollection))
+                addIncludedCollectionsToCollection(collection, collectionInCollection.get(includedCollection), collectionInCollection);
 
-            if (VariantListUtil.VARIANT_GROUPS.containsKey(includedGroup))
-                VariantListUtil.VARIANT_GROUPS.get(includedGroup).forEach(includedList -> VariantListUtil.add(group, includedList));
+            if (VariantCollectionsUtil.VARIANT_COLLECTIONS.containsKey(includedCollection))
+                VariantCollectionsUtil.VARIANT_COLLECTIONS.get(includedCollection).forEach(includedList -> VariantCollectionsUtil.add(collection, includedList));
         });
     }
 }

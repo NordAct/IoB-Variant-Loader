@@ -1,23 +1,23 @@
 {
   "parents": [
     {
-      "groups":["skrill"]
+      "collections":["skrill"]
     },
     {
-      "groups":["skrill"]
+      "collections":["skrill"]
     }
   ],
   "entries": [
     {
-      "groups": ["skrill_common"],
+      "collections": ["skrill_common"],
       "weight": 90
     },
     {
-      "groups": ["skrill_uncommon"],
+      "collections": ["skrill_uncommon"],
       "weight": 9
     },
     {
-      "groups": ["skrill_rare"],
+      "collections": ["skrill_rare"],
       "weight": 1
     }
   ]

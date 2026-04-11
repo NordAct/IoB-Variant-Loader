@@ -1,23 +1,23 @@
 {
   "parents": [
     {
-      "groups":["monstrous_nightmare"]
+      "collections":["monstrous_nightmare"]
     },
     {
-      "groups":["monstrous_nightmare"]
+      "collections":["monstrous_nightmare"]
     }
   ],
   "entries": [
     {
-      "groups": ["monstrous_nightmare_common"],
+      "collections": ["monstrous_nightmare_common"],
       "weight": 90
     },
     {
-      "groups": ["monstrous_nightmare_uncommon"],
+      "collections": ["monstrous_nightmare_uncommon"],
       "weight": 9
     },
     {
-      "groups": ["monstrous_nightmare_rare"],
+      "collections": ["monstrous_nightmare_rare"],
       "weight": 1
     }
   ]

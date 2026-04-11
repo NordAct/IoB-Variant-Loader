@@ -1,23 +1,23 @@
 {
   "parents": [
     {
-      "groups":["stinger"]
+      "collections":["stinger"]
     },
     {
-      "groups":["stinger"]
+      "collections":["stinger"]
     }
   ],
   "entries": [
     {
-      "groups": ["stinger_common"],
+      "collections": ["stinger_common"],
       "weight": 90
     },
     {
-      "groups": ["stinger_uncommon"],
+      "collections": ["stinger_uncommon"],
       "weight": 9
     },
     {
-      "groups": ["stinger_rare"],
+      "collections": ["stinger_rare"],
       "weight": 1
     }
   ]

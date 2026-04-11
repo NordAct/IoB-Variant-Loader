@@ -1,23 +1,23 @@
 {
   "parents": [
     {
-      "groups":["deadly_nadder"]
+      "collections":["deadly_nadder"]
     },
     {
-      "groups":["deadly_nadder"]
+      "collections":["deadly_nadder"]
     }
   ],
   "entries": [
     {
-      "groups": ["deadly_nadder_common"],
+      "collections": ["deadly_nadder_common"],
       "weight": 90
     },
     {
-      "groups": ["deadly_nadder_uncommon"],
+      "collections": ["deadly_nadder_uncommon"],
       "weight": 9
     },
     {
-      "groups": ["deadly_nadder_rare"],
+      "collections": ["deadly_nadder_rare"],
       "weight": 1
     }
   ]

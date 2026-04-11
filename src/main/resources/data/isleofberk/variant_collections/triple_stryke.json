@@ -7,7 +7,7 @@
       ]
     }
   ],
-  "included_groups": [
+  "collections": [
     "triple_stryke_common",
     "triple_stryke_uncommon",
     "triple_stryke_rare"

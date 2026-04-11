@@ -1,5 +1,5 @@
 {
-  "included_groups": [
+  "collections": [
     "helstryke_common",
     "helstryke_uncommon",
     "helstryke_rare"

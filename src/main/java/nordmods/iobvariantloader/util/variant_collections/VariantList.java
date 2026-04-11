@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util.variant_group;
+package nordmods.iobvariantloader.util.variant_collections;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

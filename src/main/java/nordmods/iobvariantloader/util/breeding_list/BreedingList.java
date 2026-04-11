@@ -3,7 +3,7 @@ package nordmods.iobvariantloader.util.breeding_list;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import nordmods.iobvariantloader.util.variant_group.VariantList;
+import nordmods.iobvariantloader.util.variant_collections.VariantList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,17 +15,17 @@ public record BreedingList(Pair<Parent, Parent> parents, List<Entry> entries) {
             Entry.CODEC.listOf().fieldOf("entries").forGetter(BreedingList::entries)
     ).apply(i, (parents, entries) -> new BreedingList(new Pair<>(parents.get(0), parents.get(1)), entries)));
 
-    public record Parent(Optional<List<VariantList>> variantLists, Optional<List<String>> groups) {
+    public record Parent(Optional<List<VariantList>> variantLists, Optional<List<String>> collections) {
         public static final Codec<Parent> CODEC = RecordCodecBuilder.create(i ->  i.group(
                 VariantList.CODEC.listOf().optionalFieldOf("variant_lists").forGetter(Parent::variantLists),
-                Codec.STRING.listOf().optionalFieldOf("groups").forGetter(Parent::groups)
+                Codec.STRING.listOf().optionalFieldOf("collections").forGetter(Parent::collections)
         ).apply(i, Parent::new));
     }
 
-    public record Entry(Optional<List<VariantList>> variantLists, Optional<List<String>> groups, int weight) {
+    public record Entry(Optional<List<VariantList>> variantLists, Optional<List<String>> collections, int weight) {
         public static final Codec<Entry> CODEC = RecordCodecBuilder.create(i ->  i.group(
                 VariantList.CODEC.listOf().optionalFieldOf("variant_lists").forGetter(Entry::variantLists),
-                Codec.STRING.listOf().optionalFieldOf("groups").forGetter(Entry::groups),
+                Codec.STRING.listOf().optionalFieldOf("collections").forGetter(Entry::collections),
                 Codec.INT.fieldOf("weight").forGetter(Entry::weight)
         ).apply(i, Entry::new));
     }

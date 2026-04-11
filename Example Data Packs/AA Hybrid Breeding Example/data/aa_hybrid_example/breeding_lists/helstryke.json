@@ -1,23 +1,23 @@
 {
   "parents": [
     {
-      "groups":["helstryke"]
+      "collections":["helstryke"]
     },
     {
-      "groups":["helstryke"]
+      "collections":["helstryke"]
     }
   ],
   "entries": [
     {
-      "groups": ["helstryke_common"],
+      "collections": ["helstryke_common"],
       "weight": 90
     },
     {
-      "groups": ["helstryke_uncommon"],
+      "collections": ["helstryke_uncommon"],
       "weight": 9
     },
     {
-      "groups": ["helstryke_rare"],
+      "collections": ["helstryke_rare"],
       "weight": 1
     }
   ]

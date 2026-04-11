@@ -2,7 +2,7 @@
   "extras": [
     {
       "name": "deathgripper",
-      "variant_group": "deathgripper",
+      "variant_collection": "deathgripper",
       "loot_table_redirect": "minecraft:entities/slime",
       "attribute_modifiers": [
         {
@@ -24,7 +24,7 @@
     },
     {
       "name": "sunset_deathgripper",
-      "variant_group": "deathgripper",
+      "variant_collection": "deathgripper",
       "attribute_modifiers": [
         {
           "id": "minecraft:generic.max_health",
@@ -45,7 +45,7 @@
     },
     {
       "name": "slaughterdijk",
-      "variant_group": "deathgripper",
+      "variant_collection": "deathgripper",
       "attribute_modifiers": [
         {
           "id": "minecraft:generic.max_health",
@@ -66,7 +66,7 @@
     },
     {
       "name": "sappheral",
-      "variant_group": "deathgripper",
+      "variant_collection": "deathgripper",
       "attribute_modifiers": [
         {
           "id": "minecraft:generic.max_health",
@@ -87,7 +87,7 @@
     },
     {
       "name": "miasmic_deathgripper",
-      "variant_group": "deathgripper",
+      "variant_collection": "deathgripper",
       "attribute_modifiers": [
         {
           "id": "minecraft:generic.max_health",
@@ -108,7 +108,7 @@
     },
     {
       "name": "fenrirs_eavescreaper",
-      "variant_group": "deathgripper",
+      "variant_collection": "deathgripper",
       "attribute_modifiers": [
         {
           "id": "minecraft:generic.max_health",
