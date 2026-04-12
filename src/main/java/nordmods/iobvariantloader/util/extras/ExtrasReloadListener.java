@@ -11,6 +11,7 @@ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.ResourceUtil;
+import nordmods.iobvariantloader.util.variant_collections.VariantCollectionsUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,22 +29,33 @@ public class ExtrasReloadListener extends SimpleJsonResourceReloadListener {
             JsonObject entryObject = entry.getValue().getAsJsonObject();
 
             String dragon = entryObject.has("dragon") ? entryObject.get("dragon").getAsString() : fileID.getPath();
-            if (!ResourceUtil.AllowedValues.isValid(dragon, false)) {
-                IoBVariantLoader.LOGGER.warn("Extras entry {} does not match any dragon id and will be skipped", fileID);
-                continue;
-            }
+            boolean valid = ResourceUtil.AllowedValues.isValid(dragon, false);
             Map<String, Extras> toPut = new HashMap<>();
 
             JsonArray array = entryObject.get("extras").getAsJsonArray();
             for (JsonElement elem : array) {
-                String name = elem.getAsJsonObject().get("name").getAsString();
-                Extras extras = Extras.CODEC.parse(JsonOps.INSTANCE, elem).getOrThrow(false, (error) -> {
+                JsonObject input = elem.getAsJsonObject();
+                Extras extras = Extras.CODEC.parse(JsonOps.INSTANCE, input).getOrThrow(false, (error) -> {
                     IoBVariantLoader.LOGGER.error("Failed to parse extras data file {} correctly. Check for syntax errors and try again", fileID.toString());
                     IoBVariantLoader.LOGGER.error(error);
                 });
-                toPut.put(name, extras);
+                if (input.has("name")) {
+                    String name = input.getAsJsonObject().get("name").getAsString();
+                    if (valid) toPut.put(name, extras);
+                    else IoBVariantLoader.LOGGER.warn("Extras entry in {} for name {} does not match any dragon id and will be skipped", fileID, name);
+                }
+                if (input.has("collections")) {
+                    Map<String, Map<String, Extras>> collections = new HashMap<>();
+                    input.getAsJsonArray("collections").forEach(collection -> {
+                        VariantCollectionsUtil.getCollectionLists(collection.getAsString()).forEach(variantList -> {
+                            Map<String, Extras> speciesCollection = collections.computeIfAbsent(variantList.dragon(), (s) -> new HashMap<>());
+                            variantList.variants().forEach(variant -> speciesCollection.put(variant, extras));
+                        });
+                    });
+                    collections.forEach(ExtrasUtil::add);
+                }
             }
-            ExtrasUtil.add(dragon, toPut);
+            if (valid) ExtrasUtil.add(dragon, toPut);
         }
         ExtrasUtil.debugPrint();
     }

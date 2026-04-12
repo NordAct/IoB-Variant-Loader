@@ -1,0 +1,26 @@
+{
+  "extras": [
+    {
+      "collections": ["deathgripper"],
+      "variant_collection": "deathgripper",
+      "loot_table_redirect": "minecraft:entities/slime",
+      "attribute_modifiers": [
+        {
+          "id": "minecraft:generic.max_health",
+          "amount": 20,
+          "operation": "ADDITION"
+        },
+        {
+          "id": "minecraft:generic.armor",
+          "amount": -0.5,
+          "operation": "MULTIPLY_BASE"
+        },
+        {
+          "id": "minecraft:generic.attack_damage",
+          "amount": 0.2,
+          "operation": "MULTIPLY_TOTAL"
+        }
+      ]
+    }
+  ]
+}

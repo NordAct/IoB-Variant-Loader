@@ -43,11 +43,11 @@ public class IoBVariantLoader { //I'll do anything but use forge's registries be
 
     @SubscribeEvent
     void reloadVariants(final AddReloadListenerEvent event) {
+        event.addListener(new VariantCollectionsReloadListener());
+        event.addListener(new BreedingListReloadListener());
         event.addListener(new DragonVariantSpawnerReloadListener());
         event.addListener(new HitboxRedirectReloadListener());
         event.addListener(new SoundRedirectReloadListener());
         event.addListener(new ExtrasReloadListener());
-        event.addListener(new VariantCollectionsReloadListener());
-        event.addListener(new BreedingListReloadListener());
     }
 }
