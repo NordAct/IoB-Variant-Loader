@@ -1,0 +1,44 @@
+{
+  "dragon": "deadly_nadder",
+  "redirects": [
+    {
+      "name": [
+        "copsekeep",
+        "deathly_galeslash",
+        "fog_stalker",
+        "frigid_galeslash"
+      ],
+      "sounds": [
+        {
+          "name": "flap",
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 2,
+          "pitch": 1.1
+        },
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        }
+      ]
+    },
+    {
+      "name": "celestial_royalwing",
+      "sounds": [
+        {
+          "name": "flap",
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 2,
+          "pitch": 1.1
+        },
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        },
+        {
+          "name": "fire",
+          "id": "entity.ender_dragon.shoot"
+        }
+      ]
+    }
+  ]
+}

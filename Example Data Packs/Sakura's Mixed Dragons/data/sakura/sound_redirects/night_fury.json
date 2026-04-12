@@ -1,0 +1,27 @@
+{
+  "redirects": [
+    {
+      "name": [
+        "arbitrary_phantom",
+        "crown_phantom",
+        "night_phantom",
+        "pearlescent_poltergeist",
+        "rob_phantom",
+        "silver_phantom",
+        "wave_phantom"
+      ],
+      "sounds": [
+        {
+          "name": "flap",
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 3,
+          "pitch": 1.2
+        },
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        }
+      ]
+    }
+  ]
+}

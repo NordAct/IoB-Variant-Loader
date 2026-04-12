@@ -1,0 +1,79 @@
+{
+  "redirects": [
+    {
+      "name": "dangerous_hushboggle",
+      "sounds": [
+        {
+          "name": "flap",
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 2,
+          "pitch": 1.1
+        },
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        }
+      ]
+    },
+    {
+      "name": "foe_hammer",
+      "sounds": [
+        {
+          "name": "flap",
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 2,
+          "pitch": 1.1
+        },
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        }
+      ]
+    },
+    {
+      "name": "gorge_hushboggle",
+      "sounds": [
+        {
+          "name": "flap",
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 2,
+          "pitch": 1.1
+        },
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        }
+      ]
+    },
+    {
+      "name": "hushboggle",
+      "sounds": [
+        {
+          "name": "flap",
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 2,
+          "pitch": 1.1
+        },
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        }
+      ]
+    },
+    {
+      "name": "mythic_murmurquill",
+      "sounds": [
+        {
+          "name": "flap",
+          "id": "minecraft:entity.ender_dragon.flap",
+          "volume": 2,
+          "pitch": 1.1
+        },
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        }
+      ]
+    }
+  ]
+}

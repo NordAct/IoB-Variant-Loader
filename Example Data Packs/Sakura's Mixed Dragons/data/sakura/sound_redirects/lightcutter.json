@@ -1,0 +1,13 @@
+{
+  "redirects": [
+    {
+      "collections": ["lightcutter"],
+      "sounds": [
+        {
+          "name": "tame",
+          "id": "entity.player.levelup"
+        }
+      ]
+    }
+  ]
+}
