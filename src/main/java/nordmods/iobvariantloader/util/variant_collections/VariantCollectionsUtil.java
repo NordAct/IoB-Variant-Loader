@@ -39,7 +39,7 @@ public class VariantCollectionsUtil {
     }
 
     public static List<VariantList> getCollectionLists(String collection) {
-        return VARIANT_COLLECTIONS.get(collection);
+        return VARIANT_COLLECTIONS.computeIfAbsent(collection, (s) -> new ArrayList<>());
     }
 
     public static List<String> getVariantCollections(String dragon, String variant) {

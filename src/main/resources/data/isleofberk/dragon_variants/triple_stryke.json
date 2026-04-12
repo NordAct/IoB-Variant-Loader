@@ -1,105 +1,35 @@
 {
   "variants": [
     {
-      "name": "rosethorn",
+      "collections": ["triple_stryke_common"],
+      "breeding_weight": 90,
+      "weight": 0
+    },
+    {
+      "collections": ["triple_stryke_uncommon"],
+      "breeding_weight": 9,
+      "weight": 0
+    },
+    {
+      "collections": ["triple_stryke_rare"],
       "breeding_weight": 1,
-      "weight":0
-    },
-    {
-      "name": "sleuther",
-      "breeding_weight": 20,
-      "weight": 0
-    },
-    {
-      "name": "boreas",
-      "breeding_weight": 20,
-      "weight": 0
-    },
-    {
-      "name": "blue",
-      "breeding_weight": 20,
-      "weight": 0
-    },
-    {
-      "name": "spyro",
-      "breeding_weight": 20,
-      "weight": 0
-    },
-    {
-      "name": "triple_stryke",
-      "breeding_weight": 184,
-      "weight": 0
-    },
-    {
-      "name": "starstreak",
-      "breeding_weight": 184,
-      "weight": 0
-    },
-    {
-      "name": "nikora_triple_stryke",
-      "breeding_weight": 184,
-      "weight": 0
-    },
-    {
-      "name": "eclipser",
-      "breeding_weight": 184,
-      "weight": 0
-    },
-    {
-      "name": "champion",
-      "breeding_weight": 184,
       "weight": 0
     },
 
     {
-      "name": "rosethorn",
-      "weight": 1,
-      "breeding_weight": 0
+      "collections": ["triple_stryke_common"],
+      "breeding_weight": 0,
+      "weight": 90
     },
     {
-      "name": "sleuther",
-      "weight": 20,
-      "breeding_weight": 0
+      "collections": ["triple_stryke_uncommon"],
+      "breeding_weight": 0,
+      "weight": 9
     },
     {
-      "name": "boreas",
-      "weight": 20,
-      "breeding_weight": 0
-    },
-    {
-      "name": "blue",
-      "weight": 20,
-      "breeding_weight": 0
-    },
-    {
-      "name": "spyro",
-      "weight": 20,
-      "breeding_weight": 0
-    },
-    {
-      "name": "triple_stryke",
-      "weight": 184,
-      "breeding_weight": 0
-    },
-    {
-      "name": "starstreak",
-      "weight": 184,
-      "breeding_weight": 0
-    },
-    {
-      "name": "nikora_triple_stryke",
-      "weight": 184,
-      "breeding_weight": 0
-    },
-    {
-      "name": "eclipser",
-      "weight": 184,
-      "breeding_weight": 0
-    },
-    {
-      "name": "champion",
-      "weight": 184,
-      "breeding_weight": 0
+      "collections": ["triple_stryke_rare"],
+      "breeding_weight": 0,
+      "weight": 1
     }
   ]
 }

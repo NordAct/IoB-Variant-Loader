@@ -1,135 +1,35 @@
 {
   "variants": [
     {
-      "name": "moonshock",
-      "breeding_weight": 10,
+      "collections": ["skrill_common"],
+      "breeding_weight": 90,
       "weight": 0
     },
     {
-      "name": "albino",
-      "breeding_weight": 10,
+      "collections": ["skrill_uncommon"],
+      "breeding_weight": 9,
       "weight": 0
     },
     {
-      "name": "spring_storm",
-      "breeding_weight": 100,
-      "weight": 0
-    },
-    {
-      "name": "skrill",
-      "breeding_weight": 988,
-      "weight": 0
-    },
-    {
-      "name": "spark",
-      "breeding_weight": 988,
-      "weight": 0
-    },
-    {
-      "name": "zen",
-      "breeding_weight": 988,
-      "weight": 0
-    },
-    {
-      "name": "pickle",
-      "breeding_weight": 988,
-      "weight": 0
-    },
-    {
-      "name": "tempest",
-      "breeding_weight": 988,
-      "weight": 0
-    },
-    {
-      "name": "nemesis",
-      "breeding_weight": 988,
-      "weight": 0
-    },
-    {
-      "name": "crimson",
-      "breeding_weight": 988,
-      "weight": 0
-    },
-    {
-      "name": "fryrir",
-      "breeding_weight": 988,
-      "weight": 0
-    },
-    {
-      "name": "icebane",
-      "breeding_weight": 988,
-      "weight": 0
-    },
-    {
-      "name": "stormshadow",
-      "breeding_weight": 988,
+      "collections": ["skrill_rare"],
+      "breeding_weight": 1,
       "weight": 0
     },
 
     {
-      "name": "moonshock",
-      "weight": 10,
-      "breeding_weight": 0
+      "collections": ["skrill_common"],
+      "breeding_weight": 0,
+      "weight": 90
     },
     {
-      "name": "albino",
-      "weight": 10,
-      "breeding_weight": 0
+      "collections": ["skrill_uncommon"],
+      "breeding_weight": 0,
+      "weight": 9
     },
     {
-      "name": "spring_storm",
-      "weight": 100,
-      "breeding_weight": 0
-    },
-    {
-      "name": "skrill",
-      "weight": 988,
-      "breeding_weight": 0
-    },
-    {
-      "name": "spark",
-      "weight": 988,
-      "breeding_weight": 0
-    },
-    {
-      "name": "zen",
-      "weight": 988,
-      "breeding_weight": 0
-    },
-    {
-      "name": "pickle",
-      "weight": 988,
-      "breeding_weight": 0
-    },
-    {
-      "name": "tempest",
-      "weight": 988,
-      "breeding_weight": 0
-    },
-    {
-      "name": "nemesis",
-      "weight": 988,
-      "breeding_weight": 0
-    },
-    {
-      "name": "crimson",
-      "weight": 988,
-      "breeding_weight": 0
-    },
-    {
-      "name": "fryrir",
-      "weight": 988,
-      "breeding_weight": 0
-    },
-    {
-      "name": "icebane",
-      "weight": 988,
-      "breeding_weight": 0
-    },
-    {
-      "name": "stormshadow",
-      "weight": 988,
-      "breeding_weight": 0
+      "collections": ["skrill_rare"],
+      "breeding_weight": 0,
+      "weight": 1
     }
   ]
 }

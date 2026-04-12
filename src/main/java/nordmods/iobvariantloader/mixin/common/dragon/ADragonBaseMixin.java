@@ -269,8 +269,8 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         if (!IoBVariantLoader.config.assignEggVariantOnBreeding.get()) return egg;
 
         if (egg instanceof VariantNameHelper helper && helper.getVariantName().isEmpty() && egg instanceof NightLightEgg && level instanceof ServerLevelAccessor serverLevelAccessor) {
-            List<DragonVariantSpawner> variants = DragonVariantSpawnerUtil.getVariantsFor("night_light");
-            DragonVariantSpawnerUtil.assignVariantFromList(serverLevelAccessor, egg, false, variants);
+            List<Pair<List<String>, DragonVariantSpawner>> variants = DragonVariantSpawnerUtil.getVariantsFor("night_light");
+            DragonVariantSpawnerUtil.assignVariantFromList(serverLevelAccessor, (LivingEntity) egg, false, variants);
         }
         return egg;
     }

@@ -2,6 +2,7 @@ package nordmods.iobvariantloader.mixin.common.egg;
 
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.items.DragonEggItem;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -85,7 +86,7 @@ public abstract class DragonEggItemMixin extends Item implements DragonSpeciesHe
             if (eggEntity instanceof VariantNameHelper helper && level instanceof ServerLevelAccessor serverLevelAccessor) {
                 if (!variant.isEmpty()) helper.setVariantName(variant);
                 else if (IoBVariantLoader.config.assignEggVariantOnPlaced.get()) {
-                    List<DragonVariantSpawner> variants = DragonVariantSpawnerUtil.getVariantsFor(getSpecies(false));
+                    List<Pair<List<String>, DragonVariantSpawner>> variants = DragonVariantSpawnerUtil.getVariantsFor(getSpecies(false));
                     DragonVariantSpawnerUtil.assignVariantFromList(serverLevelAccessor, eggEntity, false, variants);
                 }
             }

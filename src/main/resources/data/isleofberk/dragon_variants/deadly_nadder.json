@@ -1,125 +1,35 @@
 {
   "variants": [
     {
-      "name": "stormfly",
-      "breeding_weight": 1,
+      "collections": ["deadly_nadder_common"],
+      "breeding_weight": 90,
       "weight": 0
     },
     {
-      "name": "deadly_nadder",
-      "breeding_weight": 1,
+      "collections": ["deadly_nadder_uncommon"],
+      "breeding_weight": 9,
       "weight": 0
     },
     {
-      "name": "kingstail",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "scardian",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "springshedder",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "hjarta",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "bork_week",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "flystorm",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "hjaldr",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "barklethorn",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "lethal_lancebeak",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "seedling_stormpest",
+      "collections": ["deadly_nadder_rare"],
       "breeding_weight": 1,
       "weight": 0
     },
 
     {
-      "name": "stormfly",
-      "weight": 1,
-      "breeding_weight": 0
+      "collections": ["deadly_nadder_common"],
+      "breeding_weight": 0,
+      "weight": 90
     },
     {
-      "name": "deadly_nadder",
-      "weight": 1,
-      "breeding_weight": 0
+      "collections": ["deadly_nadder_uncommon"],
+      "breeding_weight": 0,
+      "weight": 9
     },
     {
-      "name": "kingstail",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "scardian",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "springshedder",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "hjarta",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "bork_week",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "flystorm",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "hjaldr",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "barklethorn",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "lethal_lancebeak",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "seedling_stormpest",
-      "weight": 1,
-      "breeding_weight": 0
+      "collections": ["deadly_nadder_rare"],
+      "breeding_weight": 0,
+      "weight": 1
     }
   ]
 }

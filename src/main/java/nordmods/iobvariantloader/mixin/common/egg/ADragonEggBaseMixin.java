@@ -2,6 +2,7 @@ package nordmods.iobvariantloader.mixin.common.egg;
 
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.items.DragonEggItem;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.network.chat.Component;
@@ -92,7 +93,7 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
     @Redirect(method = "hatch()V", at = @At( value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
     private boolean assignEggVariant(Level world, Entity entity) {
         if (world instanceof ServerLevelAccessor serverLevelAccessor) {
-            if (getVariantName().isEmpty()) DragonVariantSpawnerUtil.assignVariant(serverLevelAccessor, entity, false);
+            if (getVariantName().isEmpty()) DragonVariantSpawnerUtil.assignVariant(serverLevelAccessor, (LivingEntity) entity, false);
             else ((VariantNameHelper)entity).setVariantName(getVariantName());
         }
         return world.addFreshEntity(entity);
@@ -121,7 +122,7 @@ public abstract class ADragonEggBaseMixin extends AgeableMob implements VariantN
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         setCanHatch(pReason != MobSpawnType.STRUCTURE);
         if (getVariantName().isEmpty() && IoBVariantLoader.config.assignEggVariantOnPlaced.get()) {
-            List<DragonVariantSpawner> variants = DragonVariantSpawnerUtil.getVariantsFor(getSpecies(false));
+            List<Pair<List<String>, DragonVariantSpawner>> variants = DragonVariantSpawnerUtil.getVariantsFor(getSpecies(false));
             DragonVariantSpawnerUtil.assignVariantFromList(pLevel, this, false, variants);
         }
 

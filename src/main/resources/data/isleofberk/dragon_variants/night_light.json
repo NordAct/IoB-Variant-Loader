@@ -1,115 +1,35 @@
 {
   "variants": [
     {
-      "name": "dart",
-      "breeding_weight": 1,
+      "collections": ["night_light_common"],
+      "breeding_weight": 90,
       "weight": 0
     },
     {
-      "name": "pouncer",
-      "breeding_weight": 1,
+      "collections": ["night_light_uncommon"],
+      "breeding_weight": 9,
       "weight": 0
     },
     {
-      "name": "ruffrunner",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "leopard",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "dusk",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "appaloosa",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "skydancer",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "nightdancer",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "iridescence",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "ashwing",
-      "breeding_weight": 1,
-      "weight": 0
-    },
-    {
-      "name": "harlequeen",
+      "collections": ["night_light_rare"],
       "breeding_weight": 1,
       "weight": 0
     },
 
     {
-      "name": "dart",
-      "weight": 1,
-      "breeding_weight": 0
+      "collections": ["night_light_common"],
+      "breeding_weight": 0,
+      "weight": 90
     },
     {
-      "name": "pouncer",
-      "weight": 1,
-      "breeding_weight": 0
+      "collections": ["night_light_uncommon"],
+      "breeding_weight": 0,
+      "weight": 9
     },
     {
-      "name": "ruffrunner",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "leopard",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "dusk",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "appaloosa",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "skydancer",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "nightdancer",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "iridescence",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "ashwing",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "harlequeen",
-      "weight": 1,
-      "breeding_weight": 0
+      "collections": ["night_light_rare"],
+      "breeding_weight": 0,
+      "weight": 1
     }
   ]
 }

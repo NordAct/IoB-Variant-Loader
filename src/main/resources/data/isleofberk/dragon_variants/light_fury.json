@@ -1,65 +1,35 @@
 {
   "variants": [
     {
-      "name": "sveinn_grogaldr",
-      "breeding_weight": 5,
+      "collections": ["light_fury_common"],
+      "breeding_weight": 90,
       "weight": 0
     },
     {
-      "name": "light_fury",
-      "breeding_weight": 19,
+      "collections": ["light_fury_uncommon"],
+      "breeding_weight": 9,
       "weight": 0
     },
     {
-      "name": "sveinn",
-      "breeding_weight": 19,
-      "weight": 0
-    },
-    {
-      "name": "drottinn",
-      "breeding_weight": 19,
-      "weight": 0
-    },
-    {
-      "name": "grogaldr",
-      "breeding_weight": 19,
-      "weight": 0
-    },
-    {
-      "name": "drottinn_grogaldr",
-      "breeding_weight": 19,
+      "collections": ["light_fury_rare"],
+      "breeding_weight": 1,
       "weight": 0
     },
 
     {
-      "name": "sveinn_grogaldr",
-      "weight": 5,
-      "breeding_weight": 0
+      "collections": ["light_fury_common"],
+      "breeding_weight": 0,
+      "weight": 90
     },
     {
-      "name": "light_fury",
-      "weight": 19,
-      "breeding_weight": 0
+      "collections": ["light_fury_uncommon"],
+      "breeding_weight": 0,
+      "weight": 9
     },
     {
-      "name": "sveinn",
-      "weight": 19,
-      "breeding_weight": 0
-    },
-    {
-      "name": "drottinn",
-      "weight": 19,
-      "breeding_weight": 0
-    },
-    {
-      "name": "grogaldr",
-      "weight": 19,
-      "breeding_weight": 0
-    },
-    {
-      "name": "drottinn_grogaldr",
-      "weight": 19,
-      "breeding_weight": 0
+      "collections": ["light_fury_rare"],
+      "breeding_weight": 0,
+      "weight": 1
     }
   ]
 }

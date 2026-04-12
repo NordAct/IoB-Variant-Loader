@@ -1,105 +1,35 @@
 {
   "variants": [
     {
-      "name": "meatlug",
-      "weight": 0,
-      "breeding_weight": 1
+      "collections": ["gronckle_common"],
+      "breeding_weight": 90,
+      "weight": 0
     },
     {
-      "name": "hjarta",
-      "weight": 0,
-      "breeding_weight": 1
+      "collections": ["gronckle_uncommon"],
+      "breeding_weight": 9,
+      "weight": 0
     },
     {
-      "name": "junior_tuffnut_junior",
-      "weight": 0,
-      "breeding_weight": 1
-    },
-    {
-      "name": "gronckle",
-      "weight": 0,
-      "breeding_weight": 1
-    },
-    {
-      "name": "cheesemonger",
-      "weight": 0,
-      "breeding_weight": 1
-    },
-    {
-      "name": "exiled",
-      "weight": 0,
-      "breeding_weight": 1
-    },
-    {
-      "name": "rubblegrubber",
-      "weight": 0,
-      "breeding_weight": 1
-    },
-    {
-      "name": "barn",
-      "weight": 0,
-      "breeding_weight": 1
-    },
-    {
-      "name": "crubble",
-      "weight": 0,
-      "breeding_weight": 1
-    },
-    {
-      "name": "yawnckle",
-      "weight": 0,
-      "breeding_weight": 1
+      "collections": ["gronckle_rare"],
+      "breeding_weight": 1,
+      "weight": 0
     },
 
     {
-      "name": "meatlug",
-      "weight": 1,
-      "breeding_weight": 0
+      "collections": ["gronckle_common"],
+      "breeding_weight": 0,
+      "weight": 90
     },
     {
-      "name": "hjarta",
-      "weight": 1,
-      "breeding_weight": 0
+      "collections": ["gronckle_uncommon"],
+      "breeding_weight": 0,
+      "weight": 9
     },
     {
-      "name": "junior_tuffnut_junior",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "gronckle",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "cheesemonger",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "exiled",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "rubblegrubber",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "barn",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "crubble",
-      "weight": 1,
-      "breeding_weight": 0
-    },
-    {
-      "name": "yawnckle",
-      "weight": 1,
-      "breeding_weight": 0
+      "collections": ["gronckle_rare"],
+      "breeding_weight": 0,
+      "weight": 1
     }
   ]
 }

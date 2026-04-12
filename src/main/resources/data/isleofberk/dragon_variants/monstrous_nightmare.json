@@ -1,145 +1,35 @@
 {
   "variants": [
     {
-      "name": "fanghook",
+      "collections": ["monstrous_nightmare_common"],
+      "breeding_weight": 90,
+      "weight": 0
+    },
+    {
+      "collections": ["monstrous_nightmare_uncommon"],
+      "breeding_weight": 9,
+      "weight": 0
+    },
+    {
+      "collections": ["monstrous_nightmare_rare"],
       "breeding_weight": 1,
-      "weight":0
-    },
-    {
-      "name": "tsukarion",
-      "breeding_weight": 2,
-      "weight":0
-    },
-    {
-      "name": "rainbow",
-      "breeding_weight": 5,
-      "weight":0
-    },
-    {
-      "name": "sunfyre",
-      "breeding_weight": 10,
-      "weight": 0
-    },
-    {
-      "name": "cardinal",
-      "breeding_weight": 20,
-      "weight": 0
-    },
-    {
-      "name": "carnation",
-      "breeding_weight": 106,
-      "weight": 0
-    },
-    {
-      "name": "hellebore",
-      "breeding_weight": 106,
-      "weight": 0
-    },
-    {
-      "name": "exiled",
-      "breeding_weight": 106,
-      "weight": 0
-    },
-    {
-      "name": "wolfsbane",
-      "breeding_weight": 106,
-      "weight": 0
-    },
-    {
-      "name": "burlystorm",
-      "breeding_weight": 106,
-      "weight": 0
-    },
-    {
-      "name": "fangmaster",
-      "breeding_weight": 106,
-      "weight": 0
-    },
-    {
-      "name": "bloodroot",
-      "breeding_weight": 106,
-      "weight": 0
-    },
-    {
-      "name": "mountain",
-      "breeding_weight": 106,
-      "weight": 0
-    },
-    {
-      "name": "hookfang",
-      "breeding_weight": 106,
       "weight": 0
     },
 
     {
-      "name": "fanghook",
-      "weight": 1,
-      "breeding_weight": 0
+      "collections": ["monstrous_nightmare_common"],
+      "breeding_weight": 0,
+      "weight": 90
     },
     {
-      "name": "tsukarion",
-      "weight": 2,
-      "breeding_weight": 0
+      "collections": ["monstrous_nightmare_uncommon"],
+      "breeding_weight": 0,
+      "weight": 9
     },
     {
-      "name": "rainbow",
-      "weight": 5,
-      "breeding_weight": 0
-    },
-    {
-      "name": "sunfyre",
-      "weight": 10,
-      "breeding_weight": 0
-    },
-    {
-      "name": "cardinal",
-      "weight": 20,
-      "breeding_weight": 0
-    },
-    {
-      "name": "carnation",
-      "weight": 106,
-      "breeding_weight": 0
-    },
-    {
-      "name": "hellebore",
-      "weight": 106,
-      "breeding_weight": 0
-    },
-    {
-      "name": "exiled",
-      "weight": 106,
-      "breeding_weight": 0
-    },
-    {
-      "name": "wolfsbane",
-      "weight": 106,
-      "breeding_weight": 0
-    },
-    {
-      "name": "burlystorm",
-      "weight": 106,
-      "breeding_weight": 0
-    },
-    {
-      "name": "fangmaster",
-      "weight": 106,
-      "breeding_weight": 0
-    },
-    {
-      "name": "bloodroot",
-      "weight": 106,
-      "breeding_weight": 0
-    },
-    {
-      "name": "mountain",
-      "weight": 106,
-      "breeding_weight": 0
-    },
-    {
-      "name": "hookfang",
-      "weight": 106,
-      "breeding_weight": 0
+      "collections": ["monstrous_nightmare_rare"],
+      "breeding_weight": 0,
+      "weight": 1
     }
   ]
 }

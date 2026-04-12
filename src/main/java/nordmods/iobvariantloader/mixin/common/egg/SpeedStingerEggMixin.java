@@ -11,6 +11,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -50,7 +51,7 @@ public abstract class SpeedStingerEggMixin extends ADragonEggBaseMixin implement
     @Redirect(method = "hatch()V", at = @At( value = "INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"))
     private boolean assignVariant(Level world, Entity entity) {
         if (world instanceof ServerLevelAccessor serverLevelAccessor) {
-            if (getVariantName().isEmpty()) DragonVariantSpawnerUtil.assignVariant(serverLevelAccessor, entity, false);
+            if (getVariantName().isEmpty()) DragonVariantSpawnerUtil.assignVariant(serverLevelAccessor, (LivingEntity) entity, false);
             else ((VariantNameHelper)entity).setVariantName(getVariantName());
         }
         return world.addFreshEntity(entity);
