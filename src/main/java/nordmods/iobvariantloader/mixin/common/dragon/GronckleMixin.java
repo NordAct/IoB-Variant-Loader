@@ -4,7 +4,10 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import nordmods.iobvariantloader.util.extras.ExtrasUtil;
@@ -23,7 +26,7 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 @Mixin(Gronckle.class)
-public abstract class GronckleMixin extends ADragonBaseMixin {
+public abstract class GronckleMixin extends ADragonRideableUtilityMixin {
     protected GronckleMixin(EntityType<? extends ADragonBase> animal, Level world) {
         super(animal, world);
     }
@@ -106,5 +109,10 @@ public abstract class GronckleMixin extends ADragonBaseMixin {
     private void getBreedingItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         Boolean isCorrect = ExtrasUtil.isBreedingItem(getSpecies(false), getVariantName(), stack);
         if (isCorrect != null) cir.setReturnValue(isCorrect);
+    }
+
+    @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
+    private void checkCustomItemInteraction(Player pPlayer, InteractionHand pHand, CallbackInfoReturnable<InteractionResult> cir) {
+        checkCustomItemInteractions(pPlayer, pHand, cir);
     }
 }

@@ -9,17 +9,19 @@ import com.GACMD.isleofberk.registery.ModEntities;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.VLDragonBreedGoal;
 import nordmods.iobvariantloader.util.breeding_list.BreedingListUtil;
-import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
+import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
 import nordmods.iobvariantloader.util.extras.ExtrasUtil;
 import nordmods.iobvariantloader.util.sound_redirect.SoundRedirectUtil;
 import org.spongepowered.asm.mixin.Mixin;
@@ -37,9 +39,11 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 @Mixin(SpeedStinger.class)
-public abstract class SpeedStingerMixin extends ADragonBaseMixin{
-    protected SpeedStingerMixin(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
+public abstract class SpeedStingerMixin extends ADragonRideableUtilityMixin{
+
+
+    protected SpeedStingerMixin(EntityType<? extends ADragonBase> animal, Level world) {
+        super(animal, world);
     }
 
     @Redirect(method = "spawnChildFromBreeding(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/animal/Animal;)V",
@@ -150,5 +154,10 @@ public abstract class SpeedStingerMixin extends ADragonBaseMixin{
         if (IoBVariantLoader.config.breedingListsUse.get().canUseBreedingLists() && pGoal instanceof DragonBreedGoal)
             return new VLDragonBreedGoal((ADragonBase)(Object)this, 1);
         return pGoal;
+    }
+
+    @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
+    private void checkCustomItemInteraction(Player pPlayer, InteractionHand pHand, CallbackInfoReturnable<InteractionResult> cir) {
+        checkCustomItemInteractions(pPlayer, pHand, cir);
     }
 }

@@ -6,9 +6,11 @@ import com.GACMD.isleofberk.entity.dragons.terrible_terror.TerribleTerror;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -31,14 +33,14 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 @Mixin(TerribleTerror.class)
-public abstract class TerribleTerrorMixin extends ADragonBaseMixin{
+public abstract class TerribleTerrorMixin extends ADragonRideableUtilityMixin{
+
+    protected TerribleTerrorMixin(EntityType<? extends ADragonBase> animal, Level world) {
+        super(animal, world);
+    }
 
     @Shadow
     protected abstract boolean isItemStackForTaming(ItemStack stack);
-
-    protected TerribleTerrorMixin(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
-        super(pEntityType, pLevel);
-    }
 
     @Override
     public String getFromBaseVariant() {
@@ -115,5 +117,10 @@ public abstract class TerribleTerrorMixin extends ADragonBaseMixin{
         if (IoBVariantLoader.config.breedingListsUse.get().canUseBreedingLists() && pGoal instanceof DragonBreedGoal)
             return new VLDragonBreedGoal((ADragonBase)(Object)this, 1);
         return pGoal;
+    }
+
+    @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
+    private void checkCustomItemInteraction(Player pPlayer, InteractionHand pHand, CallbackInfoReturnable<InteractionResult> cir) {
+        checkCustomItemInteractions(pPlayer, pHand, cir);
     }
 }

@@ -1,5 +1,6 @@
 package nordmods.iobvariantloader.util.extras;
 
+import net.minecraft.Util;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -7,19 +8,87 @@ import net.minecraft.world.item.ItemStack;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ExtrasUtil {
     //dragon, <variant, extras>
     public static final Map<String, Map<String, Extras>> EXTRAS = new HashMap<>();
 
-
     public static synchronized void add(String dragon, Map<String, Extras> extras) {
         Map<String, Extras> content = EXTRAS.get(dragon);
         if (content != null) {
-            content.putAll(extras);
+            extras.forEach((variant, extra) -> {
+                if (content.containsKey(variant)){
+                    Extras existing = content.get(variant);
+                    Extras merged = new Extras(
+                            extra.variantGroup(),
+                            extra.lootTableRedirect(),
+                            Optional.of(Util.make(new ArrayList<>(), list -> {
+                                list.addAll(extra.variantAttributeModifiers().orElse(List.of()));
+                                list.addAll(existing.variantAttributeModifiers().orElse(List.of()));
+                            })),
+                            Optional.of(new Extras.ItemRestriction(
+                                    Util.make(new ArrayList<>(), list -> {
+                                        list.addAll(extra
+                                                .tamingItems()
+                                                .orElse(Extras.ItemRestriction.dummy())
+                                                .itemsById()
+                                        );
+                                        list.addAll(extra
+                                                .tamingItems()
+                                                .orElse(Extras.ItemRestriction.dummy())
+                                                .itemsById()
+                                        );
+                                    }),
+                                    Util.make(new ArrayList<>(), list -> {
+                                        list.addAll(extra
+                                                .tamingItems()
+                                                .orElse(Extras.ItemRestriction.dummy())
+                                                .itemsByTag()
+                                        );
+                                        list.addAll(existing
+                                                .tamingItems()
+                                                .orElse(Extras.ItemRestriction.dummy())
+                                                .itemsByTag()
+                                        );
+                                    })
+                            )),
+                            Optional.of(new Extras.ItemRestriction(
+                                    Util.make(new ArrayList<>(), list -> {
+                                        list.addAll(extra
+                                                .breedingItems()
+                                                .orElse(Extras.ItemRestriction.dummy())
+                                                .itemsById()
+                                        );
+                                        list.addAll(existing
+                                                .breedingItems()
+                                                .orElse(Extras.ItemRestriction.dummy())
+                                                .itemsById()
+                                        );
+                                    }),
+                                    Util.make(new ArrayList<>(), list -> {
+                                        list.addAll(extra
+                                                .breedingItems()
+                                                .orElse(Extras.ItemRestriction.dummy())
+                                                .itemsByTag()
+                                        );
+                                        list.addAll(existing
+                                                .breedingItems()
+                                                .orElse(Extras.ItemRestriction.dummy())
+                                                .itemsByTag()
+                                        );
+                                    })
+                            )),
+                            Optional.of(Util.make(new ArrayList<>(), list -> {
+                                list.addAll(extra.customItemInteractions().orElse(List.of()));
+                                list.addAll(existing.customItemInteractions().orElse(List.of()));
+                            }))
+                    );
+                    content.put(variant, merged);
+                } else {
+                    content.put(variant, extra);
+                }
+            });
             EXTRAS.put(dragon, content);
         } else EXTRAS.put(dragon, extras);
     }
@@ -144,5 +213,23 @@ public class ExtrasUtil {
         }
 
         return isIn;
+    }
+
+    public static List<Extras.CustomItemInteraction> getCustomItemInteractions(String dragon, String variant, ItemStack itemStack) {
+        if (EXTRAS.containsKey(dragon)) {
+            Map<String, Extras> extras = EXTRAS.get(dragon);
+            if (extras.containsKey(variant) && extras.get(variant).customItemInteractions().isPresent()) {
+                return extras.get(variant)
+                        .customItemInteractions()
+                        .get()
+                        .stream()
+                        .filter(customItemInteraction -> {
+                            if (customItemInteraction.requiredAmount() > itemStack.getCount()) return false;
+                            return isItemInList(customItemInteraction.items(), itemStack);
+                        })
+                        .toList();
+            }
+        }
+        return List.of();
     }
 }

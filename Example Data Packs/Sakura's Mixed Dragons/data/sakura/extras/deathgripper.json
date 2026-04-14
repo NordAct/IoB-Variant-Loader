@@ -1,4 +1,5 @@
 {
+  "dragon": "triple_stryke",
   "extras": [
     {
       "collections": ["deathgripper"],
@@ -19,6 +20,63 @@
           "id": "minecraft:generic.attack_damage",
           "amount": 0.2,
           "operation": "MULTIPLY_TOTAL"
+        }
+      ],
+      "custom_item_interactions": [
+        {
+          "items": {
+            "item": ["minecraft:glass_bottle"]
+          },
+          "required_amount": 1,
+          "consume_on_use": true,
+          "can_interact_with_untamed": false,
+          "can_interact_if_not_owner": false,
+          "commands": [
+            {
+              "executed_command": "give @s potion{CustomPotionColor:8991416,CustomPotionEffects:[{Id:19,Duration:200,Amplifier:4},{Id:9,Duration:1200}]}",
+              "executor": "USER"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "deathgripper",
+      "custom_item_interactions": [
+        {
+          "items": {
+            "tag": ["forge:dyes/red"]
+          },
+          "required_amount": 1,
+          "consume_on_use": false,
+          "can_interact_with_untamed": false,
+          "can_interact_if_not_owner": false,
+          "commands": [
+            {
+              "executed_command": "data merge entity @s {VariantName:slaughterdijk}",
+              "executor": "DRAGON"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "slaughterdijk",
+      "custom_item_interactions": [
+        {
+          "items": {
+            "tag": ["forge:dyes/black"]
+          },
+          "required_amount": 1,
+          "consume_on_use": false,
+          "can_interact_with_untamed": false,
+          "can_interact_if_not_owner": false,
+          "commands": [
+            {
+              "executed_command": "data merge entity @s {VariantName:deathgripper}",
+              "executor": "DRAGON"
+            }
+          ]
         }
       ]
     }
