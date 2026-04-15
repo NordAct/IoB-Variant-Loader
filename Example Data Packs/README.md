@@ -1,7 +1,7 @@
 ## Advancement Triggers
 Variant loader comes with 2 new advancement triggers:
-`iobvariantloader:tame_variant_from_collection` - triggers when dragon from specified collections is tamed by player
-`iobvariantloader:kill_variant_from_collection` - triggers when dragon from specified collections is killed by player
+- `iobvariantloader:tame_variant_from_collection` - triggers when dragon from specified collections is tamed by player
+- `iobvariantloader:kill_variant_from_collection` - triggers when dragon from specified collections is killed by player
 
 Each trigger accepts list of variant collection names for conditions (under `collections` field).
 For example on how to use them refer to Sakura's Mixed Dragons pack.
