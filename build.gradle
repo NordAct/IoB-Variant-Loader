@@ -170,11 +170,10 @@ modrinth {
     }
     syncBodyFrom = rootProject.file("README.md").text
     changelog = rootProject.file("CHANGELOG.md").text
-    versionName ="Isle of Berk Variant Loader " + mod_version
+    versionName = "Isle of Berk Variant Loader " + mod_version
+    versionType = "beta"
 }
 
-//reminder to myself: turn on VPN before running
-//CF's API blocks russian IP address
 task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     apiToken = System.getenv("CURSEFORGE_TOKEN")
     int projectId = 908401
@@ -184,4 +183,5 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.changelogType = "markdown"
     mainFile.addGameVersion("1.18.2")
     mainFile.displayName = "Isle of Berk Variant Loader " + mod_version
+    mainFile.releaseType = "beta"
 }
