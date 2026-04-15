@@ -15,6 +15,65 @@ import java.util.List;
 public class BreedingListUtil {
     public static final List<BreedingList> BREEDING_LISTS = new ArrayList<>();
 
+    public static void debugPrint() {
+        if (!IoBVariantLoader.config.logBreedingLists.get()) return;
+        BREEDING_LISTS.forEach(listEntry -> {
+            StringBuilder info = new StringBuilder();
+            info.append("Parents: ").append("\n");
+            info.append("- 1st: ").append("\n");
+            listEntry.parents().getFirst().variantLists().ifPresent(variantLists -> {
+                info.append("-- Variant Lists: ").append("\n");
+                variantLists.forEach(variantList -> {
+                    variantList.variants().forEach(variant -> {
+                        info.append("--- ").append(variant).append(" (").append(variantList.dragon()).append(") \n");
+                    });
+                });
+            });
+            listEntry.parents().getFirst().collections().ifPresent(collections -> {
+                info.append("-- Collections: ");
+                collections.forEach(collection -> info.append(collection).append(" "));
+                info.append("\n");
+            });
+            info.append("\n");
+
+            info.append("- 2nd: ").append("\n");
+            listEntry.parents().getSecond().variantLists().ifPresent(variantLists -> {
+                info.append("-- Variant Lists: ").append("\n");
+                variantLists.forEach(variantList -> {
+                    variantList.variants().forEach(variant -> {
+                        info.append("--- ").append(variant).append(" (").append(variantList.dragon()).append(") \n");
+                    });
+                });
+            });
+            listEntry.parents().getSecond().collections().ifPresent(collections -> {
+                info.append("-- Collections: ");
+                collections.forEach(collection -> info.append(collection).append(" "));
+                info.append("\n");
+            });
+            info.append("\n");
+
+            info.append("Entries: ").append("\n");
+            listEntry.entries().forEach(entry -> {
+                entry.variantLists().ifPresent(variantLists -> {
+                    info.append("- Variant Lists: ").append("\n");
+                    variantLists.forEach(variantList -> {
+                        variantList.variants().forEach(variant -> {
+                            info.append("-- ").append(variant).append(" (").append(variantList.dragon()).append(") \n");
+                        });
+                    });
+                });
+                entry.collections().ifPresent(collections -> {
+                    info.append("- Collections: ");
+                    collections.forEach(collection -> info.append(collection).append(" "));
+                    info.append("\n");
+                });
+                info.append("-Weight: ").append(entry.weight()).append("\n");
+            });
+            info.append("\n");
+            IoBVariantLoader.LOGGER.info("Registered breeding list entry: \n{}", info);
+        });
+    }
+
     @Nullable
     public static Pair<String, String> getRandomDragonAndVariant(ADragonBase parent1, ADragonBase parent2) {
         if (parent1.getRandom().nextDouble() < IoBVariantLoader.config.inheritanceChance.get()) {

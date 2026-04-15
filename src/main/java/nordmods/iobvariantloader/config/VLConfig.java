@@ -85,7 +85,7 @@ public class VLConfig {
                         PRIORITIZED - if breeding list exists for pair, it'll be used with priority, otherwise fallback method will be used
                         ENFORCED - if no breeding list exists for pair, no egg will be made
                         """)
-                .define("breeding_lists_use", BreedingListUse.PRIORITIZED));
+                .defineEnum("breeding_lists_use", BreedingListUse.PRIORITIZED));
         builder.pop();
     }
 

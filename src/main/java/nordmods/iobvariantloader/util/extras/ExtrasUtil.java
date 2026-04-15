@@ -160,6 +160,37 @@ public class ExtrasUtil {
                         info.append("\n");
                     }
                 });
+
+                extra.customItemInteractions().ifPresent(customItemInteractions -> {
+                    info.append("Custom Item Interactions: \n");
+                    customItemInteractions.forEach(interaction -> {
+                        info.append("- Items: ").append("\n");
+                        List<ResourceLocation> itemsById = interaction.items().itemsById();
+                        List<ResourceLocation> itemsByTag = interaction.items().itemsByTag();
+                        if (!itemsById.isEmpty()) {
+                            info.append("-- Items by ID: ");
+                            itemsById.forEach(id -> info.append(id.toString()).append(" "));
+                            info.append("\n");
+                        }
+                        if (!itemsByTag.isEmpty()) {
+                            info.append("-- Items by tag: ");
+                            itemsByTag.forEach(id -> info.append(id.toString()).append(" "));
+                            info.append("\n");
+                        }
+                        info.append("- Required Amount: ").append(interaction.requiredAmount()).append("\n");
+                        info.append("- Consume on Use: ").append(interaction.consumeOnUse()).append("\n");
+                        info.append("- Can Interact with Untamed: ").append(interaction.canInteractWithUntamed()).append("\n");
+                        info.append("- Can Interact if Not Owner: ").append(interaction.canInteractIfNotOwner()).append("\n");
+                        info.append("- Commands: ").append("\n");
+                        interaction.commands().forEach(command -> {
+                            info.append("-- Executed command: ").append(command.executedCommand()).append("\n");
+                            info.append("-- Executor: ").append(command.executor()).append("\n");
+                            info.append("\n");
+                        });
+
+                        info.append("\n");
+                    });
+                });
                 IoBVariantLoader.LOGGER.info("{}: variant {} was redirected to:\n{}", entry.getKey(), extrasEntry.getKey(), info);
             }
         }

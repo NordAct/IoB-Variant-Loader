@@ -69,8 +69,10 @@ public abstract class ADragonRideableUtilityMixin extends ADragonBaseMixin {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         boolean success = false;
         for (Extras.CustomItemInteraction interaction : ExtrasUtil.getCustomItemInteractions(getSpecies(false), getVariantName(), itemstack)) {
-            if (itemstack.isEmpty()) break;
-            if (itemstack.getCount() < interaction.requiredAmount()) continue;
+            if (itemstack.getCount() < interaction.requiredAmount()) {
+                if (itemstack.isEmpty()) break;
+                continue;
+            }
             if (!isTame() && !interaction.canInteractWithUntamed()) continue;
             if (isTame() && !isOwnedBy(pPlayer) && !interaction.canInteractIfNotOwner()) continue;
             interaction.commands().forEach(command -> command.execute(pPlayer, (ADragonBase) (Object) this));

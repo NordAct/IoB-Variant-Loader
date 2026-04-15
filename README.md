@@ -1,5 +1,5 @@
 ## Very Important
-Mod requires Forge 40.2.10 or above! Forge may not tell you about this and throw an exception with different error.
+Mod requires Forge 40.3.12 or above! Forge may not tell you about this and throw an exception with different error.
 Mod also is incompatible with Optifine
 
 ## Description
@@ -10,19 +10,20 @@ Adds ability to add new variants with condition support or configure existing on
 This addon changes how some stuff in original mod works gameplay wise:
 - Variant inheritance works for all dragons (can be configured or turned off completely by setting `assign_egg_variant_on_breeding` and `assign_egg_variant_on_placed` to `false` in config)
 - All eggs now can hold variant as NBT that will determine variant of the dragon that will be hatched
+- Odds for dragon spawns and obtaining dragons from breeding are different from base mod
 
-## Example Packs
-- [Example data pack](https://github.com/NordAct/IoB-Variant-Loader/tree/2.5.0/Example%20Data%20Packs)
-- [Example resource packs](https://github.com/NordAct/IoB-Variant-Loader/tree/2.5.0/Example%20Resource%20Packs)
+## Example Packs 
+- [Example data pack](https://github.com/NordAct/IoB-Variant-Loader/tree/2.6.0/Example%20Data%20Packs)
+- [Example resource packs](https://github.com/NordAct/IoB-Variant-Loader/tree/2.6.0/Example%20Resource%20Packs)
 
 
-## Adding custom variant spawns/editing existing via datapack, editing hit and attack boxes, changing passenger positions
-Variant Loader allows adding their own variants for spawning, as well as changing hitboxes and even passenger offsets via data packs.
-Full explanation on how to use those can be found [here](https://github.com/NordAct/IoB-Variant-Loader/blob/2.5.0/Example%20Data%20Packs/README.md)
+## Adding custom variant spawns/editing existing via datapack, making custom pools for obtainable variants via breeding, editing hit and attack boxes, changing passenger positions
+Variant Loader allows adding their own variants for spawning and breeding, as well as changing hitboxes and even passenger offsets via data packs.
+Full explanation on how to use those can be found in [documentation](https://github.com/NordAct/IoB-Variant-Loader/blob/2.6.0/Example%20Data%20Packs/README.md)
 
 ## Model redirects, glowing layer and making passenger follow movement of the model
 Model redirects is a tool that allows you to replace models, animations and saddle textures per variant for dragons and models with textures for eggs. Example declaration can be found in example resource pack.
-Full explanation on how to use those can be found [here](https://github.com/NordAct/IoB-Variant-Loader/blob/2.5.0/Example%20Resource%20Packs/README.md)
+Full explanation on how to use those can be found in [documentation](https://github.com/NordAct/IoB-Variant-Loader/blob/2.6.0/Example%20Resource%20Packs/README.md)
 
 ## Config
 Mod has client and server config with options that can affect your gameplay experience
@@ -42,6 +43,10 @@ Mod has client and server config with options that can affect your gameplay expe
 - `log_hitbox_redirects` - Logs any added hitbox redirects in console for easier debugging
 - `log_sound_redirects` - Logs any added sound redirects in console for easier debugging
 - `log_extras` - Logs any added extras in console for easier debugging
+- `log_variant_lists` - Logs any added variant lists in console for easier debugging
+- `log_breeding_lists` - Logs any added breeding lists in console for easier debugging
+- `alternative_land_navigation` - Uses alternative improved navigator for dragons when they're on land. If false, default one will be used
+- `breeding_lists_use` - Mandates usage of breeding lists
 
 ## FAQ
 **Q:** Is there any video guide on how to use Variant Loader?\
