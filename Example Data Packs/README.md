@@ -1,3 +1,11 @@
+## Advancement Triggers
+Variant loader comes with 2 new advancement triggers:
+- `iobvariantloader:tame_variant_from_collection` - triggers when dragon from specified collections is tamed by player
+- `iobvariantloader:kill_variant_from_collection` - triggers when dragon from specified collections is killed by player
+
+Each trigger accepts list of variant collection names for conditions (under `collections` field).
+For example on how to use them refer to Sakura's Mixed Dragons pack.
+
 ## Adding custom variant spawns/editing existing via datapack (Dragon Variant Spawner)
 If you wish to override default variants spawns, you'll need to edit main file in isleofberk namespace and ship it with your data pack. Else just declare spawns under different namespace. You can look up example of variant declaration in example data pack. Full path to the file would look something like this: `data/your_namespace/dragon_variants/dragon_id.json`, where `dragon_id` is dragon's in game id. I.e. for Night Fury it'd be night_fury, and `your_namespace` is unique name for your folder, that contains only `a-z`, `0-9` or `_`.
 
