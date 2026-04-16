@@ -21,8 +21,8 @@ public class ExtrasUtil {
                 if (content.containsKey(variant)){
                     Extras existing = content.get(variant);
                     Extras merged = new Extras(
-                            extra.variantGroup(),
-                            extra.lootTableRedirect(),
+                            extra.variantGroup().isPresent() ? extra.variantGroup() : existing.variantGroup(),
+                            extra.lootTableRedirect().isPresent() ? extra.lootTableRedirect() : existing.lootTableRedirect(),
                             Optional.of(Util.make(new ArrayList<>(), list -> {
                                 list.addAll(extra.variantAttributeModifiers().orElse(List.of()));
                                 list.addAll(existing.variantAttributeModifiers().orElse(List.of()));
