@@ -3,13 +3,13 @@ package nordmods.iobvariantloader.util;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.control.MoveControl;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.util.GoalUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.Vec3;
 
-public class AltLandNavigation<T extends ADragonBase> extends FlyingPathNavigation {
+public class AltLandNavigation<T extends ADragonBase> extends GroundPathNavigation {
     protected final T entity;
     protected boolean nodeChecked;
     protected boolean isSurroundingEmpty;

@@ -118,7 +118,7 @@ dependencies {
     implementation fg.deobf("maven.modrinth:rubidium:0.5.6")
     implementation fg.deobf("maven.modrinth:oculus:1.18.2-1.6.4")
     //implementation fg.deobf("maven.modrinth:spark:1.9.11-forge")
-    //implementation fg.deobf("maven.modrinth:archipelago-additions:2.4.0-1.18.2")
+    implementation fg.deobf("maven.modrinth:archipelago-additions:2.4.0-1.18.2")
     implementation fg.deobf("maven.modrinth:isle-of-berk-addons:1.1d")
     implementation fg.deobf("maven.modrinth:debugutils:A0WvBW2D")
 }
@@ -171,7 +171,7 @@ modrinth {
     syncBodyFrom = rootProject.file("README.md").text
     changelog = rootProject.file("CHANGELOG.md").text
     versionName = "Isle of Berk Variant Loader " + mod_version
-    versionType = "beta"
+    versionType = "release"
 }
 
 task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
@@ -183,5 +183,5 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.changelogType = "markdown"
     mainFile.addGameVersion("1.18.2")
     mainFile.displayName = "Isle of Berk Variant Loader " + mod_version
-    mainFile.releaseType = "beta"
+    mainFile.releaseType = "release"
 }
