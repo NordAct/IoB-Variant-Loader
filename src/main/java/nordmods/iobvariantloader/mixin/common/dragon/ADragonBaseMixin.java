@@ -1,6 +1,7 @@
 package nordmods.iobvariantloader.mixin.common.dragon;
 
 import com.GACMD.isleofberk.entity.AI.breed.DragonBreedGoal;
+import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
 import com.GACMD.isleofberk.entity.dragons.stinger.Stinger;
@@ -29,6 +30,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -37,9 +39,10 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import nordmods.iobvariantloader.IoBVariantLoader;
-import nordmods.iobvariantloader.util.AltLandNavigation;
 import nordmods.iobvariantloader.util.ResourceUtil;
 import nordmods.iobvariantloader.util.VLDragonBreedGoal;
+import nordmods.iobvariantloader.util.alt_navigation.AltFollowGoal;
+import nordmods.iobvariantloader.util.alt_navigation.AltLandNavigation;
 import nordmods.iobvariantloader.util.breeding_list.BreedingListUtil;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawner;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
@@ -474,10 +477,9 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
         if (isCorrect != null) cir.setReturnValue(isCorrect);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"), remap = false)
-    private void updateNavigator(EntityType<?> animal, Level world, CallbackInfo ci) {
-        if (IoBVariantLoader.config.alternativeLandNavigation.get())
-            navigation = new AltLandNavigation<>((ADragonBase) (Object)this, level);
+    @Override
+    protected PathNavigation createNavigation(Level pLevel) {
+        return IoBVariantLoader.config.alternativeLandNavigation.get() ? new AltLandNavigation<>((ADragonBase) (Object)this, level) : super.createNavigation(pLevel);
     }
 
     @Inject(method = "tame", at = @At("TAIL"))
@@ -496,6 +498,13 @@ public abstract class ADragonBaseMixin extends TamableAnimal implements VariantN
     private Goal replaceBreedingGoal(Goal pGoal) {
         if (IoBVariantLoader.config.breedingListsUse.get().canUseBreedingLists() && pGoal instanceof DragonBreedGoal)
             return new VLDragonBreedGoal((ADragonBase)(Object)this, 1);
+        return pGoal;
+    }
+
+    @ModifyArg(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V"), index = 1)
+    private Goal replaceFollowGoal(Goal pGoal) {
+        if (IoBVariantLoader.config.alternativeLandNavigation.get() && pGoal instanceof FollowOwnerNoTPGoal)
+            return new AltFollowGoal((ADragonBase)(Object)this, 1.1, 4.0F, 4.0F, false);
         return pGoal;
     }
 }

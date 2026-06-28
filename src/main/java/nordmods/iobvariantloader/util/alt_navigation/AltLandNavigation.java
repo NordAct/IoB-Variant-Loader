@@ -1,4 +1,4 @@
-package nordmods.iobvariantloader.util;
+package nordmods.iobvariantloader.util.alt_navigation;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import net.minecraft.core.BlockPos;

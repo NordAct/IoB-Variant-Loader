@@ -88,6 +88,7 @@ public class BreedingListUtil {
                 .map(BreedingList::entries)
                 .filter(list -> !list.isEmpty())
                 .flatMap(List::stream)
+                .filter(entry -> entry.collections().isPresent() && !entry.collections().get().isEmpty() || entry.variantLists().isPresent() && !entry.variantLists().get().isEmpty())
                 .toList();
 
         int totalWeight = entries.stream().mapToInt(BreedingList.Entry::weight).sum();
@@ -98,7 +99,7 @@ public class BreedingListUtil {
         long previousBound = 0;
 
         BreedingList.Entry selectedEntry = null;
-        for (BreedingList.Entry entry :entries) {
+        for (BreedingList.Entry entry : entries) {
             if (roll >= previousBound && roll < previousBound + entry.weight()) {
                 selectedEntry = entry;
                 break;

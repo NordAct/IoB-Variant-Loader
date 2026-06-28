@@ -1,6 +1,7 @@
 package nordmods.iobvariantloader.mixin.common.dragon;
 
 import com.GACMD.isleofberk.entity.AI.breed.DragonBreedGoal;
+import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
@@ -19,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import nordmods.iobvariantloader.IoBVariantLoader;
 import nordmods.iobvariantloader.util.VLDragonBreedGoal;
+import nordmods.iobvariantloader.util.alt_navigation.AltFollowGoal;
 import nordmods.iobvariantloader.util.breeding_list.BreedingListUtil;
 import nordmods.iobvariantloader.util.dragon_variant_spawner.DragonVariantSpawnerUtil;
 import nordmods.iobvariantloader.util.ducks.VariantNameHelper;
@@ -159,5 +161,12 @@ public abstract class SpeedStingerMixin extends ADragonRideableUtilityMixin{
     @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
     private void checkCustomItemInteraction(Player pPlayer, InteractionHand pHand, CallbackInfoReturnable<InteractionResult> cir) {
         checkCustomItemInteractions(pPlayer, pHand, cir);
+    }
+
+    @ModifyArg(method = "registerGoals", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/ai/goal/GoalSelector;addGoal(ILnet/minecraft/world/entity/ai/goal/Goal;)V"), index = 1)
+    private Goal replaceFollowGoal(Goal pGoal) {
+        if (IoBVariantLoader.config.alternativeLandNavigation.get() && pGoal instanceof FollowOwnerNoTPGoal)
+            return new AltFollowGoal((ADragonBase)(Object)this, 1.1, 3.0F, 3.0F, false);
+        return pGoal;
     }
 }

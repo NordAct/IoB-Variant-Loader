@@ -1,1 +1,3 @@
-- Fixed broken random position lookup with alt land controller, which prevented taming some dragons
+- Fixed issue when completely empty breeding list entries were counted as valid, which sometimes could lead to crash during breeding
+- Fixed issue that caused Stingers to not follow owner when told to
+- Additionally to fix above, alternative land navigator config setting will also replace follow goal (this is not part of the fix, I just found that it would be better than whatever than IoB did)
