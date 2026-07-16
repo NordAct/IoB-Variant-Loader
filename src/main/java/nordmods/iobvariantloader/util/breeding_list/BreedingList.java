@@ -3,6 +3,7 @@ package nordmods.iobvariantloader.util.breeding_list;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import nordmods.iobvariantloader.util.variant_collections.VariantCollectionsUtil;
 import nordmods.iobvariantloader.util.variant_collections.VariantList;
 
 import java.util.ArrayList;
@@ -28,5 +29,12 @@ public record BreedingList(Pair<Parent, Parent> parents, List<Entry> entries) {
                 Codec.STRING.listOf().optionalFieldOf("collections").forGetter(Entry::collections),
                 Codec.INT.fieldOf("weight").forGetter(Entry::weight)
         ).apply(i, Entry::new));
+
+        public List<VariantList> collectAllAvailableLists() {
+            List<VariantList> available = new ArrayList<>(variantLists().orElse(List.of()));
+            collections().ifPresent(collections -> collections.forEach(collection -> available.addAll(VariantCollectionsUtil.getCollectionLists(collection))));
+
+            return available;
+        }
     }
 }

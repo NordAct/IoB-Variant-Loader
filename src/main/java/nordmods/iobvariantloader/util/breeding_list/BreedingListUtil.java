@@ -88,7 +88,7 @@ public class BreedingListUtil {
                 .map(BreedingList::entries)
                 .filter(list -> !list.isEmpty())
                 .flatMap(List::stream)
-                .filter(entry -> entry.collections().isPresent() && !entry.collections().get().isEmpty() || entry.variantLists().isPresent() && !entry.variantLists().get().isEmpty())
+                .filter(entry -> !entry.collectAllAvailableLists().isEmpty())
                 .toList();
 
         int totalWeight = entries.stream().mapToInt(BreedingList.Entry::weight).sum();
@@ -109,8 +109,7 @@ public class BreedingListUtil {
 
         if (selectedEntry == null) return null;
 
-        List<VariantList> variantLists = new ArrayList<>(selectedEntry.variantLists().orElse(List.of()));
-        selectedEntry.collections().ifPresent(collections -> collections.forEach(collection -> variantLists.addAll(VariantCollectionsUtil.getCollectionLists(collection))));
+        List<VariantList> variantLists = selectedEntry.collectAllAvailableLists();
 
         VariantList list = variantLists.get(parent1.getRandom().nextInt(variantLists.size()));
         return new Pair<>(list.dragon(), list.variants().get(parent1.getRandom().nextInt(list.variants().size())));
