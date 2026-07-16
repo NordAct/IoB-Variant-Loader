@@ -184,4 +184,5 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addGameVersion("1.18.2")
     mainFile.displayName = "Isle of Berk Variant Loader " + mod_version
     mainFile.releaseType = "release"
+    mainFile.addEnvironment("client", "server")
 }
