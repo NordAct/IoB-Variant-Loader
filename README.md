@@ -13,17 +13,17 @@ This addon changes how some stuff in original mod works gameplay wise:
 - Odds for dragon spawns and obtaining dragons from breeding are different from base mod
 
 ## Example Packs 
-- [Example data pack](https://github.com/NordAct/IoB-Variant-Loader/tree/2.6.0/Example%20Data%20Packs)
-- [Example resource packs](https://github.com/NordAct/IoB-Variant-Loader/tree/2.6.0/Example%20Resource%20Packs)
+- [Example data pack](https://github.com/NordAct/IoB-Variant-Loader/tree/2.7.0/Example%20Data%20Packs)
+- [Example resource packs](https://github.com/NordAct/IoB-Variant-Loader/tree/2.7.0/Example%20Resource%20Packs)
 
 
-## Adding custom variant spawns/editing existing via datapack, making custom pools for obtainable variants via breeding, editing hit and attack boxes, changing passenger positions
-Variant Loader allows adding their own variants for spawning and breeding, as well as changing hitboxes and even passenger offsets via data packs.
-Full explanation on how to use those can be found in [documentation](https://github.com/NordAct/IoB-Variant-Loader/blob/2.6.0/Example%20Data%20Packs/README.md)
+## Adding custom variant spawns/editing existing via datapack, making custom pools for obtainable variants via breeding, editing hit and attack boxes, changing passenger positions and more
+Variant Loader allows adding their own variants for spawning and breeding, as well as changing hitboxes and even passenger offsets via data packs. It as well adds new advancement triggers and loot function
+Full explanation on how to use those can be found in [documentation](https://github.com/NordAct/IoB-Variant-Loader/blob/2.7.0/Example%20Data%20Packs/README.md)
 
 ## Model redirects, glowing layer and making passenger follow movement of the model
 Model redirects is a tool that allows you to replace models, animations and saddle textures per variant for dragons and models with textures for eggs. Example declaration can be found in example resource pack.
-Full explanation on how to use those can be found in [documentation](https://github.com/NordAct/IoB-Variant-Loader/blob/2.6.0/Example%20Resource%20Packs/README.md)
+Full explanation on how to use those can be found in [documentation](https://github.com/NordAct/IoB-Variant-Loader/blob/2.7.0/Example%20Resource%20Packs/README.md)
 
 ## Config
 Mod has client and server config with options that can affect your gameplay experience

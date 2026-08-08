@@ -1,0 +1,26 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "isleofberk:triple_stryke_egg"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "isleofberk:gronckle_egg"
+        }
+      ],
+      "functions": [
+        {
+          "function": "iobvariantloader:set_variant_from_collection",
+          "replace_base_if_dragon_mismatch": false,
+          "collections": ["triple_stryke"]
+        }
+      ],
+      "conditions": []
+    }
+  ]
+}

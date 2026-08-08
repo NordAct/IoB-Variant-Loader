@@ -1,1 +1,6 @@
-- Fixed issue when breeding list still could select entries with empty variant lists as valid options, thus causing occasional crash
+- Added new loot function `iobvariantloader:set_variant_from_collection` that sets random variant to dragon egg from specified collections
+  - Function has following fields:
+    - `collections` - list of collection names from which entries will be pulled. All collections have equal chance to be pulled from the list.
+    - `replace_base_if_dragon_mismatch` - replaces egg item in case if picked variant belongs to other dragon. You should keep this at false unless it's intended that collection has variants of dragons of different species
+  - Note: you have to specify dragon egg item from Isle of Berk in order for this function to work. Otherwise this function does nothing to the stack
+  - For example refer to Loot Table Example data pack

@@ -6,6 +6,17 @@ Variant loader comes with 2 new advancement triggers:
 Each trigger accepts list of variant collection names for conditions (under `collections` field).
 For example on how to use them refer to Sakura's Mixed Dragons pack.
 
+## Loot Table Functions
+Variant Loader adds 1 new loot table function:
+- `iobvariantloader:set_variant_from_collection` - sets random variant to dragon egg from specified collections
+
+Function has following fields: 
+- `collections` - list of collection names from which entries will be pulled. All collections have equal chance to be pulled from the list.
+- `replace_base_if_dragon_mismatch` - replaces egg item in case if picked variant belongs to other dragon. You should keep this at false unless it's intended that collection has variants of dragons of different species
+
+Note: you have to specify dragon egg item from Isle of Berk in order for this function to work. Otherwise this function does nothing to the stack. 
+For example refer to Loot Table Example data pack.
+
 ## Adding custom variant spawns/editing existing via datapack (Dragon Variant Spawner)
 If you wish to override default variants spawns, you'll need to edit main file in isleofberk namespace and ship it with your data pack. Else just declare spawns under different namespace. You can look up example of variant declaration in example data pack. Full path to the file would look something like this: `data/your_namespace/dragon_variants/dragon_id.json`, where `dragon_id` is dragon's in game id. I.e. for Night Fury it'd be night_fury, and `your_namespace` is unique name for your folder, that contains only `a-z`, `0-9` or `_`.
 
