@@ -25,11 +25,17 @@ public class AltFollowGoal extends FollowOwnerGoal {
 
     @Override
     public void tick() {
-        this.tamable.getLookControl().setLookAt(tamable.getOwner(), 10.0F, (float)this.tamable.getMaxHeadXRot());
+        var owner = this.tamable.getOwner();
+        if (owner == null) {
+            this.navigation.stop();
+            return;
+        }
+
+        this.tamable.getLookControl().setLookAt(owner, 10.0F, (float)this.tamable.getMaxHeadXRot());
         if (--this.timeToRecalcPath <= 0) {
             this.timeToRecalcPath = this.adjustedTickDelay(10);
             if (!this.tamable.isLeashed() && !this.tamable.isPassenger()) {
-                this.navigation.moveTo(tamable.getOwner(), this.speedModifier);
+                this.navigation.moveTo(owner, this.speedModifier);
             }
         }
     }
